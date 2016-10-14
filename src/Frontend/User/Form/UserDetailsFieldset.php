@@ -16,10 +16,14 @@ use Zend\Form\Fieldset;
  */
 class UserDetailsFieldset extends Fieldset
 {
+    /**
+     * UserDetailsFieldset constructor.
+     * @param string $name
+     * @param array $options
+     */
     public function __construct($name = 'user_details', array $options = [])
     {
         parent::__construct($name, $options);
-        $this->init();
     }
 
     public function init()

@@ -30,11 +30,12 @@ class RegisterFormListener
         $form = $e->getTarget();
 
         $detailsFieldset = new UserDetailsFieldset();
+        $detailsFieldset->init();
         $detailsFieldset->setName('details');
 
         $detailsFilter = new UserDetailsInputFilter();
         $detailsFilter->init();
-        //remove some elements from the fieldset that you don't want in the register form
+        //TODO: remove some elements from the fieldset that you don't want in the register form
         //this is not the case right now, as this fieldset contains only lastName and firstName
 
         $form->add($detailsFieldset);

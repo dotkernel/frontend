@@ -6,14 +6,14 @@
  * Time: 10:54 PM
  */
 
-namespace Dot\Frontend\Controller\Factory;
+namespace Dot\Frontend\Factory\Controller;
 
 use Dot\Frontend\Controller\PageController;
 use Interop\Container\ContainerInterface;
 
 /**
  * Class PageControllerFactory
- * @package Dot\Frontend\Controller\Factory
+ * @package Dot\Frontend\Factory\Controller
  */
 class PageControllerFactory
 {

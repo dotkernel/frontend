@@ -40,23 +40,33 @@ class UserEventsListener extends AbstractListenerAggregate
     /** @var  UrlHelper */
     protected $urlHelper;
 
+    /** @var  UserOptions */
+    protected $userOptions;
+
     /**
-     * RegisterListener constructor.
+     * UserEventsListener constructor.
      * @param MailServiceInterface $mailService
      * @param ServerUrlHelper $serverUrlHelper
      * @param UrlHelper $urlHelper
+     * @param UserOptions $userOptions
      */
     public function __construct(
         MailServiceInterface $mailService,
         ServerUrlHelper $serverUrlHelper,
-        UrlHelper $urlHelper
+        UrlHelper $urlHelper,
+        UserOptions $userOptions
     )
     {
         $this->mailService = $mailService;
         $this->serverUrlHelper = $serverUrlHelper;
         $this->urlHelper = $urlHelper;
+        $this->userOptions = $userOptions;
     }
 
+    /**
+     * @param EventManagerInterface $events
+     * @param int $priority
+     */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(RegisterEvent::EVENT_REGISTER_POST, [$this, 'onPostRegister'], $priority);
@@ -68,12 +78,18 @@ class UserEventsListener extends AbstractListenerAggregate
             [$this, 'onResetPasswordTokenGenerated'], $priority);
     }
 
+    /**
+     * @param ConfirmAccountEvent $e
+     */
     public function onConfirmTokenGenerated(ConfirmAccountEvent $e)
     {
         $data = $e->getData();
         $this->confirmToken = $data->token;
     }
 
+    /**
+     * @param PasswordResetEvent $e
+     */
     public function onResetPasswordTokenGenerated(PasswordResetEvent $e)
     {
         $data = $e->getData();
@@ -91,7 +107,7 @@ class UserEventsListener extends AbstractListenerAggregate
         $resetPasswordUri .= '?' . http_build_query($query);
 
         //sets the current request/response to make it available to mail events
-        $this->mailService->setRequest($e->getRequest());
+        $this->mailService->setServerRequest($e->getRequest());
         $this->mailService->setResponse($e->getResponse());
 
         $message = $this->mailService->getMessage();
@@ -109,17 +125,16 @@ class UserEventsListener extends AbstractListenerAggregate
 
     }
 
+    /**
+     * @param RegisterEvent $e
+     */
     public function onPostRegister(RegisterEvent $e)
     {
         //if we don't have a confirm token, just return
         if(!$this->confirmToken) {
             return;
         }
-
-        //send an email if account confirmation is needed
-        $userService = $e->getUserService();
-        /** @var UserOptions $options */
-        $options = $userService->getOptions();
+        
         /** @var UserEntityInterface $user */
         $user = $e->getUser();
 
@@ -127,9 +142,9 @@ class UserEventsListener extends AbstractListenerAggregate
         $query = ['email' => $user->getEmail(), 'token' => $this->confirmToken];
         $confirmAccountUri .= '?' . http_build_query($query);
 
-        if($options->getConfirmAccountOptions()->isEnableAccountConfirmation()) {
+        if($this->userOptions->getConfirmAccountOptions()->isEnableAccountConfirmation()) {
 
-            $this->mailService->setRequest($e->getRequest());
+            $this->mailService->setServerRequest($e->getRequest());
             $this->mailService->setResponse($e->getResponse());
 
             $message = $this->mailService->getMessage();

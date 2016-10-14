@@ -16,6 +16,9 @@ use Zend\InputFilter\InputFilter;
  */
 class UserDetailsInputFilter extends InputFilter
 {
+    /**
+     * UserDetailsInputFilter constructor.
+     */
     public function __construct()
     {
 

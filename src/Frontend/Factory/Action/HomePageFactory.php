@@ -1,6 +1,6 @@
 <?php
 
-namespace Dot\Frontend\Action;
+namespace Dot\Frontend\Factory\Action;
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
@@ -8,7 +8,7 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class HomePageFactory
- * @package Dot\Frontend\Action
+ * @package Dot\Frontend\Factory\Action
  */
 class HomePageFactory
 {

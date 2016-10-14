@@ -15,7 +15,6 @@ use Dot\Frontend\User\Service\UserServiceInterface;
 use Dot\User\Entity\UserEntityInterface;
 use Dot\User\Form\UserFormManager;
 use Dot\User\Result\UserOperationResult;
-use Dot\User\Validator\NoRecordsExists;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Form\Form;
@@ -33,15 +32,24 @@ class UserController extends AbstractActionController
     /** @var  UserServiceInterface */
     protected $userService;
 
+    /** @var  AbstractValidator */
+    protected $usernameValidator;
+
     /**
      * UserController constructor.
      * @param UserServiceInterface $userService
      * @param UserFormManager $formManager
+     * @param AbstractValidator|null $usernameValidator
      */
-    public function __construct(UserServiceInterface $userService, UserFormManager $formManager)
+    public function __construct(
+        UserServiceInterface $userService,
+        UserFormManager $formManager,
+        AbstractValidator $usernameValidator = null
+)
     {
         $this->userService = $userService;
         $this->formManager = $formManager;
+        $this->usernameValidator = $usernameValidator;
     }
 
     /**
@@ -69,18 +77,11 @@ class UserController extends AbstractActionController
 
             //in case username is changed we need to check its uniqueness
             //but only in case username was actually changed from the previous one
-            if($data['username'] !== $identity->getUsername()) {
-                /** @var AbstractValidator $usernameValidator */
-                $usernameValidator = new NoRecordsExists([
-                    'mapper' => $this->userService->getUserMapper(),
-                    'key' => 'username',
-                ]);
-                $usernameValidator->setMessage('Username is already registered and cannot be used');
-
+            if($data['username'] !== $identity->getUsername() && $this->usernameValidator) {
                 //consider we want to change username
                 $form->getInputFilter()->get('username')
                     ->getValidatorChain()
-                    ->attach($usernameValidator);
+                    ->attach($this->usernameValidator);
             }
             $form->setData($data);
 
@@ -97,16 +98,16 @@ class UserController extends AbstractActionController
                 $result = $this->userService->updateAccountInfo($user);
 
                 if($result->isValid()) {
-                    $this->addSuccess('Account successfully updated', $this->flashMessenger());
+                    $this->addSuccess('Account successfully updated');
                     return new RedirectResponse($request->getUri());
                 }
                 else {
-                    $this->addError($result->getMessages(), $this->flashMessenger());
+                    $this->addError($result->getMessages());
                     return new RedirectResponse($request->getUri(), 303);
                 }
             }
             else {
-                $this->addError($this->getFormMessages($form->getMessages()), $this->flashMessenger());
+                $this->addError($this->getFormMessages($form->getMessages()));
                 return new RedirectResponse($request->getUri(), 303);
             }
         }
@@ -114,11 +115,17 @@ class UserController extends AbstractActionController
         return new HtmlResponse($this->template()->render('app::account', ['form' => $form,]));
     }
 
+    /**
+     * @return HtmlResponse
+     */
     public function changeEmailAction()
     {
         return new HtmlResponse($this->template()->render('app::change-email'));
     }
 
+    /**
+     * @return HtmlResponse
+     */
     public function removeAccountAction()
     {
         return new HtmlResponse($this->template()->render('app::remove-account'));
@@ -146,5 +153,51 @@ class UserController extends AbstractActionController
         }
 
         return $messages;
+    }
+
+    /** helpers to add messages into the FlashMessenger */
+
+    /**
+     * @param array|string $messages
+     */
+    public function addError($messages)
+    {
+        $messages = (array)$messages;
+        foreach ($messages as $message) {
+            $this->flashMessenger()->addError($message);
+        }
+    }
+
+    /**
+     * @param array|string $messages
+     */
+    public function addInfo($messages)
+    {
+        $messages = (array)$messages;
+        foreach ($messages as $message) {
+            $this->flashMessenger()->addInfo($message);
+        }
+    }
+
+    /**
+     * @param array|string $messages
+     */
+    public function addWarning($messages)
+    {
+        $messages = (array)$messages;
+        foreach ($messages as $message) {
+            $this->flashMessenger()->addWarning($message);
+        }
+    }
+
+    /**
+     * @param array|string $messages
+     */
+    public function addSuccess($messages)
+    {
+        $messages = (array)$messages;
+        foreach ($messages as $message) {
+            $this->flashMessenger()->addSuccess($message);
+        }
     }
 }

@@ -9,9 +9,12 @@
 namespace Dot\Frontend\User\Factory;
 
 use Dot\Frontend\User\Controller\UserController;
-use Dot\Frontend\User\Service\UserServiceInterface;
 use Dot\User\Form\UserFormManager;
+use Dot\User\Mapper\UserMapperInterface;
+use Dot\User\Service\UserServiceInterface;
+use Dot\User\Validator\NoRecordsExists;
 use Interop\Container\ContainerInterface;
+use Zend\Validator\AbstractValidator;
 
 /**
  * Class UserControllerFactory
@@ -25,9 +28,18 @@ class UserControllerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
+        $userService = $container->get(UserServiceInterface::class);
+        /** @var AbstractValidator $usernameValidator */
+        $usernameValidator = new NoRecordsExists([
+            'mapper' => $container->get(UserMapperInterface::class),
+            'key' => 'username',
+        ]);
+        $usernameValidator->setMessage('Username is already registered and cannot be used');
+
         $controller = new UserController(
-            $container->get(UserServiceInterface::class),
-            $container->get(UserFormManager::class));
+            $userService,
+            $container->get(UserFormManager::class),
+            $usernameValidator);
 
         return $controller;
     }

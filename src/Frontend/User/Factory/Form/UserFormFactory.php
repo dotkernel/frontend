@@ -21,6 +21,10 @@ use Interop\Container\ContainerInterface;
  */
 class UserFormFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return UserForm
+     */
     public function __invoke(ContainerInterface $container)
     {
         $form = new UserForm();

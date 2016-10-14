@@ -18,16 +18,25 @@ use Zend\Diactoros\Response\RedirectResponse;
  */
 class PageController extends AbstractActionController
 {
+    /**
+     * @return RedirectResponse
+     */
     public function indexAction()
     {
         return new RedirectResponse($this->urlHelper()->generate('home'));
     }
 
+    /**
+     * @return HtmlResponse
+     */
     public function aboutUsAction()
     {
         return new HtmlResponse($this->template()->render('page::about-us'));
     }
 
+    /**
+     * @return HtmlResponse
+     */
     public function whoWeAreAction()
     {
         return new HtmlResponse($this->template()->render('page::who-we-are'));
