@@ -151,7 +151,7 @@ class UserEventsListener extends AbstractListenerAggregate
             $message->setTo($user->getEmail());
             $message->setSubject('DotKernel Account confirmation');
             
-            $message->setBody("Welcome to Dotkernel 3. Thank you for registering with us.".
+            $message->setBody("Welcome to DotKernel. Thank you for registering with us.".
                 "\nClick the link below to confirm your account \n\n".
                 $this->serverUrlHelper->generate($confirmAccountUri)
             );

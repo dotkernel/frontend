@@ -1,8 +1,5 @@
 <?php
 
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\Glob;
-
 /**
  * Configuration files are loaded in a specific order. First ``global.php``, then ``*.global.php``.
  * then ``local.php`` and finally ``*.local.php``. This way local settings overwrite global settings.
@@ -12,24 +9,46 @@ use Zend\Stdlib\Glob;
  * Obviously, if you use closures in your config you can't cache it.
  */
 
-$cachedConfigFile = 'data/cache/app_config.php';
-
-$config = [];
-if (is_file($cachedConfigFile)) {
-    // Try to load the cached config
-    $config = include $cachedConfigFile;
-} else {
-    // Load configuration from autoload path
-    foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.php', Glob::GLOB_BRACE) as $file) {
-        $config = ArrayUtils::merge($config, include $file);
-    }
-
-    // Cache config if enabled
-    if (isset($config['config_cache_enabled']) && $config['config_cache_enabled'] === true) {
-        file_put_contents($cachedConfigFile, '<?php return ' . var_export($config, true) . ';');
-    }
+$cachedConfigFile = __DIR__ . '/../data/cache/app_config.php';
+$cachedConfigFile = __DIR__ . '/../data/cache/app_config.php';
+if(!is_dir(__DIR__ . '/../data/cache')) {
+    mkdir(__DIR__ . '/../data/cache');
+    chmod(__DIR__ . '/../data/cache', 755);
 }
 
-// Return an ArrayObject so we can inject the config as a service in Aura.Di
-// and still use array checks like ``is_array``.
-return new ArrayObject($config, ArrayObject::ARRAY_AS_PROPS);
+$configManager = new \Zend\Expressive\ConfigManager\ConfigManager([
+    //*************************************
+    //zend framework enabled modules, might come in handy to have all these services in the DI
+    //zend-db dependencies, as we use it
+    \Zend\Db\ConfigProvider::class,
+    \Zend\Filter\ConfigProvider::class,
+    \Zend\Hydrator\ConfigProvider::class,
+    \Zend\InputFilter\ConfigProvider::class,
+    \Zend\Session\ConfigProvider::class,
+    \Zend\Validator\ConfigProvider::class,
+    \Zend\Form\ConfigProvider::class,
+    \Zend\Mail\ConfigProvider::class,
+
+    //dk modules config providers
+    \Dot\Event\ConfigProvider::class,
+    \Dot\FlashMessenger\ConfigProvider::class,
+    \Dot\Helpers\ConfigProvider::class,
+    \Dot\Mail\ConfigProvider::class,
+    \Dot\Navigation\ConfigProvider::class,
+    \Dot\Authentication\ConfigProvider::class,
+    \Dot\Authentication\Web\ConfigProvider::class,
+    \Dot\Controller\ConfigProvider::class,
+    \Dot\Controller\Plugin\Authentication\ConfigProvider::class,
+    \Dot\Controller\Plugin\Authorization\ConfigProvider::class,
+    \Dot\Controller\Plugin\FlashMessenger\ConfigProvider::class,
+    \Dot\Controller\Plugin\Mail\ConfigProvider::class,
+    \Dot\Rbac\ConfigProvider::class,
+    \Dot\Rbac\Guard\ConfigProvider::class,
+    \Dot\Session\ConfigProvider::class,
+    \Dot\Twig\ConfigProvider::class,
+    \Dot\User\ConfigProvider::class,
+
+    new \Zend\Expressive\ConfigManager\PhpFileProvider(__DIR__ . '/autoload/{{,*.}global,{,*.}local}.php'),
+], $cachedConfigFile);
+
+return new ArrayObject($configManager->getMergedConfig());

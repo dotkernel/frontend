@@ -48,6 +48,11 @@ return [
             'middleware' => [
                 ApplicationFactory::ROUTING_MIDDLEWARE,
                 Helper\UrlHelperMiddleware::class,
+
+                //DK after-routing middleware
+                \Dot\Navigation\NavigationMiddleware::class,
+                \Dot\Rbac\Guard\Middleware\RbacGuardMiddleware::class,
+
                 // Add more middleware here that needs to introspect the routing
                 // results; this might include:
                 // - route-based authentication
@@ -56,6 +61,11 @@ return [
                 ApplicationFactory::DISPATCH_MIDDLEWARE,
             ],
             'priority' => 1,
+        ],
+
+        [
+            'middleware' => \Dot\Helpers\Middleware\NotFound::class,
+            'priority' => -1
         ],
 
         'error' => [

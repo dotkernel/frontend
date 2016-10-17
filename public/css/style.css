@@ -1,0 +1,42 @@
+body { padding-top: 80px; }
+
+.navbar-brand { height: auto; }
+.navbar-toggle { margin-top: 12px; }
+
+.navbar-nav li a { line-height: 62px; height: 62px; padding-top: 0; }
+.navbar-form { line-height: 62px; height: 62px; margin: 0px; }
+.navbar-text { line-height: 62px; height: 62px; margin: 0px 0px 0px 15px; }
+
+.signup-btn { line-height: 62px; height: 62px; margin-left: 15px; }
+
+.dropdown-menu > li > a { height: 40px; line-height: 40px; }
+
+.jumbotron { padding: 5px; }
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    background-color: lightsteelblue;
+}
+
+.app { display: flex; min-height: 100vh; flex-direction: column; }
+.app-content { flex: 1; }
+.app-footer { padding-bottom: 1em; }
+
+.dk-orange, h2 a { color: #ff6622; }
+
+@media (max-width: 1000px) {
+    .navbar-text {
+        display: none;
+    }
+}
+
+.navbar-colored-item {
+    color: coral !important;
+}
+
+.element-errors {
+    color: red;
+}
+
+.sidebar {
+
+}

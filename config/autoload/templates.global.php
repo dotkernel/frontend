@@ -14,18 +14,30 @@ return [
     'templates' => [
         'extension' => 'html.twig',
         'paths'     => [
-            'app'    => ['templates/app'],
-            'layout' => ['templates/layout'],
-            'error'  => ['templates/error'],
+            'app'    => [__DIR__ . '/../../templates/app'],
+            'layout' => [__DIR__ . '/../../templates/layout'],
+            'error'  => [__DIR__ . '/../../templates/error'],
+            'page'  => [__DIR__ . '/../../templates/page'],
+            'partial'  => [__DIR__ . '/../../templates/partial'],
+            'user'  => [__DIR__ . '/../../templates/user'],
         ],
     ],
 
     'twig' => [
-        'cache_dir'      => 'data/cache/twig',
+        'cache_dir'      => __DIR__ . '/../../data/cache/twig',
         'assets_url'     => '/',
         'assets_version' => null,
         'extensions'     => [
             // extension service names or instances
         ],
+        'globals' => [
+
+        ],
+    ],
+
+    //these are zend view helpers registered under twig
+    //using the twig fallback function to request unknown twig extensions from the view helper plugin manager
+    'view_helpers' => [
+
     ],
 ];

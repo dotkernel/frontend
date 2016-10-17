@@ -20,6 +20,10 @@ use Zend\Db\ResultSet\HydratingResultSet;
  */
 class UserDetailsDbMapperFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return UserDetailsDbMapper
+     */
     public function __invoke(ContainerInterface $container)
     {
         $dbAdapter = $container->get('database');

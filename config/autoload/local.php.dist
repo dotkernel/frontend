@@ -4,4 +4,42 @@ return [
     'debug' => true,
 
     'config_cache_enabled' => false,
+
+    //zend-db database adapters
+    'db' => [
+        'adapters' => [
+            'database' => [
+                'driver' => 'Pdo_Mysql',
+                'hostname' => 'localhost',
+                'database' => '',
+                'username' => '',
+                'password' => '',
+                'charset' => 'utf8'
+            ]
+        ]
+    ],
+
+    'dot_mail' => [
+        'default' => [
+            'smtp_options' => [
+                'connection_config' => [
+                    'username' => '',
+                    'password' => ''
+                ]
+            ]
+        ]
+    ],
+
+    'dot_user' => [
+        'register_options' => [
+            'form_captcha_options' => [
+                'class' => 'recaptcha',
+                'options' => [
+                    'pubkey' => '6LcskCMTAAAAAM14rWOGRy4mMTfwk41dJHF75B2A',
+                    'privkey' => '6LcskCMTAAAAANFDwPGBvXxPgVuDQFJxfXrMmEsX',
+                    'theme' => 'white',
+                ]
+            ]
+        ],
+    ]
 ];

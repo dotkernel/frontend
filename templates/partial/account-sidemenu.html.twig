@@ -1,0 +1,16 @@
+<ul class="nav nav-pills nav-stacked sidebar">
+    {% for page in container %}
+
+        {% set liClass = '' %}
+        {% if navigation.isActive(page) %}
+            {% set liClass = 'active' %}
+        {% endif %}
+
+        <li role="presentation" class="{{ liClass }}">
+            <a href="{{ navigation.getHref(page) }}" {{ navigationPageAttributes(page) }} >
+                {{ page.getOption('label') }}
+            </a>
+        </li>
+
+    {% endfor %}
+</ul>
