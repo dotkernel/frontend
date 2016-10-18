@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
  * Date: 7/18/2016
  * Time: 9:55 PM
  */
@@ -45,8 +46,7 @@ class UserController extends AbstractActionController
         UserServiceInterface $userService,
         UserFormManager $formManager,
         AbstractValidator $usernameValidator = null
-)
-    {
+    ) {
         $this->userService = $userService;
         $this->formManager = $formManager;
         $this->usernameValidator = $usernameValidator;
@@ -58,7 +58,7 @@ class UserController extends AbstractActionController
     public function accountAction()
     {
         $request = $this->getRequest();
-        
+
         /** @var Form $form */
         $form = $this->formManager->get(UserForm::class);
 
@@ -71,13 +71,13 @@ class UserController extends AbstractActionController
 
         $form->setData($userFormData);
         $form->setMessages($userFormMessages);
-        
-        if($request->getMethod() === 'POST') {
+
+        if ($request->getMethod() === 'POST') {
             $data = $request->getParsedBody();
 
             //in case username is changed we need to check its uniqueness
             //but only in case username was actually changed from the previous one
-            if($data['username'] !== $identity->getUsername() && $this->usernameValidator) {
+            if ($data['username'] !== $identity->getUsername() && $this->usernameValidator) {
                 //consider we want to change username
                 $form->getInputFilter()->get('username')
                     ->getValidatorChain()
@@ -90,28 +90,26 @@ class UserController extends AbstractActionController
             $this->flashMessenger()->addData('userFormData', $data);
             $this->flashMessenger()->addData('userFormMessages', $form->getMessages());
 
-            if($isValid) {
+            if ($isValid) {
                 /** @var UserEntityInterface $user */
                 $user = $form->getData();
 
                 /** @var UserOperationResult $result */
                 $result = $this->userService->updateAccountInfo($user);
 
-                if($result->isValid()) {
+                if ($result->isValid()) {
                     $this->addSuccess('Account successfully updated');
                     return new RedirectResponse($request->getUri());
-                }
-                else {
+                } else {
                     $this->addError($result->getMessages());
                     return new RedirectResponse($request->getUri(), 303);
                 }
-            }
-            else {
+            } else {
                 $this->addError($this->getFormMessages($form->getMessages()));
                 return new RedirectResponse($request->getUri(), 303);
             }
         }
-        
+
         return new HtmlResponse($this->template()->render('app::account', ['form' => $form,]));
     }
 
@@ -139,12 +137,11 @@ class UserController extends AbstractActionController
     {
         $messages = [];
         foreach ($formMessages as $message) {
-            if(is_array($message)) {
+            if (is_array($message)) {
                 foreach ($message as $m) {
-                    if(is_string($m)) {
+                    if (is_string($m)) {
                         $messages[] = $m;
-                    }
-                    elseif(is_array($m)) {
+                    } elseif (is_array($m)) {
                         $messages = array_merge($messages, $this->getFormMessages($message));
                         break;
                     }

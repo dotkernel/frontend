@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 6/17/2016
- * Time: 11:10 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\Authentication;
@@ -70,10 +71,10 @@ class AuthenticationListener extends AbstractListenerAggregate
         $request = $e->getRequest();
         $error = $e->getError();
 
-        if($request->getMethod() === 'POST' && empty($error)) {
+        if ($request->getMethod() === 'POST' && empty($error)) {
             $identity = $e->getParam('identity', '');
             $credential = $e->getParam('password', '');
-            if(empty($identity) || empty($credential)) {
+            if (empty($identity) || empty($credential)) {
                 $e->setError('Credentials are required and cannot be empty');
                 return;
             }
@@ -91,7 +92,7 @@ class AuthenticationListener extends AbstractListenerAggregate
      */
     public function attachUserDetails(AuthenticationEvent $e)
     {
-        if($e->getRequest()->getMethod() === 'POST') {
+        if ($e->getRequest()->getMethod() === 'POST') {
             $authResult = $e->getAuthenticationResult();
 
             if ($authResult && $authResult->isValid() &&

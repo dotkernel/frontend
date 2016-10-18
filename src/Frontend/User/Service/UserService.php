@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 8/5/2016
- * Time: 11:40 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Service;
@@ -32,17 +33,16 @@ class UserService extends \Dot\User\Service\UserService implements UserServiceIn
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_PRE, $user));
-            
+
             $this->saveUser($user);
-            
+
             $result->setUser($user);
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_POST, $user));
 
             $this->userMapper->commit();
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             error_log('Update user error: ' . $e->getMessage());
             $result = $this->createUserOperationResultWithException(
                 $e, 'Account update failed. Please try again', $user);
@@ -59,8 +59,8 @@ class UserService extends \Dot\User\Service\UserService implements UserServiceIn
     protected function createUpdateEvent(
         $name = UserUpdateEvent::EVENT_UPDATE_PRE,
         UserEntityInterface $user = null,
-        ResultInterface $result = null)
-    {
+        ResultInterface $result = null
+    ) {
         $event = new UserUpdateEvent($this, $name, $user, $result);
         return $this->setupEventPsr7Messages($event);
     }

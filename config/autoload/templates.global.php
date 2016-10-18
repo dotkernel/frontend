@@ -13,21 +13,21 @@ return [
 
     'templates' => [
         'extension' => 'html.twig',
-        'paths'     => [
-            'app'    => [__DIR__ . '/../../templates/app'],
+        'paths' => [
+            'app' => [__DIR__ . '/../../templates/app'],
             'layout' => [__DIR__ . '/../../templates/layout'],
-            'error'  => [__DIR__ . '/../../templates/error'],
-            'page'  => [__DIR__ . '/../../templates/page'],
-            'partial'  => [__DIR__ . '/../../templates/partial'],
-            'user'  => [__DIR__ . '/../../templates/user'],
+            'error' => [__DIR__ . '/../../templates/error'],
+            'page' => [__DIR__ . '/../../templates/page'],
+            'partial' => [__DIR__ . '/../../templates/partial'],
+            'user' => [__DIR__ . '/../../templates/user'],
         ],
     ],
 
     'twig' => [
-        'cache_dir'      => __DIR__ . '/../../data/cache/twig',
-        'assets_url'     => '/',
+        'cache_dir' => __DIR__ . '/../../data/cache/twig',
+        'assets_url' => '/',
         'assets_version' => null,
-        'extensions'     => [
+        'extensions' => [
             // extension service names or instances
         ],
         'globals' => [

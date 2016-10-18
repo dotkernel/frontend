@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vra
- * Date: 7/25/2016
- * Time: 3:14 AM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Mapper;

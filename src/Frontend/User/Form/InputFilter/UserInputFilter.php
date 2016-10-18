@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 8/4/2016
- * Time: 11:38 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Form\InputFilter;
@@ -31,15 +32,14 @@ class UserInputFilter extends InputFilter
     public function __construct(
         UserOptions $userOptions,
         InputFilter $userDetailsInputFilter
-    )
-    {
+    ) {
         $this->userOptions = $userOptions;
         $this->userDetailsInputFilter = $userDetailsInputFilter;
     }
 
     public function init()
     {
-        if($this->userOptions->getRegisterOptions()->isEnableUsername()) {
+        if ($this->userOptions->getRegisterOptions()->isEnableUsername()) {
             $this->add([
                 'name' => 'username',
                 'filters' => [

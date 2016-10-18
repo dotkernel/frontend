@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vra
- * Date: 7/24/2016
- * Time: 7:18 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Entity;
@@ -17,7 +18,7 @@ use Zend\Hydrator\Strategy\StrategyInterface;
  */
 class UserDetailsHydratorStrategy implements StrategyInterface
 {
-    /** @var HydratorInterface  */
+    /** @var HydratorInterface */
     protected $userDetailsHydrator;
 
     /**
@@ -35,7 +36,7 @@ class UserDetailsHydratorStrategy implements StrategyInterface
      */
     public function extract($details)
     {
-        if(!$details) {
+        if (!$details) {
             return [];
         }
         return $this->userDetailsHydrator->extract($details);
@@ -47,7 +48,7 @@ class UserDetailsHydratorStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-        if($value === null) {
+        if ($value === null) {
             return $value;
         }
 

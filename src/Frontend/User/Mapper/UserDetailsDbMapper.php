@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vra
- * Date: 7/25/2016
- * Time: 3:16 AM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Mapper;
@@ -16,7 +17,7 @@ use Dot\Mapper\AbstractDbMapper;
  */
 class UserDetailsDbMapper extends AbstractDbMapper implements UserDetailsMapperInterface
 {
-    /** @var string  */
+    /** @var string */
     protected $idColumn = 'userId';
 
     /**
@@ -47,7 +48,7 @@ class UserDetailsDbMapper extends AbstractDbMapper implements UserDetailsMapperI
     {
         $data = $this->entityToArray($data);
         //make sure we remove the userId field in case of an update
-        if(isset($data['userId'])) {
+        if (isset($data['userId'])) {
             unset($data['userId']);
         }
         return $this->update($data, [$this->idColumn => $userId]);

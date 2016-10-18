@@ -72,7 +72,7 @@ return [
             'middleware' => [
                 // Add error middleware here.
             ],
-            'error'    => true,
+            'error' => true,
             'priority' => -10000,
         ],
     ],

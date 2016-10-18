@@ -1,4 +1,11 @@
 <?php
+/**
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
+ */
 
 namespace Dot\Frontend\Factory\Action;
 
@@ -14,10 +21,10 @@ use Zend\Expressive\Template;
  */
 class HomePageAction
 {
-    /** @var Router\RouterInterface  */
+    /** @var Router\RouterInterface */
     private $router;
 
-    /** @var Template\TemplateRendererInterface  */
+    /** @var Template\TemplateRendererInterface */
     private $template;
 
     /**
@@ -27,7 +34,7 @@ class HomePageAction
      */
     public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
-        $this->router   = $router;
+        $this->router = $router;
         $this->template = $template;
     }
 

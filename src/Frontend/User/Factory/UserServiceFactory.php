@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 8/5/2016
- * Time: 11:41 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Factory;
@@ -34,7 +35,7 @@ class UserServiceFactory extends \Dot\User\Factory\UserServiceFactory
         $this->options = $options;
 
         $isDebug = isset($container->get('config')['debug'])
-            ? (bool) $container->get('config')['debug']
+            ? (bool)$container->get('config')['debug']
             : false;
 
         $eventManager = $container->has(EventManagerInterface::class)

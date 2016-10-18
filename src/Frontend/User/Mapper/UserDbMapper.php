@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 8/2/2016
- * Time: 7:28 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Mapper;
@@ -29,9 +30,9 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
     {
         /** @var UserEntity $user */
         $user = parent::findUserBy($field, $value);
-        if($user) {
+        if ($user) {
             $details = $this->userDetailsMapper->getUserDetails($user->getId());
-            if($details) {
+            if ($details) {
                 $user->setDetails($details);
             }
         }
@@ -49,7 +50,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
         /** @var UserEntity $user */
         foreach ($users as $user) {
             $details = $this->userDetailsMapper->getUserDetails($user->getId());
-            if($details) {
+            if ($details) {
                 $user->setDetails($details);
             }
         }
@@ -64,7 +65,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
     public function createUser($user)
     {
         $details = null;
-        if($user instanceof UserEntity) {
+        if ($user instanceof UserEntity) {
             $details = $user->getDetails();
             //remove the details key from user insert, details are inserted separately
             $user->setDetails(null);
@@ -73,7 +74,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
         parent::createUser($user);
         $userId = $this->lastInsertValue;
 
-        if(!$details) {
+        if (!$details) {
             $details = new UserDetailsEntity();
         }
 
@@ -88,7 +89,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
     public function updateUser($user)
     {
         $details = null;
-        if($user instanceof UserEntity) {
+        if ($user instanceof UserEntity) {
             $details = $user->getDetails();
             //remove the details key from user insert, details are inserted separately
             $user->setDetails(null);
@@ -96,15 +97,14 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
 
         parent::updateUser($user);
 
-        if(!$details) {
+        if (!$details) {
             $details = new UserDetailsEntity();
             $details->setUserId($user->getId());
             //set user details back
             $user->setDetails($details);
 
             return $this->userDetailsMapper->insertUserDetails($details);
-        }
-        else {
+        } else {
             $details->setUserId($user->getId());
             //set user details back
             $user->setDetails($details);

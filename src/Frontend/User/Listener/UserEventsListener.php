@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vra
- * Date: 7/10/2016
- * Time: 4:48 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Listener;
@@ -25,7 +26,7 @@ use Zend\Expressive\Helper\UrlHelper;
  */
 class UserEventsListener extends AbstractListenerAggregate
 {
-    /** @var MailServiceInterface  */
+    /** @var MailServiceInterface */
     protected $mailService;
 
     /** @var  string */
@@ -55,8 +56,7 @@ class UserEventsListener extends AbstractListenerAggregate
         ServerUrlHelper $serverUrlHelper,
         UrlHelper $urlHelper,
         UserOptions $userOptions
-    )
-    {
+    ) {
         $this->mailService = $mailService;
         $this->serverUrlHelper = $serverUrlHelper;
         $this->urlHelper = $urlHelper;
@@ -95,7 +95,7 @@ class UserEventsListener extends AbstractListenerAggregate
         $data = $e->getData();
         $this->resetToken = $data->token;
 
-        if(!$this->resetToken) {
+        if (!$this->resetToken) {
             return;
         }
 
@@ -114,10 +114,10 @@ class UserEventsListener extends AbstractListenerAggregate
         $message->setTo($user->getEmail());
         $message->setSubject('DotKernel Password Reset');
 
-        $message->setBody("You have requested an account password reset".
-            "\nIf you didn't make this request, please ignore this email \n".
-            "In order to reset your password, click the link bellow\n\n".
-            $this->serverUrlHelper->generate($resetPasswordUri). "\n\n".
+        $message->setBody("You have requested an account password reset" .
+            "\nIf you didn't make this request, please ignore this email \n" .
+            "In order to reset your password, click the link bellow\n\n" .
+            $this->serverUrlHelper->generate($resetPasswordUri) . "\n\n" .
             "Please note this link will expired within an hour. Do not share this information with anyone!"
         );
 
@@ -131,10 +131,10 @@ class UserEventsListener extends AbstractListenerAggregate
     public function onPostRegister(RegisterEvent $e)
     {
         //if we don't have a confirm token, just return
-        if(!$this->confirmToken) {
+        if (!$this->confirmToken) {
             return;
         }
-        
+
         /** @var UserEntityInterface $user */
         $user = $e->getUser();
 
@@ -142,7 +142,7 @@ class UserEventsListener extends AbstractListenerAggregate
         $query = ['email' => $user->getEmail(), 'token' => $this->confirmToken];
         $confirmAccountUri .= '?' . http_build_query($query);
 
-        if($this->userOptions->getConfirmAccountOptions()->isEnableAccountConfirmation()) {
+        if ($this->userOptions->getConfirmAccountOptions()->isEnableAccountConfirmation()) {
 
             $this->mailService->setServerRequest($e->getRequest());
             $this->mailService->setResponse($e->getResponse());
@@ -150,9 +150,9 @@ class UserEventsListener extends AbstractListenerAggregate
             $message = $this->mailService->getMessage();
             $message->setTo($user->getEmail());
             $message->setSubject('DotKernel Account confirmation');
-            
-            $message->setBody("Welcome to DotKernel. Thank you for registering with us.".
-                "\nClick the link below to confirm your account \n\n".
+
+            $message->setBody("Welcome to DotKernel. Thank you for registering with us." .
+                "\nClick the link below to confirm your account \n\n" .
                 $this->serverUrlHelper->generate($confirmAccountUri)
             );
 

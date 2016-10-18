@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vrax
- * Date: 8/2/2016
- * Time: 7:56 PM
+ * @copyright: DotKernel
+ * @library: dotkernel/dot-frontend
+ * @author: n3vrax
+ * Date: 7/18/2016
+ * Time: 9:55 PM
  */
 
 namespace Dot\Frontend\User\Factory;
@@ -40,7 +41,7 @@ class UserDbMapperFactory
             $dbAdapter,
             null,
             $resultSetPrototype);
-        
+
         $mapper->setUserDetailsMapper($container->get(UserDetailsMapperInterface::class));
 
         return $mapper;
