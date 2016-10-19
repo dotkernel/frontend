@@ -110,7 +110,7 @@ class UserController extends AbstractActionController
             }
         }
 
-        return new HtmlResponse($this->template()->render('app::account', ['form' => $form,]));
+        return new HtmlResponse($this->template()->render('user::account', ['form' => $form,]));
     }
 
     /**
@@ -118,7 +118,7 @@ class UserController extends AbstractActionController
      */
     public function changeEmailAction()
     {
-        return new HtmlResponse($this->template()->render('app::change-email'));
+        return new HtmlResponse($this->template()->render('user::change-email'));
     }
 
     /**
@@ -126,7 +126,7 @@ class UserController extends AbstractActionController
      */
     public function removeAccountAction()
     {
-        return new HtmlResponse($this->template()->render('app::remove-account'));
+        return new HtmlResponse($this->template()->render('user::remove-account'));
     }
 
     /**

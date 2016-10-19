@@ -19,6 +19,15 @@
     "zendframework/zend-servicemanager": "^2.7.3 || ^3.0",
     "zendframework/zend-expressive-twigrenderer": "^1.0",
 
+    "zendframework/zend-db": "^2.8",
+    "zendframework/zend-hydrator": "^2.2",
+    "zendframework/zend-filter": "^2.6",
+    "zendframework/zend-i18n": "^2.7",
+    "zendframework/zend-i18n-resources": "^2.5",
+    "zendframework/zend-captcha": "^2.6",
+    "zendframework/zendservice-recaptcha": "^2.0",
+    "zendframework/zend-text": "^2.6",
+
     "dotkernel/dot-helpers": "0.6.x-dev",
     "dotkernel/dot-mapper": "0.6.x-dev",
     "dotkernel/dot-event": "0.6.x-dev",

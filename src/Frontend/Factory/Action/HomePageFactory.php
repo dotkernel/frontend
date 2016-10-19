@@ -9,6 +9,7 @@
 
 namespace Dot\Frontend\Factory\Action;
 
+use Dot\Frontend\Action\HomePageAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

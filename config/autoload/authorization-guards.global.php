@@ -2,7 +2,7 @@
 
 return [
 
-    'dk_authorization' => [
+    'dot_authorization' => [
 
         //define how it will treat non-matching guard rules, allow all by default
         'protection_policy' => \Dot\Rbac\Guard\GuardInterface::POLICY_ALLOW,
@@ -38,7 +38,7 @@ return [
                         'permissions' => ['authenticated']
                     ],
                     [
-                        'route' => 'pages',
+                        'route' => 'page',
                         'actions' => ['who-we-are'],
                         'permissions' => ['premium-content']
                     ]

@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace Dot\Frontend\Factory\Action;
+namespace Dot\Frontend\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
