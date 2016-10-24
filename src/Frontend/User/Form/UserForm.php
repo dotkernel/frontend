@@ -41,6 +41,7 @@ class UserForm extends Form
         ]);
 
         $detailsFieldset = new UserDetailsFieldset();
+        $detailsFieldset->init();
         $detailsFieldset->setName('details');
 
         $this->add($detailsFieldset);

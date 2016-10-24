@@ -42,4 +42,12 @@ class PageController extends AbstractActionController
     {
         return new HtmlResponse($this->template()->render('page::who-we-are'));
     }
+
+    /**
+     * @return HtmlResponse
+     */
+    public function premiumContentAction()
+    {
+        return new HtmlResponse($this->template()->render('page::premium-content'));
+    }
 }

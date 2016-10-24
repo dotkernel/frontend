@@ -54,7 +54,7 @@ return [
                 [
                     'options' => [
                         'label' => 'Contribute',
-                        'uri' => 'https://github.com/n3vrax/dk-frontend',
+                        'uri' => 'https://github.com/dotkernel',
                         'icon' => 'fa fa-users',
                     ],
                     'attributes' => [
@@ -95,6 +95,20 @@ return [
                                 'route' => 'page',
                                 'params' => ['action' => 'who-we-are'],
                                 'icon' => 'fa fa-copyright'
+                            ]
+                        ],
+                        [
+                            'options' => [
+                                'label' => 'separator',
+                                'type' => 'separator',
+                            ]
+                        ],
+                        [
+                            'options' => [
+                                'label' => 'Premium Content',
+                                'route' => 'page',
+                                'params' => ['action' => 'premium-content'],
+                                'icon' => 'fa fa-trophy'
                             ]
                         ],
                     ]

@@ -66,6 +66,9 @@ class UserController extends AbstractActionController
         $identity = $this->authentication()->getIdentity();
         $form->bind($identity);
 
+        /**
+         * Get previous form data stored in session, to re-display the information and/or errors
+         */
         $userFormData = $this->flashMessenger()->getData('userFormData') ?: [];
         $userFormMessages = $this->flashMessenger()->getData('userFormMessages') ?: [];
 
@@ -87,6 +90,7 @@ class UserController extends AbstractActionController
 
             $isValid = $form->isValid();
 
+            //add form data and messages to the session, in case we do a PRG redirect
             $this->flashMessenger()->addData('userFormData', $data);
             $this->flashMessenger()->addData('userFormMessages', $form->getMessages());
 

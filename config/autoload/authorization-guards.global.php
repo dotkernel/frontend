@@ -34,12 +34,7 @@ return [
                     ],
                     [
                         'route' => 'page',
-                        'actions' => ['about-us'],
-                        'permissions' => ['authenticated']
-                    ],
-                    [
-                        'route' => 'page',
-                        'actions' => ['who-we-are'],
+                        'actions' => ['premium-content'],
                         'permissions' => ['premium-content']
                     ]
                 ]

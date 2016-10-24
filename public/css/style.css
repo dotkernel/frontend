@@ -13,10 +13,6 @@ body { padding-top: 80px; }
 
 .jumbotron { padding: 5px; }
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-    background-color: lightsteelblue;
-}
-
 .app { display: flex; min-height: 100vh; flex-direction: column; }
 .app-content { flex: 1; }
 .app-footer { padding-bottom: 1em; }

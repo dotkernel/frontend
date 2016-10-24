@@ -41,7 +41,7 @@ return [
 
     'dot_user' => [
         //listeners for various user related events
-        'user_listeners' => [
+        'user_event_listeners' => [
             \Dot\Frontend\User\Listener\UserEventsListener::class,
         ],
 
