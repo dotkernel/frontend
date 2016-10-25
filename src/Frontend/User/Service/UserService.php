@@ -10,6 +10,7 @@
 namespace Dot\Frontend\User\Service;
 
 use Dot\Frontend\User\Event\UserUpdateEvent;
+use Dot\Frontend\User\Options\MessagesOptions;
 use Dot\User\Entity\UserEntityInterface;
 use Dot\User\Result\ResultInterface;
 use Dot\User\Result\UserOperationResult;
@@ -26,7 +27,8 @@ class UserService extends \Dot\User\Service\UserService implements UserServiceIn
      */
     public function updateAccountInfo(UserEntityInterface $user)
     {
-        $result = new UserOperationResult(true, 'Account successfully updated');
+        $result = new UserOperationResult(true, $this->options->getMessagesOptions()
+            ->getMessage(MessagesOptions::MESSAGE_ACCOUNT_UPDATE_SUCCESS));
 
         try {
             $this->userMapper->beginTransaction();
@@ -45,7 +47,8 @@ class UserService extends \Dot\User\Service\UserService implements UserServiceIn
         } catch (\Exception $e) {
             error_log('Update user error: ' . $e->getMessage());
             $result = $this->createUserOperationResultWithException(
-                $e, 'Account update failed. Please try again', $user);
+                $e, $this->options->getMessagesOptions()->getMessage(MessagesOptions::MESSAGE_ACCOUNT_UPDATE_ERROR),
+                $user);
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_ERROR, $user, $result));

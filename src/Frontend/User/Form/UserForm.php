@@ -9,6 +9,8 @@
 
 namespace Dot\Frontend\User\Form;
 
+use Dot\Frontend\User\Options\MessagesOptions;
+use Dot\User\Options\UserOptions;
 use Zend\Form\Form;
 
 /**
@@ -17,13 +19,18 @@ use Zend\Form\Form;
  */
 class UserForm extends Form
 {
+    /** @var  UserOptions */
+    protected $userOptions;
+
     /**
      * UserForm constructor.
+     * @param UserOptions $userOptions
      * @param string $name
      * @param array $options
      */
-    public function __construct($name = 'user', array $options = [])
+    public function __construct(UserOptions $userOptions, $name = 'user', array $options = [])
     {
+        $this->userOptions = $userOptions;
         parent::__construct($name, $options);
     }
 
@@ -52,7 +59,8 @@ class UserForm extends Form
             'options' => [
                 'csrf_options' => [
                     'timeout' => 1800,
-                    'message' => 'This form has expired. Please refresh page and try again'
+                    'message' => $this->userOptions->getMessagesOptions()
+                        ->getMessage(MessagesOptions::MESSAGE_CSRF_EXPIRED)
                 ]
             ]
         ]);

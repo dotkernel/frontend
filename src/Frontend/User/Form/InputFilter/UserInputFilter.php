@@ -9,6 +9,7 @@
 
 namespace Dot\Frontend\User\Form\InputFilter;
 
+use Dot\Frontend\User\Options\MessagesOptions;
 use Dot\User\Options\UserOptions;
 use Zend\InputFilter\InputFilter;
 
@@ -50,7 +51,8 @@ class UserInputFilter extends InputFilter
                         'name' => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options' => [
-                            'message' => 'Username is required and cannot be empty'
+                            'message' => $this->userOptions->getMessagesOptions()
+                                ->getMessage(MessagesOptions::MESSAGE_REGISTER_EMPTY_USERNAME)
                         ]
                     ],
                     [
@@ -58,14 +60,16 @@ class UserInputFilter extends InputFilter
                         'options' => [
                             'min' => 3,
                             'max' => 255,
-                            'message' => 'Username invalid length - must be between 3 and 255 characters'
+                            'message' => $this->userOptions->getMessagesOptions()
+                                ->getMessage(MessagesOptions::MESSAGE_REGISTER_USERNAME_CHARACTER_LIMIT)
                         ]
                     ],
                     [
                         'name' => 'Regex',
                         'options' => [
                             'pattern' => '/^[a-zA-Z0-9-_]+$/',
-                            'message' => 'Username invalid characters - only digits, letters and underscore allowed'
+                            'message' => $this->userOptions->getMessagesOptions()
+                                ->getMessage(MessagesOptions::MESSAGE_REGISTER_USERNAME_INVALID_CHARACTERS)
                         ]
                     ],
                 ],

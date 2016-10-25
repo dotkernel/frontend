@@ -28,16 +28,15 @@ class UserFormFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $form = new UserForm();
+        $userOptions = $container->get(UserOptions::class);
+
+        $form = new UserForm($userOptions);
         $form->init();
 
-        $userDetailsInputFilter = new UserDetailsInputFilter();
+        $userDetailsInputFilter = new UserDetailsInputFilter($userOptions);
         $userDetailsInputFilter->init();
 
-        $userFilter = new UserInputFilter(
-            $container->get(UserOptions::class),
-            $userDetailsInputFilter
-        );
+        $userFilter = new UserInputFilter($userOptions, $userDetailsInputFilter);
         $userFilter->init();
 
         $form->setInputFilter($userFilter);

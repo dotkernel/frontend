@@ -10,8 +10,10 @@
 namespace Dot\Frontend\User\Factory;
 
 use Dot\Frontend\User\Controller\UserController;
+use Dot\Frontend\User\Options\MessagesOptions;
 use Dot\User\Form\UserFormManager;
 use Dot\User\Mapper\UserMapperInterface;
+use Dot\User\Options\UserOptions;
 use Dot\User\Service\UserServiceInterface;
 use Dot\User\Validator\NoRecordsExists;
 use Interop\Container\ContainerInterface;
@@ -29,13 +31,17 @@ class UserControllerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
+        /** @var \Dot\Frontend\User\Options\UserOptions $userOptions */
+        $userOptions = $container->get(UserOptions::class);
         $userService = $container->get(UserServiceInterface::class);
+
         /** @var AbstractValidator $usernameValidator */
         $usernameValidator = new NoRecordsExists([
             'mapper' => $container->get(UserMapperInterface::class),
             'key' => 'username',
         ]);
-        $usernameValidator->setMessage('Username is already registered and cannot be used');
+        $usernameValidator->setMessage($userOptions->getMessagesOptions()
+            ->getMessage(MessagesOptions::MESSAGE_REGISTER_USERNAME_ALREADY_REGISTERED));
 
         $controller = new UserController(
             $userService,

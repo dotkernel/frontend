@@ -12,6 +12,9 @@ return [
             \Dot\Frontend\User\Listener\UserEventsListener::class =>
                 \Dot\Frontend\User\Factory\UserEventsListenerFactory::class,
 
+            \Dot\Frontend\User\Listener\RegisterFormListener::class =>
+                \Dot\Frontend\User\Factory\RegisterFormListenerFactory::class,
+
             //****************************
             //we overwrite the default user entity with this ones, to include details field
             \Dot\Frontend\User\Entity\UserEntity::class =>
@@ -32,6 +35,10 @@ return [
             //overwrite the user service with our custom extended class
             \Dot\User\Service\UserServiceInterface::class =>
                 \Dot\Frontend\User\Factory\UserServiceFactory::class,
+
+            //overwrite user options class with the one we extended, to include new messages and template options
+            \Dot\User\Options\UserOptions::class =>
+                \Dot\Frontend\User\Factory\UserOptionsFactory::class
         ],
 
         'shared' => [

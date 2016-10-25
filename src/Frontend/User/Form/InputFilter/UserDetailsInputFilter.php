@@ -9,6 +9,8 @@
 
 namespace Dot\Frontend\User\Form\InputFilter;
 
+use Dot\Frontend\User\Options\MessagesOptions;
+use Dot\Frontend\User\Options\UserOptions;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -17,12 +19,16 @@ use Zend\InputFilter\InputFilter;
  */
 class UserDetailsInputFilter extends InputFilter
 {
+    /** @var  UserOptions */
+    protected $userOptions;
+
     /**
      * UserDetailsInputFilter constructor.
+     * @param UserOptions $userOptions
      */
-    public function __construct()
+    public function __construct(UserOptions $userOptions)
     {
-
+        $this->userOptions = $userOptions;
     }
 
     /**
@@ -40,14 +46,16 @@ class UserDetailsInputFilter extends InputFilter
                     'name' => 'NotEmpty',
                     'break_chain_on_failure' => true,
                     'options' => [
-                        'message' => 'First name is required and cannot be empty'
+                        'message' => $this->userOptions->getMessagesOptions()
+                            ->getMessage(MessagesOptions::MESSAGE_FIRST_NAME_EMPTY)
                     ]
                 ],
                 [
                     'name' => 'StringLength',
                     'options' => [
                         'max' => 255,
-                        'message' => 'First name character limit exceeded'
+                        'message' => $this->userOptions->getMessagesOptions()
+                            ->getMessage(MessagesOptions::MESSAGE_FIRST_NAME_CHARACTER_LIMIT)
                     ]
                 ]
             ],
@@ -63,15 +71,16 @@ class UserDetailsInputFilter extends InputFilter
                     'name' => 'NotEmpty',
                     'break_chain_on_failure' => true,
                     'options' => [
-                        'message' => 'Last name is required and cannot be empty'
+                        'message' => $this->userOptions->getMessagesOptions()
+                            ->getMessage(MessagesOptions::MESSAGE_LAST_NAME_EMPTY)
                     ]
                 ],
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'min' => 3,
                         'max' => 255,
-                        'message' => 'Last name character limit exceeded'
+                        'message' => $this->userOptions->getMessagesOptions()
+                            ->getMessage(MessagesOptions::MESSAGE_LAST_NAME_CHARACTER_LIMIT)
                     ]
                 ]
             ],

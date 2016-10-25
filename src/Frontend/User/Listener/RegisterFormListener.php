@@ -9,10 +9,10 @@
 
 namespace Dot\Frontend\User\Listener;
 
-use Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter;
-use Dot\Frontend\User\Form\UserDetailsFieldset;
 use Zend\EventManager\Event;
+use Zend\Form\Fieldset;
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilter;
 
 /**
  * Class RegisterFormListener
@@ -20,6 +20,23 @@ use Zend\Form\Form;
  */
 class RegisterFormListener
 {
+    /** @var  Fieldset */
+    protected $userDetailsFieldset;
+
+    /** @var  InputFilter */
+    protected $userDetailsFilter;
+
+    /**
+     * RegisterFormListener constructor.
+     * @param Fieldset $userDetailsFieldset
+     * @param InputFilter $userDetailsFilter
+     */
+    public function __construct(Fieldset $userDetailsFieldset, InputFilter $userDetailsFilter)
+    {
+        $this->userDetailsFieldset = $userDetailsFieldset;
+        $this->userDetailsFilter = $userDetailsFilter;
+    }
+
     /**
      * Listens for RegisterForm init event to add more elements to the original form
      *
@@ -29,17 +46,12 @@ class RegisterFormListener
     {
         /** @var Form $form */
         $form = $e->getTarget();
+        $this->userDetailsFieldset->setName('details');
 
-        $detailsFieldset = new UserDetailsFieldset();
-        $detailsFieldset->init();
-        $detailsFieldset->setName('details');
-
-        $detailsFilter = new UserDetailsInputFilter();
-        $detailsFilter->init();
         //TODO: remove some elements from the fieldset that you don't want in the register form
         //this is not the case right now, as this fieldset contains only lastName and firstName
 
-        $form->add($detailsFieldset);
-        $form->getInputFilter()->add($detailsFilter, 'details');
+        $form->add($this->userDetailsFieldset);
+        $form->getInputFilter()->add($this->userDetailsFilter, 'details');
     }
 }
