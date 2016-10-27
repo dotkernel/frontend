@@ -40,6 +40,7 @@ return [
                 // - pre-conditions
                 // - modifications to outgoing responses
                 Helper\ServerUrlMiddleware::class,
+                \Dot\Session\SessionMiddleware::class,
             ],
             'priority' => 10000,
         ],

@@ -57,9 +57,9 @@ return [
         'user_entity_hydrator' => \Dot\Frontend\User\Entity\UserEntityHydrator::class,
 
         //bcrypt cost, default to 11
-        //'password_cost' => 11,
+        'password_cost' => 11,
 
-        //'enable_user_status' => true,
+        'enable_user_status' => true,
 
         //enable user form labes display
         'show_form_input_labels' => true,
@@ -70,9 +70,9 @@ return [
         'db_options' => [
             'db_adapter' => 'database',
 
-            //'user_table' => 'user',
-            //'user_reset_token_table' => 'user_reset_token',
-            //'user_confirm_token_table' => 'user_confirm_token',
+            'user_table' => 'user',
+            'user_reset_token_table' => 'user_reset_token',
+            'user_confirm_token_table' => 'user_confirm_token',
         ],
 
         /**
@@ -81,11 +81,11 @@ return [
         'register_options' => [
             'enable_registration' => true,
 
-            //'enable_username' => true,
+            'enable_username' => true,
 
-            //'user_form_timeout' => 1800,
+            'user_form_timeout' => 1800,
 
-            //'use_registration_form_captcha' => true,
+            'use_registration_form_captcha' => true,
 
             /*'form_captcha_options' => [
                 'class'   => 'Figlet',
@@ -102,9 +102,15 @@ return [
         ],
 
         'login_options' => [
-            //'login_form_timeout' => 1800,
+            'login_form_timeout' => 1800,
 
-            //'enable_remember_me' => true,
+            'enable_remember_me' => true,
+
+            'remember_me_cookie_name' => 'rememberMe',
+
+            'remember_me_cookie_expire' => 60 * 60 * 24 * 30,
+
+            'remember_me_cookie_secure' => false,
 
             'auth_identity_fields' => ['username', 'email'],
 
@@ -114,7 +120,7 @@ return [
         'password_recovery_options' => [
             'enable_password_recovery' => true,
 
-            //'reset_password_token_timeout' => 3600,
+            'reset_password_token_timeout' => 3600,
         ],
 
         'confirm_account_options' => [

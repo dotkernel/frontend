@@ -3,10 +3,10 @@
 return [
 
     'dot_session' => [
-        'session_namespace' => 'dot_session',
+        'session_namespace' => 'frontend_session',
     ],
 
     'dot_flashmessenger' => [
-        'namespace' => 'frontend'
+        'namespace' => 'frontend_flashmessenger'
     ],
 ];

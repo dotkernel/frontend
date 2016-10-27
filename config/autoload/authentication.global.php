@@ -39,7 +39,7 @@ return [
         'storage' => [
             \Dot\Authentication\Storage\SessionStorage::class => [
                 //session namespace
-                'namespace' => 'dot_auth',
+                'namespace' => 'frontend_authentication',
 
                 //what session member to use
                 'member' => 'storage'
