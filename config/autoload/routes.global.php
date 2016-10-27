@@ -7,7 +7,7 @@ return [
         ],
         // Map middleware -> factories here
         'factories' => [
-            \Dot\Frontend\Factory\Action\HomePageAction::class => \Dot\Frontend\Factory\Action\HomePageFactory::class,
+            \Dot\Frontend\Action\HomePageAction::class => \Dot\Frontend\Factory\Action\HomePageFactory::class,
         ],
     ],
 
@@ -15,7 +15,7 @@ return [
         [
             'name' => 'home',
             'path' => '/',
-            'middleware' => \Dot\Frontend\Factory\Action\HomePageAction::class,
+            'middleware' => \Dot\Frontend\Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
 
