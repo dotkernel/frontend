@@ -6,8 +6,8 @@ return [
         //whatever dependencies you need additionally
         'factories' => [
             //event listeners for authentication and user events
-            \Dot\Frontend\Authentication\AuthenticationListener::class =>
-                \Dot\Frontend\Factory\AuthenticationListenerFactory::class,
+            \Dot\Frontend\User\Listener\AuthenticationListener::class =>
+                \Dot\Frontend\User\Factory\AuthenticationListenerFactory::class,
 
             \Dot\Frontend\User\Listener\UserEventsListener::class =>
                 \Dot\Frontend\User\Factory\UserEventsListenerFactory::class,

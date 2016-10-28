@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace Dot\Frontend\Factory;
+namespace Dot\Frontend\User\Factory;
 
 use Dot\Frontend\Authentication\AuthenticationListener;
 use Dot\Frontend\User\Mapper\UserDetailsMapperInterface;
