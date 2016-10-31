@@ -13,7 +13,7 @@ $eventManager = $container->get(\Zend\EventManager\EventManagerInterface::class)
  * It also listen for post authentication, to enrich the identity with user details in case authentication succeeded
  */
 /** @var  $authenticationListeners */
-$authenticationListeners = $container->get(\Dot\Frontend\Authentication\AuthenticationListener::class);
+$authenticationListeners = $container->get(\Dot\Frontend\User\Listener\AuthenticationListener::class);
 $authenticationListeners->attach($eventManager);
 
 /**

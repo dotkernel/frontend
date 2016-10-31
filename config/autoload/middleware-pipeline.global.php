@@ -40,7 +40,11 @@ return [
                 // - pre-conditions
                 // - modifications to outgoing responses
                 Helper\ServerUrlMiddleware::class,
+
+                //these middleware are provided by respective packages
+                //these must be added manually because the config provider of the modules does not inject them automatically
                 \Dot\Session\SessionMiddleware::class,
+                \Dot\FlashMessenger\FlashMessengerMiddleware::class,
             ],
             'priority' => 10000,
         ],

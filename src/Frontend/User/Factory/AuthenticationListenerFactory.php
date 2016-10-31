@@ -9,7 +9,7 @@
 
 namespace Dot\Frontend\User\Factory;
 
-use Dot\Frontend\Authentication\AuthenticationListener;
+use Dot\Frontend\User\Listener\AuthenticationListener;
 use Dot\Frontend\User\Mapper\UserDetailsMapperInterface;
 use Interop\Container\ContainerInterface;
 
