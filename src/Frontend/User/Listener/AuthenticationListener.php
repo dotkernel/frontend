@@ -71,6 +71,9 @@ class AuthenticationListener extends AbstractListenerAggregate
         $request = $e->getRequest();
         $error = $e->getError();
 
+        //we disable the login input labels here
+        $e->setParam('showLabels', false);
+
         if ($request->getMethod() === 'POST' && empty($error)) {
             $identity = $e->getParam('identity', '');
             $credential = $e->getParam('password', '');
