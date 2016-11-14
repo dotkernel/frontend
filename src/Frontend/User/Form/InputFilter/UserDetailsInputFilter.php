@@ -53,7 +53,7 @@ class UserDetailsInputFilter extends InputFilter
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'max' => 255,
+                        'max' => 150,
                         'message' => $this->userOptions->getMessagesOptions()
                             ->getMessage(MessagesOptions::MESSAGE_FIRST_NAME_CHARACTER_LIMIT)
                     ]
@@ -78,7 +78,7 @@ class UserDetailsInputFilter extends InputFilter
                 [
                     'name' => 'StringLength',
                     'options' => [
-                        'max' => 255,
+                        'max' => 150,
                         'message' => $this->userOptions->getMessagesOptions()
                             ->getMessage(MessagesOptions::MESSAGE_LAST_NAME_CHARACTER_LIMIT)
                     ]

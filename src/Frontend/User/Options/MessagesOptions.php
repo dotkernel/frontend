@@ -35,9 +35,9 @@ class MessagesOptions extends \Dot\User\Options\MessagesOptions
         //merge the extended class's messages with the new default ones
         $this->messages = ArrayUtils::merge($this->messages, [
             MessagesOptions::MESSAGE_FIRST_NAME_EMPTY => 'First name is required and cannot be empty',
-            MessagesOptions::MESSAGE_FIRST_NAME_CHARACTER_LIMIT => 'First name character limit exceeded',
+            MessagesOptions::MESSAGE_FIRST_NAME_CHARACTER_LIMIT => 'First name cannot have more than 150 characters',
             MessagesOptions::MESSAGE_LAST_NAME_EMPTY => 'Last name is required and cannot be empty',
-            MessagesOptions::MESSAGE_LAST_NAME_CHARACTER_LIMIT => 'Last name character limit exceeded',
+            MessagesOptions::MESSAGE_LAST_NAME_CHARACTER_LIMIT => 'Last name cannot have more than 150 characters',
 
             MessagesOptions::MESSAGE_ACCOUNT_UPDATE_ERROR => 'Account update failed. Please try again',
             MessagesOptions::MESSAGE_ACCOUNT_UPDATE_SUCCESS => 'Account successfully updated',
