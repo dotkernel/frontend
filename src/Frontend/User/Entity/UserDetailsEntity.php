@@ -9,11 +9,13 @@
 
 namespace Dot\Frontend\User\Entity;
 
+use Dot\Ems\Entity\IgnorePropertyProvider;
+
 /**
  * Class UserDetailsEntity
  * @package Dot\Frontend\User\Entity
  */
-class UserDetailsEntity
+class UserDetailsEntity implements \JsonSerializable , IgnorePropertyProvider
 {
     /** @var  int */
     protected $userId;
@@ -99,5 +101,14 @@ class UserDetailsEntity
         return $this;
     }
 
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+
+    public function ignoredProperties()
+    {
+        return [];
+    }
 
 }

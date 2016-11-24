@@ -10,7 +10,6 @@
 namespace Dot\Frontend\User\Service;
 
 use Dot\Frontend\User\Event\UserUpdateEvent;
-use Dot\Frontend\User\Options\MessagesOptions;
 use Dot\User\Entity\UserEntityInterface;
 use Dot\User\Result\ResultInterface;
 use Dot\User\Result\UserOperationResult;
@@ -21,39 +20,47 @@ use Dot\User\Result\UserOperationResult;
  */
 class UserService extends \Dot\User\Service\UserService implements UserServiceInterface
 {
+    const MESSAGE_ACCOUNT_UPDATE_ERROR = 'Account could not be updated due to a server error. Pleast try again';
+    const MESSAGE_ACCOUNT_UPDATE_OK = 'Your account was successfully updated';
+
     /**
      * @param UserEntityInterface $user
      * @return UserOperationResult
      */
     public function updateAccountInfo(UserEntityInterface $user)
     {
-        $result = new UserOperationResult(true, $this->options->getMessagesOptions()
-            ->getMessage(MessagesOptions::MESSAGE_ACCOUNT_UPDATE_SUCCESS));
+        $result = new UserOperationResult(true, static::MESSAGE_ACCOUNT_UPDATE_OK);
 
+        $isAtomic = $this->isAtomicOperations();
         try {
-            $this->userMapper->beginTransaction();
+            $this->setAtomicOperations(false);
+            $this->mapper->beginTransaction();
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_PRE, $user));
 
-            $this->saveUser($user);
+            $this->save($user);
 
             $result->setUser($user);
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_POST, $user));
 
-            $this->userMapper->commit();
+            $this->mapper->commit();
+            $this->setAtomicOperations($isAtomic);
+
         } catch (\Exception $e) {
             error_log('Update user error: ' . $e->getMessage());
+
+            $message = $this->debug ? $e->getMessage() : static::MESSAGE_ACCOUNT_UPDATE_ERROR;
             $result = $this->createUserOperationResultWithException(
-                $e, $this->options->getMessagesOptions()->getMessage(MessagesOptions::MESSAGE_ACCOUNT_UPDATE_ERROR),
-                $user);
+                $e, $message, $user);
 
             $this->getEventManager()->triggerEvent(
                 $this->createUpdateEvent(UserUpdateEvent::EVENT_UPDATE_ERROR, $user, $result));
 
-            $this->userMapper->rollback();
+            $this->mapper->rollback();
+            $this->setAtomicOperations($isAtomic);
         }
 
         return $result;

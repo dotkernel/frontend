@@ -26,7 +26,7 @@ class RegisterFormListenerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        /** @var \Dot\Frontend\User\Options\UserOptions $userOptions */
+        /** @var UserOptions $userOptions */
         $userOptions = $container->get(UserOptions::class);
 
         $userDetailsFieldset = new UserDetailsFieldset();

@@ -9,8 +9,7 @@
 
 namespace Dot\Frontend\User\Form;
 
-use Dot\Frontend\User\Options\MessagesOptions;
-use Dot\User\Options\UserOptions;
+use Zend\Form\Fieldset;
 use Zend\Form\Form;
 
 /**
@@ -19,39 +18,32 @@ use Zend\Form\Form;
  */
 class UserForm extends Form
 {
-    /** @var  UserOptions */
-    protected $userOptions;
+    /** @var  Fieldset */
+    protected $userFieldset;
+
+    /** @var  Fieldset */
+    protected $detailsFieldset;
 
     /**
      * UserForm constructor.
-     * @param UserOptions $userOptions
-     * @param string $name
+     * @param Fieldset $userFieldset
+     * @param Fieldset $detailsFieldset
      * @param array $options
      */
-    public function __construct(UserOptions $userOptions, $name = 'user', array $options = [])
+    public function __construct(Fieldset $userFieldset, Fieldset $detailsFieldset, array $options = [])
     {
-        $this->userOptions = $userOptions;
-        parent::__construct($name, $options);
+        $this->detailsFieldset = $detailsFieldset;
+        $this->userFieldset = $userFieldset;
+        parent::__construct('user_form', $options);
     }
 
     public function init()
     {
-        $this->add([
-            'name' => 'username',
-            'type' => 'text',
-            'options' => [
-                'label' => 'Username'
-            ],
-            'attributes' => [
-                'placeholder' => 'Username'
-            ]
-        ]);
+        $this->add($this->userFieldset->get('username'));
+        $this->detailsFieldset->setName('details');
 
-        $detailsFieldset = new UserDetailsFieldset();
-        $detailsFieldset->init();
-        $detailsFieldset->setName('details');
 
-        $this->add($detailsFieldset);
+        //$this->add($detailsFieldset);
 
         $this->add([
             'type' => 'Csrf',
@@ -59,8 +51,7 @@ class UserForm extends Form
             'options' => [
                 'csrf_options' => [
                     'timeout' => 1800,
-                    'message' => $this->userOptions->getMessagesOptions()
-                        ->getMessage(MessagesOptions::MESSAGE_CSRF_EXPIRED)
+                    'message' => ''
                 ]
             ]
         ]);

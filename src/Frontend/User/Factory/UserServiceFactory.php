@@ -13,8 +13,8 @@ use Dot\Authentication\AuthenticationInterface;
 use Dot\Frontend\User\Service\UserService;
 use Dot\User\Mapper\UserMapperInterface;
 use Dot\User\Options\UserOptions;
-use Dot\User\Service\PasswordInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Crypt\Password\PasswordInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
 
@@ -49,8 +49,6 @@ class UserServiceFactory extends \Dot\User\Factory\UserServiceFactory
             $container->get(AuthenticationInterface::class)
         );
 
-        $service->setUserEntityPrototype($container->get($options->getUserEntity()));
-        $service->setUserEntityHydrator($container->get($options->getUserEntityHydrator()));
         $service->setEventManager($eventManager);
         $service->setDebug($isDebug);
 

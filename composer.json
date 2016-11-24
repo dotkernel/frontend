@@ -30,6 +30,7 @@
 
     "dotkernel/dot-helpers": "0.6.x-dev",
     "dotkernel/dot-mapper": "0.6.x-dev",
+    "dotkernel/dot-ems": "0.6.x-dev",
     "dotkernel/dot-event": "0.6.x-dev",
     "dotkernel/dot-session": "0.6.x-dev",
     "dotkernel/dot-flashmessenger": "0.6.x-dev",
@@ -56,6 +57,12 @@
     "squizlabs/php_codesniffer": "^2.3",
     "filp/whoops": "^1.1 || ^2.0"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/dotkernel/dot-ems"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Dot\\Frontend\\": "src/Frontend/"

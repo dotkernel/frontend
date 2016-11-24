@@ -23,6 +23,9 @@ class UserEntity extends \Dot\User\Entity\UserEntity
      */
     public function getDetails()
     {
+        if(!$this->details) {
+            $this->details = new UserDetailsEntity();
+        }
         return $this->details;
     }
 

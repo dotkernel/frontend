@@ -10,7 +10,6 @@
 namespace Dot\Frontend\User\Factory;
 
 use Dot\Frontend\User\Listener\AuthenticationListener;
-use Dot\Frontend\User\Mapper\UserDetailsMapperInterface;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -25,6 +24,6 @@ class AuthenticationListenerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new AuthenticationListener($container->get(UserDetailsMapperInterface::class));
+        return new AuthenticationListener();
     }
 }
