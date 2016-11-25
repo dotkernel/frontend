@@ -9,13 +9,11 @@
 
 namespace Dot\Frontend\User\Factory;
 
+use Dot\Ems\Validator\NoRecordsExists;
 use Dot\Frontend\User\Controller\UserController;
-use Dot\Frontend\User\Options\MessagesOptions;
 use Dot\User\Form\UserFormManager;
-use Dot\User\Mapper\UserMapperInterface;
 use Dot\User\Options\UserOptions;
 use Dot\User\Service\UserServiceInterface;
-use Dot\User\Validator\NoRecordsExists;
 use Interop\Container\ContainerInterface;
 use Zend\Validator\AbstractValidator;
 
@@ -31,17 +29,16 @@ class UserControllerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        /** @var \Dot\Frontend\User\Options\UserOptions $userOptions */
+        /** @var UserOptions $userOptions */
         $userOptions = $container->get(UserOptions::class);
         $userService = $container->get(UserServiceInterface::class);
 
         /** @var AbstractValidator $usernameValidator */
         $usernameValidator = new NoRecordsExists([
-            'mapper' => $container->get(UserMapperInterface::class),
+            'service' => $userService,
             'key' => 'username',
         ]);
-        $usernameValidator->setMessage($userOptions->getMessagesOptions()
-            ->getMessage(MessagesOptions::MESSAGE_REGISTER_USERNAME_ALREADY_REGISTERED));
+        $usernameValidator->setMessage('Requested username is already taken. Please choose another one');
 
         $controller = new UserController(
             $userService,

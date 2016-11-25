@@ -20,25 +20,24 @@ return [
             \Dot\Frontend\User\Entity\UserEntity::class =>
                 \Zend\ServiceManager\Factory\InvokableFactory::class,
 
-            \Dot\Frontend\User\Entity\UserEntityHydrator::class =>
-                \Zend\ServiceManager\Factory\InvokableFactory::class,
-
-            //********************************
-            //extended user mapper and user details mapper
-            \Dot\Frontend\User\Mapper\UserDetailsMapperInterface::class =>
-                \Dot\Frontend\User\Factory\UserDetailsDbMapperFactory::class,
-
-            //overwrite the user mapper service with our custom extended class
-            \Dot\User\Mapper\UserMapperInterface::class =>
-                \Dot\Frontend\User\Factory\UserDbMapperFactory::class,
-
             //overwrite the user service with our custom extended class
             \Dot\User\Service\UserServiceInterface::class =>
                 \Dot\Frontend\User\Factory\UserServiceFactory::class,
 
-            //overwrite user options class with the one we extended, to include new messages and template options
-            \Dot\User\Options\UserOptions::class =>
-                \Dot\Frontend\User\Factory\UserOptionsFactory::class
+            \Dot\Frontend\User\Form\UserDetailsFieldset::class =>
+                \Dot\Frontend\User\Factory\Form\UserDetailsFieldsetFactory::class,
+
+            \Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter::class =>
+                \Dot\Frontend\User\Factory\Form\UserDetailsInputFilterFactory::class,
+
+            \Dot\Frontend\User\Form\UserForm::class =>
+                \Dot\Frontend\User\Factory\Form\UserFormFactory::class,
+        ],
+
+        'delegators' => [
+            \Dot\User\Mapper\UserMapperInterface::class => [
+                \Dot\Frontend\User\Factory\UserDbMapperDelegator::class,
+            ]
         ],
 
         'shared' => [
@@ -54,7 +53,7 @@ return [
 
         //user entity and its hydrator to use for user transactions
         'user_entity' => \Dot\Frontend\User\Entity\UserEntity::class,
-        'user_entity_hydrator' => \Dot\Frontend\User\Entity\UserEntityHydrator::class,
+        'user_entity_hydrator' => \Dot\User\Entity\UserEntityHydrator::class,
 
         //bcrypt cost, default to 11
         'password_cost' => 11,

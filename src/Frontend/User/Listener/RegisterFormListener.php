@@ -46,12 +46,13 @@ class RegisterFormListener
     {
         /** @var Form $form */
         $form = $e->getTarget();
-        $this->userDetailsFieldset->setName('details');
+        $baseFieldset = $form->getBaseFieldset();
 
+        $this->userDetailsFieldset->setName('details');
         //TODO: remove some elements from the fieldset that you don't want in the register form
         //this is not the case right now, as this fieldset contains only lastName and firstName
 
-        $form->add($this->userDetailsFieldset);
-        $form->getInputFilter()->add($this->userDetailsFilter, 'details');
+        $baseFieldset->add($this->userDetailsFieldset);
+        $form->getInputFilter()->get('user')->add($this->userDetailsFilter, 'details');
     }
 }

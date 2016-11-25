@@ -80,9 +80,9 @@ class UserController extends AbstractActionController
 
             //in case username is changed we need to check its uniqueness
             //but only in case username was actually changed from the previous one
-            if ($data['username'] !== $identity->getUsername() && $this->usernameValidator) {
+            if (isset($data['username']) && $data['username'] !== $identity->getUsername() && $this->usernameValidator) {
                 //consider we want to change username
-                $form->getInputFilter()->get('username')
+                $form->getInputFilter()->get('user')->get('username')
                     ->getValidatorChain()
                     ->attach($this->usernameValidator);
             }
@@ -102,7 +102,7 @@ class UserController extends AbstractActionController
                 $result = $this->userService->updateAccountInfo($user);
 
                 if ($result->isValid()) {
-                    $this->addSuccess('Account successfully updated');
+                    $this->addSuccess('Your account was successfully updated');
                     return new RedirectResponse($request->getUri());
                 } else {
                     $this->addError($result->getMessages());

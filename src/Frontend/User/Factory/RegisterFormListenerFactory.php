@@ -29,11 +29,8 @@ class RegisterFormListenerFactory
         /** @var UserOptions $userOptions */
         $userOptions = $container->get(UserOptions::class);
 
-        $userDetailsFieldset = new UserDetailsFieldset();
-        $userDetailsFieldset->init();
-
-        $userDetailsFilter = new UserDetailsInputFilter($userOptions);
-        $userDetailsFilter->init();
+        $userDetailsFieldset = $container->get(UserDetailsFieldset::class);
+        $userDetailsFilter = $container->get(UserDetailsInputFilter::class);
 
         return new RegisterFormListener($userDetailsFieldset, $userDetailsFilter);
     }

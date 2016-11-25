@@ -9,10 +9,11 @@
 
 namespace Dot\Frontend\User\Factory\Form;
 
-use Dot\Frontend\User\Entity\UserEntityHydrator;
 use Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter;
-use Dot\Frontend\User\Form\InputFilter\UserInputFilter;
+use Dot\Frontend\User\Form\UserDetailsFieldset;
 use Dot\Frontend\User\Form\UserForm;
+use Dot\User\Form\Fieldset\UserFieldset;
+use Dot\User\Form\InputFilter\UserInputFilter;
 use Dot\User\Options\UserOptions;
 use Interop\Container\ContainerInterface;
 
@@ -30,17 +31,14 @@ class UserFormFactory
     {
         $userOptions = $container->get(UserOptions::class);
 
-        $form = new UserForm($userOptions);
+        $userFieldset = $container->get(UserFieldset::class);
+        $userInputFilter = $container->get(UserInputFilter::class);
+
+        $detailsFieldset = $container->get(UserDetailsFieldset::class);
+        $detailsInputFilter = $container->get(UserDetailsInputFilter::class);
+
+        $form = new UserForm($userFieldset, $userInputFilter, $detailsFieldset, $detailsInputFilter, $userOptions);
         $form->init();
-
-        $userDetailsInputFilter = new UserDetailsInputFilter($userOptions);
-        $userDetailsInputFilter->init();
-
-        $userFilter = new UserInputFilter($userOptions, $userDetailsInputFilter);
-        $userFilter->init();
-
-        $form->setInputFilter($userFilter);
-        $form->setHydrator(new UserEntityHydrator());
 
         return $form;
     }
