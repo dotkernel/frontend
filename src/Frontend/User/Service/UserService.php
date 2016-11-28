@@ -20,7 +20,7 @@ use Dot\User\Result\UserOperationResult;
  */
 class UserService extends \Dot\User\Service\UserService implements UserServiceInterface
 {
-    const MESSAGE_ACCOUNT_UPDATE_ERROR = 'Account could not be updated due to a server error. Pleast try again';
+    const MESSAGE_ACCOUNT_UPDATE_ERROR = 'Account could not be updated due to a server error. Please try again';
     const MESSAGE_ACCOUNT_UPDATE_OK = 'Your account was successfully updated';
 
     /**

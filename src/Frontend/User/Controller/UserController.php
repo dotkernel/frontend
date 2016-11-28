@@ -18,8 +18,6 @@ use Dot\User\Form\UserFormManager;
 use Dot\User\Result\UserOperationResult;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Form\Form;
-use Zend\Validator\AbstractValidator;
 
 /**
  * Class UserController
@@ -33,38 +31,39 @@ class UserController extends AbstractActionController
     /** @var  UserServiceInterface */
     protected $userService;
 
-    /** @var  AbstractValidator */
-    protected $usernameValidator;
-
     /**
      * UserController constructor.
      * @param UserServiceInterface $userService
      * @param UserFormManager $formManager
-     * @param AbstractValidator|null $usernameValidator
      */
     public function __construct(
         UserServiceInterface $userService,
-        UserFormManager $formManager,
-        AbstractValidator $usernameValidator = null
+        UserFormManager $formManager
     ) {
         $this->userService = $userService;
         $this->formManager = $formManager;
-        $this->usernameValidator = $usernameValidator;
     }
 
     /**
      * @return HtmlResponse|RedirectResponse
+     * @throws \Exception
      */
     public function accountAction()
     {
         $request = $this->getRequest();
 
-        /** @var Form $form */
+        /** @var UserForm $form */
         $form = $this->formManager->get(UserForm::class);
 
         /** @var UserEntity $identity */
         $identity = $this->authentication()->getIdentity();
-        $form->bind($identity);
+        $user = $this->userService->find([$this->userService->getMapper()->getIdentifierName() => $identity->getId()]);
+        //this should never happen, that's why we treat it as exception
+        if(!$user instanceof UserEntityInterface) {
+            throw new \Exception('Could not load user entity for identity ID');
+        }
+
+        $form->bind($user);
 
         /**
          * Get previous form data stored in session, to re-display the information and/or errors
@@ -80,12 +79,12 @@ class UserController extends AbstractActionController
 
             //in case username is changed we need to check its uniqueness
             //but only in case username was actually changed from the previous one
-            if (isset($data['username']) && $data['username'] !== $identity->getUsername() && $this->usernameValidator) {
-                //consider we want to change username
-                $form->getInputFilter()->get('user')->get('username')
-                    ->getValidatorChain()
-                    ->attach($this->usernameValidator);
+            if (isset($data['user']['username']) && $data['user']['username'] === $identity->getUsername()) {
+                //consider we don't want to change username, remove the uniqueness check
+                $form->removeUsernameValidation();
+                $form->applyValidationGroup();
             }
+
             $form->setData($data);
 
             $isValid = $form->isValid();

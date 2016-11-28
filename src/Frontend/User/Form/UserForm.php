@@ -12,6 +12,7 @@ namespace Dot\Frontend\User\Form;
 use Dot\User\Options\UserOptions;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
+use Zend\Form\FormInterface;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -34,6 +35,10 @@ class UserForm extends Form
 
     /** @var  InputFilter */
     protected $detailsInputFilter;
+
+    protected $currentValidationGroups = [
+        'id' => true, 'username' => true, 'details' => ['firstName' => true, 'lastName' => true]
+    ];
 
     /**
      * UserForm constructor.
@@ -102,5 +107,38 @@ class UserForm extends Form
             ],
             ['priority' => -100]
         ]);
+    }
+
+    public function removeUsernameValidation()
+    {
+        $this->currentValidationGroups['username'] = false;
+    }
+
+    public function resetValidationGroup()
+    {
+        foreach ($this->currentValidationGroups as $key => $value) {
+            $this->currentValidationGroups[$key] = true;
+        }
+        $this->setValidationGroup(FormInterface::VALIDATE_ALL);
+    }
+
+    public function applyValidationGroup()
+    {
+        $validationGroup = $this->getActiveValidationGroup($this->currentValidationGroups);
+        $this->setValidationGroup(['user' => $validationGroup]);
+    }
+
+    public function getActiveValidationGroup($groups)
+    {
+        $validationGroup = [];
+        foreach ($groups as $key => $value) {
+            if(is_array($value)) {
+                $validation[$key] = $this->getActiveValidationGroup($value);
+            }
+            elseif($value === true) {
+                $validationGroup[] = $key;
+            }
+        }
+        return $validationGroup;
     }
 }
