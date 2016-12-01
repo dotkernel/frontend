@@ -15,15 +15,6 @@ return [
             \Dot\Frontend\User\Listener\RegisterFormListener::class =>
                 \Dot\Frontend\User\Factory\RegisterFormListenerFactory::class,
 
-            //****************************
-            //we overwrite the default user entity with this ones, to include details field
-            \Dot\Frontend\User\Entity\UserEntity::class =>
-                \Zend\ServiceManager\Factory\InvokableFactory::class,
-
-            //overwrite the user service with our custom extended class
-            \Dot\User\Service\UserServiceInterface::class =>
-                \Dot\Frontend\User\Factory\UserServiceFactory::class,
-
             \Dot\Frontend\User\Form\UserDetailsFieldset::class =>
                 \Dot\Frontend\User\Factory\Form\UserDetailsFieldsetFactory::class,
 
@@ -32,16 +23,19 @@ return [
 
             \Dot\Frontend\User\Form\UserForm::class =>
                 \Dot\Frontend\User\Factory\Form\UserFormFactory::class,
+
+            \Dot\Frontend\User\Service\UserService::class =>
+                \Dot\User\Factory\UserServiceFactory::class,
         ],
 
         'delegators' => [
-            \Dot\User\Mapper\UserMapperInterface::class => [
+            \Dot\User\Mapper\UserDbMapper::class => [
                 \Dot\Frontend\User\Factory\UserDbMapperDelegator::class,
             ]
         ],
 
-        'shared' => [
-            \Dot\Frontend\User\Entity\UserEntity::class => false,
+        'aliases' => [
+            \Dot\User\Service\UserServiceInterface::class => \Dot\Frontend\User\Service\UserService::class
         ],
     ],
 
@@ -53,7 +47,6 @@ return [
 
         //user entity and its hydrator to use for user transactions
         'user_entity' => \Dot\Frontend\User\Entity\UserEntity::class,
-        'user_entity_hydrator' => \Dot\User\Entity\UserEntityHydrator::class,
 
         //bcrypt cost, default to 11
         'password_cost' => 11,

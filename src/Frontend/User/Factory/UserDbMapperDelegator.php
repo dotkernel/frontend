@@ -9,7 +9,6 @@
 
 namespace Dot\Frontend\User\Factory;
 
-
 use Dot\Ems\Mapper\DbMapper;
 use Dot\Ems\Mapper\Relation\OneToOneRelation;
 use Dot\Ems\Mapper\RelationalDbMapper;
@@ -27,12 +26,14 @@ class UserDbMapperDelegator implements DelegatorFactoryInterface
     {
         $mapper = $callback();
         if($mapper instanceof RelationalDbMapper) {
-            $relation = new OneToOneRelation(new DbMapper(
+            $detailsMapper = new DbMapper(
                 'user_details',
                 $container->get('database'),
-                new UserDetailsEntity()), 'userId');
+                new UserDetailsEntity());
+            $detailsMapper->setIdentifierName('userId');
+            $relation = new OneToOneRelation($detailsMapper, 'userId', 'details');
 
-            $mapper->addRelation('details', $relation);
+            $mapper->addRelation($relation);
         }
 
         return $mapper;

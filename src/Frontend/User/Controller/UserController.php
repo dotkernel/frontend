@@ -62,7 +62,7 @@ class UserController extends AbstractActionController
         if(!$user instanceof UserEntityInterface) {
             throw new \Exception('Could not load user entity for identity ID');
         }
-
+        //var_dump($user);exit;
         $form->bind($user);
 
         /**
