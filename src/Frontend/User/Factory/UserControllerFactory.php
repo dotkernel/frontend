@@ -11,7 +11,6 @@ namespace Dot\Frontend\User\Factory;
 
 use Dot\Frontend\User\Controller\UserController;
 use Dot\User\Form\UserFormManager;
-use Dot\User\Service\UserServiceInterface;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -26,7 +25,7 @@ class UserControllerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $userService = $container->get(UserServiceInterface::class);
+        $userService = $container->get('UserService');
 
         $controller = new UserController(
             $userService,

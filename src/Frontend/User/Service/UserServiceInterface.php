@@ -9,17 +9,13 @@
 
 namespace Dot\Frontend\User\Service;
 
-use Dot\User\Entity\UserEntityInterface;
-
 /**
  * Interface UserServiceInterface
  * @package Dot\Frontend\User\Service
  */
 interface UserServiceInterface extends \Dot\User\Service\UserServiceInterface
 {
-    /**
-     * @param UserEntityInterface $user
-     * @return mixed
-     */
-    public function updateAccountInfo(UserEntityInterface $user);
+    public function changeEmail($password, $newEmail);
+
+    public function removeAccount();
 }

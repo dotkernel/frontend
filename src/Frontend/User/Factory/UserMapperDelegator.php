@@ -11,7 +11,7 @@ namespace Dot\Frontend\User\Factory;
 
 use Dot\Ems\Mapper\DbMapper;
 use Dot\Ems\Mapper\Relation\OneToOneRelation;
-use Dot\Ems\Mapper\RelationalDbMapper;
+use Dot\Ems\Mapper\RelationalMapperInterface;
 use Dot\Frontend\User\Entity\UserDetailsEntity;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
@@ -20,12 +20,12 @@ use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
  * Class UserDbMapperDelegator
  * @package Dot\Frontend\User\Factory
  */
-class UserDbMapperDelegator implements DelegatorFactoryInterface
+class UserMapperDelegator implements DelegatorFactoryInterface
 {
     public function __invoke(ContainerInterface $container, $name, callable $callback, array $options = null)
     {
         $mapper = $callback();
-        if($mapper instanceof RelationalDbMapper) {
+        if($mapper instanceof RelationalMapperInterface) {
             $detailsMapper = new DbMapper(
                 'user_details',
                 $container->get('database'),
@@ -35,6 +35,7 @@ class UserDbMapperDelegator implements DelegatorFactoryInterface
 
             $mapper->addRelation($relation);
         }
+
 
         return $mapper;
     }

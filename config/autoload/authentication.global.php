@@ -1,11 +1,6 @@
 <?php
 
 return [
-    'dependencies' => [
-        'factories' => [
-            \Dot\Frontend\User\Service\PasswordCheck::class => \Dot\Frontend\User\Factory\PasswordCheckFactory::class,
-        ],
-    ],
     'dot_authentication' => [
         //required by the auth adapters, it may be optional for your custom adapters
         //specify the identity entity to use and its hydrator
@@ -29,14 +24,7 @@ return [
                 //name of the password db field
                 'credential_column' => 'password',
 
-                'callback_check' => \Dot\Frontend\User\Service\PasswordCheck::class,
-
-                //your password checking callback, use a closure, a service name of a callable or a callable class name
-                //we recommend using a service name or class name instead of closures, to be able to cache the config
-                //the below closure is just an example, to show you the callable signature
-                //'callback_check' => function($hash_passwd, $password) {
-                //    return $hash_passwd === md5($password);
-                //}
+                'callback_check' => \Dot\User\Service\PasswordCheck::class,
             ],
         ],
 

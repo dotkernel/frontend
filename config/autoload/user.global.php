@@ -21,21 +21,18 @@ return [
             \Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter::class =>
                 \Dot\Frontend\User\Factory\Form\UserDetailsInputFilterFactory::class,
 
-            \Dot\Frontend\User\Form\UserForm::class =>
-                \Dot\Frontend\User\Factory\Form\UserFormFactory::class,
-
             \Dot\Frontend\User\Service\UserService::class =>
                 \Dot\User\Factory\UserServiceFactory::class,
         ],
 
         'delegators' => [
             \Dot\User\Mapper\UserDbMapper::class => [
-                \Dot\Frontend\User\Factory\UserDbMapperDelegator::class,
+                \Dot\Frontend\User\Factory\UserMapperDelegator::class,
             ]
         ],
 
         'aliases' => [
-            \Dot\User\Service\UserServiceInterface::class => \Dot\Frontend\User\Service\UserService::class
+            'UserService' => \Dot\Frontend\User\Service\UserService::class
         ],
     ],
 
@@ -45,20 +42,12 @@ return [
             \Dot\Frontend\User\Listener\UserEventsListener::class,
         ],
 
-        //user entity and its hydrator to use for user transactions
         'user_entity' => \Dot\Frontend\User\Entity\UserEntity::class,
-
-        //bcrypt cost, default to 11
-        'password_cost' => 11,
 
         'enable_user_status' => true,
 
-        //enable user form labes display
-        'show_form_input_labels' => true,
+        'form_csrf_timeout' => 3600,
 
-        /**
-         * Db options in case we use PDO/Mysql
-         */
         'db_options' => [
             'db_adapter' => 'database',
 
@@ -67,69 +56,62 @@ return [
             'user_confirm_token_table' => 'user_confirm_token',
         ],
 
-        /**
-         * These are options related to user registrations
-         */
         'register_options' => [
             'enable_registration' => true,
 
             'enable_username' => true,
 
-            'user_form_timeout' => 1800,
-
             'use_registration_form_captcha' => true,
-
-            /*'form_captcha_options' => [
-                'class'   => 'Figlet',
-                'options' => [
-                    'wordLen'    => 5,
-                    'expiration' => 300,
-                    'timeout'    => 300,
-                ],
-            ],*/
 
             'login_after_registration' => false,
 
             'default_user_status' => 'pending',
+
+            //see dot-user documentation for more options...
         ],
 
         'login_options' => [
-            'login_form_timeout' => 1800,
 
             'enable_remember_me' => true,
-
-            'remember_me_cookie_name' => 'rememberMe',
-
-            'remember_me_cookie_expire' => 60 * 60 * 24 * 30,
 
             'remember_me_cookie_secure' => false,
 
             'auth_identity_fields' => ['username', 'email'],
 
             'allowed_login_statuses' => ['active'],
+
+            //see dot-user documentation for more options...
         ],
 
         'password_recovery_options' => [
             'enable_password_recovery' => true,
 
             'reset_password_token_timeout' => 3600,
+
+            //see dot-user documentation for more options...
         ],
 
         'confirm_account_options' => [
             'enable_account_confirmation' => true,
 
             'active_user_status' => 'active'
+
+            //see dot-user documentation for more options...
         ],
 
         'template_options' => [
-            'change_password_template' => 'user::change-password',
+            'account_template_layout' => '@layout/account-sidemenu.html.twig',
+            'change_password_template_layout' => '@layout/account-sidemenu.html.twig',
+
+            //see dot-user documentation for more options...
         ],
 
         'form_manager' => [
-            'factories' => [
-                \Dot\Frontend\User\Form\UserForm::class =>
-                    \Dot\Frontend\User\Factory\Form\UserFormFactory::class,
-            ]
+            'delegators' => [
+                \Dot\User\Form\UserForm::class => [
+                    \Dot\Frontend\User\Factory\Form\UserFormDelegator::class,
+                ]
+            ],
         ],
 
         'messages_options' => [
@@ -137,15 +119,14 @@ return [
                 \Dot\User\Options\MessagesOptions::MESSAGE_REGISTER_SUCCESS =>
                     'Account created. Check your email for confirmation'
             ]
+
+            //see dot-user documentation for more options...
         ],
     ],
 
     'dot_authentication' => [
         //this package specific configuration template
         'web' => [
-            //template name to use for the login form
-            //'login_template' => 'dot-user::login',
-
             //where to redirect after login success
             'after_login_route' => 'home',
             //where to redirect after logging out

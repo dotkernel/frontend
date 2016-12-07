@@ -42,19 +42,19 @@ return [
         ],
 
         //enable wanted url appending, used in the redirect on forbidden handler for now
-        'allow_redirect_param' => true,
+        //'allow_redirect_param' => true,
 
         //the name of the query param appended for the wanted url
-        'redirect_query_name' => 'redirect',
+        //'redirect_query_name' => 'redirect',
 
         //options for the redirect on forbidden handler
-        'redirect_options' => [
+        /*'redirect_options' => [
 
             'enable' => false,
 
             'redirect_route' => ['name' => 'login', 'params' => []],
 
-        ],
+        ],*/
 
         //overwrite default messages
         //'messages_options' => [],
