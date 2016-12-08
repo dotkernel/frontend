@@ -30,6 +30,7 @@ class UserMapperDelegator implements DelegatorFactoryInterface
                 'user_details',
                 $container->get('database'),
                 new UserDetailsEntity());
+
             $detailsMapper->setIdentifierName('userId');
             $relation = new OneToOneRelation($detailsMapper, 'userId', 'details');
 

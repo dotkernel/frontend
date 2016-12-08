@@ -46,6 +46,8 @@ return [
 
         'enable_user_status' => true,
 
+        'show_form_input_labels' => true,
+
         'form_csrf_timeout' => 3600,
 
         'db_options' => [

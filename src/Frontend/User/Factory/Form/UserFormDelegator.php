@@ -37,6 +37,10 @@ class UserFormDelegator implements DelegatorFactoryInterface
         $userDetailsFieldset->setName('details');
 
         $form->getBaseFieldset()->add($userDetailsFieldset);
+
+        $form->getBaseFieldset()->remove('email');
+        $form->getInputFilter()->remove('email');
+
         $form->getInputFilter()->get('user')->add($userDetailsFilter, 'details');
 
         return $form;

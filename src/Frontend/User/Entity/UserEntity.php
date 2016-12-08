@@ -39,5 +39,9 @@ class UserEntity extends \Dot\User\Entity\UserEntity
         return $this;
     }
 
+    public function ignoredProperties()
+    {
+        return array_merge(parent::ignoredProperties(), ['details']);
+    }
 
 }
