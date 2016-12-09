@@ -102,8 +102,10 @@ return [
         ],
 
         'template_options' => [
-            'account_template_layout' => '@layout/account-sidemenu.html.twig',
-            'change_password_template_layout' => '@layout/account-sidemenu.html.twig',
+            'account_template_layout' => '@layout/sidemenu.html.twig',
+            'change_password_template_layout' => '@layout/sidemenu.html.twig',
+            'login_template_layout' => '@layout/single-form.html.twig',
+            'register_template_layout' => '@layout/single-form.html.twig',
 
             //see dot-user documentation for more options...
         ],

@@ -47,8 +47,28 @@
     <div class="app-content">
         <main class="container">
             <div class="row">
-                {% block side_panel %}{% endblock %}
-                {% block content %}{% endblock %}
+                {% set _side_menu_block = block('side_menu') %}
+                {% set contentColClass = 'col-md-12' %}
+
+                {% if _side_menu_block is not empty %}
+                    {% set contentColClass = 'col-md-9' %}
+                    <div class="col-md-3 side-menu">
+                        {{ _side_menu_block|raw }}
+                    </div>
+                {% endif %}
+
+                <div class="{{ contentColClass }}">
+                    <div class="{% block content_classes %}{% endblock %} content-wrapper">
+
+                        {% set _page_title = block('page_title') %}
+
+                        {% if _page_title is not empty %}
+                            <h2 class="page-header">{{ _page_title|raw }}</h2>
+                        {% endif %}
+
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
             </div>
         </main>
     </div>

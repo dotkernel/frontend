@@ -1,23 +1,10 @@
-{% extends '@layout/default.html.twig' %}
+{% extends '@layout/sidemenu.html.twig' %}
 
 {% block title %}Remove Account{% endblock %}
 
-{% block side_panel %}
-    <div class="col-md-3">
-        {{ navigationPartial('account_side_menu', 'partial::account-sidemenu') }}
-    </div>
-{% endblock %}
-
 {% block content %}
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-1">
-                <h2 class="page-header">Are you sure you want to remove account?</h2>
-                <p style="color: red">You will not be able to access your account after removal, and any data associated with your account will be removed</p>
+    <h2 class="page-header">Are you sure you want to remove your account?</h2>
+    <p style="color: red">You will not be able to access your account after removal, and any data associated with your account will be removed</p>
 
-                {{ flashMessagesPartial('dot-partial::alerts') }}
-
-            </div>
-        </div>
-    </div>
+    {{ flashMessagesPartial('dot-partial::alerts') }}
 {% endblock %}

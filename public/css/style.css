@@ -33,6 +33,19 @@ body { padding-top: 80px; }
     color: red;
 }
 
-.sidebar {
+.side-menu {
+    margin-top: 10px;
+}
 
+.page-header {
+    margin-top: 10px !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.content-wrapper {
+    padding-right: 12px;
+    padding-left: 12px;
 }
