@@ -49,3 +49,15 @@ body { padding-top: 80px; }
     padding-right: 12px;
     padding-left: 12px;
 }
+
+.nav-pills > li.active.remove-account-button > a {
+    background: red !important;
+}
+
+.remove-account-button a {
+    color: white !important;
+}
+
+.remove-account-button-inactive a {
+    color: red !important;
+}

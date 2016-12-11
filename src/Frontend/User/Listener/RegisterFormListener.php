@@ -49,8 +49,10 @@ class RegisterFormListener
         $baseFieldset = $form->getBaseFieldset();
 
         $this->userDetailsFieldset->setName('details');
-        //TODO: remove some elements from the fieldset that you don't want in the register form
-        //this is not the case right now, as this fieldset contains only lastName and firstName
+
+        //we remove phone and address from registration form, they are not required when registering
+        $this->userDetailsFieldset->remove('phone')->remove('address');
+        $this->userDetailsFilter->remove('phone')->remove('address');
 
         $baseFieldset->add($this->userDetailsFieldset);
         $form->getInputFilter()->get('user')->add($this->userDetailsFilter, 'details');

@@ -6,6 +6,14 @@
             {% set liClass = 'active' %}
         {% endif %}
 
+        {% if page.getOption('red-button') %}
+            {% if navigation.isActive(page) %}
+                {% set liClass = liClass ~ ' remove-account-button' %}
+            {% else %}
+                {% set liClass = 'remove-account-button-inactive' %}
+            {% endif %}
+        {% endif %}
+
         <li role="presentation" class="{{ liClass }}">
             <a href="{{ navigation.getHref(page) }}" {{ navigationPageAttributes(page) }} >
                 {{ page.getOption('label') }}

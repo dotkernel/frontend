@@ -23,6 +23,8 @@ class UserDetailsInputFilter extends InputFilter
     const LASTNAME_REQUIRED = 'Last name is required and cannot be empty';
     const LASTNAME_LIMIT = 'Last name cannot have more than 150 characters';
 
+    const PHONE_INVALID = 'Phone number is invalid';
+
     /**
      * initialize intput filter with default validators
      */
@@ -71,6 +73,32 @@ class UserDetailsInputFilter extends InputFilter
                         'message' => static::LASTNAME_LIMIT
                     ]
                 ]
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'address',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim']
+            ],
+            'validators' => [],
+        ]);
+
+        $this->add([
+            'name' => 'phone',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim']
+            ],
+            'validators' => [
+                [
+                    'name' => 'Regex',
+                    'options' => [
+                        'pattern' => '/^\+?\d+$/',
+                        'message' => static::PHONE_INVALID
+                    ]
+                ],
             ],
         ]);
     }

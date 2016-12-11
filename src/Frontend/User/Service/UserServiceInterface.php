@@ -15,7 +15,15 @@ namespace Dot\Frontend\User\Service;
  */
 interface UserServiceInterface extends \Dot\User\Service\UserServiceInterface
 {
+    /**
+     * @param $password
+     * @param $newEmail
+     * @return mixed
+     */
     public function changeEmail($password, $newEmail);
 
+    /**
+     * @return mixed
+     */
     public function removeAccount();
 }

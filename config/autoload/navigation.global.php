@@ -42,11 +42,9 @@ return [
                     'options' => [
                         'label' => 'Delete account',
                         'route' => 'user',
+                        'red-button' => true,
                         'params' => ['action' => 'remove-account'],
                     ],
-                    'attributes' => [
-                        'style' => 'color: red'
-                    ]
                 ],
             ],
 

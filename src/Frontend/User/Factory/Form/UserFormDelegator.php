@@ -42,6 +42,8 @@ class UserFormDelegator implements DelegatorFactoryInterface
         $form->getInputFilter()->remove('email');
 
         $form->getInputFilter()->get('user')->add($userDetailsFilter, 'details');
+        $form->setCurrentValidationGroup(array_merge($form->getCurrentValidationGroup(),
+            ['details' => ['firstName' => true, 'lastName' => true, 'address' => true, 'phone' => true]]));
 
         return $form;
 

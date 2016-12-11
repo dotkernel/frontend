@@ -50,5 +50,27 @@ class UserDetailsFieldset extends Fieldset
                 'placeholder' => 'Last Name'
             ]
         ]);
+
+        $this->add([
+            'type' => 'text',
+            'name' => 'address',
+            'options' => [
+                'label' => 'Address'
+            ],
+            'attributes' => [
+                'placeholder' => 'Address'
+            ]
+        ]);
+
+        $this->add([
+            'type' => 'text',
+            'name' => 'phone',
+            'options' => [
+                'label' => 'Phone number'
+            ],
+            'attributes' => [
+                'placeholder' => 'Phone number'
+            ]
+        ]);
     }
 }

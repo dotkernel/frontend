@@ -27,6 +27,9 @@ class UserDetailsEntity implements \JsonSerializable , IgnorePropertyProvider
     protected $lastName;
 
     /** @var  string */
+    protected $address;
+
+    /** @var  string */
     protected $phone;
 
     /**
@@ -98,6 +101,24 @@ class UserDetailsEntity implements \JsonSerializable , IgnorePropertyProvider
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     * @return UserDetailsEntity
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
         return $this;
     }
 
