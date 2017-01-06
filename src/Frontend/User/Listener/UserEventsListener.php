@@ -71,11 +71,17 @@ class UserEventsListener extends AbstractListenerAggregate
     {
         $this->listeners[] = $events->attach(RegisterEvent::EVENT_REGISTER_POST, [$this, 'onPostRegister'], $priority);
 
-        $this->listeners[] = $events->attach(ConfirmAccountEvent::EVENT_CONFIRM_ACCOUNT_TOKEN_POST,
-            [$this, 'onConfirmTokenGenerated'], $priority);
+        $this->listeners[] = $events->attach(
+            ConfirmAccountEvent::EVENT_CONFIRM_ACCOUNT_TOKEN_POST,
+            [$this, 'onConfirmTokenGenerated'],
+            $priority
+        );
 
-        $this->listeners[] = $events->attach(PasswordResetEvent::EVENT_PASSWORD_RESET_TOKEN_POST,
-            [$this, 'onResetPasswordTokenGenerated'], $priority);
+        $this->listeners[] = $events->attach(
+            PasswordResetEvent::EVENT_PASSWORD_RESET_TOKEN_POST,
+            [$this, 'onResetPasswordTokenGenerated'],
+            $priority
+        );
     }
 
     /**
@@ -118,11 +124,9 @@ class UserEventsListener extends AbstractListenerAggregate
             "\nIf you didn't make this request, please ignore this email \n" .
             "In order to reset your password, click the link bellow\n\n" .
             $this->serverUrlHelper->generate($resetPasswordUri) . "\n\n" .
-            "Please note this link will expired within an hour. Do not share this information with anyone!"
-        );
+            "Please note this link will expired within an hour. Do not share this information with anyone!");
 
         $this->mailService->send();
-
     }
 
     /**
@@ -143,7 +147,6 @@ class UserEventsListener extends AbstractListenerAggregate
         $confirmAccountUri .= '?' . http_build_query($query);
 
         if ($this->userOptions->getConfirmAccountOptions()->isEnableAccountConfirmation()) {
-
             $this->mailService->setServerRequest($e->getRequest());
             $this->mailService->setResponse($e->getResponse());
 
@@ -153,8 +156,7 @@ class UserEventsListener extends AbstractListenerAggregate
 
             $message->setBody("Welcome to DotKernel. Thank you for registering with us." .
                 "\nClick the link below to confirm your account \n\n" .
-                $this->serverUrlHelper->generate($confirmAccountUri)
-            );
+                $this->serverUrlHelper->generate($confirmAccountUri));
 
             $this->mailService->send();
         }

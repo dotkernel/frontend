@@ -23,4 +23,5 @@ $authenticationListeners->attach($eventManager);
 $eventManager->getSharedManager()->attach(
     \Dot\User\Form\RegisterForm::class,
     'init',
-    $container->get(\Dot\Frontend\User\Listener\RegisterFormListener::class));
+    $container->get(\Dot\Frontend\User\Listener\RegisterFormListener::class)
+);

@@ -1,94 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>{% block title %}{% endblock %} - DotKernel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="app">
-    <header class="app-header">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ path('home') }}">
-                        <img src="{{ asset('img/dk-logo.png') }}" alt="DotKernel" />
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <!-- parse the main menu -->
-                    {{ navigationPartial('main_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0})}}
-
-                    <!-- navbar-right with login form or account menu -->
-                    {{ navigationPartial('account_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
-
-                    {% if not hasIdentity() %}
-                        <div class="signup-btn navbar-right" >
-                            <a href="{{ path('user', {'action' : 'register'}) }}" class="btn btn-primary navbar-btn btn-block btn-lg">Sign Up</a>
-                        </div>
-                    {% endif %}
-
-                </div>
+<header class="app-header">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('home') }}">
+                    <img src="{{ asset('img/dk-logo.png') }}" alt="DotKernel"/>
+                </a>
             </div>
-        </nav>
-    </header>
+            <div class="collapse navbar-collapse">
+                <!-- parse the main menu -->
+                {{ navigationPartial('main_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
 
-    <div class="app-content">
-        <main class="container">
-            <div class="row">
-                {% set _side_menu_block = block('side_menu') %}
-                {% set contentColClass = 'col-md-12' %}
+                <!-- navbar-right with login form or account menu -->
+                {{ navigationPartial('account_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
 
-                {% if _side_menu_block is not empty %}
-                    {% set contentColClass = 'col-md-9' %}
-                    <div class="col-md-3 side-menu">
-                        {{ _side_menu_block|raw }}
+                {% if not hasIdentity() %}
+                    <div class="signup-btn navbar-right">
+                        <a href="{{ path('user', {'action' : 'register'}) }}"
+                           class="btn btn-primary navbar-btn btn-block btn-lg">Sign Up</a>
                     </div>
                 {% endif %}
 
-                <div class="{{ contentColClass }}">
-                    <div class="{% block content_classes %}{% endblock %} content-wrapper">
+            </div>
+        </div>
+    </nav>
+</header>
 
-                        {% set _page_title = block('page_title') %}
+<div class="app-content">
+    <main class="container">
+        <div class="row">
+            {% set _side_menu_block = block('side_menu') %}
+            {% set contentColClass = 'col-md-12' %}
 
-                        {% if _page_title is not empty %}
-                            <h2 class="page-header">{{ _page_title|raw }}</h2>
-                        {% endif %}
+            {% if _side_menu_block is not empty %}
+                {% set contentColClass = 'col-md-9' %}
+                <div class="col-md-3 side-menu">
+                    {{ _side_menu_block|raw }}
+                </div>
+            {% endif %}
 
-                        {% block content %}{% endblock %}
-                    </div>
+            <div class="{{ contentColClass }}">
+                <div class="{% block content_classes %}{% endblock %} content-wrapper">
+
+                    {% set _page_title = block('page_title') %}
+
+                    {% if _page_title is not empty %}
+                        <h2 class="page-header">{{ _page_title|raw }}</h2>
+                    {% endif %}
+
+                    {% block content %}{% endblock %}
                 </div>
             </div>
-        </main>
-    </div>
-
-    <footer class="app-footer">
-        <div class="container">
-            <hr />
-            {% block footer %}
-                <p>
-                    &copy; 2009 - {{ "now"|date("Y") }} by DotBoost Technologies Ltd. All rights reserved.
-                </p>
-            {% endblock %}
         </div>
-    </footer>
+    </main>
+</div>
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<footer class="app-footer">
+    <div class="container">
+        <hr/>
+        {% block footer %}
+            <p>
+                &copy; 2009 - {{ "now"|date("Y") }} by DotBoost Technologies Ltd. All rights reserved.
+            </p>
+        {% endblock %}
+    </div>
+</footer>
 
-    <script src="{{ asset('js/main.js') }}" ></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    {% block javascript %}{% endblock %}
+<script src="{{ asset('js/main.js') }}"></script>
+
+{% block javascript %}{% endblock %}
 </body>
 </html>

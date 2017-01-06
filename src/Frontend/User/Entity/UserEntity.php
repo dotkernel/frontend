@@ -23,7 +23,7 @@ class UserEntity extends \Dot\User\Entity\UserEntity
      */
     public function getDetails()
     {
-        if(!$this->details) {
+        if (!$this->details) {
             $this->details = new UserDetailsEntity();
         }
         return $this->details;
@@ -43,5 +43,4 @@ class UserEntity extends \Dot\User\Entity\UserEntity
     {
         return array_merge(parent::ignoredProperties(), ['details']);
     }
-
 }

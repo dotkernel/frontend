@@ -15,7 +15,7 @@ use Dot\Ems\Entity\IgnorePropertyProvider;
  * Class UserDetailsEntity
  * @package Dot\Frontend\User\Entity
  */
-class UserDetailsEntity implements \JsonSerializable , IgnorePropertyProvider
+class UserDetailsEntity implements \JsonSerializable, IgnorePropertyProvider
 {
     /** @var  int */
     protected $userId;
@@ -131,5 +131,4 @@ class UserDetailsEntity implements \JsonSerializable , IgnorePropertyProvider
     {
         return [];
     }
-
 }

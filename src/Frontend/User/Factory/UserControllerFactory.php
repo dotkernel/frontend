@@ -29,7 +29,8 @@ class UserControllerFactory
 
         $controller = new UserController(
             $userService,
-            $container->get(UserFormManager::class));
+            $container->get(UserFormManager::class)
+        );
 
         return $controller;
     }

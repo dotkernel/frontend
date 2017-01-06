@@ -9,7 +9,6 @@
 
 namespace Dot\Frontend\User\Service;
 
-
 /**
  * Class UserService
  * @package Dot\Frontend\User\Service

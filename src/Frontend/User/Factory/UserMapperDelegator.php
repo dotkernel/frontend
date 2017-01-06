@@ -25,11 +25,12 @@ class UserMapperDelegator implements DelegatorFactoryInterface
     public function __invoke(ContainerInterface $container, $name, callable $callback, array $options = null)
     {
         $mapper = $callback();
-        if($mapper instanceof RelationalMapperInterface) {
+        if ($mapper instanceof RelationalMapperInterface) {
             $detailsMapper = new DbMapper(
                 'user_details',
                 $container->get('database'),
-                new UserDetailsEntity());
+                new UserDetailsEntity()
+            );
 
             $detailsMapper->setIdentifierName('userId');
             $relation = new OneToOneRelation($detailsMapper, 'userId', 'details');

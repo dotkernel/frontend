@@ -18,7 +18,6 @@
     "zendframework/zend-expressive-fastroute": "^1.0",
     "zendframework/zend-servicemanager": "^2.7.3 || ^3.0",
     "zendframework/zend-expressive-twigrenderer": "^1.0",
-
     "zendframework/zend-db": "^2.8",
     "zendframework/zend-hydrator": "^2.2",
     "zendframework/zend-filter": "^2.6",
@@ -27,7 +26,6 @@
     "zendframework/zend-captcha": "^2.6",
     "zendframework/zendservice-recaptcha": "^2.0",
     "zendframework/zend-text": "^2.6",
-
     "dotkernel/dot-helpers": "0.6.x-dev",
     "dotkernel/dot-ems": "0.6.x-dev",
     "dotkernel/dot-event": "0.6.x-dev",
@@ -48,7 +46,6 @@
     "dotkernel/dot-mail": "0.6.x-dev",
     "dotkernel/dot-navigation": "0.6.x-dev",
     "dotkernel/dot-twigrenderer": "0.6.x-dev",
-
     "mtymek/expressive-config-manager": "^0.4.0"
   },
   "require-dev": {
