@@ -13,7 +13,7 @@ $cachedConfigFile = __DIR__ . '/../data/cache/app_config.php';
 $cachedConfigFile = __DIR__ . '/../data/cache/app_config.php';
 if (!is_dir(__DIR__ . '/../data/cache')) {
     mkdir(__DIR__ . '/../data/cache');
-    chmod(__DIR__ . '/../data/cache', 755);
+    chmod(__DIR__ . '/../data/cache', 0755);
 }
 
 $configManager = new \Zend\Expressive\ConfigManager\ConfigManager([
