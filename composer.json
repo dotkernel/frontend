@@ -1,6 +1,6 @@
 {
   "name": "dotkernel/dot-frontend",
-  "description": "Frontend DK application",
+  "description": "Dotkernel Frontend Application",
   "type": "project",
   "license": "MIT",
   "authors": [
