@@ -24,7 +24,7 @@ class PageController extends AbstractActionController
      */
     public function indexAction()
     {
-        return new RedirectResponse($this->urlHelper()->generate('home'));
+        return new RedirectResponse($this->url()->generate('home'));
     }
 
     /**

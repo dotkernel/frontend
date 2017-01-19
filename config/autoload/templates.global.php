@@ -8,6 +8,9 @@ return [
 
             Zend\Expressive\Template\TemplateRendererInterface::class =>
                 Zend\Expressive\Twig\TwigRendererFactory::class,
+
+            Twig_Environment::class =>
+                \Zend\Expressive\Twig\TwigEnvironmentFactory::class,
         ],
     ],
 

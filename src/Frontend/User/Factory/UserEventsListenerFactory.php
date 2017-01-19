@@ -28,7 +28,7 @@ class UserEventsListenerFactory
     public function __invoke(ContainerInterface $container)
     {
         return new UserEventsListener(
-            $container->get('dot-mail.mail-service.default'),
+            $container->get('dot-mail.service.default'),
             $container->get(ServerUrlHelper::class),
             $container->get(UrlHelper::class),
             $container->get(UserOptions::class)
