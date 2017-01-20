@@ -23,6 +23,7 @@
     "zendframework/zendservice-recaptcha": "^2.0",
     "zendframework/zend-text": "^2.6",
     "zendframework/zend-stdlib": "^3.0",
+    "zendframework/zend-psr7bridge": "^0.2.2",
     "zendframework/zend-config": "^2.6",
     "zendframework/zend-config-aggregator": "^0.2.0",
     "zendframework/zend-component-installer": "^0.6.0 || ~1.0",
