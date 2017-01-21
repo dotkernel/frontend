@@ -47,7 +47,8 @@
     "dotkernel/dot-user": "0.6.x-dev",
     "dotkernel/dot-mail": "0.6.x-dev",
     "dotkernel/dot-navigation": "0.6.x-dev",
-    "dotkernel/dot-twigrenderer": "0.6.x-dev"
+    "dotkernel/dot-twigrenderer": "0.6.x-dev",
+    "dotkernel/dot-annotated-services": "0.6.x-dev"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8",
@@ -60,6 +61,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/dotkernel/dot-ems"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/dotkernel/dot-annotated-services"
     }
   ],
   "autoload": {

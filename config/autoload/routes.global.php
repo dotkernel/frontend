@@ -31,5 +31,11 @@ return [
             'path' => '/page[/{action}]',
             'middleware' => \Dot\Frontend\Controller\PageController::class,
         ],
+
+        [
+            'name' => 'test',
+            'path' => '/test',
+            'middleware' => \Dot\Frontend\Action\TestAction::class,
+        ]
     ],
 ];

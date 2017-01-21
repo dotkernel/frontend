@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddd99d405033fee9234d21025f82beb0",
+    "content-hash": "fce5d59632b3cc64474b522c3e5e0b69",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -32,6 +32,196 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "time": "2014-12-30T15:22:37+00:00"
+        },
+        {
+            "name": "doctrine/annotations",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
+                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "1.*",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "1.*",
+                "phpunit/phpunit": "^5.6.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "time": "2016-12-30T15:59:45+00:00"
+        },
+        {
+            "name": "doctrine/lexer",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/lexer.git",
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Lexer\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "lexer",
+                "parser"
+            ],
+            "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "dotkernel/dot-annotated-services",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dotkernel/dot-annotated-services.git",
+                "reference": "e805926a9d491e61db1416df3633c9e0596bc7e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dotkernel/dot-annotated-services/zipball/e805926a9d491e61db1416df3633c9e0596bc7e3",
+                "reference": "e805926a9d491e61db1416df3633c9e0596bc7e3",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.3",
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-servicemanager": "^3.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "^1.6",
+                "phpunit/phpunit": "^4.7",
+                "squizlabs/php_codesniffer": "^2.5"
+            },
+            "suggest": {
+                "doctrine/cache": "To cache the result of processing the annotations and speed-up your application"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dot\\AnnotatedServices\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DotTest\\AnnotatedServices\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Popa Tiberiu",
+                    "email": "tibi@apidemia.com"
+                }
+            ],
+            "description": "Library providing auto-DI on services via annotations, without needing to write factories",
+            "keywords": [
+                "annotations",
+                "container",
+                "factories",
+                "service-manager",
+                "services",
+                "zf2",
+                "zf3"
+            ],
+            "support": {
+                "source": "https://github.com/dotkernel/dot-annotated-services/tree/master",
+                "issues": "https://github.com/dotkernel/dot-annotated-services/issues"
+            },
+            "time": "2017-01-21 02:15:04"
         },
         {
             "name": "dotkernel/dot-authentication",
@@ -5264,7 +5454,8 @@
         "dotkernel/dot-user": 20,
         "dotkernel/dot-mail": 20,
         "dotkernel/dot-navigation": 20,
-        "dotkernel/dot-twigrenderer": 20
+        "dotkernel/dot-twigrenderer": 20,
+        "dotkernel/dot-annotated-services": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
