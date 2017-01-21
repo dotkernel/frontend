@@ -9,6 +9,7 @@
 
 namespace Dot\Frontend\Controller;
 
+use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Controller\AbstractActionController;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -16,6 +17,8 @@ use Zend\Diactoros\Response\RedirectResponse;
 /**
  * Class PageController
  * @package Dot\Frontend\Controller
+ *
+ * @Service
  */
 class PageController extends AbstractActionController
 {

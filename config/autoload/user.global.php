@@ -5,16 +5,6 @@ return [
     'dependencies' => [
         //whatever dependencies you need additionally
         'factories' => [
-            //event listeners for authentication and user events
-            \Dot\Frontend\User\Listener\AuthenticationListener::class =>
-                \Dot\Frontend\User\Factory\AuthenticationListenerFactory::class,
-
-            \Dot\Frontend\User\Listener\UserEventsListener::class =>
-                \Dot\Frontend\User\Factory\UserEventsListenerFactory::class,
-
-            \Dot\Frontend\User\Listener\RegisterFormListener::class =>
-                \Dot\Frontend\User\Factory\RegisterFormListenerFactory::class,
-
             \Dot\Frontend\User\Form\UserDetailsFieldset::class =>
                 \Dot\Frontend\User\Factory\Form\UserDetailsFieldsetFactory::class,
 

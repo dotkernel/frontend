@@ -9,6 +9,8 @@
 
 namespace Dot\Frontend\User\Controller;
 
+use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Controller\AbstractActionController;
 use Dot\Frontend\User\Service\UserServiceInterface;
 use Dot\User\Form\UserFormManager;
@@ -17,6 +19,8 @@ use Zend\Diactoros\Response\HtmlResponse;
 /**
  * Class UserController
  * @package Dot\Frontend\User\Controller
+ *
+ * @Service
  */
 class UserController extends AbstractActionController
 {
@@ -30,6 +34,8 @@ class UserController extends AbstractActionController
      * UserController constructor.
      * @param UserServiceInterface $userService
      * @param UserFormManager $formManager
+     *
+     * @Inject({"UserService", UserFormManager::class})
      */
     public function __construct(
         UserServiceInterface $userService,

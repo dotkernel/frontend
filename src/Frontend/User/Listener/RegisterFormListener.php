@@ -9,14 +9,20 @@
 
 namespace Dot\Frontend\User\Listener;
 
+use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\AnnotatedServices\Annotation\Service;
 use Zend\EventManager\Event;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
+use Dot\Frontend\User\Form\UserDetailsFieldset;
+use Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter;
 
 /**
  * Class RegisterFormListener
  * @package Dot\Frontend\User\Listener
+ *
+ * @Service
  */
 class RegisterFormListener
 {
@@ -30,6 +36,8 @@ class RegisterFormListener
      * RegisterFormListener constructor.
      * @param Fieldset $userDetailsFieldset
      * @param InputFilter $userDetailsFilter
+     *
+     * @Inject({UserDetailsFieldset::class, UserDetailsInputFilter::class})
      */
     public function __construct(Fieldset $userDetailsFieldset, InputFilter $userDetailsFilter)
     {

@@ -5,10 +5,6 @@ return [
         'invokables' => [
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\FastRouteRouter::class,
         ],
-        // Map middleware -> factories here
-        'factories' => [
-            \Dot\Frontend\Action\HomePageAction::class => \Dot\Frontend\Factory\Action\HomePageFactory::class,
-        ],
     ],
 
     'routes' => [
@@ -31,11 +27,5 @@ return [
             'path' => '/page[/{action}]',
             'middleware' => \Dot\Frontend\Controller\PageController::class,
         ],
-
-        [
-            'name' => 'test',
-            'path' => '/test',
-            'middleware' => \Dot\Frontend\Action\TestAction::class,
-        ]
     ],
 ];

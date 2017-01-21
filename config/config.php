@@ -31,6 +31,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Helpers\ConfigProvider::class,
     \Dot\Mail\ConfigProvider::class,
     \Dot\Ems\ConfigProvider::class,
+    \Dot\AnnotatedServices\ConfigProvider::class,
     \Dot\Navigation\ConfigProvider::class,
     \Dot\Authentication\ConfigProvider::class,
     \Dot\Authentication\Web\ConfigProvider::class,
@@ -44,6 +45,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Session\ConfigProvider::class,
     \Dot\Twig\ConfigProvider::class,
     \Dot\User\ConfigProvider::class,
+    \Dot\Log\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):

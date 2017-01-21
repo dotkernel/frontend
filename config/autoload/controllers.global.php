@@ -2,15 +2,7 @@
 
 return [
 
-    'dependencies' => [
-        'factories' => [
-            \Dot\Frontend\User\Controller\UserController::class =>
-                \Dot\Frontend\User\Factory\UserControllerFactory::class,
-
-            \Dot\Frontend\Controller\PageController::class =>
-                \Dot\Frontend\Factory\Controller\PageControllerFactory::class,
-        ]
-    ],
+    'dependencies' => [],
 
     'dot_controller' => [
 
