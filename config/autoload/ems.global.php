@@ -2,7 +2,7 @@
 
 return [
     'dot_ems' => [
-        'service' => [
+        'services' => [
             //define mapper services
         ]
     ],
