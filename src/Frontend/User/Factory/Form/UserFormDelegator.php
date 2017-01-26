@@ -9,7 +9,7 @@
 
 namespace Dot\Frontend\User\Factory\Form;
 
-use Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter;
+use Dot\Frontend\User\Form\UserDetailsInputFilter;
 use Dot\Frontend\User\Form\UserDetailsFieldset;
 use Dot\User\Form\UserForm;
 use Interop\Container\ContainerInterface;

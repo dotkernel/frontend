@@ -16,7 +16,7 @@ use Zend\Form\Fieldset;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use Dot\Frontend\User\Form\UserDetailsFieldset;
-use Dot\Frontend\User\Form\InputFilter\UserDetailsInputFilter;
+use Dot\Frontend\User\Form\UserDetailsInputFilter;
 
 /**
  * Class RegisterFormListener
