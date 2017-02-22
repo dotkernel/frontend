@@ -9,6 +9,7 @@
 
 namespace Dot\Frontend\User\Listener;
 
+use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Authentication\Adapter\DbTable\DbCredentials;
 use Dot\Authentication\Web\Action\LoginAction;
 use Dot\Authentication\Web\Event\AuthenticationEvent;
@@ -18,6 +19,8 @@ use Zend\EventManager\EventManagerInterface;
 /**
  * Class AuthenticationListener
  * @package Dot\Frontend\Authentication
+ *
+ * @Service
  */
 class AuthenticationListener extends AbstractListenerAggregate
 {

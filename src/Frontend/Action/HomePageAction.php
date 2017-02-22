@@ -9,6 +9,8 @@
 
 namespace Dot\Frontend\Action;
 
+use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\AnnotatedServices\Annotation\Service;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -18,6 +20,8 @@ use Zend\Expressive\Template;
 /**
  * Class HomePageAction
  * @package Dot\Frontend\Action
+ *
+ * @Service
  */
 class HomePageAction
 {
@@ -31,6 +35,8 @@ class HomePageAction
      * HomePageAction constructor.
      * @param Router\RouterInterface $router
      * @param Template\TemplateRendererInterface|null $template
+     *
+     * @Inject({Router\RouterInterface::class, Template\TemplateRendererInterface::class})
      */
     public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
