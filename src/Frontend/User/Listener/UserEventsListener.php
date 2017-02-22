@@ -9,6 +9,8 @@
 
 namespace Dot\Frontend\User\Listener;
 
+use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Service\MailServiceInterface;
 use Dot\User\Entity\UserEntityInterface;
 use Dot\User\Event\ConfirmAccountEvent;
@@ -23,6 +25,8 @@ use Zend\Expressive\Helper\UrlHelper;
 /**
  * Class UserEventsListener
  * @package Dot\Frontend\User\Listener
+ *
+ * @Service
  */
 class UserEventsListener extends AbstractListenerAggregate
 {
@@ -50,6 +54,8 @@ class UserEventsListener extends AbstractListenerAggregate
      * @param ServerUrlHelper $serverUrlHelper
      * @param UrlHelper $urlHelper
      * @param UserOptions $userOptions
+     *
+     * @Inject({"dot-mail.service.default", ServerUrlHelper::class, UrlHelper::class, UserOptions::class})
      */
     public function __construct(
         MailServiceInterface $mailService,

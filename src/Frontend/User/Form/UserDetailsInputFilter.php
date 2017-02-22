@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace Dot\Frontend\User\Form\InputFilter;
+namespace Dot\Frontend\User\Form;
 
 use Zend\InputFilter\InputFilter;
 
