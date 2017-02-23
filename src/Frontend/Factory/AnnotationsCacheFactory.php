@@ -6,7 +6,7 @@
  * Time: 5:36 PM
  */
 
-namespace Dot\Frontend\Factory;
+namespace App\Frontend\Factory;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Interop\Container\ContainerInterface;

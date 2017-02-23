@@ -12,7 +12,14 @@ declare(strict_types = 1);
 namespace App\User;
 
 use App\User\Entity\UserEntity;
+use App\User\Factory\UserFieldsetDelegator;
 use App\User\Fieldset\UserDetailsFieldset;
+use App\User\Form\AccountForm;
+use App\User\Form\RegisterForm;
+use App\User\Mapper\UserDbMapper;
+use Dot\User\Factory\FormElementFactory;
+use Dot\User\Factory\UserDbMapperFactory;
+use Dot\User\Form\UserFieldset;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
@@ -43,7 +50,12 @@ class ConfigProvider
                 ],
 
                 'template_options' => [
-
+                    'login_template' => 'user::login',
+                    'register_template' => 'user::register',
+                    'account_template' => 'user::account',
+                    'change_password_template' => 'user::change-password',
+                    'forgot_password_template' => 'user::forgot-password',
+                    'reset_password_template' => 'user::reset-password',
                 ]
             ]
         ];
@@ -62,9 +74,19 @@ class ConfigProvider
             'form_manager' => [
                 'factories' => [
                     UserDetailsFieldset::class => InvokableFactory::class,
+                    RegisterForm::class => FormElementFactory::class,
+                    AccountForm::class => FormElementFactory::class,
                 ],
                 'aliases' => [
-                    'UserDetailsFieldset' => UserDetailsFieldset::class
+                    'UserDetailsFieldset' => UserDetailsFieldset::class,
+                    //overwrites some forms from dot-user
+                    'Register' => RegisterForm::class,
+                    'Account' => AccountForm::class,
+                ],
+                'delegators' => [
+                    UserFieldset::class => [
+                        UserFieldsetDelegator::class,
+                    ]
                 ]
             ]
         ];
@@ -73,7 +95,14 @@ class ConfigProvider
     public function getMappersConfig(): array
     {
         return [
-
+            'mapper_manager' => [
+                'factories' => [
+                    UserDbMapper::class => UserDbMapperFactory::class,
+                ],
+                'aliases' => [
+                    UserEntity::class => UserDbMapper::class,
+                ],
+            ]
         ];
     }
 }

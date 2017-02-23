@@ -11,21 +11,13 @@ return [
         [
             'name' => 'home',
             'path' => '/',
-            'middleware' => \Dot\Frontend\Action\HomePageAction::class,
+            'middleware' => \App\Frontend\Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
-
-        'user_route' => [
-            'middleware' => [
-                //add our user controller for additional actions
-                \Dot\Frontend\User\Controller\UserController::class,
-            ]
-        ],
-
         [
             'name' => 'page',
             'path' => '/page[/{action}]',
-            'middleware' => \Dot\Frontend\Controller\PageController::class,
+            'middleware' => \App\Frontend\Controller\PageController::class,
         ],
     ],
 ];

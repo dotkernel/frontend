@@ -1,0 +1,44 @@
+{% extends '@layout/sidemenu.html.twig' %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block page_title %}Update account information{% endblock %}
+
+{% block content %}
+    {{ flashMessagesPartial('partial::alerts') }}
+
+    {% set dummy = form.prepare() %}
+    {{ form().openTag(form) | raw }}
+
+    {{ formElement(form.get('id')) }}
+
+    {% set username = form.getBaseFieldset().get('username') %}
+    <div class="form-group {% if username.getMessages() %}has-error{% endif %}">
+        {% set dummy = username.setAttribute('class', 'form-control') %}
+        {{ formLabel(username) }}
+        {{ formElement(username) }}
+    </div>
+
+    {% set firstName = form.getBaseFieldset().get('details').get('firstName') %}
+    <div class="form-group {% if firstName.getMessages() %}has-error{% endif %}">
+        {% set dummy = firstName.setAttribute('class', 'form-control') %}
+        {{ formLabel(firstName) }}
+        {{ formElement(firstName) }}
+    </div>
+
+    {% set lastName = form.getBaseFieldset().get('details').get('lastName') %}
+    <div class="form-group {% if lastName.getMessages() %}has-error{% endif %}">
+        {% set dummy = lastName.setAttribute('class', 'form-control') %}
+        {{ formLabel(lastName) }}
+        {{ formElement(lastName) }}
+    </div>
+
+    {{ formElement(form.get('account_csrf')) }}
+
+    {% set submit = form.get('submit') %}
+    {% set dummy = submit.setAttribute('class', 'btn btn-lg btn-primary btn-block') %}
+    {{ formSubmit(submit) }}
+
+    {{ form().closeTag() | raw }}
+
+{% endblock %}

@@ -126,7 +126,7 @@ return [
             ],*/
 
             //listeners to register with the mail service, for mail events
-            'mail_listeners' => [
+            'event_listeners' => [
 
             ],
         ],

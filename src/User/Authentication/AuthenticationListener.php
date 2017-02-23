@@ -43,7 +43,7 @@ class AuthenticationListener extends AbstractAuthenticationEventListener
             }
 
             $dbCredentials = new DbCredentials($identity, $credential);
-            $request->withAttribute(DbCredentials::class, $dbCredentials);
+            $e->setParam('request', $request->withAttribute(DbCredentials::class, $dbCredentials));
         }
     }
 }

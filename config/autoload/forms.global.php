@@ -8,33 +8,16 @@
  */
 
 return [
-
     'dot_hydrator' => [
-        'hydrator_manager' => [
-            'factories' => [
-                \Dot\User\Entity\UserEntityHydrator::class =>
-                    \Zend\ServiceManager\Factory\InvokableFactory::class,
-            ]
-        ],
+        'hydrator_manager' => []
     ],
 
     'dot_input_filter' => [
-        'input_filter_manager' => [
-            'factories' => [
-
-            ],
-        ],
+        'input_filter_manager' => []
     ],
 
     'dot_form' => [
-        'form_manager' => [
-            'factories' => [
-
-            ],
-        ],
-
-        'forms' => [
-
-        ],
+        'form_manager' => [],
+        'forms' => [],
     ],
 ];

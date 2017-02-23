@@ -28,10 +28,10 @@
             </div>
             <div class="collapse navbar-collapse">
                 <!-- parse the main menu -->
-                {{ navigationPartial('main_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
+                {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
 
                 <!-- navbar-right with login form or account menu -->
-                {{ navigationPartial('account_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
+                {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
 
                 {% if not hasIdentity() %}
                     <div class="signup-btn navbar-right">

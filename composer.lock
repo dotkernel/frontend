@@ -235,12 +235,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-annotated-services.git",
-                "reference": "327d9a624209c5c0941b99acc6a8765650011aca"
+                "reference": "b319c81c9045656727573ab26d407a20a858f086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-annotated-services/zipball/327d9a624209c5c0941b99acc6a8765650011aca",
-                "reference": "327d9a624209c5c0941b99acc6a8765650011aca",
+                "url": "https://api.github.com/repos/dotkernel/dot-annotated-services/zipball/b319c81c9045656727573ab26d407a20a858f086",
+                "reference": "b319c81c9045656727573ab26d407a20a858f086",
                 "shasum": ""
             },
             "require": {
@@ -295,7 +295,7 @@
                 "source": "https://github.com/dotkernel/dot-annotated-services/tree/master",
                 "issues": "https://github.com/dotkernel/dot-annotated-services/issues"
             },
-            "time": "2017-02-01 17:44:20"
+            "time": "2017-02-23 22:45:30"
         },
         {
             "name": "dotkernel/dot-authentication",
@@ -303,12 +303,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authentication.git",
-                "reference": "2d02b2e020893410e6fea7dfb7ab80af16c8b5da"
+                "reference": "31fddf1c048328424b2de482b753b0f07171d233"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authentication/zipball/2d02b2e020893410e6fea7dfb7ab80af16c8b5da",
-                "reference": "2d02b2e020893410e6fea7dfb7ab80af16c8b5da",
+                "url": "https://api.github.com/repos/dotkernel/dot-authentication/zipball/31fddf1c048328424b2de482b753b0f07171d233",
+                "reference": "31fddf1c048328424b2de482b753b0f07171d233",
                 "shasum": ""
             },
             "require": {
@@ -341,7 +341,7 @@
                 }
             ],
             "description": "Core interfaces for authentication implementations",
-            "time": "2017-01-29 12:57:30"
+            "time": "2017-02-23 22:07:05"
         },
         {
             "name": "dotkernel/dot-authentication-service",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authentication-service.git",
-                "reference": "f487854e9085adaed0d5a5a88d41fa6819bfca5d"
+                "reference": "ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authentication-service/zipball/f487854e9085adaed0d5a5a88d41fa6819bfca5d",
-                "reference": "f487854e9085adaed0d5a5a88d41fa6819bfca5d",
+                "url": "https://api.github.com/repos/dotkernel/dot-authentication-service/zipball/ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1",
+                "reference": "ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +401,7 @@
                 }
             ],
             "description": "Concrete implementation of an AuthenticationInterface based on Zend Authentication",
-            "time": "2017-02-20 22:50:19"
+            "time": "2017-02-23 21:53:58"
         },
         {
             "name": "dotkernel/dot-authentication-web",
@@ -409,12 +409,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authentication-web.git",
-                "reference": "82a9341d06cb3c7e2a745031760cdc48f61b72ba"
+                "reference": "6aa3c552d80234b925e37a3b261056b4901abf39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authentication-web/zipball/82a9341d06cb3c7e2a745031760cdc48f61b72ba",
-                "reference": "82a9341d06cb3c7e2a745031760cdc48f61b72ba",
+                "url": "https://api.github.com/repos/dotkernel/dot-authentication-web/zipball/6aa3c552d80234b925e37a3b261056b4901abf39",
+                "reference": "6aa3c552d80234b925e37a3b261056b4901abf39",
                 "shasum": ""
             },
             "require": {
@@ -455,7 +455,7 @@
                 }
             ],
             "description": "Login/logout authentication flow for web based applications",
-            "time": "2017-02-22 23:01:09"
+            "time": "2017-02-23 18:40:55"
         },
         {
             "name": "dotkernel/dot-authorization",
@@ -463,12 +463,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authorization.git",
-                "reference": "d295e2348762fcaf27f89d0c81cd40e9cb586339"
+                "reference": "adea1b7a70d9caeb93f29eb9f3cefdf5a6dec4e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authorization/zipball/d295e2348762fcaf27f89d0c81cd40e9cb586339",
-                "reference": "d295e2348762fcaf27f89d0c81cd40e9cb586339",
+                "url": "https://api.github.com/repos/dotkernel/dot-authorization/zipball/adea1b7a70d9caeb93f29eb9f3cefdf5a6dec4e2",
+                "reference": "adea1b7a70d9caeb93f29eb9f3cefdf5a6dec4e2",
                 "shasum": ""
             },
             "require": {
@@ -500,7 +500,7 @@
                 }
             ],
             "description": "Authorization service abstractions",
-            "time": "2017-02-02 18:25:10"
+            "time": "2017-02-23 21:58:21"
         },
         {
             "name": "dotkernel/dot-cache",
@@ -999,12 +999,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-event.git",
-                "reference": "9f11da39571f2b20347a9f6ec0dbeae50c744d4c"
+                "reference": "6a9f283a0f84324338f24e5d2909b7643c5bce48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-event/zipball/9f11da39571f2b20347a9f6ec0dbeae50c744d4c",
-                "reference": "9f11da39571f2b20347a9f6ec0dbeae50c744d4c",
+                "url": "https://api.github.com/repos/dotkernel/dot-event/zipball/6a9f283a0f84324338f24e5d2909b7643c5bce48",
+                "reference": "6a9f283a0f84324338f24e5d2909b7643c5bce48",
                 "shasum": ""
             },
             "require": {
@@ -1040,7 +1040,7 @@
                 }
             ],
             "description": "Common base event objects based on Zend Event Manager",
-            "time": "2017-01-29 20:10:35"
+            "time": "2017-02-23 22:12:56"
         },
         {
             "name": "dotkernel/dot-filter",
@@ -1112,12 +1112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-flashmessenger.git",
-                "reference": "f07434e69162493bf0044be9529415a5c40fac89"
+                "reference": "2ee23097b39180efa64943034b3a047f21805d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/f07434e69162493bf0044be9529415a5c40fac89",
-                "reference": "f07434e69162493bf0044be9529415a5c40fac89",
+                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/2ee23097b39180efa64943034b3a047f21805d9e",
+                "reference": "2ee23097b39180efa64943034b3a047f21805d9e",
                 "shasum": ""
             },
             "require": {
@@ -1154,7 +1154,7 @@
                 }
             ],
             "description": "Flash messenger library for session messages between redirects",
-            "time": "2017-01-29 19:16:06"
+            "time": "2017-02-23 21:53:42"
         },
         {
             "name": "dotkernel/dot-form",
@@ -1227,12 +1227,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-helpers.git",
-                "reference": "90649c4f446c80b04d1d627ffbba17dbdf68e4d4"
+                "reference": "1a455b3791c9b9c4d2b5fe756425f94a294ddf56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-helpers/zipball/90649c4f446c80b04d1d627ffbba17dbdf68e4d4",
-                "reference": "90649c4f446c80b04d1d627ffbba17dbdf68e4d4",
+                "url": "https://api.github.com/repos/dotkernel/dot-helpers/zipball/1a455b3791c9b9c4d2b5fe756425f94a294ddf56",
+                "reference": "1a455b3791c9b9c4d2b5fe756425f94a294ddf56",
                 "shasum": ""
             },
             "require": {
@@ -1269,7 +1269,7 @@
                 }
             ],
             "description": "Various helper structures and classes",
-            "time": "2017-02-01 18:47:24"
+            "time": "2017-02-23 19:42:07"
         },
         {
             "name": "dotkernel/dot-hydrator",
@@ -1571,12 +1571,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-rbac.git",
-                "reference": "c6d48f0fd24f8f9cb0e8904f40ae9cdd9a52c829"
+                "reference": "5255cb0182b991388cfa64420fdf8f3794d91b10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-rbac/zipball/c6d48f0fd24f8f9cb0e8904f40ae9cdd9a52c829",
-                "reference": "c6d48f0fd24f8f9cb0e8904f40ae9cdd9a52c829",
+                "url": "https://api.github.com/repos/dotkernel/dot-rbac/zipball/5255cb0182b991388cfa64420fdf8f3794d91b10",
+                "reference": "5255cb0182b991388cfa64420fdf8f3794d91b10",
                 "shasum": ""
             },
             "require": {
@@ -1616,7 +1616,7 @@
                 }
             ],
             "description": "Rbac authorization library for DK",
-            "time": "2017-02-21 21:35:02"
+            "time": "2017-02-23 22:01:56"
         },
         {
             "name": "dotkernel/dot-rbac-guard",
@@ -1682,12 +1682,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-session.git",
-                "reference": "e703104ed4c93130063669954b240e2d5398ba1f"
+                "reference": "30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-session/zipball/e703104ed4c93130063669954b240e2d5398ba1f",
-                "reference": "e703104ed4c93130063669954b240e2d5398ba1f",
+                "url": "https://api.github.com/repos/dotkernel/dot-session/zipball/30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a",
+                "reference": "30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a",
                 "shasum": ""
             },
             "require": {
@@ -1724,7 +1724,7 @@
                 }
             ],
             "description": "Session library for DotKernel based on ZF3 session library",
-            "time": "2017-02-02 22:21:58"
+            "time": "2017-02-23 22:42:12"
         },
         {
             "name": "dotkernel/dot-twigrenderer",
@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "686dccbec9cb1f2b700617701fea5f3f92ff87e9"
+                "reference": "1f5c714f8254d06aabaf5c9969ee255a8e719c3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/686dccbec9cb1f2b700617701fea5f3f92ff87e9",
-                "reference": "686dccbec9cb1f2b700617701fea5f3f92ff87e9",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/1f5c714f8254d06aabaf5c9969ee255a8e719c3b",
+                "reference": "1f5c714f8254d06aabaf5c9969ee255a8e719c3b",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-22 23:00:37"
+            "time": "2017-02-23 22:31:24"
         },
         {
             "name": "dotkernel/dot-validator",
@@ -3620,16 +3620,16 @@
         },
         {
             "name": "zendframework/zend-form",
-            "version": "2.9.2",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-form.git",
-                "reference": "2d076100e4c6a779b7676d098192e3d1cf74f34e"
+                "reference": "ca2b2f9e1bdc5511d06967d755cbb793708a2d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-form/zipball/2d076100e4c6a779b7676d098192e3d1cf74f34e",
-                "reference": "2d076100e4c6a779b7676d098192e3d1cf74f34e",
+                "url": "https://api.github.com/repos/zendframework/zend-form/zipball/ca2b2f9e1bdc5511d06967d755cbb793708a2d7b",
+                "reference": "ca2b2f9e1bdc5511d06967d755cbb793708a2d7b",
                 "shasum": ""
             },
             "require": {
@@ -3640,11 +3640,11 @@
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
-                "fabpot/php-cs-fixer": "1.7.*",
                 "phpunit/phpunit": "^4.8",
                 "zendframework/zend-cache": "^2.6.1",
-                "zendframework/zend-captcha": "^2.5.4",
+                "zendframework/zend-captcha": "^2.7.1",
                 "zendframework/zend-code": "^2.6 || ^3.0",
+                "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-escaper": "^2.5",
                 "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
                 "zendframework/zend-filter": "^2.6",
@@ -3654,10 +3654,10 @@
                 "zendframework/zend-text": "^2.6",
                 "zendframework/zend-validator": "^2.6",
                 "zendframework/zend-view": "^2.6.2",
-                "zendframework/zendservice-recaptcha": "*"
+                "zendframework/zendservice-recaptcha": "^3.0.0"
             },
             "suggest": {
-                "zendframework/zend-captcha": "^2.5.4, required for using CAPTCHA form elements",
+                "zendframework/zend-captcha": "^2.7.1, required for using CAPTCHA form elements",
                 "zendframework/zend-code": "^2.6 || ^3.0, required to use zend-form annotations support",
                 "zendframework/zend-eventmanager": "^2.6.2 || ^3.0, reuired for zend-form annotations support",
                 "zendframework/zend-i18n": "^2.6, required when using zend-form view helpers",
@@ -3668,8 +3668,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.9-dev",
-                    "dev-develop": "2.10-dev"
+                    "dev-master": "2.10-dev",
+                    "dev-develop": "2.11-dev"
                 },
                 "zf": {
                     "component": "Zend\\Form",
@@ -3693,7 +3693,7 @@
                 "form",
                 "zf2"
             ],
-            "time": "2016-09-22T15:56:15+00:00"
+            "time": "2017-02-23T16:03:25+00:00"
         },
         {
             "name": "zendframework/zend-http",

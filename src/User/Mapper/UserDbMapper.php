@@ -14,6 +14,8 @@ namespace App\User\Mapper;
 use App\User\Entity\UserDetailsEntity;
 use App\User\Entity\UserEntity;
 use Dot\Ems\Event\MapperEvent;
+use Dot\Ems\Mapper\MapperManager;
+use Dot\Hydrator\ClassMethodsCamelCase;
 use Zend\Hydrator\HydratorInterface;
 
 /**
@@ -27,6 +29,19 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
 
     /** @var  HydratorInterface */
     protected $userDetailsHydrator;
+
+    /**
+     * UserDbMapper constructor.
+     * @param MapperManager $mapperManager
+     * @param array $options
+     */
+    public function __construct(MapperManager $mapperManager, array $options = [])
+    {
+        parent::__construct($mapperManager, $options);
+
+        $this->userDetailsPrototype = new UserDetailsEntity();
+        $this->userDetailsHydrator = new ClassMethodsCamelCase();
+    }
 
     /**
      * @param string $type
@@ -59,37 +74,5 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
         //load user details into user entity
         $details = $this->userDetailsHydrator->hydrate($data['UserDetails'], clone $this->userDetailsPrototype);
         $user->setDetails($details);
-    }
-
-    /**
-     * @return UserDetailsEntity
-     */
-    public function getUserDetailsPrototype(): UserDetailsEntity
-    {
-        return $this->userDetailsPrototype;
-    }
-
-    /**
-     * @param UserDetailsEntity $userDetailsPrototype
-     */
-    public function setUserDetailsPrototype(UserDetailsEntity $userDetailsPrototype)
-    {
-        $this->userDetailsPrototype = $userDetailsPrototype;
-    }
-
-    /**
-     * @return HydratorInterface
-     */
-    public function getUserDetailsHydrator(): HydratorInterface
-    {
-        return $this->userDetailsHydrator;
-    }
-
-    /**
-     * @param HydratorInterface $userDetailsHydrator
-     */
-    public function setUserDetailsHydrator(HydratorInterface $userDetailsHydrator)
-    {
-        $this->userDetailsHydrator = $userDetailsHydrator;
     }
 }
