@@ -11,6 +11,7 @@ declare(strict_types = 1);
 
 namespace App\User;
 
+use App\User\Entity\UserEntity;
 use App\User\Fieldset\UserDetailsFieldset;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -30,7 +31,20 @@ class ConfigProvider
             'dot_ems' => $this->getMappersConfig(),
 
             'dot_user' => [
+                'user_entity' => UserEntity::class,
 
+                'event_listeners' => [
+                    'user' => [
+
+                    ],
+                    'token' => [
+
+                    ]
+                ],
+
+                'template_options' => [
+
+                ]
             ]
         ];
     }

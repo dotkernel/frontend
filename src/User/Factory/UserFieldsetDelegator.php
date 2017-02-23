@@ -34,5 +34,7 @@ class UserFieldsetDelegator implements DelegatorFactoryInterface
         $userDetailsFieldset = $formManager->get('UserDetailsFieldset');
 
         $userFieldset->add($userDetailsFieldset, ['priority' => -10]);
+
+        return $userFieldset;
     }
 }
