@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace Dot\Frontend\Action;
+namespace App\Frontend\Action;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
