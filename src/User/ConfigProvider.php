@@ -11,6 +11,7 @@ declare(strict_types = 1);
 
 namespace App\User;
 
+use App\User\Authentication\AuthenticationListener;
 use App\User\Entity\UserEntity;
 use App\User\Factory\UserFieldsetDelegator;
 use App\User\Fieldset\UserDetailsFieldset;
@@ -36,6 +37,8 @@ class ConfigProvider
             'dot_form' => $this->getFormsConfig(),
 
             'dot_ems' => $this->getMappersConfig(),
+
+            'dot_authentication' => $this->getAuthenticationConfig(),
 
             'dot_user' => [
                 'user_entity' => UserEntity::class,
@@ -102,6 +105,20 @@ class ConfigProvider
                 'aliases' => [
                     UserEntity::class => UserDbMapper::class,
                 ],
+            ]
+        ];
+    }
+
+    public function getAuthenticationConfig()
+    {
+        return [
+            'web' => [
+                'event_listeners' => [
+                    [
+                        'type' => AuthenticationListener::class,
+                        'priority' => 100,
+                    ]
+                ]
             ]
         ];
     }

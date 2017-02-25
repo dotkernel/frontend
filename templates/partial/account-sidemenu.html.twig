@@ -15,7 +15,7 @@
         {% endif %}
 
         <li role="presentation" class="{{ liClass }}">
-            <a href="{{ navigation.getHref(page) }}" {{ navigationPageAttributes(page) }} >
+            <a href="{{ navigation.getHref(page) }}" {{ pageAttributes(page) }} >
                 {{ page.getOption('label') }}
             </a>
         </li>

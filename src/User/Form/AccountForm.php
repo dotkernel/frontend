@@ -11,6 +11,8 @@ declare(strict_types = 1);
 
 namespace App\User\Form;
 
+use Zend\Stdlib\ArrayUtils;
+
 /**
  * Class AccountForm
  * @package App\User\Form
@@ -21,7 +23,7 @@ class AccountForm extends \Dot\User\Form\AccountForm
     {
         parent::init();
         $validationGroup = $this->getValidationGroup();
-        array_push($validationGroup, [
+        $validationGroup = ArrayUtils::merge($validationGroup, [
             'user' => [
                 'details' => [
                     'firstName',

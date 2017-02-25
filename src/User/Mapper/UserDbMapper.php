@@ -50,6 +50,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
      */
     public function find(string $type = 'all', array $options = []): array
     {
+        $options['joins'] = $options['joins'] ?? [];
         // append a join condition to the options
         // for user details every time we fetch users
         $options['joins'] += [

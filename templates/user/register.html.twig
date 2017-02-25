@@ -5,7 +5,7 @@
 {% block page_title %}Sign In{% endblock %}
 
 {% block content %}
-    {{ flashMessagesPartial('partial::alerts') }}
+    {{ messagesPartial('partial::alerts') }}
 
     {% set dummy = form.setAttribute('autocomplete', 'off') %}
     {% set dummy = form.prepare() %}
@@ -55,12 +55,13 @@
 
     {{ formElement(form.get('register_csrf')) }}
 
-    {% set captcha = form.getBaseFieldset().get('captcha') %}
-    <div class="form-group">
-        {% set dummy = captcha.setAttribute('class', 'form-control') %}
-        {{ formLabel(captcha) }}
-        {{ formCaptcha(captcha) }}
-    </div>
+    {% if form.has('captcha') %}
+        {% set captcha = form.get('captcha') %}
+        <div class="form-group">
+            {% set dummy = captcha.setAttribute('class', 'form-control') %}
+            {{ formCaptcha(captcha) }}
+        </div>
+    {% endif %}
 
     {% set submit = form.get('submit') %}
     {% set dummy = submit.setAttribute('class', 'btn btn-lg btn-primary btn-block') %}

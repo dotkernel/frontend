@@ -5,7 +5,7 @@
 {% block page_title %}Sign In{% endblock %}
 
 {% block content %}
-    {{ flashMessagesPartial('partial::alerts') }}
+    {{ messagesPartial('partial::alerts') }}
 
     {% include '@dot-user-form/login.html.twig' %}
 

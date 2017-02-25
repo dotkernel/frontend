@@ -11,6 +11,8 @@ declare(strict_types = 1);
 
 namespace App\User\Form;
 
+use Zend\Stdlib\ArrayUtils;
+
 /**
  * Class RegisterForm
  * @package App\User\Form
@@ -21,7 +23,7 @@ class RegisterForm extends \Dot\User\Form\RegisterForm
     {
         parent::init();
         $validationGroup = $this->getValidationGroup();
-        array_push($validationGroup, [
+        $validationGroup = ArrayUtils::merge($validationGroup, [
             'user' => [
                 'details' => [
                     'firstName',

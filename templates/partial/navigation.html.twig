@@ -30,7 +30,7 @@
 
                     <a href="{{ navigation.getHref(page) }}"
                             {% autoescape false %}
-                                {{ navigationPageAttributes(page) ~ extraAttributes }}
+                                {{ pageAttributes(page) ~ extraAttributes }}
                             {% endautoescape %} >
 
                         {% if page.getOption('icon') %}

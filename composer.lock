@@ -39,16 +39,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.3.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558"
+                "reference": "54cacc9b81758b14e3ce750f205a393d52339e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
-                "reference": "bd4461328621bde0ae6b1b2675fbc6aca4ceb558",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/54cacc9b81758b14e3ce750f205a393d52339e97",
+                "reference": "54cacc9b81758b14e3ce750f205a393d52339e97",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^5.6.1"
+                "phpunit/phpunit": "^5.7"
             },
             "type": "library",
             "extra": {
@@ -103,7 +103,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2016-12-30T15:59:45+00:00"
+            "time": "2017-02-24T16:22:25+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -303,12 +303,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authentication.git",
-                "reference": "31fddf1c048328424b2de482b753b0f07171d233"
+                "reference": "5332478e9c0b0ce4d1b707ed1ea2a35ff9af08a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authentication/zipball/31fddf1c048328424b2de482b753b0f07171d233",
-                "reference": "31fddf1c048328424b2de482b753b0f07171d233",
+                "url": "https://api.github.com/repos/dotkernel/dot-authentication/zipball/5332478e9c0b0ce4d1b707ed1ea2a35ff9af08a4",
+                "reference": "5332478e9c0b0ce4d1b707ed1ea2a35ff9af08a4",
                 "shasum": ""
             },
             "require": {
@@ -341,7 +341,7 @@
                 }
             ],
             "description": "Core interfaces for authentication implementations",
-            "time": "2017-02-23 22:07:05"
+            "time": "2017-02-24 23:07:42"
         },
         {
             "name": "dotkernel/dot-authentication-service",
@@ -349,12 +349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-authentication-service.git",
-                "reference": "ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1"
+                "reference": "a8ed42c986259be60f0a08f17efedc3489373000"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-authentication-service/zipball/ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1",
-                "reference": "ca6b5ca3b66ba8f5ab52fe8db6bde810d21bc3c1",
+                "url": "https://api.github.com/repos/dotkernel/dot-authentication-service/zipball/a8ed42c986259be60f0a08f17efedc3489373000",
+                "reference": "a8ed42c986259be60f0a08f17efedc3489373000",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +401,7 @@
                 }
             ],
             "description": "Concrete implementation of an AuthenticationInterface based on Zend Authentication",
-            "time": "2017-02-23 21:53:58"
+            "time": "2017-02-24 22:23:05"
         },
         {
             "name": "dotkernel/dot-authentication-web",
@@ -567,12 +567,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-controller.git",
-                "reference": "42ee8654a1759f90e5dd5397bf66613d8e8f32e4"
+                "reference": "6f91e1284d0666f04cab9446fc2468d35881c067"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-controller/zipball/42ee8654a1759f90e5dd5397bf66613d8e8f32e4",
-                "reference": "42ee8654a1759f90e5dd5397bf66613d8e8f32e4",
+                "url": "https://api.github.com/repos/dotkernel/dot-controller/zipball/6f91e1284d0666f04cab9446fc2468d35881c067",
+                "reference": "6f91e1284d0666f04cab9446fc2468d35881c067",
                 "shasum": ""
             },
             "require": {
@@ -610,7 +610,7 @@
                 }
             ],
             "description": "Controller like middleware with plugin support",
-            "time": "2017-02-21 19:58:16"
+            "time": "2017-02-24 20:09:32"
         },
         {
             "name": "dotkernel/dot-controller-plugin-authentication",
@@ -667,12 +667,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-controller-plugin-authorization.git",
-                "reference": "23563f8d63e930d92a9517216a3f8d621232de45"
+                "reference": "25814199424373373e9be2602e63ea142717286e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-authorization/zipball/23563f8d63e930d92a9517216a3f8d621232de45",
-                "reference": "23563f8d63e930d92a9517216a3f8d621232de45",
+                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-authorization/zipball/25814199424373373e9be2602e63ea142717286e",
+                "reference": "25814199424373373e9be2602e63ea142717286e",
                 "shasum": ""
             },
             "require": {
@@ -708,7 +708,7 @@
                 }
             ],
             "description": "Authorization controller plugin for easy access to authorization service inside DK controllers",
-            "time": "2017-02-01 18:01:53"
+            "time": "2017-02-24 18:27:45"
         },
         {
             "name": "dotkernel/dot-controller-plugin-flashmessenger",
@@ -716,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-controller-plugin-flashmessenger.git",
-                "reference": "f0742dd532225dd7267cd8af16a9c6a32db6bcec"
+                "reference": "0f18e32a5b639c5f2165ff567f6021d0cee34c07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-flashmessenger/zipball/f0742dd532225dd7267cd8af16a9c6a32db6bcec",
-                "reference": "f0742dd532225dd7267cd8af16a9c6a32db6bcec",
+                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-flashmessenger/zipball/0f18e32a5b639c5f2165ff567f6021d0cee34c07",
+                "reference": "0f18e32a5b639c5f2165ff567f6021d0cee34c07",
                 "shasum": ""
             },
             "require": {
@@ -757,7 +757,7 @@
                 }
             ],
             "description": "Flashmessenger DK controller plugin",
-            "time": "2017-01-31 13:28:54"
+            "time": "2017-02-24 18:29:15"
         },
         {
             "name": "dotkernel/dot-controller-plugin-forms",
@@ -765,12 +765,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-controller-plugin-forms.git",
-                "reference": "55fb79c57e87bce6217d6359d6bff9fe0ec383e6"
+                "reference": "c12e421c0d053142022774b57c4b86da7a849d01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-forms/zipball/55fb79c57e87bce6217d6359d6bff9fe0ec383e6",
-                "reference": "55fb79c57e87bce6217d6359d6bff9fe0ec383e6",
+                "url": "https://api.github.com/repos/dotkernel/dot-controller-plugin-forms/zipball/c12e421c0d053142022774b57c4b86da7a849d01",
+                "reference": "c12e421c0d053142022774b57c4b86da7a849d01",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +819,7 @@
                 "source": "https://github.com/dotkernel/dot-controller-plugin-forms/tree/master",
                 "issues": "https://github.com/dotkernel/dot-controller-plugin-forms/issues"
             },
-            "time": "2017-02-03 14:40:01"
+            "time": "2017-02-24 21:17:08"
         },
         {
             "name": "dotkernel/dot-controller-plugin-mail",
@@ -934,12 +934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-ems.git",
-                "reference": "d2f356ba659b43fbec981f483e3e03f54fb43dd8"
+                "reference": "24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/d2f356ba659b43fbec981f483e3e03f54fb43dd8",
-                "reference": "d2f356ba659b43fbec981f483e3e03f54fb43dd8",
+                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0",
+                "reference": "24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,7 @@
                 "source": "https://github.com/dotkernel/dot-ems/tree/reworked",
                 "issues": "https://github.com/dotkernel/dot-ems/issues"
             },
-            "time": "2017-02-22 18:36:47"
+            "time": "2017-02-24 20:32:56"
         },
         {
             "name": "dotkernel/dot-event",
@@ -1112,12 +1112,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-flashmessenger.git",
-                "reference": "2ee23097b39180efa64943034b3a047f21805d9e"
+                "reference": "38c84464ecb876edb7ad2098f9e8625639ee85ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/2ee23097b39180efa64943034b3a047f21805d9e",
-                "reference": "2ee23097b39180efa64943034b3a047f21805d9e",
+                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/38c84464ecb876edb7ad2098f9e8625639ee85ae",
+                "reference": "38c84464ecb876edb7ad2098f9e8625639ee85ae",
                 "shasum": ""
             },
             "require": {
@@ -1154,7 +1154,7 @@
                 }
             ],
             "description": "Flash messenger library for session messages between redirects",
-            "time": "2017-02-23 21:53:42"
+            "time": "2017-02-24 19:07:32"
         },
         {
             "name": "dotkernel/dot-form",
@@ -1467,12 +1467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-mail.git",
-                "reference": "0da3b4c0ef996b8621ba89d8be24b3e9f69e619f"
+                "reference": "d0b25837f110520597f7a9f9b9c090aa2c2332dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-mail/zipball/0da3b4c0ef996b8621ba89d8be24b3e9f69e619f",
-                "reference": "0da3b4c0ef996b8621ba89d8be24b3e9f69e619f",
+                "url": "https://api.github.com/repos/dotkernel/dot-mail/zipball/d0b25837f110520597f7a9f9b9c090aa2c2332dc",
+                "reference": "d0b25837f110520597f7a9f9b9c090aa2c2332dc",
                 "shasum": ""
             },
             "require": {
@@ -1510,7 +1510,7 @@
                 }
             ],
             "description": "Mail module for DotKernel based on Zend Mail",
-            "time": "2017-02-21 21:29:42"
+            "time": "2017-02-24 21:46:03"
         },
         {
             "name": "dotkernel/dot-navigation",
@@ -1518,12 +1518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-navigation.git",
-                "reference": "8f032207b3448d657c63689604164b5620a644cb"
+                "reference": "6af6133e4517daeef42633079ea7ec9f124e8c94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-navigation/zipball/8f032207b3448d657c63689604164b5620a644cb",
-                "reference": "8f032207b3448d657c63689604164b5620a644cb",
+                "url": "https://api.github.com/repos/dotkernel/dot-navigation/zipball/6af6133e4517daeef42633079ea7ec9f124e8c94",
+                "reference": "6af6133e4517daeef42633079ea7ec9f124e8c94",
                 "shasum": ""
             },
             "require": {
@@ -1563,7 +1563,7 @@
                 }
             ],
             "description": "Navigation library for easy menu parsing",
-            "time": "2017-02-03 13:25:39"
+            "time": "2017-02-24 20:44:08"
         },
         {
             "name": "dotkernel/dot-rbac",
@@ -1571,12 +1571,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-rbac.git",
-                "reference": "5255cb0182b991388cfa64420fdf8f3794d91b10"
+                "reference": "4b9bf23a44bb738d88bf8adae4f2aa5c5361825c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-rbac/zipball/5255cb0182b991388cfa64420fdf8f3794d91b10",
-                "reference": "5255cb0182b991388cfa64420fdf8f3794d91b10",
+                "url": "https://api.github.com/repos/dotkernel/dot-rbac/zipball/4b9bf23a44bb738d88bf8adae4f2aa5c5361825c",
+                "reference": "4b9bf23a44bb738d88bf8adae4f2aa5c5361825c",
                 "shasum": ""
             },
             "require": {
@@ -1616,7 +1616,7 @@
                 }
             ],
             "description": "Rbac authorization library for DK",
-            "time": "2017-02-23 22:01:56"
+            "time": "2017-02-24 20:51:31"
         },
         {
             "name": "dotkernel/dot-rbac-guard",
@@ -1624,12 +1624,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-rbac-guard.git",
-                "reference": "19a70aa73a2b8da586a5c5f8296909440fab740b"
+                "reference": "f0f2f5d409c8ca80927e01f2f3fa0c5f766b1e72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-rbac-guard/zipball/19a70aa73a2b8da586a5c5f8296909440fab740b",
-                "reference": "19a70aa73a2b8da586a5c5f8296909440fab740b",
+                "url": "https://api.github.com/repos/dotkernel/dot-rbac-guard/zipball/f0f2f5d409c8ca80927e01f2f3fa0c5f766b1e72",
+                "reference": "f0f2f5d409c8ca80927e01f2f3fa0c5f766b1e72",
                 "shasum": ""
             },
             "require": {
@@ -1674,7 +1674,7 @@
                 }
             ],
             "description": "Various authorization guards for route/controller authorization",
-            "time": "2017-02-21 23:19:23"
+            "time": "2017-02-24 20:55:42"
         },
         {
             "name": "dotkernel/dot-session",
@@ -1732,12 +1732,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-twigrenderer.git",
-                "reference": "0ed4a9d8b6ee3288755ec4df49b42bbd2e49e97d"
+                "reference": "78ef02cdf2f61a954971284029df3c380e3e490c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-twigrenderer/zipball/0ed4a9d8b6ee3288755ec4df49b42bbd2e49e97d",
-                "reference": "0ed4a9d8b6ee3288755ec4df49b42bbd2e49e97d",
+                "url": "https://api.github.com/repos/dotkernel/dot-twigrenderer/zipball/78ef02cdf2f61a954971284029df3c380e3e490c",
+                "reference": "78ef02cdf2f61a954971284029df3c380e3e490c",
                 "shasum": ""
             },
             "require": {
@@ -1779,7 +1779,7 @@
                 }
             ],
             "description": "DK useful twig extensions and ZF3 view helpers made available for twig",
-            "time": "2017-02-03 14:01:04"
+            "time": "2017-02-24 19:46:00"
         },
         {
             "name": "dotkernel/dot-user",
@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "1f5c714f8254d06aabaf5c9969ee255a8e719c3b"
+                "reference": "129c8e8582f88c94f15a4740f4bba45559e22c5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/1f5c714f8254d06aabaf5c9969ee255a8e719c3b",
-                "reference": "1f5c714f8254d06aabaf5c9969ee255a8e719c3b",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/129c8e8582f88c94f15a4740f4bba45559e22c5f",
+                "reference": "129c8e8582f88c94f15a4740f4bba45559e22c5f",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-23 22:31:24"
+            "time": "2017-02-25 02:47:45"
         },
         {
             "name": "dotkernel/dot-validator",
@@ -1858,12 +1858,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-validator.git",
-                "reference": "6490beabf44adc04ffa3e51ff84b7e05d40cd372"
+                "reference": "88abf2515d20b76ad9ba4c791eb339a552b0a642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-validator/zipball/6490beabf44adc04ffa3e51ff84b7e05d40cd372",
-                "reference": "6490beabf44adc04ffa3e51ff84b7e05d40cd372",
+                "url": "https://api.github.com/repos/dotkernel/dot-validator/zipball/88abf2515d20b76ad9ba4c791eb339a552b0a642",
+                "reference": "88abf2515d20b76ad9ba4c791eb339a552b0a642",
                 "shasum": ""
             },
             "require": {
@@ -1918,7 +1918,7 @@
                 "source": "https://github.com/dotkernel/dot-validator/tree/master",
                 "issues": "https://github.com/dotkernel/dot-validator/issues"
             },
-            "time": "2017-02-22 18:42:17"
+            "time": "2017-02-24 20:57:33"
         },
         {
             "name": "fig/http-message-util",
