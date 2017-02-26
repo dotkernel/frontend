@@ -22,7 +22,7 @@
                 <ul>
                     {% for message in messages[namespace] %}
 
-                        <li>{{ message }}</li>
+                        <li>{{ message|raw }}</li>
 
                     {% endfor %}
 

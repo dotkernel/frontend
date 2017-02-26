@@ -33,7 +33,7 @@ use Zend\Expressive\Helper\UrlHelper;
  * Class UserEventsListener
  * @package App\User\Listener
  *
- * @Service()
+ * @Service
  */
 class UserEventsListener implements UserEventListenerInterface, TokenEventListenerInterface
 {
@@ -60,7 +60,7 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
      * @param UrlHelper $urlHelper
      * @param ServerUrlHelper $serverUrlHelper
      *
-     * @Inject({'dot-mail.service.default', UrlHelper::class, ServerUrlHelper::class})
+     * @Inject({"dot-mail.service.default", UrlHelper::class, ServerUrlHelper::class})
      */
     public function __construct(
         MailServiceInterface $mailService,

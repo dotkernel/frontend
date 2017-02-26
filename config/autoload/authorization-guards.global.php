@@ -15,18 +15,6 @@ return [
             'options' => [
                 'guards' => [
                     [
-                        'type' => 'Controller',
-                        'options' => [
-                            'rules' => [
-                                [
-                                    'route' => 'user',
-                                    'actions' => ['register', 'forgot-password', 'reset-password', 'confirm-account'],
-                                    'roles' => ['guest']
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
                         'type' => 'ControllerPermission',
                         'options' => [
                             'rules' => [

@@ -20,6 +20,9 @@ use Dot\Ems\Entity\Entity;
 class UserDetailsEntity extends Entity
 {
     /** @var  string */
+    protected $userId;
+
+    /** @var  string */
     protected $firstName;
 
     /** @var  string */
@@ -28,7 +31,23 @@ class UserDetailsEntity extends Entity
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param string $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
     {
         return $this->firstName;
     }
@@ -36,7 +55,7 @@ class UserDetailsEntity extends Entity
     /**
      * @param string $firstName
      */
-    public function setFirstName(string $firstName)
+    public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
     }
@@ -44,7 +63,7 @@ class UserDetailsEntity extends Entity
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName()
     {
         return $this->lastName;
     }
@@ -52,7 +71,7 @@ class UserDetailsEntity extends Entity
     /**
      * @param string $lastName
      */
-    public function setLastName(string $lastName)
+    public function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }

@@ -22,6 +22,11 @@ use Zend\InputFilter\InputFilterProviderInterface;
  */
 class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterface
 {
+    const MESSAGE_FIRST_NAME_EMPTY = '<b>First name</b> is required and cannot be empty';
+    const MESSAGE_FIRST_NAME_LIMIT = '<b>First name</b> character limit of 150 exceeded';
+    const MESSAGE_LAST_NAME_EMPTY = '<b>Last name</b> is required and cannot be empty';
+    const MESSAGE_LAST_NAME_LIMIT = '<b>Last name</b> character limit of 150 exceeded';
+
     /**
      * UserDetailsFieldset constructor.
      * @param null $name
@@ -70,14 +75,14 @@ class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterfa
                         'name' => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options' => [
-                            'message' => 'First name is required and cannot be empty'
+                            'message' => static::MESSAGE_FIRST_NAME_EMPTY
                         ]
                     ],
                     [
                         'name' => 'StringLength',
                         'options' => [
                             'max' => 150,
-                            'message' => 'First name character limit of 150 exceeded',
+                            'message' => static::MESSAGE_FIRST_NAME_LIMIT,
                         ],
                     ]
                 ]
@@ -91,14 +96,14 @@ class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterfa
                         'name' => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options' => [
-                            'message' => 'Last name is required and cannot be empty'
+                            'message' => static::MESSAGE_LAST_NAME_EMPTY
                         ]
                     ],
                     [
                         'name' => 'StringLength',
                         'options' => [
                             'max' => 150,
-                            'message' => 'Last name character limit of 150 exceeded',
+                            'message' => static::MESSAGE_LAST_NAME_LIMIT,
                         ],
                     ]
                 ]

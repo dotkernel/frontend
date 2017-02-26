@@ -17,10 +17,12 @@ use App\User\Factory\UserFieldsetDelegator;
 use App\User\Fieldset\UserDetailsFieldset;
 use App\User\Form\AccountForm;
 use App\User\Form\RegisterForm;
+use App\User\Listener\UserEventsListener;
 use App\User\Mapper\UserDbMapper;
 use Dot\User\Factory\FormElementFactory;
 use Dot\User\Factory\UserDbMapperFactory;
 use Dot\User\Form\UserFieldset;
+use Dot\User\Options\MessagesOptions;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
@@ -43,12 +45,21 @@ class ConfigProvider
             'dot_user' => [
                 'user_entity' => UserEntity::class,
 
+                //'route_default' => [],
+                //'default_roles' => [],
+
                 'event_listeners' => [
                     'user' => [
-
+                        [
+                            'type' => UserEventsListener::class,
+                            'priority' => 100,
+                        ]
                     ],
                     'token' => [
-
+                        [
+                            'type' => UserEventsListener::class,
+                            'priority' => 100,
+                        ]
                     ]
                 ],
 
@@ -59,6 +70,13 @@ class ConfigProvider
                     'change_password_template' => 'user::change-password',
                     'forgot_password_template' => 'user::forgot-password',
                     'reset_password_template' => 'user::reset-password',
+                ],
+
+                'messages_options' => [
+                    'messages' => [
+                        MessagesOptions::REGISTER_SUCCESS =>
+                            'Your account was successfully created. Check your e-mail for account confirmation'
+                    ]
                 ]
             ]
         ];
@@ -113,6 +131,8 @@ class ConfigProvider
     {
         return [
             'web' => [
+                //'after_login_route' => [],
+
                 'event_listeners' => [
                     [
                         'type' => AuthenticationListener::class,

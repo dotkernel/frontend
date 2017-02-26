@@ -934,12 +934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-ems.git",
-                "reference": "24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0"
+                "reference": "7b248532762f36d9e2864bcbd0f89fe13babab18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0",
-                "reference": "24546f8a9a3f52daaf4a1568d478bdc4c3dc48d0",
+                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/7b248532762f36d9e2864bcbd0f89fe13babab18",
+                "reference": "7b248532762f36d9e2864bcbd0f89fe13babab18",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,7 @@
                 "source": "https://github.com/dotkernel/dot-ems/tree/reworked",
                 "issues": "https://github.com/dotkernel/dot-ems/issues"
             },
-            "time": "2017-02-24 20:32:56"
+            "time": "2017-02-26 03:31:11"
         },
         {
             "name": "dotkernel/dot-event",
@@ -1467,12 +1467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-mail.git",
-                "reference": "d0b25837f110520597f7a9f9b9c090aa2c2332dc"
+                "reference": "49f632fe1bbcc6baece6051942bcf02d4ae15d9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-mail/zipball/d0b25837f110520597f7a9f9b9c090aa2c2332dc",
-                "reference": "d0b25837f110520597f7a9f9b9c090aa2c2332dc",
+                "url": "https://api.github.com/repos/dotkernel/dot-mail/zipball/49f632fe1bbcc6baece6051942bcf02d4ae15d9d",
+                "reference": "49f632fe1bbcc6baece6051942bcf02d4ae15d9d",
                 "shasum": ""
             },
             "require": {
@@ -1510,7 +1510,7 @@
                 }
             ],
             "description": "Mail module for DotKernel based on Zend Mail",
-            "time": "2017-02-24 21:46:03"
+            "time": "2017-02-25 16:54:16"
         },
         {
             "name": "dotkernel/dot-navigation",
@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "129c8e8582f88c94f15a4740f4bba45559e22c5f"
+                "reference": "f57461ca7120ffad36a076310463d42be256f840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/129c8e8582f88c94f15a4740f4bba45559e22c5f",
-                "reference": "129c8e8582f88c94f15a4740f4bba45559e22c5f",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/f57461ca7120ffad36a076310463d42be256f840",
+                "reference": "f57461ca7120ffad36a076310463d42be256f840",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-25 02:47:45"
+            "time": "2017-02-26 03:31:38"
         },
         {
             "name": "dotkernel/dot-validator",
