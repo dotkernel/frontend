@@ -27,6 +27,9 @@ class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterfa
     const MESSAGE_LAST_NAME_EMPTY = '<b>Last name</b> is required and cannot be empty';
     const MESSAGE_LAST_NAME_LIMIT = '<b>Last name</b> character limit of 150 exceeded';
 
+    const PHONE_INVALID = '<b>Phone</b> number is invalid';
+    const PHONE_LIMIT = '<b>Phone</b> number character limit exceeded';
+
     /**
      * UserDetailsFieldset constructor.
      * @param null $name
@@ -59,6 +62,26 @@ class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterfa
             ],
             'attributes' => [
                 'placeholder' => 'Last name...'
+            ]
+        ]);
+        $this->add([
+            'name' => 'phone',
+            'type' => 'text',
+            'options' => [
+                'label' => 'Phone'
+            ],
+            'attributes' => [
+                'placeholder' => 'Phone...'
+            ]
+        ]);
+        $this->add([
+            'name' => 'address',
+            'type' => 'text',
+            'options' => [
+                'label' => 'Address'
+            ],
+            'attributes' => [
+                'placeholder' => 'Address...'
             ]
         ]);
     }
@@ -106,7 +129,38 @@ class UserDetailsFieldset extends Fieldset implements InputFilterProviderInterfa
                             'message' => static::MESSAGE_LAST_NAME_LIMIT,
                         ],
                     ]
-                ]
+                ],
+            ],
+            'phone' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+                    [
+                        'name' => 'Regex',
+                        'options' => [
+                            'pattern' => '/^\+?\d+$/',
+                            'message' => static::PHONE_INVALID
+                        ]
+                    ],
+                    [
+                        'name' => 'StringLength',
+                        'options' => [
+                            'max' => 150,
+                            'message' => static::PHONE_LIMIT,
+                        ],
+                    ]
+                ],
+            ],
+            'address' => [
+                'required' => false,
+                'filters' => [
+                    ['name' => 'StringTrim']
+                ],
+                'validators' => [
+
+                ],
             ],
         ];
     }

@@ -19,5 +19,10 @@ return [
             'path' => '/page[/{action}]',
             'middleware' => \App\Frontend\Controller\PageController::class,
         ],
+        [
+            'name' => 'contact',
+            'path' => '/contact[/[{action}]]',
+            'middleware' => \App\Frontend\Controller\ContactController::class,
+        ],
     ],
 ];

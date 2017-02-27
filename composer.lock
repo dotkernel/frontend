@@ -1518,12 +1518,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-navigation.git",
-                "reference": "6af6133e4517daeef42633079ea7ec9f124e8c94"
+                "reference": "e2a87f5f2bc48bb37be35aeabae429aa46dd7664"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-navigation/zipball/6af6133e4517daeef42633079ea7ec9f124e8c94",
-                "reference": "6af6133e4517daeef42633079ea7ec9f124e8c94",
+                "url": "https://api.github.com/repos/dotkernel/dot-navigation/zipball/e2a87f5f2bc48bb37be35aeabae429aa46dd7664",
+                "reference": "e2a87f5f2bc48bb37be35aeabae429aa46dd7664",
                 "shasum": ""
             },
             "require": {
@@ -1563,7 +1563,7 @@
                 }
             ],
             "description": "Navigation library for easy menu parsing",
-            "time": "2017-02-24 20:44:08"
+            "time": "2017-02-27 21:10:52"
         },
         {
             "name": "dotkernel/dot-rbac",
@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "4fdc1095e047cf4331ca0f6319b2fecd9ca99336"
+                "reference": "a99254a86cd7a27d03977b597caeb1602bb5a96e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/4fdc1095e047cf4331ca0f6319b2fecd9ca99336",
-                "reference": "4fdc1095e047cf4331ca0f6319b2fecd9ca99336",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/a99254a86cd7a27d03977b597caeb1602bb5a96e",
+                "reference": "a99254a86cd7a27d03977b597caeb1602bb5a96e",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-27 15:07:08"
+            "time": "2017-02-27 18:12:49"
         },
         {
             "name": "dotkernel/dot-validator",
@@ -2182,16 +2182,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.4",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e"
+                "reference": "b5ea1ef3d8ff10c307ba8c5945c2f134e503278f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
-                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/b5ea1ef3d8ff10c307ba8c5945c2f134e503278f",
+                "reference": "b5ea1ef3d8ff10c307ba8c5945c2f134e503278f",
                 "shasum": ""
             },
             "require": {
@@ -2226,7 +2226,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-11-07T23:38:38+00:00"
+            "time": "2017-02-27T17:11:23+00:00"
         },
         {
             "name": "psr/container",

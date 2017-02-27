@@ -28,6 +28,8 @@ class AccountForm extends \Dot\User\Form\AccountForm
                 'details' => [
                     'firstName',
                     'lastName',
+                    'phone',
+                    'address'
                 ]
             ]
         ]);

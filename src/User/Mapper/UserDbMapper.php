@@ -17,6 +17,7 @@ use Dot\Ems\Event\MapperEvent;
 use Dot\Ems\Mapper\MapperManager;
 use Dot\Hydrator\ClassMethodsCamelCase;
 use Zend\Db\Metadata\Object\ColumnObject;
+use Zend\Db\Sql\Select;
 use Zend\Hydrator\HydratorInterface;
 
 /**
@@ -63,6 +64,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
         $options['joins'] += [
             'UserDetails' => [
                 'on' => 'UserDetails.userId = User.id',
+                'type' => Select::JOIN_LEFT
             ]
         ];
 
@@ -82,9 +84,17 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
         /** @var array $data */
         $data = $e->getParam('data');
 
-        //load user details into user entity
-        $details = $this->userDetailsHydrator->hydrate($data['UserDetails'], clone $this->userDetailsPrototype);
-        $user->setDetails($details);
+        $detailsData = array_filter($data['UserDetails']);
+        if (!empty($detailsData)) {
+            //load user details into user entity
+            $details = $this->userDetailsHydrator->hydrate(
+                array_filter($data['UserDetails']),
+                clone $this->userDetailsPrototype
+            );
+            $user->setDetails($details);
+        } else {
+            $user->setDetails(new UserDetailsEntity());
+        }
     }
 
     /**

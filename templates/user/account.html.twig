@@ -31,6 +31,20 @@
         {{ formElement(lastName) }}
     </div>
 
+    {% set phone = form.getBaseFieldset().get('details').get('phone') %}
+    <div class="form-group {% if phone.getMessages() %}has-error{% endif %}">
+        {% set dummy = phone.setAttribute('class', 'form-control') %}
+        {{ formLabel(phone) }}
+        {{ formElement(phone) }}
+    </div>
+
+    {% set address = form.getBaseFieldset().get('details').get('address') %}
+    <div class="form-group {% if address.getMessages() %}has-error{% endif %}">
+        {% set dummy = address.setAttribute('class', 'form-control') %}
+        {{ formLabel(address) }}
+        {{ formElement(address) }}
+    </div>
+
     {{ formElement(form.get('account_csrf')) }}
 
     {% set submit = form.get('submit') %}

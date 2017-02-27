@@ -28,6 +28,12 @@ class UserDetailsEntity extends Entity
     /** @var  string */
     protected $lastName;
 
+    /** @var  string */
+    protected $phone;
+
+    /** @var  string */
+    protected $address;
+
     /**
      * @return string
      */
@@ -74,5 +80,37 @@ class UserDetailsEntity extends Entity
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 }

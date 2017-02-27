@@ -17,6 +17,7 @@ namespace App\User;
  */
 class Messages
 {
-    const ACTIVATION_RESENT = 'Activation e-mail was resent. Check your inbox';
+    const ACTIVATION_RESENT = 'Activation e-mail was sent to %s';
     const INVALID_PARAMETERS = 'Invalid parameters provided';
+    const GENERATE_CONFIRM_TOKEN_ERROR = 'Could not generate confirm token';
 }

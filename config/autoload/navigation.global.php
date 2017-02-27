@@ -112,7 +112,8 @@ return [
                         [
                             'options' => [
                                 'label' => 'Contact',
-                                'uri' => '#',
+                                'route' => 'contact',
+                                'params' => ['action' => ''],
                                 'icon' => 'fa fa-envelope',
                             ]
                         ],

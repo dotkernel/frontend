@@ -86,6 +86,28 @@ class UserController extends AbstractActionController
     /**
      * @return ResponseInterface
      */
+    public function changeEmailAction(): ResponseInterface
+    {
+        // will be implemented in dot-user
+        return new HtmlResponse($this->template(
+            'user::change-email'
+        ));
+    }
+
+    /**
+     * @return ResponseInterface
+     */
+    public function removeAccountAction(): ResponseInterface
+    {
+        // will be implemented in dot-user
+        return new HtmlResponse($this->template(
+            'user::remove-account'
+        ));
+    }
+
+    /**
+     * @return ResponseInterface
+     */
     public function pendingActivationAction(): ResponseInterface
     {
         $request = $this->getRequest();
@@ -103,13 +125,22 @@ class UserController extends AbstractActionController
         $user = $this->userService->findByEmail($email);
         if ($user && $user->getStatus() === UserEntity::STATUS_PENDING) {
             if ($check === sha1($user->getEmail() . $user->getPassword() . $salt)) {
+                $tokens = $this->tokenService->findConfirmTokens($user);
+                if (empty($tokens)) {
+                    // generate confirm token
+                    $t = $this->tokenService->generateConfirmToken($user);
+                    if (!$t->isValid()) {
+                        $this->messenger()->addError(Messages::GENERATE_CONFIRM_TOKEN_ERROR);
+                        return new RedirectResponse($this->url('login'));
+                    }
+                }
                 // show the page
                 return new HtmlResponse($this->template(
                     'user::resend-activation',
                     [
                         'resendActivationUri' =>
                             $this->url('user', ['action' => 'resend-activation']) . '?' .
-                                http_build_query(['email' => $email, 'check' => $check])
+                            http_build_query(['email' => $email, 'check' => $check])
                     ]
                 ));
             }
@@ -141,6 +172,17 @@ class UserController extends AbstractActionController
         if ($user && $user->getStatus() === UserEntity::STATUS_PENDING) {
             if ($check === sha1($user->getEmail() . $user->getPassword() . $salt)) {
                 $tokens = $this->tokenService->findConfirmTokens($user);
+                if (empty($tokens)) {
+                    // generate confirm token
+                    $t = $this->tokenService->generateConfirmToken($user);
+                    if (!$t->isValid()) {
+                        $this->messenger()->addError(Messages::GENERATE_CONFIRM_TOKEN_ERROR);
+                        return new RedirectResponse($this->url('login'));
+                    } else {
+                        $tokens = [$t->getParam('token')];
+                    }
+                }
+
                 if (!empty($tokens)) {
                     $confirmToken = $tokens[0];
                     $this->userMailer->sendActivationEmail($user, $confirmToken);
@@ -148,7 +190,7 @@ class UserController extends AbstractActionController
                     $session = $this->session('user');
                     unset($session->salt);
 
-                    $this->messenger()->addSuccess(Messages::ACTIVATION_RESENT);
+                    $this->messenger()->addSuccess(sprintf(Messages::ACTIVATION_RESENT, $email));
                     return new RedirectResponse($this->url('login'));
                 }
             }
