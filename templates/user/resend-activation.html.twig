@@ -1,0 +1,14 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Pending Activation{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">Pending Activation</h1>
+    <p><b>You cannot login without confirmation of your account.</b></p>
+    <p>
+        You must have received an activation e-mail when you registered with us. <br>
+        Please check your e-mail inbox, or spam inbox, for the activation e-mail. <br><br>
+
+        If none of this works, you can always <a href="{{ resendActivationUri }}">Resend Activation E-mail</a><br><br>
+    </p>
+{% endblock %}

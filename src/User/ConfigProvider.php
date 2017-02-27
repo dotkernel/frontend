@@ -12,6 +12,7 @@ declare(strict_types = 1);
 namespace App\User;
 
 use App\User\Authentication\AuthenticationListener;
+use App\User\Controller\UserController;
 use App\User\Entity\UserEntity;
 use App\User\Factory\UserFieldsetDelegator;
 use App\User\Fieldset\UserDetailsFieldset;
@@ -41,6 +42,8 @@ class ConfigProvider
             'dot_ems' => $this->getMappersConfig(),
 
             'dot_authentication' => $this->getAuthenticationConfig(),
+
+            'routes' => $this->getRoutesConfig(),
 
             'dot_user' => [
                 'user_entity' => UserEntity::class,
@@ -127,7 +130,7 @@ class ConfigProvider
         ];
     }
 
-    public function getAuthenticationConfig()
+    public function getAuthenticationConfig(): array
     {
         return [
             'web' => [
@@ -139,6 +142,15 @@ class ConfigProvider
                         'priority' => 100,
                     ]
                 ]
+            ]
+        ];
+    }
+
+    public function getRoutesConfig(): array
+    {
+        return [
+            'user_route' => [
+                'middleware' => [UserController::class, \Dot\User\Controller\UserController::class],
             ]
         ];
     }

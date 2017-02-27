@@ -11,17 +11,42 @@ declare(strict_types = 1);
 
 namespace App\User\Authentication;
 
+use App\User\Entity\UserEntity;
+use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Authentication\Adapter\Db\DbCredentials;
+use Dot\Authentication\AuthenticationInterface;
 use Dot\Authentication\Web\Event\AbstractAuthenticationEventListener;
 use Dot\Authentication\Web\Event\AuthenticationEvent;
+use Dot\FlashMessenger\FlashMessengerInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\RedirectResponse;
+use Zend\Expressive\Helper\UrlHelper;
 
 /**
  * Class AuthenticationListener
  * @package App\User\Authentication
+ *
+ * @Service
  */
 class AuthenticationListener extends AbstractAuthenticationEventListener
 {
+    /** @var  UrlHelper */
+    protected $urlHelper;
+
+    /**
+     * AuthenticationListener constructor.
+     * @param UrlHelper $urlHelper
+     * @param FlashMessengerInterface $flashMessenger
+     *
+     * @Inject({UrlHelper::class, FlashMessengerInterface::class})
+     */
+    public function __construct(UrlHelper $urlHelper, FlashMessengerInterface $flashMessenger)
+    {
+        $this->urlHelper = $urlHelper;
+    }
+
     /**
      * @param AuthenticationEvent $e
      */
@@ -45,5 +70,32 @@ class AuthenticationListener extends AbstractAuthenticationEventListener
             $dbCredentials = new DbCredentials($identity, $credential);
             $e->setParam('request', $request->withAttribute(DbCredentials::class, $dbCredentials));
         }
+    }
+
+    /**
+     * @param AuthenticationEvent $e
+     * @return ResponseInterface
+     */
+    public function onAfterAuthentication(AuthenticationEvent $e)
+    {
+        /** @var AuthenticationInterface $authenticationService */
+        $authenticationService = $e->getParam('authenticationService');
+        $error = $e->getParam('error');
+        if ($error) {
+            /** @var UserEntity $user */
+            $user = $e->getParam('user');
+            if ($user && !$authenticationService->hasIdentity() && $user->getStatus() === UserEntity::STATUS_PENDING) {
+                // go to a special page where user can resend their confirmation e-mail
+                // we can return ResponseInterface here, as the authentication flow will take them into account
+                $uri = $this->urlHelper->generate('user', ['action' => 'pending-activation']);
+                $uri .= '?' . http_build_query([
+                        'email' => $user->getEmail(),
+                        'check' => sha1($user->getEmail() . $user->getPassword())
+                    ]);
+                return new RedirectResponse($uri);
+            }
+        }
+        // just make IDE shut up about not returning a value
+        return null;
     }
 }
