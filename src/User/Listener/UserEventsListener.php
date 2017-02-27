@@ -80,7 +80,7 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
         if ($token instanceof ResetTokenEntity) {
             /** @var UserEntity $user */
             $user = $e->getParam('user');
-            $this->userMailer->setPasswordRecoveryEmail($user, $token);
+            $this->userMailer->sendPasswordRecoveryEmail($user, $token);
         }
     }
 

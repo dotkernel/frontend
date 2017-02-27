@@ -98,7 +98,7 @@ class UserMailerService
      * @param ResetTokenEntity $token
      * @return \Dot\Mail\Result\ResultInterface
      */
-    public function setPasswordRecoveryEmail(UserEntity $user, ResetTokenEntity $token)
+    public function sendPasswordRecoveryEmail(UserEntity $user, ResetTokenEntity $token)
     {
         $resetPasswordUri = $this->urlHelper->generate('user', ['action' => 'reset-password']);
         $query = ['email' => $user->getEmail(), 'token' => $token->getToken()];

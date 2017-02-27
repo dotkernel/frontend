@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "2bae05d0a879bf3638c4f2e8dfc0df57eaa19311"
+                "reference": "4fdc1095e047cf4331ca0f6319b2fecd9ca99336"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/2bae05d0a879bf3638c4f2e8dfc0df57eaa19311",
-                "reference": "2bae05d0a879bf3638c4f2e8dfc0df57eaa19311",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/4fdc1095e047cf4331ca0f6319b2fecd9ca99336",
+                "reference": "4fdc1095e047cf4331ca0f6319b2fecd9ca99336",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-27 10:55:02"
+            "time": "2017-02-27 15:07:08"
         },
         {
             "name": "dotkernel/dot-validator",
