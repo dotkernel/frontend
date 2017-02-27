@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^7.0",
+    "php": "^7.1",
     "roave/security-advisories": "dev-master",
     "zendframework/zend-expressive": "^1.0",
     "zendframework/zend-expressive-fastroute": "^1.0",
