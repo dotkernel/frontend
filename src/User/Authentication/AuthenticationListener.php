@@ -23,6 +23,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Helper\UrlHelper;
+use Zend\Math\Rand;
+use Zend\Session\Container;
 
 /**
  * Class AuthenticationListener
@@ -35,16 +37,22 @@ class AuthenticationListener extends AbstractAuthenticationEventListener
     /** @var  UrlHelper */
     protected $urlHelper;
 
+    /** @var  Container */
+    protected $sessionContainer;
+
     /**
      * AuthenticationListener constructor.
      * @param UrlHelper $urlHelper
-     * @param FlashMessengerInterface $flashMessenger
+     * @param Container $sessionContainer
      *
-     * @Inject({UrlHelper::class, FlashMessengerInterface::class})
+     * @Inject({UrlHelper::class, "dot-session.user"})
      */
-    public function __construct(UrlHelper $urlHelper, FlashMessengerInterface $flashMessenger)
-    {
+    public function __construct(
+        UrlHelper $urlHelper,
+        Container $sessionContainer
+    ) {
         $this->urlHelper = $urlHelper;
+        $this->sessionContainer = $sessionContainer;
     }
 
     /**
@@ -87,11 +95,13 @@ class AuthenticationListener extends AbstractAuthenticationEventListener
             if ($user && !$authenticationService->hasIdentity() && $user->getStatus() === UserEntity::STATUS_PENDING) {
                 // go to a special page where user can resend their confirmation e-mail
                 // we can return ResponseInterface here, as the authentication flow will take them into account
+                $this->sessionContainer->salt = Rand::getString(32);
                 $uri = $this->urlHelper->generate('user', ['action' => 'pending-activation']);
                 $uri .= '?' . http_build_query([
                         'email' => $user->getEmail(),
-                        'check' => sha1($user->getEmail() . $user->getPassword())
+                        'check' => sha1($user->getEmail() . $user->getPassword() . $this->sessionContainer->salt)
                     ]);
+
                 return new RedirectResponse($uri);
             }
         }

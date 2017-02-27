@@ -1682,12 +1682,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-session.git",
-                "reference": "30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a"
+                "reference": "d3efe49c528fe928527fdfdae4d857b57b594fd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-session/zipball/30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a",
-                "reference": "30f9be817b0fb57b61c4bc45efa8be74fd6c6b1a",
+                "url": "https://api.github.com/repos/dotkernel/dot-session/zipball/d3efe49c528fe928527fdfdae4d857b57b594fd2",
+                "reference": "d3efe49c528fe928527fdfdae4d857b57b594fd2",
                 "shasum": ""
             },
             "require": {
@@ -1724,7 +1724,7 @@
                 }
             ],
             "description": "Session library for DotKernel based on ZF3 session library",
-            "time": "2017-02-23 22:42:12"
+            "time": "2017-02-27 11:26:48"
         },
         {
             "name": "dotkernel/dot-twigrenderer",
@@ -1787,12 +1787,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "6a09879fd85a61a8a3a5977f54aceebb512f4e78"
+                "reference": "2bae05d0a879bf3638c4f2e8dfc0df57eaa19311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/6a09879fd85a61a8a3a5977f54aceebb512f4e78",
-                "reference": "6a09879fd85a61a8a3a5977f54aceebb512f4e78",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/2bae05d0a879bf3638c4f2e8dfc0df57eaa19311",
+                "reference": "2bae05d0a879bf3638c4f2e8dfc0df57eaa19311",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1850,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-27 01:35:52"
+            "time": "2017-02-27 10:55:02"
         },
         {
             "name": "dotkernel/dot-validator",
@@ -5503,16 +5503,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.10",
+            "version": "1.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "284fb0679dd25fb5ffb56dad92c72860c0a22f1b"
+                "reference": "e03f8f67534427a787e21a385a67ec3ca6978ea7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/284fb0679dd25fb5ffb56dad92c72860c0a22f1b",
-                "reference": "284fb0679dd25fb5ffb56dad92c72860c0a22f1b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e03f8f67534427a787e21a385a67ec3ca6978ea7",
+                "reference": "e03f8f67534427a787e21a385a67ec3ca6978ea7",
                 "shasum": ""
             },
             "require": {
@@ -5548,7 +5548,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-02-23T06:14:45+00:00"
+            "time": "2017-02-27T10:12:30+00:00"
         },
         {
             "name": "phpunit/phpunit",

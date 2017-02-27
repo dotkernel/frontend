@@ -6,4 +6,8 @@ return [
             'namespace' => 'frontend_messenger'
         ]
     ],
+
+    'session_containers' => [
+        'user'
+    ]
 ];
