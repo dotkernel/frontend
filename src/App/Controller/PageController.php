@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace App\Frontend\Controller;
+namespace Frontend\App\Controller;
 
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Controller\AbstractActionController;
@@ -24,7 +24,7 @@ use Zend\Form\Form;
 
 /**
  * Class PageController
- * @package Dot\Frontend\Controller
+ * @package Dot\App\Controller
  *
  * @method UrlHelperPlugin|UriInterface url(string $route = null, array $params = [])
  * @method FlashMessengerPlugin messenger()

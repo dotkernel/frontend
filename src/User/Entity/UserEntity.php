@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Entity;
+namespace Frontend\User\Entity;
 
 /**
  * Class UserEntity

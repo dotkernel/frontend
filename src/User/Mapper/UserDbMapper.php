@@ -9,13 +9,13 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Mapper;
+namespace Frontend\User\Mapper;
 
-use App\User\Entity\UserDetailsEntity;
-use App\User\Entity\UserEntity;
 use Dot\Ems\Event\MapperEvent;
 use Dot\Ems\Mapper\MapperManager;
 use Dot\Hydrator\ClassMethodsCamelCase;
+use Frontend\User\Entity\UserDetailsEntity;
+use Frontend\User\Entity\UserEntity;
 use Zend\Db\Metadata\Object\ColumnObject;
 use Zend\Db\Sql\Select;
 use Zend\Hydrator\HydratorInterface;

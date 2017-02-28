@@ -7,7 +7,7 @@ return [
             'options' => [
                 'adapter' => 'database',
 
-                'identity_prototype' => \App\User\Entity\UserEntity::class,
+                'identity_prototype' => \Frontend\User\Entity\UserEntity::class,
                 'identity_hydrator' => \Dot\Hydrator\ClassMethodsCamelCase::class,
 
                 'table' => 'user',

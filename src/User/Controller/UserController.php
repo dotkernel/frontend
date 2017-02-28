@@ -9,26 +9,26 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Controller;
+namespace Frontend\User\Controller;
 
-use App\User\Entity\UserEntity;
-use App\User\Messages;
-use App\User\Service\UserMailerService;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Controller\AbstractActionController;
-use Dot\User\Options\UserOptions;
-use Dot\User\Service\TokenServiceInterface;
-use Dot\User\Service\UserServiceInterface;
-use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response\HtmlResponse;
 use Dot\Controller\Plugin\Authentication\AuthenticationPlugin;
 use Dot\Controller\Plugin\Authorization\AuthorizationPlugin;
 use Dot\Controller\Plugin\FlashMessenger\FlashMessengerPlugin;
 use Dot\Controller\Plugin\Forms\FormsPlugin;
 use Dot\Controller\Plugin\TemplatePlugin;
 use Dot\Controller\Plugin\UrlHelperPlugin;
+use Dot\User\Options\UserOptions;
+use Dot\User\Service\TokenServiceInterface;
+use Dot\User\Service\UserServiceInterface;
+use Frontend\User\Entity\UserEntity;
+use Frontend\User\Messages;
+use Frontend\User\Service\UserMailerService;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Form\Form;
 use Zend\Session\Container;

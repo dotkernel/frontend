@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace App\User;
+namespace Frontend\User;
 
 /**
  * Class Messages

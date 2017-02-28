@@ -9,11 +9,11 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Factory;
+namespace Frontend\User\Factory;
 
-use App\User\Fieldset\UserDetailsFieldset;
 use Dot\Form\FormElementManager;
 use Dot\User\Form\UserFieldset;
+use Frontend\User\Fieldset\UserDetailsFieldset;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
 

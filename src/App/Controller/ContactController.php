@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Frontend\Controller;
+namespace Frontend\App\Controller;
 
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Controller\AbstractActionController;
@@ -27,7 +27,7 @@ use Zend\Session\Container;
 
 /**
  * Class ContactController
- * @package App\Frontend\Controller
+ * @package App\App\Controller
  *
  * @method UrlHelperPlugin|UriInterface url(string $route = null, array $params = [])
  * @method FlashMessengerPlugin messenger()

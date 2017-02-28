@@ -9,7 +9,7 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Form;
+namespace Frontend\User\Form;
 
 use Zend\Stdlib\ArrayUtils;
 

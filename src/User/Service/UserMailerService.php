@@ -9,14 +9,14 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Service;
+namespace Frontend\User\Service;
 
-use App\User\Entity\UserEntity;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Service\MailServiceInterface;
 use Dot\User\Entity\ConfirmTokenEntity;
 use Dot\User\Entity\ResetTokenEntity;
+use Frontend\User\Entity\UserEntity;
 use Zend\Expressive\Helper\ServerUrlHelper;
 use Zend\Expressive\Helper\UrlHelper;
 

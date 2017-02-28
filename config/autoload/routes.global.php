@@ -11,18 +11,18 @@ return [
         [
             'name' => 'home',
             'path' => '/',
-            'middleware' => \App\Frontend\Action\HomePageAction::class,
+            'middleware' => \Frontend\App\Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'page',
             'path' => '/page[/{action}]',
-            'middleware' => \App\Frontend\Controller\PageController::class,
+            'middleware' => \Frontend\App\Controller\PageController::class,
         ],
         [
             'name' => 'contact',
             'path' => '/contact[/[{action}]]',
-            'middleware' => \App\Frontend\Controller\ContactController::class,
+            'middleware' => \Frontend\App\Controller\ContactController::class,
         ],
     ],
 ];

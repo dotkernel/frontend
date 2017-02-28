@@ -9,10 +9,10 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Fieldset;
+namespace Frontend\User\Fieldset;
 
-use App\User\Entity\UserDetailsEntity;
 use Dot\Hydrator\ClassMethodsCamelCase;
+use Frontend\User\Entity\UserDetailsEntity;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 

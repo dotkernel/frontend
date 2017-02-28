@@ -50,7 +50,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Validator\ConfigProvider::class,
 
     //application
-    \App\User\ConfigProvider::class,
+    \Frontend\User\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):

@@ -9,16 +9,15 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Authentication;
+namespace Frontend\User\Authentication;
 
-use App\User\Entity\UserEntity;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Authentication\Adapter\Db\DbCredentials;
 use Dot\Authentication\AuthenticationInterface;
 use Dot\Authentication\Web\Event\AbstractAuthenticationEventListener;
 use Dot\Authentication\Web\Event\AuthenticationEvent;
-use Dot\FlashMessenger\FlashMessengerInterface;
+use Frontend\User\Entity\UserEntity;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\RedirectResponse;

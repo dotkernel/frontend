@@ -9,21 +9,21 @@
 
 declare(strict_types = 1);
 
-namespace App\User;
+namespace Frontend\User;
 
-use App\User\Authentication\AuthenticationListener;
-use App\User\Controller\UserController;
-use App\User\Entity\UserEntity;
-use App\User\Factory\UserFieldsetDelegator;
-use App\User\Fieldset\UserDetailsFieldset;
-use App\User\Form\AccountForm;
-use App\User\Form\RegisterForm;
-use App\User\Listener\UserEventsListener;
-use App\User\Mapper\UserDbMapper;
 use Dot\User\Factory\FormElementFactory;
 use Dot\User\Factory\UserDbMapperFactory;
 use Dot\User\Form\UserFieldset;
 use Dot\User\Options\MessagesOptions;
+use Frontend\User\Authentication\AuthenticationListener;
+use Frontend\User\Controller\UserController;
+use Frontend\User\Entity\UserEntity;
+use Frontend\User\Factory\UserFieldsetDelegator;
+use Frontend\User\Fieldset\UserDetailsFieldset;
+use Frontend\User\Form\AccountForm;
+use Frontend\User\Form\RegisterForm;
+use Frontend\User\Listener\UserEventsListener;
+use Frontend\User\Mapper\UserDbMapper;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**

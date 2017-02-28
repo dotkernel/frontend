@@ -6,14 +6,14 @@
  * Time: 5:36 PM
  */
 
-namespace App\Frontend\Factory;
+namespace Frontend\App\Factory;
 
 use Doctrine\Common\Cache\FilesystemCache;
 use Interop\Container\ContainerInterface;
 
 /**
  * Class AnnotationsCacheFactory
- * @package Dot\Frontend\Factory
+ * @package Dot\App\Factory
  */
 class AnnotationsCacheFactory
 {

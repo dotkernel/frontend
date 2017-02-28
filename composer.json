@@ -114,13 +114,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "App\\Frontend\\": "src/Frontend/",
-      "App\\User\\": "src/User"
+      "Frontend\\App\\": "src/App/",
+      "Frontend\\User\\": "src/User"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AppTest\\Frontend\\": "test/FrontendTest/"
+      "FrontendTest\\App\\": "test/App/"
     }
   },
   "scripts": {

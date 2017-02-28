@@ -9,10 +9,8 @@
 
 declare(strict_types = 1);
 
-namespace App\User\Listener;
+namespace Frontend\User\Listener;
 
-use App\User\Entity\UserEntity;
-use App\User\Service\UserMailerService;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\User\Entity\ConfirmTokenEntity;
@@ -25,6 +23,8 @@ use Dot\User\Event\UserEventListenerInterface;
 use Dot\User\Event\UserEventListenerTrait;
 use Dot\User\Service\TokenService;
 use Dot\User\Service\UserService;
+use Frontend\User\Entity\UserEntity;
+use Frontend\User\Service\UserMailerService;
 use Zend\EventManager\EventManagerInterface;
 
 /**

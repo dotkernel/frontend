@@ -7,7 +7,7 @@
  * Time: 9:55 PM
  */
 
-namespace App\Frontend\Action;
+namespace Frontend\App\Action;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
@@ -19,7 +19,7 @@ use Zend\Expressive\Template;
 
 /**
  * Class HomePageAction
- * @package Dot\Frontend\Action
+ * @package Dot\App\Action
  *
  * @Service
  */
