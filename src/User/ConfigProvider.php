@@ -11,7 +11,7 @@ declare(strict_types = 1);
 
 namespace Frontend\User;
 
-use Dot\User\Factory\FormElementFactory;
+use Dot\User\Factory\FormFactory;
 use Dot\User\Factory\UserDbMapperFactory;
 use Dot\User\Form\UserFieldset;
 use Dot\User\Options\MessagesOptions;
@@ -98,8 +98,8 @@ class ConfigProvider
             'form_manager' => [
                 'factories' => [
                     UserDetailsFieldset::class => InvokableFactory::class,
-                    RegisterForm::class => FormElementFactory::class,
-                    AccountForm::class => FormElementFactory::class,
+                    RegisterForm::class => FormFactory::class,
+                    AccountForm::class => FormFactory::class,
                 ],
                 'aliases' => [
                     'UserDetailsFieldset' => UserDetailsFieldset::class,

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3caad5fd1f415d9648795b485561faaa",
+    "content-hash": "49d388553c49a55ad8b9c93e24b2c185",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -934,12 +934,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-ems.git",
-                "reference": "8c6c77b6b38af40eee5d3d32828b0e5f4db6c0d9"
+                "reference": "cd22ec4dc004ecfba55a6233f7689e3d491bba98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/8c6c77b6b38af40eee5d3d32828b0e5f4db6c0d9",
-                "reference": "8c6c77b6b38af40eee5d3d32828b0e5f4db6c0d9",
+                "url": "https://api.github.com/repos/dotkernel/dot-ems/zipball/cd22ec4dc004ecfba55a6233f7689e3d491bba98",
+                "reference": "cd22ec4dc004ecfba55a6233f7689e3d491bba98",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,7 @@
                 "source": "https://github.com/dotkernel/dot-ems/tree/reworked",
                 "issues": "https://github.com/dotkernel/dot-ems/issues"
             },
-            "time": "2017-02-27 00:49:28"
+            "time": "2017-02-28 22:58:26"
         },
         {
             "name": "dotkernel/dot-event",
@@ -1566,6 +1566,66 @@
             "time": "2017-02-27 21:10:52"
         },
         {
+            "name": "dotkernel/dot-paginator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dotkernel/dot-paginator.git",
+                "reference": "3310554f9a43df3aff798aaa841b6dca53bf352e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dotkernel/dot-paginator/zipball/3310554f9a43df3aff798aaa841b6dca53bf352e",
+                "reference": "3310554f9a43df3aff798aaa841b6dca53bf352e",
+                "shasum": ""
+            },
+            "require": {
+                "container-interop/container-interop": "^1.1",
+                "php": "^7.1",
+                "zendframework/zend-paginator": "^2.7",
+                "zendframework/zend-servicemanager": "^3.0"
+            },
+            "require-dev": {
+                "dotkernel/dot-ems": "dev-reworked as 0.6.x-dev",
+                "dotkernel/dot-event": "dev-develop as 0.6.x-dev",
+                "dotkernel/dot-helpers": "dev-develop as 0.6.x-dev",
+                "dotkernel/dot-hydrator": "0.6.x-dev",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dot\\Paginator\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DotTest\\Paginator\\": "test/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "n3vrax",
+                    "email": "tibi@apidemia.com"
+                }
+            ],
+            "description": "Paginator component for dotkernel based on zend-paginator",
+            "support": {
+                "source": "https://github.com/dotkernel/dot-paginator/tree/master",
+                "issues": "https://github.com/dotkernel/dot-paginator/issues"
+            },
+            "time": "2017-02-28 22:56:37"
+        },
+        {
             "name": "dotkernel/dot-rbac",
             "version": "dev-develop",
             "source": {
@@ -1787,12 +1847,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-user.git",
-                "reference": "a99254a86cd7a27d03977b597caeb1602bb5a96e"
+                "reference": "9e82c556615035d8f81fef61b4202dbc4b046e4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/a99254a86cd7a27d03977b597caeb1602bb5a96e",
-                "reference": "a99254a86cd7a27d03977b597caeb1602bb5a96e",
+                "url": "https://api.github.com/repos/dotkernel/dot-user/zipball/9e82c556615035d8f81fef61b4202dbc4b046e4f",
+                "reference": "9e82c556615035d8f81fef61b4202dbc4b046e4f",
                 "shasum": ""
             },
             "require": {
@@ -1850,7 +1910,7 @@
                 }
             ],
             "description": "Complete configurable user module for DK built around dot-authentication-web",
-            "time": "2017-02-27 18:12:49"
+            "time": "2017-03-01 19:03:22"
         },
         {
             "name": "dotkernel/dot-validator",
@@ -2380,12 +2440,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "411283676149d8b8e8ee53ec621d84099e548090"
+                "reference": "07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/411283676149d8b8e8ee53ec621d84099e548090",
-                "reference": "411283676149d8b8e8ee53ec621d84099e548090",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e",
+                "reference": "07acc8c9c8d55bd2f1f161acc5aa164b571e4e8e",
                 "shasum": ""
             },
             "conflict": {
@@ -2460,7 +2520,7 @@
                 "thelia/backoffice-default-template": ">=2.1,<2.1.2",
                 "thelia/thelia": ">=2.1.0-beta1,<2.1.3|>=2.1,<2.1.2",
                 "twig/twig": "<1.20",
-                "typo3/cms": ">=6.2,<6.2.30|>=8,<8.4.1|>=7,<7.6.13",
+                "typo3/cms": ">=6.2,<6.2.30|>=8,<8.6.1|>=7,<7.6.16",
                 "typo3/flow": ">=2.3,<2.3.16|>=3,<3.0.10|>=3.1,<3.1.7|>=3.2,<3.2.7|>=3.3,<3.3.5|>=1,<1.0.4|>=1.1,<1.1.1|>=2,<2.0.1",
                 "typo3/neos": ">=1.1,<1.1.3|>=1.2,<1.2.13|>=2,<2.0.4",
                 "willdurand/js-translation-bundle": "<2.1.1",
@@ -2506,7 +2566,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2017-02-08T16:26:47+00:00"
+            "time": "2017-02-28T15:07:27+00:00"
         },
         {
             "name": "twig/twig",
@@ -6438,6 +6498,7 @@
         "dotkernel/dot-log": 20,
         "dotkernel/dot-mail": 20,
         "dotkernel/dot-navigation": 20,
+        "dotkernel/dot-paginator": 20,
         "dotkernel/dot-rbac": 20,
         "dotkernel/dot-rbac-guard": 20,
         "dotkernel/dot-session": 20,
@@ -6448,7 +6509,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.5 || ^7.0"
+        "php": "^7.1"
     },
     "platform-dev": []
 }
