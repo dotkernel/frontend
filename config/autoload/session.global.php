@@ -7,6 +7,10 @@ return [
         ]
     ],
 
+    'session_config' => [
+        'name' => 'FRONTEND_SESSID',
+    ],
+
     'session_containers' => [
         'user'
     ]
