@@ -5,7 +5,7 @@
 {% block page_title %}Sign In{% endblock %}
 
 {% block content %}
-    {{ messagesPartial('partial::alerts') }}
+    {{ messagesPartial('partial::alerts', {}, null, 'register') }}
 
     {% set dummy = form.setAttribute('autocomplete', 'off') %}
     {% set dummy = form.prepare() %}

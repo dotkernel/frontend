@@ -17,7 +17,7 @@ use Dot\Ems\Entity\Entity;
  * Class UserDetailsEntity
  * @package App\User\Entity
  */
-class UserDetailsEntity extends Entity
+class UserDetailsEntity extends Entity implements \JsonSerializable
 {
     /** @var  string */
     protected $userId;
@@ -112,5 +112,19 @@ class UserDetailsEntity extends Entity
     public function setAddress($address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'userId' => $this->getUserId(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'phone' => $this->getPhone(),
+            'address' => $this->getAddress()
+        ];
     }
 }

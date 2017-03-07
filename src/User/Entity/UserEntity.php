@@ -38,4 +38,17 @@ class UserEntity extends \Dot\User\Entity\UserEntity
     {
         $this->details = $details;
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return array_merge(
+            parent::jsonSerialize(),
+            [
+                'details' => $this->getDetails(),
+            ]
+        );
+    }
 }

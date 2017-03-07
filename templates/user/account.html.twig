@@ -6,6 +6,7 @@
 
 {% block content %}
     {{ messagesPartial('partial::alerts') }}
+    {{ messagesPartial('partial::alerts', {}, null, 'account') }}
 
     {% set dummy = form.prepare() %}
     {{ form().openTag(form) | raw }}
