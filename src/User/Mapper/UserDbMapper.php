@@ -11,8 +11,8 @@ declare(strict_types = 1);
 
 namespace Frontend\User\Mapper;
 
-use Dot\Ems\Event\MapperEvent;
-use Dot\Ems\Mapper\MapperManager;
+use Dot\Mapper\Event\MapperEvent;
+use Dot\Mapper\Mapper\MapperManager;
 use Dot\Hydrator\ClassMethodsCamelCase;
 use Frontend\User\Entity\UserDetailsEntity;
 use Frontend\User\Entity\UserEntity;

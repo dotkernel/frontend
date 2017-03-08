@@ -11,7 +11,7 @@ declare(strict_types = 1);
 
 namespace Frontend\User\Entity;
 
-use Dot\Ems\Entity\Entity;
+use Dot\Mapper\Entity\Entity;
 
 /**
  * Class UserDetailsEntity
