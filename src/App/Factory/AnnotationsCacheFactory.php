@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: n3vra
- * Date: 1/21/2017
- * Time: 5:36 PM
+ * @see https://github.com/dotkernel/dot-frontend/ for the canonical source repository
+ * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
+ * @license https://github.com/dotkernel/dot-frontend/blob/master/LICENSE.md MIT License
  */
 
 namespace Frontend\App\Factory;

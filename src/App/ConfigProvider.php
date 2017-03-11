@@ -1,10 +1,8 @@
 <?php
 /**
- * @copyright: DotKernel
- * @library: dot-frontend
- * @author: n3vrax
- * Date: 3/10/2017
- * Time: 6:37 PM
+ * @see https://github.com/dotkernel/dot-frontend/ for the canonical source repository
+ * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
+ * @license https://github.com/dotkernel/dot-frontend/blob/master/LICENSE.md MIT License
  */
 
 declare(strict_types = 1);

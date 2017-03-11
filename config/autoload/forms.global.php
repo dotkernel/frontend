@@ -1,11 +1,4 @@
 <?php
-/**
- * @copyright: DotKernel
- * @library: dot-frontend
- * @author: n3vrax
- * Date: 1/24/2017
- * Time: 9:19 PM
- */
 
 return [
     'dot_hydrator' => [
