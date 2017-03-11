@@ -17,9 +17,9 @@ use Dot\Controller\Plugin\FlashMessenger\FlashMessengerPlugin;
 use Dot\Controller\Plugin\Forms\FormsPlugin;
 use Dot\Controller\Plugin\TemplatePlugin;
 use Dot\Controller\Plugin\UrlHelperPlugin;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Form\Form;
 
 /**
@@ -38,33 +38,41 @@ use Zend\Form\Form;
 class PageController extends AbstractActionController
 {
     /**
-     * @return RedirectResponse
+     * @return ResponseInterface
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
-        return new RedirectResponse($this->url('home'));
+        $data = [];
+
+        $data['routerName'] = 'FastRoute';
+        $data['routerDocs'] = 'https://github.com/nikic/FastRoute';
+
+        $data['templateName'] = 'Twig';
+        $data['templateDocs'] = 'http://twig.sensiolabs.org/documentation';
+
+        return new HtmlResponse($this->template('app::home', $data));
     }
 
     /**
-     * @return HtmlResponse
+     * @return ResponseInterface
      */
-    public function aboutUsAction()
+    public function aboutUsAction(): ResponseInterface
     {
         return new HtmlResponse($this->template('page::about-us'));
     }
 
     /**
-     * @return HtmlResponse
+     * @return ResponseInterface
      */
-    public function whoWeAreAction()
+    public function whoWeAreAction(): ResponseInterface
     {
         return new HtmlResponse($this->template('page::who-we-are'));
     }
 
     /**
-     * @return HtmlResponse
+     * @return ResponseInterface
      */
-    public function premiumContentAction()
+    public function premiumContentAction(): ResponseInterface
     {
         return new HtmlResponse($this->template('page::premium-content'));
     }

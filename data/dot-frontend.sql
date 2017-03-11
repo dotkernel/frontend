@@ -1,121 +1,156 @@
--- MySQL dump 10.13  Distrib 5.5.44, for Win32 (x86)
---
--- Host: localhost    Database: dotkernel3
--- ------------------------------------------------------
--- Server version	5.5.44
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 --
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(150) DEFAULT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `role` enum('member','user') NOT NULL DEFAULT 'user',
   `status` enum('pending','active','inactive','deleted') NOT NULL DEFAULT 'pending',
-  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Table structure for table `user_confirm_token`
---
-
-DROP TABLE IF EXISTS `user_confirm_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_confirm_token` (
-  `userId` int(11) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `dateCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `userId_confirm_token_index` (`userId`),
-  KEY `token_confirm_index` (`token`),
-  CONSTRAINT `userIdConfirmToken_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `user_details`
 --
 
-DROP TABLE IF EXISTS `user_details`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_details` (
   `userId` int(11) NOT NULL,
   `firstName` varchar(150) DEFAULT NULL,
   `lastName` varchar(150) DEFAULT NULL,
   `phone` varchar(150) DEFAULT NULL,
-  `address` text,
-  UNIQUE KEY `userId_UNIQUE` (`userId`),
-  KEY `userId_details_index` (`userId`),
-  CONSTRAINT `userId_details_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `address` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `user_remember_token`
+-- Table structure for table `user_role`
 --
 
-DROP TABLE IF EXISTS `user_remember_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_remember_token` (
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `name`) VALUES
+(1, 'user'),
+(2, 'subscriber');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
   `userId` int(11) NOT NULL,
-  `selector` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `dateCreated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `selector_index` (`selector`),
-  KEY `userId_index` (`userId`),
-  CONSTRAINT `userId_remember_token_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `roleId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `user_reset_token`
+-- Table structure for table `user_token`
 --
 
-DROP TABLE IF EXISTS `user_reset_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_reset_token` (
+CREATE TABLE `user_token` (
+  `id` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `expireAt` int(11) NOT NULL,
-  `dateCreated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `userId_index` (`userId`),
-  KEY `token_index` (`token`),
-  CONSTRAINT `userIdResetToken_fk` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `selector` varchar(150) DEFAULT NULL,
+  `token` varchar(150) NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `type` enum('confirm','reset','remember') NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- Indexes for dumped tables
+--
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `username` (`username`);
 
--- Dump completed on 2017-01-09 18:59:14
+--
+-- Indexes for table `user_details`
+--
+ALTER TABLE `user_details`
+  ADD PRIMARY KEY (`userId`);
+
+--
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`userId`,`roleId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `roleId` (`roleId`);
+
+--
+-- Indexes for table `user_token`
+--
+ALTER TABLE `user_token`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `selector` (`selector`),
+  ADD KEY `token` (`token`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
+-- AUTO_INCREMENT for table `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `user_token`
+--
+ALTER TABLE `user_token`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_details`
+--
+ALTER TABLE `user_details`
+  ADD CONSTRAINT `user_details_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `user_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_token`
+--
+ALTER TABLE `user_token`
+  ADD CONSTRAINT `user_token_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
