@@ -1,0 +1,12 @@
+{% extends '@layout/single-form.html.twig' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block page_title %}Sign In{% endblock %}
+
+{% block content %}
+    {{ messagesPartial('partial::alerts') }}
+
+    {% include '@dot-user-form/login.html.twig' %}
+
+{% endblock %}

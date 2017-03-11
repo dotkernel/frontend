@@ -1,12 +1,17 @@
 <?php
 
 return [
-
-    'dot_session' => [
-        'session_namespace' => 'frontend_session',
-    ],
-
     'dot_flashmessenger' => [
-        'namespace' => 'frontend_flashmessenger'
+        'options' => [
+            'namespace' => 'frontend_messenger'
+        ]
     ],
+
+    'session_config' => [
+        'name' => 'FRONTEND_SESSID',
+    ],
+
+    'session_containers' => [
+        'user'
+    ]
 ];

@@ -28,10 +28,10 @@
             </div>
             <div class="collapse navbar-collapse">
                 <!-- parse the main menu -->
-                {{ navigationPartial('main_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
+                {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
 
                 <!-- navbar-right with login form or account menu -->
-                {{ navigationPartial('account_menu', 'dot-partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
+                {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
 
                 {% if not hasIdentity() %}
                     <div class="signup-btn navbar-right">
@@ -48,23 +48,19 @@
 <div class="app-content">
     <main class="container">
         <div class="row">
-            {% set _side_menu_block = block('side_menu') %}
             {% set contentColClass = 'col-md-12' %}
-
-            {% if _side_menu_block is not empty %}
+            {% if block('side_menu') is defined %}
                 {% set contentColClass = 'col-md-9' %}
                 <div class="col-md-3 side-menu">
-                    {{ _side_menu_block|raw }}
+                    {{ block('side_menu') }}
                 </div>
             {% endif %}
 
             <div class="{{ contentColClass }}">
                 <div class="{% block content_classes %}{% endblock %} content-wrapper">
 
-                    {% set _page_title = block('page_title') %}
-
-                    {% if _page_title is not empty %}
-                        <h2 class="page-header">{{ _page_title|raw }}</h2>
+                    {% if block('page_title') is defined %}
+                        <h2 class="page-header">{{ block('page_title') }}</h2>
                     {% endif %}
 
                     {% block content %}{% endblock %}

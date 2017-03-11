@@ -61,6 +61,11 @@ body {
     color: #ff6622;
 }
 
+.alert > ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
 @media (max-width: 1000px) {
     .navbar-text {
         display: none;

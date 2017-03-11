@@ -1,0 +1,73 @@
+{% extends '@layout/single-form.html.twig' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block page_title %}Sign In{% endblock %}
+
+{% block content %}
+    {{ messagesPartial('partial::alerts', {}, null, 'register') }}
+
+    {% set dummy = form.setAttribute('autocomplete', 'off') %}
+    {% set dummy = form.prepare() %}
+    {{ form().openTag(form) | raw }}
+
+    {% set username = form.getBaseFieldset().get('username') %}
+    <div class="form-group {% if username.getMessages() %}has-error{% endif %}">
+        {% set dummy = username.setAttribute('class', 'form-control') %}
+        {{ formLabel(username) }}
+        {{ formElement(username) }}
+    </div>
+
+    {% set email = form.getBaseFieldset().get('email') %}
+    <div class="form-group {% if email.getMessages() %}has-error{% endif %}">
+        {% set dummy = email.setAttribute('class', 'form-control') %}
+        {{ formLabel(email) }}
+        {{ formElement(email) }}
+    </div>
+
+    {% set firstName = form.getBaseFieldset().get('details').get('firstName') %}
+    <div class="form-group {% if firstName.getMessages() %}has-error{% endif %}">
+        {% set dummy = firstName.setAttribute('class', 'form-control') %}
+        {{ formLabel(firstName) }}
+        {{ formElement(firstName) }}
+    </div>
+
+    {% set lastName = form.getBaseFieldset().get('details').get('lastName') %}
+    <div class="form-group {% if lastName.getMessages() %}has-error{% endif %}">
+        {% set dummy = lastName.setAttribute('class', 'form-control') %}
+        {{ formLabel(lastName) }}
+        {{ formElement(lastName) }}
+    </div>
+
+    {% set password = form.getBaseFieldset().get('password') %}
+    <div class="form-group {% if password.getMessages() %}has-error{% endif %}">
+        {% set dummy = password.setAttribute('class', 'form-control') %}
+        {{ formLabel(password) }}
+        {{ formElement(password) }}
+    </div>
+
+    {% set passwordConfirm = form.getBaseFieldset().get('passwordConfirm') %}
+    <div class="form-group {% if passwordConfirm.getMessages() %}has-error{% endif %}">
+        {% set dummy = passwordConfirm.setAttribute('class', 'form-control') %}
+        {{ formLabel(passwordConfirm) }}
+        {{ formElement(passwordConfirm) }}
+    </div>
+
+    {{ formElement(form.get('register_csrf')) }}
+
+    {% if form.has('captcha') %}
+        {% set captcha = form.get('captcha') %}
+        <div class="form-group">
+            {% set dummy = captcha.setAttribute('class', 'form-control') %}
+            {{ formCaptcha(captcha) }}
+        </div>
+    {% endif %}
+
+    {% set submit = form.get('submit') %}
+    {% set dummy = submit.setAttribute('class', 'btn btn-lg btn-primary btn-block') %}
+    {{ formSubmit(submit) }}
+
+    {{ form().closeTag() | raw }}
+
+
+{% endblock %}

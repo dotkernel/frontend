@@ -34,7 +34,7 @@ return [
             'message_options' => [
 
                 //from email address of the email
-                'from' => 'pgt.dot.work@gmail.com',
+                'from' => 'support@dotkernel.com',
 
                 //from name to be displayed instead of from address
                 'from_name' => 'DotKernel Team',
@@ -89,7 +89,7 @@ return [
             'smtp_options' => [
 
                 //hostname or IP address of the mail server
-                'host' => 'smtp.gmail.com',
+                'host' => '',
 
                 //port of the mail server - default 25
                 'port' => 587,
@@ -126,7 +126,7 @@ return [
             ],*/
 
             //listeners to register with the mail service, for mail events
-            'mail_listeners' => [
+            'event_listeners' => [
 
             ],
         ],

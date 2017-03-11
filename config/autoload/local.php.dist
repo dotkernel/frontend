@@ -18,6 +18,8 @@ return [
     'dot_mail' => [
         'default' => [
             'smtp_options' => [
+                'host' => '',
+                'port' => 587
                 'connection_config' => [
                     'username' => '',
                     'password' => ''
@@ -28,12 +30,12 @@ return [
 
     'dot_user' => [
         'register_options' => [
-            'form_captcha_options' => [
+            'captcha_options' => [
                 'class' => 'recaptcha',
                 'options' => [
-                    'pubkey' => '6LcskCMTAAAAAM14rWOGRy4mMTfwk41dJHF75B2A',
-                    'privkey' => '6LcskCMTAAAAANFDwPGBvXxPgVuDQFJxfXrMmEsX',
-                    'theme' => 'white',
+                    'site_key' => '',
+                    'secret_key' => '',
+                    'theme' => 'light',
                 ]
             ]
         ],

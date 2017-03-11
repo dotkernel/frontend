@@ -1,0 +1,71 @@
+<ul class="{{ ulClass }}">
+
+    {% for page in container %}
+
+        {% if navigation.isAllowed(page) %}
+
+            {% set liClass = '' %}
+            {% set extraAttributes = '' %}
+            {% if navigation.isActive(page) %}
+                {% set liClass = 'active' %}
+            {% endif %}
+
+            {% if page.hasChildren() %}
+                {% set extraAttributes = ' class="dropdown-toggle" data-toggle="dropdown"' %}
+                {% set liClass = liClass ~ ' dropdown' %}
+            {% endif %}
+
+
+            {% if page.getOption('type') and page.getOption('type') == 'separator' %}
+
+                <li role="separator" class="divider"></li>
+
+            {% elseif page.getOption('type') and page.getOption('type') == 'text' %}
+
+                <li><p class="navbar-text">{{ page.getOption('label') }}</p></li>
+
+            {% else %}
+
+                <li class="{{ liClass }}">
+
+                    <a href="{{ navigation.getHref(page) }}"
+                            {% autoescape false %}
+                                {{ pageAttributes(page) ~ extraAttributes }}
+                            {% endautoescape %} >
+
+                        {% if page.getOption('icon') %}
+
+                            <i class="{{ page.getOption('icon') }}"></i>&nbsp;
+
+                        {% endif %}
+
+                        {% set username = '' %}
+                        {% if page.getOption('id') and page.getOption('id') == 'account' %}
+                            {% if hasIdentity() %}
+                                {% set username = getIdentity().getName() %}
+                            {% endif %}
+                        {% endif %}
+
+                        {{ page.getOption('label') ~ username }}
+
+                        {% if page.hasChildren() and depth == 0 %}
+
+                            <span class="caret"></span>
+
+                        {% endif %}
+                    </a>
+
+                    {% if page.hasChildren() %}
+
+                        {{ navigationPartial(page, 'partial::navigation', {'ulClass' : 'dropdown-menu', 'depth' : depth + 1}) }}
+
+                    {% endif %}
+
+                </li>
+
+            {% endif %}
+        {% endif %}
+
+    {% endfor %}
+
+</ul>
