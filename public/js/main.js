@@ -1,0 +1,1 @@
+// global js function should go here
