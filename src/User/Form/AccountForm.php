@@ -9,8 +9,6 @@ declare(strict_types = 1);
 
 namespace Frontend\User\Form;
 
-use Zend\Stdlib\ArrayUtils;
-
 /**
  * Class AccountForm
  * @package App\User\Form
@@ -20,18 +18,20 @@ class AccountForm extends \Dot\User\Form\AccountForm
     public function init()
     {
         parent::init();
-        $validationGroup = $this->getValidationGroup();
-        $validationGroup = ArrayUtils::merge($validationGroup, [
+        $this->setValidationGroup([
+            'account_csrf',
             'user' => [
+                'username',
                 'details' => [
                     'firstName',
                     'lastName',
                     'phone',
                     'address'
                 ]
-            ]
+            ],
+            // add submit to validation group,
+            // not needed usually bu needed for the form display helper partial template
+            'submit'
         ]);
-
-        $this->setValidationGroup($validationGroup);
     }
 }
