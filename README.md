@@ -14,6 +14,7 @@ $ composer create-project -s dev dotkernel/dot-frontend .
 * import the database schema, if you are using mysql, found in `data/dot-frontend.sql`
 * remove the `.dist` extension of the files `local.php.dist` and `errorhandler.local.php.dist` located in `config/autoload`
 * edit `local.php` according to your dev machine. Fill in the `database` configuration and a smtp credentials if you want your application to send mails on registration etc.
+* get a recaptcha key pair and configure the `local.php` with them
 * run the following command in your project root dir
 ```bash
 $ composer development-enable
