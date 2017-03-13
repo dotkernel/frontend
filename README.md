@@ -6,7 +6,7 @@ Dotkernel web starter package suitable for frontend applications.
 
 Create a new project directory and change dir to it. Run the following composer command
 ```bash
-$ composer create-project -s dev dotkernel/dot-frontend .
+$ composer create-project dotkernel/dot-frontend .
 ```
 
 ## Configuration
