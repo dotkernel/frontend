@@ -1,18 +1,26 @@
-{% extends '@layout/sidemenu.html.twig' %}
+{% extends '@layout/dual-content.html.twig' %}
 
 {% block title %}Account Settings{% endblock %}
 
-{% block page_title %}Update account information{% endblock %}
+{% block left_col_size %}col-md-5{% endblock %}
 
-{% block content %}
-    {{ messagesPartial('partial::alerts') }}
-    {{ messagesPartial('partial::alerts', {}, null, 'account') }}
-
-    {% set dummy = form.prepare() %}
-    {{ form().openTag(form) | raw }}
-
-    {% include '@partial/form-display-validationgroup.html.twig' with {'form': form, 'showLabels': true} %}
-
-    {{ form().closeTag() | raw }}
-
+{% block left_content %}
+	{{ navigationPartial('account_side_menu', 'partial::account-sidemenu') }}
 {% endblock %}
+			
+{% block right_col_size %}
+	col-md-7
+{% endblock %}
+
+{% block right_content %}
+	{{ messagesPartial('partial::alerts') }}
+	{{ messagesPartial('partial::alerts', {}, null, 'account') }}
+	
+	{% set dummy = form.prepare() %}
+	{{ form().openTag(form) | raw }}
+	
+	{% include '@partial/form-display-validationgroup.html.twig' with {'form': form, 'showLabels': true} %}
+	
+	{{ form().closeTag() | raw }}
+{% endblock %}
+		

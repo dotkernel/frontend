@@ -1,110 +1,345 @@
+/***** General *****/
+/* The html and body elements cannot have any padding or margin. */
+html,
 body {
-    padding-top: 80px;
+	height: 100%;
+}
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18px;
+	line-height: 1.3em;
+	font-weight: 300;
+}
+
+h1 {
+	font-size: 80px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+	color: #2C2C2C;
+}
+
+h2 {
+	font-size: 48px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+	color: #2C2C2C;
+}
+
+h3 {
+	font-size: 32px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+	color: #2C2C2C;
+}
+
+h4 {
+	font-size: 24px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+	color: #2C2C2C;
+}
+
+a {
+	color: #50BAA4;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
+
+p {
+	color: #B1B1B1;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+}
+
+input.form-control {
+	padding: 15px 15px;
+	background: #E7E7E7;
+	border-radius: 0px;
+	border: 0px;
+	border-top: 1px solid #D6D6D6;
+	font-size: 16px;
+	line-height: 50px;
+	height: 50px;
+}
+
+.btn-primary {
+	height: 50px;
+	border-radius: 0px;
+	background: #C60B31;
+	border-color: #C60B31;
+	color: #FFFFFF;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+	background: #333333;
+}
+
+/* Wrapper for page content to push down footer */
+#wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -115px;
+	background: #F5F5F5;
+}
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+	height: 115px;
+}
+
+/***** Header *****/
+@media ( min-width : 1200px) {
+	.app-header .container {
+		padding: 15px 50px;
+		width: 100%;
+	}
+}
+
+.app-header .container {
+	position: relative;
+}
+
+.navbar {
+	margin-bottom: 0px;
+	border-radius: 0px;
+	background-color: #FFFFFF;
+	border: 0px;
+	border-bottom: 1px solid #F6F6F6;
 }
 
 .navbar-brand {
-    height: auto;
+	height: auto;
 }
 
-.navbar-toggle {
-    margin-top: 12px;
+.navbar-brand  img {
+	display: block;
+	width: 170px;
+	height: auto;
 }
 
-.navbar-nav li a {
-    line-height: 62px;
-    height: 62px;
-    padding-top: 0;
+.navbar-inverse .navbar-nav > li > a {
+	color: #515151;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	text-transform: uppercase;
 }
 
-.navbar-form {
-    line-height: 62px;
-    height: 62px;
-    margin: 0;
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+	color: #000000;
 }
 
-.navbar-text {
-    line-height: 62px;
-    height: 62px;
-    margin: 0 0 0 15px;
+.navbar-inverse .navbar-nav>.active > a,
+.navbar-inverse .navbar-nav>.active > a:focus,
+.navbar-inverse .navbar-nav>.active > a:hover {
+	color: #000000;
+	background-color: transparent;
 }
 
-.signup-btn {
-    line-height: 62px;
-    height: 62px;
-    margin-left: 15px;
+.navbar .navbar-collapse {
+	position: relative;
+	text-align: center;
 }
 
-.dropdown-menu > li > a {
-    height: 40px;
-    line-height: 40px;
+.navbar .navbar-center {
+	display: block;
+	float: none;
+	margin-left: -185px;
+	width: 100%;
+	padding-top: 5px;
+	text-align: center;
 }
 
-.jumbotron {
-    padding: 5px;
+.navbar .navbar-center > li {
+	display: inline-block;
+	float: none;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
-.app {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+.navbar .navbar-center > li a i {
+	display: none;
 }
 
-.app-content {
-    flex: 1;
+.navbar .navbar-center > li a .caret {
+	color: #CCCCCC;
+	border-top: 6px dashed;
+	border-top: 6px solid\9;
+	border-right: 6px solid transparent;
+	border-left: 6px solid transparent;
 }
 
+.navbar .navbar-right {
+	position: absolute;
+	top: 5px;
+	right: 0px;
+}
+
+.navbar .navbar-right .user-login a {
+	padding: 0px;
+}
+
+/***** Footer *****/
 .app-footer {
-    padding-bottom: 1em;
+	padding: 30px 50px;
+	background: #F9F9F9;
 }
 
-.dk-orange, h2 a {
-    color: #ff6622;
+.app-footer p {
+	margin-bottom: 0px;
+	font-size: 16px;
 }
 
-.alert > ul {
-    list-style-type: square;
-    padding-left: 20px;
+.app-footer .enjoy {
+	margin-bottom: 10px;
+	font-size: 26px;
+	color: #3B3B3B;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
 }
 
-@media (max-width: 1000px) {
-    .navbar-text {
-        display: none;
-    }
+/** General elements for pages **/
+.page-intro {
+	position: relative;
+	padding: 120px 0px;
+	background: #F6F6F6;
+	text-align: center;
 }
 
-.navbar-colored-item {
-    color: coral !important;
+.page-intro p {
+	margin: 0px auto;
+	padding-bottom: 20px;
+	font-size: 18px;
+	color: #ABABAB;
+	max-width: 880px;
 }
 
-.element-errors {
-    color: red;
+.page-intro p a {
+	color: #ABABAB;
 }
 
-.side-menu {
-    margin-top: 10px;
+.page-intro p.welcome {
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	color: #464646;
+	font-size: 20px;
+	font-weight: 400;
 }
 
-.page-header {
-    margin-top: 10px !important;
+.page-intro h1 {
+	margin-top: 30px;
+	margin-bottom: 40px;
+	font-size: 100px;
+	letter-spacing: 5px;
 }
 
-.no-padding {
-    padding: 0 !important;
+@media ( max-width : 1199px) {
+	.page-intro h1 {
+		font-size: 86px;
+	}
 }
 
-.content-wrapper {
-    padding-right: 12px;
-    padding-left: 12px;
+@media ( max-width : 991px) {
+	.page-intro {
+		padding: 100px 0px;
+	}
+	.page-intro h1 {
+		font-size: 70px;
+	}
 }
 
-.nav-pills > li.active.remove-account-button > a {
-    background: red !important;
+@media ( max-width : 768px) {
+	.page-intro {
+		padding: 80px 0px 50px 0px;
+	}
+	.page-intro h1 {
+		font-size: 50px;
+	}
 }
 
-.remove-account-button a {
-    color: white !important;
+@media ( max-width : 500px) {
+	.page-intro{
+		padding: 80px 0px 0px 0px;
+	}
 }
 
-.remove-account-button-inactive a {
-    color: red !important;
+/** Home page **/
+.home-intro .arrow_down {
+	position: absolute;
+	bottom: -102px;
+	left: 0px;
+	width: 100%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.home-intro .arrow_down .arrow_down_content {
+	margin: 0px auto;
+	background: url("../img/arrow_center.png") no-repeat center center;
+	width: 654px;
+	height: 103px;
+}
+
+@media ( max-width : 768px) {
+	.home-intro .arrow_down .arrow_down_content {
+		width: 100%;
+	}
+}
+
+.home-list {
+	padding-top: 150px;
+	padding-bottom: 70px;
+	background: #FFFFFF;
+	text-align: center;
+}
+
+.home-list .col-md-4 {
+	padding-bottom: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.home-list h2 a {
+	font-size: 42px;
+	color: #2C2C2C;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+}
+
+@media ( max-width : 1199px) {
+	.home-list h2 a {
+		font-size: 36px;
+	}
+}
+
+/** About page **/
+.about-list {
+	padding-top: 70px;
+	padding-bottom: 70px;
+	background: #FFFFFF;
+	text-align: center;
+}
+
+.about-list .col-md-4 {
+	padding-bottom: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.about-list h2 a {
+	font-size: 42px;
+	color: #2C2C2C;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 200;
+}
+
+@media ( max-width : 1199px) {
+	.about-list h2 a {
+		font-size: 36px;
+	}
 }

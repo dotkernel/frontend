@@ -49,16 +49,6 @@ return [
                     'items' => [
                         [
                             'options' => [
-                                'label' => 'Contribute',
-                                'uri' => 'https://github.com/dotkernel',
-                                'icon' => 'fa fa-users',
-                            ],
-                            'attributes' => [
-                                'target' => '_blank'
-                            ],
-                        ],
-                        [
-                            'options' => [
                                 'label' => 'Pages',
                                 'uri' => '#',
                                 'icon' => 'fa fa-book',
@@ -116,6 +106,16 @@ return [
                                 'params' => ['action' => ''],
                                 'icon' => 'fa fa-envelope',
                             ]
+                        ],
+                        [
+                            'options' => [
+                                'label' => 'Contribute',
+                                'uri' => 'https://github.com/dotkernel',
+                                'icon' => 'fa fa-users',
+                            ],
+                            'attributes' => [
+                                'target' => '_blank'
+                            ],
                         ],
                     ],
                 ],
