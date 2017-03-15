@@ -114,6 +114,11 @@ input.form-control {
 	letter-spacing: 4px;
 }
 
+.forms .no-account {
+	margin-top: 15px;
+	color: #929292;
+}
+
 .form-content {
 	padding: 40px; 
 	background: #FFFFFF;
@@ -140,6 +145,21 @@ input.form-control {
 	}
 }
 
+.info-content {
+	padding: 40px; 
+	background: #FFFFFF;
+}
+
+.info-content a {
+	color: #999CA5;
+}
+
+@media ( max-width : 1199px) {
+	.info-content {
+		padding: 20px;
+	}
+}
+
 /***** Header *****/
 @media ( min-width : 1200px) {
 	.app-header .container {
@@ -158,6 +178,11 @@ input.form-control {
 	background-color: #FFFFFF;
 	border: 0px;
 	border-bottom: 1px solid #F6F6F6;
+}
+
+.navbar-header {
+	position: relative; 
+	z-index: 15;
 }
 
 .navbar-brand {
@@ -249,12 +274,14 @@ input.form-control {
 }
 
 .navbar .navbar-center {
+	position: relative;
 	display: block;
 	float: none;
 	margin-left: -185px;
 	width: 100%;
 	padding-top: 9px;
 	text-align: center;
+	z-index: 10;
 }
 
 .navbar .navbar-center > li {
@@ -425,6 +452,7 @@ input.form-control {
 	color: #464646;
 	font-size: 20px;
 	font-weight: 400;
+	line-height: 1.3em;
 }
 
 .page-intro h1 {
@@ -465,6 +493,14 @@ input.form-control {
 }
 
 /** Home page **/
+.home-intro p.welcome {
+	font-size: 26px;
+}
+
+.home-intro h1 {
+	font-size: 80px;
+}
+
 .home-intro .arrow_down {
 	position: absolute;
 	bottom: -102px;
@@ -481,7 +517,16 @@ input.form-control {
 	height: 103px;
 }
 
+@media ( max-width : 991px) {
+	.home-intro h1 {
+		font-size: 60px;
+	}
+}
+
 @media ( max-width : 768px) {
+	.home-intro h1 {
+		font-size: 34px;
+	}
 	.home-intro .arrow_down .arrow_down_content {
 		width: 100%;
 	}
@@ -645,4 +690,18 @@ input.form-control {
 		display: none;
 	}
 	
+}
+
+.account-settings p.not-implemented {
+	margin-top: 15px;
+	font-size: 20px;
+}
+
+.account-settings .spacer {
+	height: 15px;
+}
+
+.account-settings p.intro {
+	margin-top: 15px;
+	font-size: 24px;
 }

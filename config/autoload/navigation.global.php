@@ -91,7 +91,7 @@ return [
                                 ],
                                 [
                                     'options' => [
-                                        'label' => 'Premium Content',
+                                        'label' => 'Protected content',
                                         'route' => 'page',
                                         'params' => ['action' => 'premium-content'],
                                         'icon' => 'fa fa-trophy'
