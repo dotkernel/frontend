@@ -51,7 +51,7 @@ return [
                             'options' => [
                                 'label' => 'Pages',
                                 'uri' => '#',
-                                'icon' => 'fa fa-book',
+                                'icon' => '',
                             ],
                             'pages' => [
                                 [
@@ -104,14 +104,14 @@ return [
                                 'label' => 'Contact',
                                 'route' => 'contact',
                                 'params' => ['action' => ''],
-                                'icon' => 'fa fa-envelope',
+                                'icon' => '',
                             ]
                         ],
                         [
                             'options' => [
                                 'label' => 'Contribute',
                                 'uri' => 'https://github.com/dotkernel',
-                                'icon' => 'fa fa-users',
+                                'icon' => '',
                             ],
                             'attributes' => [
                                 'target' => '_blank'
@@ -130,11 +130,11 @@ return [
                                 'label' => 'Welcome, ',
                                 'id' => 'account',
                                 'uri' => '#',
-                                'icon' => 'fa fa-user',
+                                'icon' => '',
                                 'permission' => 'authenticated'
                             ],
                             'attributes' => [
-                                'class' => 'navbar-colored-item',
+                                'class' => 'navbar-colored-item user-menu-icon',
                             ],
                             'pages' => [
                                 [
@@ -142,34 +142,27 @@ return [
                                         'label' => 'Settings',
                                         'route' => 'user',
                                         'params' => ['action' => 'account'],
-                                        'icon' => 'fa fa-wrench',
+                                        'icon' => '',
                                     ]
                                 ],
                                 [
                                     'options' => [
                                         'label' => 'Sign Out',
                                         'route' => 'logout',
-                                        'icon' => 'fa fa-sign-out'
+                                        'icon' => ''
                                     ]
                                 ]
                             ]
                         ],
                         [
                             'options' => [
-                                'label' => 'Already registered?',
-                                'type' => 'text',
-                                'permission' => 'unauthenticated',
-                            ],
-                        ],
-                        [
-                            'options' => [
                                 'label' => 'Login',
                                 'route' => 'login',
-                                'icon' => 'fa fa-sign-in',
+                                'icon' => '',
                                 'permission' => 'unauthenticated'
                             ],
                             'attributes' => [
-                                'class' => 'navbar-colored-item',
+                                'class' => 'navbar-colored-item user-menu-icon',
                             ]
                         ],
                     ],

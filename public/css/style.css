@@ -7,7 +7,7 @@ body {
 
 body {
 	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 1.3em;
 	font-weight: 300;
 }
@@ -46,18 +46,25 @@ a {
 	font-weight: 300;
 }
 
+a:hover {
+	color: #C60B31;
+}
+
 p {
 	color: #B1B1B1;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 300;
 }
 
+label {
+	color: #B1B1B1;
+}
+
 input.form-control {
 	padding: 15px 15px;
-	background: #E7E7E7;
-	border-radius: 0px;
-	border: 0px;
-	border-top: 1px solid #D6D6D6;
+	background: #FFFFFF;
+	border-radius: 2px;
+	border: 1px solid #E7E7E7;
 	font-size: 16px;
 	line-height: 50px;
 	height: 50px;
@@ -65,7 +72,7 @@ input.form-control {
 
 .btn-primary {
 	height: 50px;
-	border-radius: 0px;
+	border-radius: 2px;
 	background: #C60B31;
 	border-color: #C60B31;
 	color: #FFFFFF;
@@ -90,6 +97,47 @@ input.form-control {
 #push,
 #footer {
 	height: 115px;
+}
+
+/** Forms **/
+.forms {
+	padding: 80px 15px;
+}
+
+.forms h1 {
+	margin-bottom: 40px;
+	margin-top: 0px;
+	font-size: 30px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 4px;
+}
+
+.form-content {
+	padding: 40px; 
+	background: #FFFFFF;
+}
+
+.form-content a {
+	display: block;
+	width: auto;
+	margin-top: 15px;
+	color: #999CA5;
+}
+
+.form-content .btn {
+	margin-top: 15px;
+}
+
+@media ( max-width : 1199px) {
+	.form-content {
+		padding: 20px;
+	}
+	
+	.form-content h1 {
+		margin-bottom: 20px;
+	}
 }
 
 /***** Header *****/
@@ -127,6 +175,27 @@ input.form-control {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 400;
 	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 2px;
+}
+
+.navbar-inverse .navbar-nav > li > a.user-menu-icon {
+	padding: 0px;
+	background: url("../img/user.png") no-repeat center center;
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
+	font-size: 0px;
+	color: transparent;
+	text-decoration: none;
+}
+
+.navbar-inverse .navbar-nav > li > a.user-menu-icon:hover {
+	text-decoration: none;
+}
+
+.navbar-inverse .navbar-nav > li > a.user-menu-icon .caret {
+	display: none;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -141,6 +210,39 @@ input.form-control {
 	background-color: transparent;
 }
 
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-inverse .navbar-nav > .open > a:hover {
+	color: #000000;
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+	border-color: #F6F6F6;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+	background-color: #F6F6F6;
+}
+
+.navbar-nav .open .dropdown-menu .dropdown-header,
+.navbar-nav .open .dropdown-menu > li > a {
+	padding-left: 15px;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+	color: #000000;
+}
+
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus,
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover {
+	color: #000000;
+	background: transparent;
+}
+
 .navbar .navbar-collapse {
 	position: relative;
 	text-align: center;
@@ -151,7 +253,7 @@ input.form-control {
 	float: none;
 	margin-left: -185px;
 	width: 100%;
-	padding-top: 5px;
+	padding-top: 9px;
 	text-align: center;
 }
 
@@ -176,12 +278,100 @@ input.form-control {
 
 .navbar .navbar-right {
 	position: absolute;
-	top: 5px;
-	right: 0px;
+	top: 12px;
+	right: 15px;
 }
 
 .navbar .navbar-right .user-login a {
 	padding: 0px;
+}
+
+.navbar-inverse .navbar-toggle {
+	margin-top: 20px;
+	padding: 0px;
+	background: transpatent;
+	border-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .navbar-toggle:hover {
+	background: transparent;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #333333;
+	height: 4px;
+	width: 30px;
+}
+
+.navbar-inverse .navbar-toggle:focus .icon-bar,
+.navbar-inverse .navbar-toggle:hover .icon-bar {
+	background-color: #BD1F3F;
+}
+
+@media ( max-width : 991px) {
+	.navbar .navbar-center {
+		float: left;
+		margin-left: 0px;
+		width: auto;
+		padding-top: 9px;
+		text-align: center;
+	}
+	
+	.navbar .navbar-center > li {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.navbar .navbar-center > li a {
+		padding-left: 10px;
+		padding-right: 10px;
+	} 
+}
+
+@media ( max-width : 767px) {
+	.navbar .navbar-center {
+		width: 100%;
+		text-align: left;
+	}
+	
+	.navbar .navbar-center > li {
+		display: block;
+		float: left;
+		width: 100%;
+	}
+	
+	.navbar .navbar-center > li > a {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	.navbar .navbar-right {
+		position: static;
+		float: left;
+		width: 100%;
+		text-align: left;
+		margin-left: 0px;
+	}
+	
+	.navbar-inverse .navbar-nav > li > a.user-menu-icon {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		background: transparent;
+		font-size: 16px;
+		color: #515151;
+		width: auto;
+		height: auto;
+	}
+	
+	.navbar-inverse .navbar-nav > li > a.user-menu-icon .caret {
+		display: inline-block;
+		color: #CCCCCC;
+		border-top: 6px dashed;
+		border-top: 6px solid\9;
+		border-right: 6px solid transparent;
+		border-left: 6px solid transparent;
+	}
 }
 
 /***** Footer *****/
@@ -201,6 +391,12 @@ input.form-control {
 	color: #3B3B3B;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 200;
+}
+
+@media ( max-width : 768px) {
+	.app-footer {
+		padding: 30px 30px;
+	}
 }
 
 /** General elements for pages **/
@@ -342,4 +538,111 @@ input.form-control {
 	.about-list h2 a {
 		font-size: 36px;
 	}
+}
+
+/** Account settings **/
+.account-intro {
+	position: relative;
+	padding: 60px 0px;
+	background: #F6F6F6;
+	text-align: center;
+}
+
+.account-intro h1 {
+	margin-top: 0px;
+	font-size: 30px;
+	font-weight: 400;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 4px;
+}
+
+.account-settings {
+	padding: 0px 15px 0px 15px;
+	background: #FFFFFF;
+}
+
+.account-settings .row {
+	padding: 25px 25px 40px 25px;
+}
+
+.account-settings .btn-primary {
+	width: auto !important;
+}
+
+.account-settings .sidebar {
+	display: block;
+}
+
+.account-settings .sidebar-menu-header { 
+	position: relative;
+	margin-top: 15px;
+	padding: 10px 15px 10px 0px;
+	color: #000000;
+	border-bottom: 1px solid #E7E7E7;
+	cursor: pointer;
+	display: none;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.account-settings .sidebar-menu-header .burger-menu {
+	position: absolute; 
+	top: 9px;
+	right: 0px;
+	width: 20px;
+}
+.account-settings .sidebar-menu-header .burger-menu span {
+	display: block;
+	margin: 3px 0px;
+	height: 3px;
+	background: #000000;
+}
+
+.account-settings .sidebar {
+	margin-top: 15px;
+}
+
+.account-settings .nav-pills > li > a {
+	border-radius: 0px;
+}
+
+.account-settings .nav-pills > li > a {
+	padding-left: 0px;
+}
+
+.account-settings .nav-pills > li.active > a,
+.account-settings .nav-pills > li.active > a:focus,
+.account-settings .nav-pills > li.active > a:hover {
+	background: transparent;
+	color: #000000;
+}
+
+.account-settings .nav-pills > li > a:focus,
+.account-settings .nav-pills > li > a:hover {
+	background: transparent;
+	color: #C60B31;
+}
+
+@media ( max-width : 767px) {
+	.account-settings {
+		padding: 0px;
+	}
+
+	.account-settings .row {
+		padding: 15px 0px 30px 0px;
+	}	
+	
+	.sidebar-container {
+		margin-bottom: 30px;
+	}
+
+	.sidebar-container .sidebar-menu-header {
+		display: block;
+	}
+	
+	.sidebar-container .sidebar {
+		display: none;
+	}
+	
 }
