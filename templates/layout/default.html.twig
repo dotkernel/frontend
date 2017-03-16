@@ -5,87 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>{% block title %}{% endblock %} - DotKernel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
 
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="app">
-<header class="app-header">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ path('home') }}">
-                    <img src="{{ asset('img/dk-logo.png') }}" alt="DotKernel"/>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <!-- parse the main menu -->
-                {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav', 'depth' : 0}) }}
+	<div id="wrapper">
+		<header class="app-header">
+		    <nav class="navbar navbar-inverse" role="navigation">
+		        <div class="container">
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                </button>
+		                <a class="navbar-brand" href="{{ path('home') }}">
+		                    <img src="{{ asset('img/logo.png') }}" alt="DotKernel"/>
+		                </a>
+		            </div>
+		            <div class="collapse navbar-collapse">
+		                <!-- parse the main menu -->
+		                {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-center', 'depth' : 0}) }}
+		
+		                <!-- navbar-right with login form or account menu -->
+		                {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
+		
+		                {% if not hasIdentity() %}
+		                    <div class="navbar-right">
+		                        <a href="{{ path('user', {'action' : 'login'}) }}" class="user-icon"></a>
+		                    </div>
+		                {% endif %}
+		
+		            </div>
+		        </div>
+		    </nav>
+		</header>
+	
+	    <main class="content-wrapper">
+	        
+	        {% block content %}{% endblock %}
+	        
+	    </main>
 
-                <!-- navbar-right with login form or account menu -->
-                {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
-
-                {% if not hasIdentity() %}
-                    <div class="signup-btn navbar-right">
-                        <a href="{{ path('user', {'action' : 'register'}) }}"
-                           class="btn btn-primary navbar-btn btn-block btn-lg">Sign Up</a>
-                    </div>
-                {% endif %}
-
-            </div>
-        </div>
-    </nav>
-</header>
-
-<div class="app-content">
-    <main class="container">
-        <div class="row">
-            {% set contentColClass = 'col-md-12' %}
-            {% if block('side_menu') is defined %}
-                {% set contentColClass = 'col-md-9' %}
-                <div class="col-md-3 side-menu">
-                    {{ block('side_menu') }}
-                </div>
-            {% endif %}
-
-            <div class="{{ contentColClass }}">
-                <div class="{% block content_classes %}{% endblock %} content-wrapper">
-
-                    {% if block('page_title') is defined %}
-                        <h2 class="page-header">{{ block('page_title') }}</h2>
-                    {% endif %}
-
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-<footer class="app-footer">
-    <div class="container">
-        <hr/>
-        {% block footer %}
-            <p>
-                &copy; 2009 - {{ "now"|date("Y") }} by DotBoost Technologies Ltd. All rights reserved.
-            </p>
-        {% endblock %}
-    </div>
-</footer>
-
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<script src="{{ asset('js/main.js') }}"></script>
-
-{% block javascript %}{% endblock %}
+		<div id="push"></div>
+	</div>
+	
+	<footer id="footer" class="app-footer">
+	    {% block footer %}
+	        <p class="enjoy">
+	        	enjoy dotkernel!
+	        </p>
+	        <p>
+	            &copy; {{ "now"|date("Y") }} DotKernel by Apidemia
+	        </p>
+	    {% endblock %}
+	</footer>
+	
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<script src="{{ asset('js/main.js') }}"></script>
+	
+	{% block javascript %}{% endblock %}
 </body>
 </html>
