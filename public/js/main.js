@@ -13,4 +13,9 @@ $( document ).ready(function() {
     	});
     });
 	
+	// accordition toggle class on open/close
+	$('.panel-title .collapsed').on("click", function(){
+		$(this).toggleClass("open closed");
+	});
+	
 });
