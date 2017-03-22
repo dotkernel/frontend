@@ -1,0 +1,369 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+	<div class="page-intro home-intro">
+		<div class="container">
+			<p class="welcome">DotKernel is a collection of</p>
+			<h1>PSR-7 Middleware applications</h1>
+	        <p>built on top of Zend Expressive microframework. <br />It is composed of a set of custom and extended Zend Framework components.</p>
+	    </div>
+	    <div class="arrow_down">
+	    	<div class="arrow_down_content">&nbsp;</div>
+	    </div>
+	</div>
+
+	<div class="home-list">
+		<div class="container">
+			<h2><a href="https://docs.zendframework.com/zend-expressive/" target="_blank">Zend expressive</a></h2>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-sm-6">
+							<h3>
+								<a href="https://zendframework.github.io/zend-expressive/features/container/intro/" target="_blank">
+									containers
+								</a>
+							</h3>
+							<p>
+								Expressive promotes and advocates the usage of Dependency Injection/Inversion of Control containers
+			                	when writing your applications. Expressive supports multiple containers which typehints against
+			                	<a href="https://github.com/container-interop/container-interop" target="_blank">container-interop</a>.
+			                </p>
+						</div>
+						<div class="col-sm-6">
+							 <h3>
+							 	<a href="https://zendframework.github.io/zend-expressive/features/template/twig/" target="_blank">
+				                    templating
+				                </a>
+				            </h3>
+				            <p>
+				                By default, no middleware in Expressive is templated. We do not even provide a default templating
+				                engine, as the choice of templating engine is often very specific to the project and/or organization.
+				            </p>
+				            {% if templateName is defined %}
+				                <p>
+				                	Get started with 
+				                    <a href="{{ templateDocs }}" target="_blank">
+				                       {{ templateName }}
+				                    </a>
+				                    .
+				                </p>
+			            	{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-sm-6">
+							<h3>
+				                <a href="https://zendframework.github.io/zend-expressive/features/router/intro/" target="_blank">
+				                    routers
+				                </a>
+				            </h3>
+				            <p>
+				                One fundamental feature of zend-expressive is that it provides mechanisms for implementing dynamic
+				                routing, a feature required in most modern web applications. Expressive ships with multiple adapters.
+				            </p>
+				            {% if routerName is defined %}
+				                <p>
+				                	Get started with
+				                    <a href="{{ routerDocs }}" target="_blank">
+				                         {{ routerName }}
+				                    </a>
+				                    .
+				                </p>
+				            {% endif %}
+						</div>
+						<div class="col-sm-6">
+							<h3>
+				                <a href="https://github.com/zendframework/zend-diactoros" target="_blank">
+				                    http messages
+				                </a>
+				            </h3>
+				            <p>
+				                HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create
+				                HTTP request messages that are sent to a web server, which provides an HTTP response message.
+				            </p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<h2>DotKernel components</h2>
+				<div class="col-md-12">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+								    <a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+								    	Authentication and user
+								    </a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+									<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-authentication" target="_blank">dot-authentication</a>: core authentication interfaces
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-authentication-service" target="_blank">dot-authentication-service</a> (<a href="https://docs.zendframework.com/zend-authentication/" target="_blank">zend-authentication</a>): concrete authentication implementation based on zend-authentication adapters
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-authentication-web" target="_blank">dot-authentication-web</a>: simple login/logout web flow leveraging dot-authentication
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-user" target="_blank">dot-user</a>: configurable user component provinding common user functionality
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="headingTwo">
+					    		<h4 class="panel-title">
+							        <a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							        	Authorization
+							        </a>
+					      		</h4>
+					    	</div>
+						    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+						      	<div class="panel-body">
+						        	<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-authorization" target="_blank">dot-authorization</a>: core authorization interfaces
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-rbac" target="_blank">dot-rbac</a>: RBAC authorization implementation
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-rbac-guard" target="_blank">dot-rbac-guard</a>: RBAC for authorizing sections of an application
+										</li>
+									</ul>
+						      	</div>
+						    </div>
+						</div>
+						
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingThree">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						          		Controllers
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-controller" target="_blank">dot-controller</a>: controller-like middleware for zend-expressive
+										</li>
+										<li>
+											Plugins
+											<ul>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-authentication" target="_blank">dot-controller-plugin-authentication</a>
+													(<a href="https://github.com/dotkernel/dot-authentication" target="_blank">dot-authentication</a>)
+												</li>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-authorization" target="_blank">dot-controller-plugin-authorization</a>
+													(<a href="https://github.com/dotkernel/dot-authorization" target="_blank">dot-authorization</a>)
+												</li>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-flashmessenger" target="_blank">dot-controller-plugin-flashmessenger</a>
+													(<a href="https://github.com/dotkernel/dot-flashmessenger" target="_blank">dot-flashmessenger</a>)
+												</li>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-forms" target="_blank">dot-controller-plugin-forms</a>
+													(<a href="https://github.com/dotkernel/dot-controller-plugin-forms" target="_blank">dot-forms</a>)
+												</li>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-mail" target="_blank">dot-controller-plugin-mail</a>
+													(<a href="https://github.com/dotkernel/dot-mail" target="_blank">dot-mail</a>)
+												</li>
+												<li>
+													<a href="https://github.com/dotkernel/dot-controller-plugin-session" target="_blank">dot-controller-plugin-session</a>
+													(<a href="https://github.com/dotkernel/dot-session" target="_blank">dot-session</a>)
+												</li>
+											</ul>
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingFour">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+						          		Forms, hydration and input validation
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-filter" target="_blank">dot-filter</a>
+											(<a href="https://docs.zendframework.com/zend-filter/" target="_blank">zend-filter</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-validator" target="_blank">dot-validator</a>
+											(<a href="https://docs.zendframework.com/zend-validator/" target="_blank">zend-validator</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-inputfilter" target="_blank">dot-inputfilter</a>
+											(<a href="https://docs.zendframework.com/zend-inputfilter/" target="_blank">zend-inputfilter</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-hydrator" target="_blank">dot-hydrator</a>
+											(<a href="https://docs.zendframework.com/zend-hydrator/" target="_blank">zend-hydrator</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-controller-plugin-forms" target="_blank">dot-forms</a>
+											(<a href="https://docs.zendframework.com/zend-form/" target="_blank">zend-form</a>)
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingFive">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+						          		Session
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-session" target="_blank">dot-session</a>
+											(<a href="https://docs.zendframework.com/zend-session/" target="_blank">zend-session</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-flashmessenger" target="_blank">dot-flashmessenger</a>: short lived session messages
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingSix">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+						          		Mailing
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-mail" target="_blank">dot-mail</a>
+											(<a href="https://docs.zendframework.com/zend-mail/" target="_blank">zend-mail</a>)
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingSeven">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+						          		Backend abstraction(database)
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-mapper" target="_blank">dot-mapper</a>: a simple mapper pattern implementation
+										</li>
+										<li>
+											<a href="https://docs.zendframework.com/zend-db/" target="_blank">zend-db</a>
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingEight">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+						          		Navigation and pagination
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-navigation" target="_blank">dot-navigation</a>: easy menu configuration and parsing
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-paginator" target="_blank">dot-paginator</a>
+											(<a href="https://docs.zendframework.com/zend-paginator/" target="_blank">zend-paginator</a>)
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					  	<div class="panel panel-default">
+					    	<div class="panel-heading" role="tab" id="headingNine">
+						      	<h4 class="panel-title">
+						        	<a class="collapsed open" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+						          		Others
+						        	</a>
+						      	</h4>
+					    	</div>
+					    	<div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+					      		<div class="panel-body">
+					        		<ul>
+										<li>
+											<a href="https://github.com/dotkernel/dot-cache" target="_blank">dot-cache</a>
+											(<a href="https://docs.zendframework.com/zend-cache/" target="_blank">zend-cache</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-log" target="_blank">dot-log</a>
+											(<a href="https://docs.zendframework.com/zend-log/" target="_blank">zend-log</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-annotated-services" target="_blank">dot-annotated-services</a>: create and inject services with dependecies through annotations
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-event" target="_blank">dot-event</a>
+											(<a href="https://docs.zendframework.com/zend-eventmanager/" target="_blank">zend-eventmanager</a>)
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-helpers" target="_blank">dot-helpers</a>
+										</li>
+										<li>
+											<a href="https://github.com/dotkernel/dot-twigrenderer" target="_blank">dot-twigrenderer</a>: extend the twig renderer with useful extensions and zend-view helpers
+										</li>
+									</ul>
+					      		</div>
+					    	</div>
+					  	</div>
+					  	
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+{% endblock %}

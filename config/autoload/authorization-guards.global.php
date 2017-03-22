@@ -1,9 +1,10 @@
 <?php
 
-return [
+use Dot\Rbac\Guard\Guard\GuardInterface;
 
+return [
     'dot_authorization' => [
-        'protection_policy' => \Dot\Rbac\Guard\Guard\GuardInterface::POLICY_ALLOW,
+        'protection_policy' => GuardInterface::POLICY_ALLOW,
 
         'event_listeners' => [],
 
@@ -20,7 +21,20 @@ return [
                             'rules' => [
                                 [
                                     'route' => 'user',
-                                    'actions' => ['change-password', 'account'],
+                                    'actions' => [
+                                        'register',
+                                        'reset-password',
+                                        'forgot-password',
+                                        'confirm-account',
+                                        'opt-out',
+                                        'pending-activation',
+                                        'resend-activation'
+                                    ],
+                                    'permissions' => ['*']
+                                ],
+                                [
+                                    'route' => 'user',
+                                    'actions' => [],
                                     'permissions' => ['authenticated']
                                 ],
                                 [
