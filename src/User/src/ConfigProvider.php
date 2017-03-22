@@ -14,7 +14,6 @@ use Dot\User\Factory\UserDbMapperFactory;
 use Dot\User\Form\UserFieldset;
 use Dot\User\Options\MessagesOptions;
 use Frontend\User\Authentication\AuthenticationListener;
-use Frontend\User\Controller\UserController;
 use Frontend\User\Entity\UserEntity;
 use Frontend\User\Factory\UserFieldsetDelegator;
 use Frontend\User\Fieldset\UserDetailsFieldset;
@@ -33,21 +32,24 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependenciesConfig(),
+            'dependencies' => $this->getDependencies(),
 
-            'dot_form' => $this->getFormsConfig(),
+            'dot_form' => $this->getForms(),
 
-            'dot_ems' => $this->getMappersConfig(),
+            'dot_mapper' => $this->getMappers(),
 
-            'dot_authentication' => $this->getAuthenticationConfig(),
+            'templates' => $this->getTemplates(),
 
-            'routes' => $this->getRoutesConfig(),
+            'dot_authentication' => $this->getAuthentication(),
 
             'dot_user' => [
                 'user_entity' => UserEntity::class,
 
-                //'route_default' => [],
-                //'default_roles' => [],
+                'route_default' => [
+                    'route_name' => 'user',
+                    'route_params' => ['action' => 'account']
+                ],
+                'default_roles' => ['user'],
 
                 'event_listeners' => [
                     'user' => [
@@ -76,21 +78,30 @@ class ConfigProvider
                 'messages_options' => [
                     'messages' => [
                         MessagesOptions::REGISTER_SUCCESS =>
-                            'Your account was successfully created. Check your e-mail for account confirmation'
+                            'Account was successfully created. Check your e-mail for account activation'
                     ]
                 ]
             ]
         ];
     }
 
-    public function getDependenciesConfig(): array
+    public function getDependencies(): array
     {
         return [
 
         ];
     }
 
-    public function getFormsConfig(): array
+    public function getTemplates(): array
+    {
+        return [
+            'paths' => [
+                'user' => [__DIR__ . '/../templates/user']
+            ]
+        ];
+    }
+
+    public function getForms(): array
     {
         return [
             'form_manager' => [
@@ -114,7 +125,7 @@ class ConfigProvider
         ];
     }
 
-    public function getMappersConfig(): array
+    public function getMappers(): array
     {
         return [
             'mapper_manager' => [
@@ -128,11 +139,26 @@ class ConfigProvider
         ];
     }
 
-    public function getAuthenticationConfig(): array
+    public function getAuthentication(): array
     {
         return [
             'web' => [
-                //'after_login_route' => [],
+                'login_route' => [
+                    'route_name' => 'login',
+                ],
+
+                'logout_route' => [
+                    'route_name' => 'logout',
+                ],
+
+                'after_logout_route' => [
+                    'route_name' => 'login',
+                ],
+
+                'after_login_route' => [
+                    'route_name' => 'user',
+                    'route_params' => ['action' => 'account']
+                ],
 
                 'event_listeners' => [
                     [
@@ -140,15 +166,6 @@ class ConfigProvider
                         'priority' => 100,
                     ]
                 ]
-            ]
-        ];
-    }
-
-    public function getRoutesConfig(): array
-    {
-        return [
-            'user_route' => [
-                'middleware' => [UserController::class, \Dot\User\Controller\UserController::class],
             ]
         ];
     }

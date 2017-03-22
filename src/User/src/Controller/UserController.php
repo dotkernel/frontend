@@ -35,18 +35,20 @@ use Zend\Session\Container;
  * Class UserController
  * @package App\User\Controller
  *
- * @method UrlHelperPlugin|UriInterface url(string $route = null, array $params = [])
+ * @method UrlHelperPlugin|UriInterface url($r = null, $p = [], $q = [], $f = null, $o = [])
  * @method FlashMessengerPlugin messenger()
  * @method FormsPlugin|Form forms(string $name = null)
  * @method TemplatePlugin|string template(string $template = null, array $params = [])
  * @method AuthenticationPlugin authentication()
- * @method AuthorizationPlugin isGranted(string $permission, array $roles = [], mixed $context = null)
+ * @method AuthorizationPlugin isGranted(string $permission, array $roles = [], $context = null)
  * @method Container session(string $namespace)
  *
  * @Service
  */
 class UserController extends AbstractActionController
 {
+    const LOGIN_ROUTE = 'login';
+
     /** @var  UserOptions */
     protected $userOptions;
 
@@ -108,44 +110,33 @@ class UserController extends AbstractActionController
      */
     public function pendingActivationAction(): ResponseInterface
     {
+        if ($this->authentication()->hasIdentity()) {
+            $this->messenger()->addWarning(Messages::SIGN_OUT_FIRST);
+            return new RedirectResponse($this->url('user', ['action' => 'account']));
+        }
+
         $request = $this->getRequest();
         $params = $request->getQueryParams();
 
         $email = $params['email'] ?? '';
         $check = $params['check'] ?? '';
-        $salt = $this->session('user')->salt ?? '';
 
-        if (empty($email) || empty($check) || empty($salt)) {
+        if (empty($email) || empty($check)) {
             $this->messenger()->addError(Messages::INVALID_PARAMETERS);
-            return new RedirectResponse($this->url('login'));
+            return new RedirectResponse($this->url(static::LOGIN_ROUTE));
         }
 
-        $user = $this->userService->findByEmail($email);
-        if ($user && $user->getStatus() === UserEntity::STATUS_PENDING) {
-            if ($check === sha1($user->getEmail() . $user->getPassword() . $salt)) {
-                $tokens = $this->tokenService->findConfirmTokens($user);
-                if (empty($tokens)) {
-                    // generate confirm token
-                    $t = $this->tokenService->generateConfirmToken($user);
-                    if (!$t->isValid()) {
-                        $this->messenger()->addError(Messages::GENERATE_CONFIRM_TOKEN_ERROR);
-                        return new RedirectResponse($this->url('login'));
-                    }
-                }
-                // show the page
-                return new HtmlResponse($this->template(
-                    'user::resend-activation',
-                    [
-                        'resendActivationUri' =>
-                            $this->url('user', ['action' => 'resend-activation']) . '?' .
-                            http_build_query(['email' => $email, 'check' => $check])
-                    ]
-                ));
-            }
-        }
-
-        $this->messenger()->addError(Messages::INVALID_PARAMETERS);
-        return new RedirectResponse($this->url('login'));
+        return new HtmlResponse($this->template(
+            'user::resend-activation',
+            [
+                'resendActivationUri' =>
+                    $this->url(
+                        'user',
+                        ['action' => 'resend-activation'],
+                        ['email' => $email, 'check' => $check]
+                    )
+            ]
+        ));
     }
 
     /**
@@ -153,6 +144,11 @@ class UserController extends AbstractActionController
      */
     public function resendActivationAction(): ResponseInterface
     {
+        if ($this->authentication()->hasIdentity()) {
+            $this->messenger()->addWarning(Messages::SIGN_OUT_FIRST);
+            return new RedirectResponse($this->url('user', ['action' => 'account']));
+        }
+
         $request = $this->getRequest();
         $params = $request->getQueryParams();
 
@@ -162,7 +158,7 @@ class UserController extends AbstractActionController
 
         if (empty($email) || empty($check) || empty($salt)) {
             $this->messenger()->addError(Messages::INVALID_PARAMETERS);
-            return new RedirectResponse($this->url('login'));
+            return new RedirectResponse($this->url(static::LOGIN_ROUTE));
         }
 
         /** @var UserEntity $user */
@@ -175,7 +171,7 @@ class UserController extends AbstractActionController
                     $t = $this->tokenService->generateConfirmToken($user);
                     if (!$t->isValid()) {
                         $this->messenger()->addError(Messages::GENERATE_CONFIRM_TOKEN_ERROR);
-                        return new RedirectResponse($this->url('login'));
+                        return new RedirectResponse($this->url(static::LOGIN_ROUTE));
                     } else {
                         $tokens = [$t->getParam('token')];
                     }
@@ -189,12 +185,12 @@ class UserController extends AbstractActionController
                     unset($session->salt);
 
                     $this->messenger()->addSuccess(sprintf(Messages::ACTIVATION_RESENT, $email));
-                    return new RedirectResponse($this->url('login'));
+                    return new RedirectResponse($this->url(static::LOGIN_ROUTE));
                 }
             }
         }
 
         $this->messenger()->addError(Messages::INVALID_PARAMETERS);
-        return new RedirectResponse($this->url('login'));
+        return new RedirectResponse($this->url(static::LOGIN_ROUTE));
     }
 }

@@ -93,12 +93,14 @@ class AuthenticationListener extends AbstractAuthenticationEventListener
                 // go to a special page where user can resend their confirmation e-mail
                 // we can return ResponseInterface here, as the authentication flow will take them into account
                 $this->sessionContainer->salt = Rand::getString(32);
-                $uri = $this->urlHelper->generate('user', ['action' => 'pending-activation']);
-                $uri .= '?' . http_build_query([
+                $uri = $this->urlHelper->generate(
+                    'user',
+                    ['action' => 'pending-activation'],
+                    [
                         'email' => $user->getEmail(),
                         'check' => sha1($user->getEmail() . $user->getPassword() . $this->sessionContainer->salt)
-                    ]);
-
+                    ]
+                );
                 return new RedirectResponse($uri);
             }
         }

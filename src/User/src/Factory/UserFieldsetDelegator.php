@@ -12,14 +12,13 @@ namespace Frontend\User\Factory;
 use Dot\Form\FormElementManager;
 use Dot\User\Form\UserFieldset;
 use Frontend\User\Fieldset\UserDetailsFieldset;
-use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class UserFieldsetDelegator
  * @package App\User\Factory
  */
-class UserFieldsetDelegator implements DelegatorFactoryInterface
+class UserFieldsetDelegator
 {
     public function __invoke(ContainerInterface $container, $name, callable $callback, array $options = null)
     {

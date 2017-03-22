@@ -1,5 +1,9 @@
 <?php
 
+use Frontend\User\Entity\UserEntity;
+use Dot\Hydrator\ClassMethodsCamelCase;
+use Dot\User\Service\PasswordCheck;
+
 return [
     'dot_authentication' => [
         'adapter' => [
@@ -7,15 +11,15 @@ return [
             'options' => [
                 'adapter' => 'database',
 
-                'identity_prototype' => \Frontend\User\Entity\UserEntity::class,
-                'identity_hydrator' => \Dot\Hydrator\ClassMethodsCamelCase::class,
+                'identity_prototype' => UserEntity::class,
+                'identity_hydrator' => ClassMethodsCamelCase::class,
 
                 'table' => 'user',
 
                 'identity_columns' => ['username', 'email'],
                 'credential_column' => 'password',
 
-                'callback_check' => \Dot\User\Service\PasswordCheck::class
+                'callback_check' => PasswordCheck::class
             ]
         ],
         'storage' => [
