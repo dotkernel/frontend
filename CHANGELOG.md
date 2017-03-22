@@ -1,3 +1,26 @@
+## 0.2.0 - 2017-03-22
+
+ZE2 migration
+
+### Changed
+* updated to PSR11 container
+* updated to PSR15 middleware
+* refactored project structure to follow modular design promoted by ZE2
+* programmatic routes and pipeline
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
+
 ## 0.1.2 - 2017-03-12
 
 ### Added

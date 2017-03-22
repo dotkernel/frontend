@@ -15,6 +15,10 @@ return [
         ]
     ],
 
+    'dot_mapper' => [
+        'default_adapter' => 'database',
+    ],
+
     'dot_mail' => [
         'default' => [
             'smtp_options' => [

@@ -13,30 +13,38 @@ return [
                         [
                             'options' => [
                                 'label' => 'Personal Information',
-                                'route' => 'user',
-                                'params' => ['action' => 'account'],
+                                'route' => [
+                                    'route_name' => 'user',
+                                    'route_params' => ['action' => 'account']
+                                ],
                             ],
                         ],
                         [
                             'options' => [
                                 'label' => 'Change password',
-                                'route' => 'user',
-                                'params' => ['action' => 'change-password'],
+                                'route' => [
+                                    'route_name' => 'user',
+                                    'route_params' => ['action' => 'change-password']
+                                ],
                             ],
                         ],
                         [
                             'options' => [
                                 'label' => 'Change email',
-                                'route' => 'user',
-                                'params' => ['action' => 'change-email'],
+                                'route' => [
+                                    'route_name' => 'user',
+                                    'route_params' => ['action' => 'change-email']
+                                ],
                             ],
                         ],
                         [
                             'options' => [
                                 'label' => 'Delete account',
-                                'route' => 'user',
+                                'route' => [
+                                    'route_name' => 'user',
+                                    'route_params' => ['action' => 'remove-account']
+                                ],
                                 'red-button' => true,
-                                'params' => ['action' => 'remove-account'],
                             ],
                         ],
                     ],
@@ -57,7 +65,9 @@ return [
                                 [
                                     'options' => [
                                         'label' => 'Home',
-                                        'route' => 'home',
+                                        'route' => [
+                                            'route_name' => 'home',
+                                        ],
                                         'icon' => 'fa fa-home'
                                     ]
                                 ],
@@ -70,16 +80,20 @@ return [
                                 [
                                     'options' => [
                                         'label' => 'About Us',
-                                        'route' => 'page',
-                                        'params' => ['action' => 'about-us'],
+                                        'route' => [
+                                            'route_name' => 'page',
+                                            'route_params' => ['action' => 'about-us']
+                                        ],
                                         'icon' => 'fa fa-info-circle'
                                     ]
                                 ],
                                 [
                                     'options' => [
                                         'label' => 'Who we are',
-                                        'route' => 'page',
-                                        'params' => ['action' => 'who-we-are'],
+                                        'route' => [
+                                            'route_name' => 'page',
+                                            'route_params' => ['action' => 'who-we-are']
+                                        ],
                                         'icon' => 'fa fa-copyright'
                                     ]
                                 ],
@@ -92,8 +106,10 @@ return [
                                 [
                                     'options' => [
                                         'label' => 'Protected content',
-                                        'route' => 'page',
-                                        'params' => ['action' => 'premium-content'],
+                                        'route' => [
+                                            'route_name' => 'page',
+                                            'route_params' => ['action' => 'premium-content']
+                                        ],
                                         'icon' => 'fa fa-trophy'
                                     ]
                                 ],
@@ -102,8 +118,9 @@ return [
                         [
                             'options' => [
                                 'label' => 'Contact',
-                                'route' => 'contact',
-                                'params' => ['action' => ''],
+                                'route' => [
+                                    'route_name' => 'contact',
+                                ],
                                 'icon' => '',
                             ]
                         ],
@@ -140,15 +157,19 @@ return [
                                 [
                                     'options' => [
                                         'label' => 'Settings',
-                                        'route' => 'user',
-                                        'params' => ['action' => 'account'],
+                                        'route' => [
+                                            'route_name' => 'user',
+                                            'route_params' => ['action' => 'account']
+                                        ],
                                         'icon' => '',
                                     ]
                                 ],
                                 [
                                     'options' => [
                                         'label' => 'Sign Out',
-                                        'route' => 'logout',
+                                        'route' => [
+                                            'route_name' => 'logout',
+                                        ],
                                         'icon' => ''
                                     ]
                                 ]
@@ -157,7 +178,9 @@ return [
                         [
                             'options' => [
                                 'label' => 'Login',
-                                'route' => 'login',
+                                'route' => [
+                                    'route_name' => 'login',
+                                ],
                                 'icon' => '',
                                 'permission' => 'unauthenticated'
                             ],

@@ -8,7 +8,7 @@
 namespace Frontend\App\Factory;
 
 use Doctrine\Common\Cache\FilesystemCache;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class AnnotationsCacheFactory

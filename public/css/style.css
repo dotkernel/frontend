@@ -172,6 +172,11 @@ input.form-control {
 	position: relative;
 }
 
+.alert > ul {
+	list-style-type: square;
+	padding-left: 20px;
+}
+
 .navbar {
 	margin-bottom: 0px;
 	border-radius: 0px;
@@ -316,7 +321,7 @@ input.form-control {
 .navbar-inverse .navbar-toggle {
 	margin-top: 20px;
 	padding: 0px;
-	background: transpatent;
+	background: transparent;
 	border-color: transparent;
 }
 
