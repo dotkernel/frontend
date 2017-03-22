@@ -1,3 +1,21 @@
+## 0.2.1 - 2017-03-22
+
+### Changed
+* Nothing
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* missing lazy services settings
+
+
 ## 0.2.0 - 2017-03-22
 
 ZE2 migration
