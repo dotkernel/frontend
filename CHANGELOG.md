@@ -3,6 +3,7 @@
 ZE2 migration
 
 ### Changed
+* new design
 * updated to PSR11 container
 * updated to PSR15 middleware
 * refactored project structure to follow modular design promoted by ZE2
