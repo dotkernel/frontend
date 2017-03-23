@@ -5,7 +5,7 @@
  * @license https://github.com/dotkernel/dot-frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Service;
 
@@ -60,12 +60,19 @@ class UserMailerService
      */
     public function sendActivationEmail(UserEntity $user, ConfirmTokenEntity $token)
     {
-        $confirmAccountUri = $this->urlHelper->generate('user', ['action' => 'confirm-account']);
-        $optOutUri = $this->urlHelper->generate('user', ['action' => 'opt-out']);
+        $queryParams = ['email' => $user->getEmail(), 'token' => $token->getToken()];
 
-        $queryParams = http_build_query(['email' => $user->getEmail(), 'token' => $token->getToken()]);
-        $confirmAccountUri .= '?' . $queryParams;
-        $optOutUri .= '?' . $queryParams;
+        $confirmAccountUri = $this->urlHelper->generate(
+            'user',
+            ['action' => 'confirm-account'],
+            $queryParams
+        );
+
+        $optOutUri = $this->urlHelper->generate(
+            'user',
+            ['action' => 'opt-out'],
+            $queryParams
+        );
 
         $message = $this->mailService->getMessage();
         $message->setTo(
@@ -73,15 +80,16 @@ class UserMailerService
             $user->getDetails()->getLastName() . ' ' . $user->getDetails()->getFirstName()
         );
         $message->setSubject('DotKernel Account confirmation');
-        $message->setBody(sprintf(
+        // by using the mail service setBody method, you can change the mime type to html just by adding some html tags
+        $this->mailService->setBody(sprintf(
             "Congratulations, %s %s, on registering with DotKernel!" .
-            "\n\nYou are one step away to access your new account." .
-            "\nJust click the link below to confirm your account" .
-            "\n\n%s" .
-            "\n\nYou will be redirected to the sign in page upon successful confirmation" .
-            "\n\nIf you received this e-mail without you registering, " .
+            "<br><br>You are one step away to access your new account." .
+            "<br>Just click the link below to confirm your account" .
+            "<br><br><a href=\"%s\">Activate my DotKernel account</a>" .
+            "<br><br>You will be redirected to the sign in page upon successful confirmation" .
+            "<br><br>If you received this e-mail without you registering, " .
             "please click the link below, to un-register your e-mail address" .
-            "\n%s",
+            "<br><br><a href=\"%s\">Un-register my DotKernel account</a>",
             $user->getDetails()->getLastName(),
             $user->getDetails()->getFirstName(),
             $this->serverUrlHelper->generate($confirmAccountUri),
@@ -98,9 +106,12 @@ class UserMailerService
      */
     public function sendPasswordRecoveryEmail(UserEntity $user, ResetTokenEntity $token)
     {
-        $resetPasswordUri = $this->urlHelper->generate('user', ['action' => 'reset-password']);
         $query = ['email' => $user->getEmail(), 'token' => $token->getToken()];
-        $resetPasswordUri .= '?' . http_build_query($query);
+        $resetPasswordUri = $this->urlHelper->generate(
+            'user',
+            ['action' => 'reset-password'],
+            $query
+        );
 
         $message = $this->mailService->getMessage();
         $message->setTo(
@@ -108,12 +119,13 @@ class UserMailerService
             $user->getDetails()->getLastName() . ' ' . $user->getDetails()->getFirstName()
         );
         $message->setSubject('DotKernel Password recovery');
-        $message->setBody(sprintf(
+        // by using the mail service setBody method, you can change the mime type to html just by adding some html tags
+        $this->mailService->setBody(sprintf(
             "You have requested an account password reset" .
-            "\nIf you didn't make this request, please ignore this e-mail" .
-            "\n\nIn order to reset your password, click the link bellow" .
-            "\n\n%s" .
-            "\n\nPlease note this link will expire within an hour. Do not share this information with anyone!",
+            "<br>If you didn't make this request, please ignore this e-mail" .
+            "<br><br>In order to reset your password, click the link bellow" .
+            "<br><br><a href=\"%s\">Reset my DotKernel account password</a>" .
+            "<br><br>Please note this link will expire within an hour. Do not share this information with anyone!",
             $this->serverUrlHelper->generate($resetPasswordUri)
         ));
 

@@ -1,3 +1,21 @@
+## 0.2.2 - 2017-03-23
+
+### Changed
+* e-mail to HTML mime type and pretty links
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* local.php.dist missing comma
+
+
 ## 0.2.1 - 2017-03-22
 
 ### Changed
