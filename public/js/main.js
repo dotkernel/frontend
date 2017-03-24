@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    
+
 	// sidebar menu slowly slide on mobile
 	$( window ).resize(function() {
 		if ($(window).width() > 767)
