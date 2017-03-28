@@ -29,7 +29,8 @@
 		                    <span class="icon-bar"></span>
 		                </button>
 		                <a class="navbar-brand" href="{{ path('home') }}">
-		                    <img src="{{ asset('img/logo.png') }}" alt="DotKernel"/>
+							<!-- change logo to png for IE <= 8 and Android <= 2.3 -->
+							<img src="{{ asset('img/logo.svg') }}" alt="DotKernel" onerror="this.onerror=null; this.src={{ asset('img/logo.png') }}" />
 		                </a>
 		            </div>
 		            <div class="collapse navbar-collapse">
