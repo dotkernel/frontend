@@ -30,8 +30,8 @@ The `ConfigProvider`'s can be left un-injected as the requested configurations a
 
 ## Configuration
 
-* import the database schema, if you are using mysql, found in `data/dot-frontend.sql`
-* remove the `.dist` extension of the files `local.php.dist` located in `config/autoload`
+* import the database schema, if you are using mysql, it can be found in `data/dot-frontend.sql`
+* In `config/autoload` rename `local.php.dist` to `local.php` and `development.local.php.dist` to `development.local.php`
 * edit `local.php` according to your dev machine. Fill in the `database` configuration and a smtp credentials if you want your application to send mails on registration etc.
 * get a recaptcha key pair and configure the `local.php` with them
 * if you use the create-project command, after installing, the project will go into development mode automatically
@@ -40,7 +40,7 @@ The `ConfigProvider`'s can be left un-injected as the requested configurations a
 $ composer development-enable
 $ composer development-disable
 ```
-This will enable dev mode having debug flag true and configuration caching off. It also make sure that any previously config cache is cleared.
+This will enable dev mode by turning the debug flag to true and turning configuration caching off. It will also make sure that any previous config cache is cleared.
 
 **Do not enable dev mode in production**
 
@@ -51,7 +51,7 @@ $ php -S 0.0.0.0:8080 -t public
 * visit `http://localhost:8080` in your browser
 
 **NOTE:**
-If you still get exceptions or errors regarding some missing services, try running the following command
+If you are still getting exceptions or errors regarding some missing services, try running the following command
 ```bash
 $ composer clear-config-cache
 ```
