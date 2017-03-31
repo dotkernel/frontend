@@ -15,9 +15,9 @@ $ composer create-project dotkernel/dot-frontend .
 
 ## Configuration
 
-* import the database schema, if you are using mysql, found in `data/dot-frontend.sql`
-* remove the `.dist` extension of the files `local.php.dist` located in `config/autoload`
-* edit `local.php` according to your dev machine. Fill in the `database` configuration and a smtp credentials if you want your application to send mails on registration etc.
+* import the database schema, if you are using mysql, it can be found in `data/dot-frontend.sql`
+* remove the `.dist` extension of the file `local.php.dist` located in `config/autoload`
+* edit `local.php` according to your dev machine. Fill in the `database` configuration and smtp credentials if you want your application to send mails on registration etc.
 * get a recaptcha key pair and configure the `local.php` with them
 * if you use the create-project command, after installing, the project will go into development mode automatically
 * you can also toggle development mode by using the composer commands
@@ -25,7 +25,9 @@ $ composer create-project dotkernel/dot-frontend .
 $ composer development-enable
 $ composer development-disable
 ```
-This will enable dev mode having debug flag true and configuration caching off. It also make sure that any previously config cache is cleared.
+* if not already done on installation, copy file `development.global.php.dist` to `development.global.php`
+
+This will enable dev mode by turning debug flag to true and turning configuration caching off. It will also make sure that any previously config cache is cleared.
 
 **Do not enable dev mode in production**
 
@@ -36,7 +38,7 @@ $ php -S 0.0.0.0:8080 -t public
 * visit `http://localhost:8080` in your browser
 
 **NOTE:**
-If you still get exceptions or errors regarding some missing services, try running the following command
+If you are still getting exceptions or errors regarding some missing services, try running the following command
 ```bash
 $ composer clear-config-cache
 ```
@@ -46,8 +48,7 @@ If you get errors when running composer commands like development-enable or clea
 it is probably because you don't have the PHP CLI version > 7.1 installed
 
 If you cannot use these commands(for example if you cannot upgrade PHP globally) you can setup/clean the project by hand as described below or if you have a locally installed PHP 7.1 version installed you can use that
-* enable development mode by renaming the files `config/development.config.php.dist` and `config/autoload/development.local.php.dist` to removed the `.dist` extension
+* enable development mode by renaming the files `config/development.config.php.dist` and `config/autoload/development.local.php.dist` to have the `.dist` extension removed
 * disable dev mode by reverting the above procedure
-* run `bin/clear-config-cache.php` using the proper PHP version if accessible OR
 * manually clear cached data from `data/cache` directory and optionally `data/proxies`
 
