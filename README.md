@@ -13,6 +13,21 @@ Create a new project directory and change dir to it. Run the following composer 
 $ composer create-project dotkernel/dot-frontend .
 ```
 
+The setup script will prompt for some custom settings.
+
+```shell
+Please select which config file you wish to inject 'Zend\Session\ConfigProvider' into:
+  [0] Do not inject
+  [1] config/config.php
+  Make your selection (default is 0):
+```
+
+For this option select `[0] Do not inject` because DotKernel3 already has an injected config provider which already contains the prompted configurations.
+
+`Remember this option for other packages of the same type? (y/N)`
+`y`
+The `ConfigProvider`'s can be left un-injected as the requested configurations are already loaded.
+
 ## Configuration
 
 * import the database schema, if you are using mysql, found in `data/dot-frontend.sql`
