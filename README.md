@@ -2,6 +2,10 @@
 
 Dotkernel web starter package suitable for frontend applications.
 
+## Requirements
+* dot-frontend needs PHP >= 7.1
+* In order to use the default setup and import the database files, you need MySQL
+
 ## Installation
 
 Create a new project directory and change dir to it. Run the following composer command
