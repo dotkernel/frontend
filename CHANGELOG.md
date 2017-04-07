@@ -1,3 +1,22 @@
+## 0.3.0 - 2017-04-07
+
+### Changed
+* renamed project name from dot-frontend to frontend
+* updated templates
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
+
 ## 0.2.2 - 2017-03-23
 
 ### Changed
