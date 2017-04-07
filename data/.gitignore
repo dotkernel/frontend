@@ -1,7 +1,7 @@
 *
 !.gitignore
-!dot-frontend.sql
 !cache
+!frontend.sql
 !cache/README.md
 !proxies
 !proxies/README.md
