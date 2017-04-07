@@ -5,7 +5,7 @@
  * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Listener;
 
@@ -27,7 +27,7 @@ use Zend\EventManager\EventManagerInterface;
 
 /**
  * Class UserEventsListener
- * @package App\User\Listener
+ * @package Frontend\User\Listener
  *
  * @Service
  */

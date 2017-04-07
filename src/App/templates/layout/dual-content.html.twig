@@ -1,22 +1,22 @@
 {% extends '@layout/default.html.twig' %}
 
 {% block content %}
-	<div class="account-intro">
-		<div class="container">
-			{% block dual_content_title %}{% endblock %}
-	    </div>
-	</div>
-	
-	<div class="{% block dual_additional_class %}{% endblock %}">
-		<div class="container">
-			<div class="row">
-				<div class="{% block left_col_size %}{% endblock %}">
-					{% block left_content %}{% endblock %}
-				</div>
-				<div class="{% block right_col_size %}{% endblock %}">
-					{% block right_content %}{% endblock %}
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="account-intro">
+        <div class="container">
+            {% block dual_content_title %}{% endblock %}
+        </div>
+    </div>
+
+    <div class="{% block dual_additional_class %}{% endblock %}">
+        <div class="container">
+            <div class="row">
+                <div class="{% block left_col_size %}{% endblock %}">
+                    {% block left_content %}{% endblock %}
+                </div>
+                <div class="{% block right_col_size %}{% endblock %}">
+                    {% block right_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

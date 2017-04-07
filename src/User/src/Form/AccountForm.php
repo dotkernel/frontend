@@ -5,13 +5,13 @@
  * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
 /**
  * Class AccountForm
- * @package App\User\Form
+ * @package Frontend\User\Form
  */
 class AccountForm extends \Dot\User\Form\AccountForm
 {

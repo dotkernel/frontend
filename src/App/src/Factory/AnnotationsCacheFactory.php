@@ -12,7 +12,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class AnnotationsCacheFactory
- * @package Dot\App\Factory
+ * @package Frontend\App\Factory
  */
 class AnnotationsCacheFactory
 {
