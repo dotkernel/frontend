@@ -15,6 +15,7 @@ $( document ).ready(function() {
 	
 	// accordition toggle class on open/close
 	$('.panel-title .collapsed').on("click", function(){
+        $('.panel-title .closed').removeClass("closed").addClass("open");
 		$(this).toggleClass("open closed");
 	});
 	
