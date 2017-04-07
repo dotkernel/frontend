@@ -1,3 +1,21 @@
+## 0.3.1 - 2017-04-07
+
+### Changed
+* Nothing
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* any reference to dot-frontend replace with frontend
+
+### Fixed
+* Nothing
+
+
 ## 0.3.0 - 2017-04-07
 
 ### Changed
