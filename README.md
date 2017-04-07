@@ -1,4 +1,4 @@
-# dot-frontend
+# frontend
 
 Dotkernel web starter package suitable for frontend applications.
 
@@ -10,10 +10,10 @@ Dotkernel web starter package suitable for frontend applications.
 
 Create a new project directory and change dir to it. Run the following composer command
 ```bash
-$ composer create-project dotkernel/dot-frontend .
+$ composer create-project dotkernel/frontend .
 ```
 
-The setup script will prompt for some custom settings.
+The setup script will prompt for some custom settings. When encountering a question like the one below:
 
 ```shell
 Please select which config file you wish to inject 'Zend\Session\ConfigProvider' into:
@@ -22,7 +22,7 @@ Please select which config file you wish to inject 'Zend\Session\ConfigProvider'
   Make your selection (default is 0):
 ```
 
-For this option select `[0] Do not inject` because DotKernel3 already has an injected config provider which already contains the prompted configurations.
+For this option select `[0] Do not inject` because the frontend application  already has an injected config provider which already contains the prompted configurations.
 
 `Remember this option for other packages of the same type? (y/N)`
 `y`
@@ -30,7 +30,7 @@ The `ConfigProvider`'s can be left un-injected as the requested configurations a
 
 ## Configuration
 
-* import the database schema, if you are using mysql, it can be found in `data/dot-frontend.sql`
+* import the database schema, if you are using mysql, which can be found in `data/frontend.sql`
 * remove the `.dist` extension of the file `local.php.dist` located in `config/autoload`
 * edit `local.php` according to your dev machine. Fill in the `database` configuration and smtp credentials if you want your application to send mails on registration etc.
 * get a recaptcha key pair and configure the `local.php` with them
@@ -62,7 +62,7 @@ $ composer clear-config-cache
 If you get errors when running composer commands like development-enable or clear-config-cache related to parsing errors and strict types
 it is probably because you don't have the PHP CLI version > 7.1 installed
 
-If you cannot use these commands(for example if you cannot upgrade PHP globally) you can setup/clean the project by hand as described below or if you have a locally installed PHP 7.1 version installed you can use that
+If you cannot use these commands(for example if you cannot upgrade PHP globally) you can setup/clean the project by hand as described below or if you have a locally installed PHP 7.1 version you can use that
 * enable development mode by renaming the files `config/development.config.php.dist` and `config/autoload/development.local.php.dist` to have the `.dist` extension removed
 * disable dev mode by reverting the above procedure
 * manually clear cached data from `data/cache` directory and optionally `data/proxies`

@@ -17,41 +17,38 @@
 
 	<div class="home-list">
 		<div class="container">
-			<h2><a href="https://docs.zendframework.com/zend-expressive/" target="_blank">Zend expressive</a></h2>
+			<h2><a href="https://docs.zendframework.com/zend-expressive/" target="_blank">Zend Expressive</a></h2>
 			<div class="row">
 				<div class="col-md-6">
 					<div class="row">
 						<div class="col-sm-6">
 							<h3>
-								<a href="https://zendframework.github.io/zend-expressive/features/container/intro/" target="_blank">
+								<a href="https://github.com/php-fig/container" target="_blank">
 									containers
 								</a>
 							</h3>
 							<p>
-								Expressive promotes and advocates the usage of Dependency Injection/Inversion of Control containers
-			                	when writing your applications. Expressive supports multiple containers which typehints against
-			                	<a href="https://github.com/container-interop/container-interop" target="_blank">container-interop</a>.
+								DotKernel is built around the PSR-11 dependency container.
+								We have chosen <b>Zend Service Manager</b> as our default implementation
 			                </p>
+							<p>
+								Get Started with <a href="https://github.com/zendframework/zend-servicemanager" target="_blank">Zend Service Manager</a>.
+							</p>
 						</div>
 						<div class="col-sm-6">
 							 <h3>
-							 	<a href="https://zendframework.github.io/zend-expressive/features/template/twig/" target="_blank">
+							 	<a href="https://github.com/twigphp/Twig" target="_blank">
 				                    templating
 				                </a>
 				            </h3>
 				            <p>
-				                By default, no middleware in Expressive is templated. We do not even provide a default templating
-				                engine, as the choice of templating engine is often very specific to the project and/or organization.
+				                By default, no middleware in Expressive is templated.
+								For DotKernel's Frontend application, we have chosen <b>Twig</b>
+								as the default templating engine.
 				            </p>
-				            {% if templateName is defined %}
-				                <p>
-				                	Get started with 
-				                    <a href="{{ templateDocs }}" target="_blank">
-				                       {{ templateName }}
-				                    </a>
-				                    .
-				                </p>
-			            	{% endif %}
+				            <p>
+								Get started with <a href="http://twig.sensiolabs.org/documentation" target="_blank">Twig</a>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -59,23 +56,16 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<h3>
-				                <a href="https://zendframework.github.io/zend-expressive/features/router/intro/" target="_blank">
+				                <a href="https://github.com/nikic/FastRoute" target="_blank">
 				                    routers
 				                </a>
 				            </h3>
 				            <p>
-				                One fundamental feature of zend-expressive is that it provides mechanisms for implementing dynamic
-				                routing, a feature required in most modern web applications. Expressive ships with multiple adapters.
+				                Among the various routing implementations compatible with Expressive, we have chosen <b>FastRoute</b> as DotKernel's default routing library
 				            </p>
-				            {% if routerName is defined %}
-				                <p>
-				                	Get started with
-				                    <a href="{{ routerDocs }}" target="_blank">
-				                         {{ routerName }}
-				                    </a>
-				                    .
-				                </p>
-				            {% endif %}
+							<p>
+								Get started with <a href="https://github.com/nikic/FastRoute" target="_blank">FastRoute</a>
+							</p>
 						</div>
 						<div class="col-sm-6">
 							<h3>
@@ -84,9 +74,11 @@
 				                </a>
 				            </h3>
 				            <p>
-				                HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create
-				                HTTP request messages that are sent to a web server, which provides an HTTP response message.
+				                Expressive, and consequently DotKernel is built around the PSR-7 standard. It uses <b>Zend Diactoros</b> as the PSR-7 implementation
 				            </p>
+							<p>
+								Get started with <a href="https://github.com/php-fig/http-message" target="_blank">PSR-7</a> and <a href="https://github.com/zendframework/zend-diactoros" target="_blank">Diactoros</a>
+							</p>
 						</div>
 					</div>
 				</div>
