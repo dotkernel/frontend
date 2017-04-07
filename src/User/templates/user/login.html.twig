@@ -3,22 +3,23 @@
 {% block title %}Sign In{% endblock %}
 
 {% block content %}
-    
+
     <div class="container">
 
-    	<div class="row">
-    	
-    		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 no-padding forms">
-    			<h1>Sign in</h1>
-    			<div class="form-content">
-	    			{{ messagesPartial('partial::alerts') }}
-	    			{% include '@dot-user-form/login.html.twig' %}
-	    		</div>
-	    		<p class="no-account">Don't have an account? <a href="{{ path('user', {'action': 'register'}) }}">Register</a>.</p>
-    		</div>
-    	
-    	</div>
-    	
+        <div class="row">
+
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 no-padding forms">
+                <h1>Sign in</h1>
+                <div class="form-content">
+                    {{ messagesPartial('partial::alerts') }}
+                    {% include '@dot-user-form/login.html.twig' %}
+                </div>
+                <p class="no-account">Don't have an account? <a href="{{ path('user', {'action': 'register'}) }}">Register</a>.
+                </p>
+            </div>
+
+        </div>
+
     </div>
 
 {% endblock %}

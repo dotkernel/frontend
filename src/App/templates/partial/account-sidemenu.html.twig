@@ -1,34 +1,34 @@
 <div class="sidebar-container">
-	<div class="sidebar-menu-header">
-		Account Menu
-		<div class="burger-menu">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</div>
-	<ul class="nav nav-pills nav-stacked sidebar">
-	    {% for page in container %}
-	
-	        {% set liClass = '' %}
-	        {% if navigation.isActive(page) %}
-	            {% set liClass = 'active' %}
-	        {% endif %}
-	
-	        {% if page.getOption('red-button') %}
-	            {% if navigation.isActive(page) %}
-	                {% set liClass = liClass ~ ' remove-account-button' %}
-	            {% else %}
-	                {% set liClass = 'remove-account-button-inactive' %}
-	            {% endif %}
-	        {% endif %}
-	
-	        <li role="presentation" class="{{ liClass }}">
-	            <a href="{{ navigation.getHref(page) }}" {{ pageAttributes(page) }} >
-	                {{ page.getOption('label') }}
-	            </a>
-	        </li>
-	
-	    {% endfor %}
-	</ul>
+    <div class="sidebar-menu-header">
+        Account Menu
+        <div class="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <ul class="nav nav-pills nav-stacked sidebar">
+        {% for page in container %}
+
+            {% set liClass = '' %}
+            {% if navigation.isActive(page) %}
+                {% set liClass = 'active' %}
+            {% endif %}
+
+            {% if page.getOption('red-button') %}
+                {% if navigation.isActive(page) %}
+                    {% set liClass = liClass ~ ' remove-account-button' %}
+                {% else %}
+                    {% set liClass = 'remove-account-button-inactive' %}
+                {% endif %}
+            {% endif %}
+
+            <li role="presentation" class="{{ liClass }}">
+                <a href="{{ navigation.getHref(page) }}" {{ pageAttributes(page) }} >
+                    {{ page.getOption('label') }}
+                </a>
+            </li>
+
+        {% endfor %}
+    </ul>
 </div>

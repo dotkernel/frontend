@@ -5,13 +5,13 @@
  * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Entity;
 
 /**
  * Class UserEntity
- * @package App\User\Entity
+ * @package Frontend\User\Entity
  */
 class UserEntity extends \Dot\User\Entity\UserEntity
 {

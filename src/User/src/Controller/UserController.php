@@ -5,7 +5,7 @@
  * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Controller;
 
@@ -33,7 +33,7 @@ use Zend\Session\Container;
 
 /**
  * Class UserController
- * @package App\User\Controller
+ * @package Frontend\User\Controller
  *
  * @method UrlHelperPlugin|UriInterface url($r = null, $p = [], $q = [], $f = null, $o = [])
  * @method FlashMessengerPlugin messenger()

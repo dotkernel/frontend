@@ -5,7 +5,7 @@
  * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Factory;
 
@@ -16,7 +16,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class UserFieldsetDelegator
- * @package App\User\Factory
+ * @package Frontend\User\Factory
  */
 class UserFieldsetDelegator
 {

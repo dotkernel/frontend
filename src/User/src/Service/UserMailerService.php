@@ -20,7 +20,7 @@ use Zend\Expressive\Helper\UrlHelper;
 
 /**
  * Class UserMailerService
- * @package App\User\Service
+ * @package Frontend\User\Service
  *
  * @Service
  */

@@ -22,7 +22,7 @@ use Zend\Form\Form;
 
 /**
  * Class PageController
- * @package Dot\App\Controller
+ * @package Frontend\App\Controller
  *
  * @method UrlHelperPlugin|UriInterface url(string $route = null, array $params = [])
  * @method FlashMessengerPlugin messenger()

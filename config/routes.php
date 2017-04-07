@@ -3,9 +3,9 @@
 use Dot\Authentication\Web\Action\LoginAction;
 use Dot\Authentication\Web\Action\LogoutAction;
 use Dot\User\Controller\UserController as UserController;
-use Frontend\User\Controller\UserController as FrontendUserController;
 use Frontend\App\Controller\ContactController;
 use Frontend\App\Controller\PageController;
+use Frontend\User\Controller\UserController as FrontendUserController;
 
 /**
  * Setup routes with a single request method:

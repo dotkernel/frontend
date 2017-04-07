@@ -11,10 +11,9 @@
     {% if form.has(k) %}
 
         {% include '@partial/form-display-validationgroup.html.twig' with {
-            'form' : form.get(k),
-            'validationGroup': validationGroup[k],
-            'showLabels' : showLabels} only
-        %}
+        'form' : form.get(k),
+        'validationGroup': validationGroup[k],
+        'showLabels' : showLabels} only %}
 
     {% else %}
 

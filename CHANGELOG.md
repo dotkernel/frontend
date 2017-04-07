@@ -1,3 +1,21 @@
+## 0.3.2 - 2017-04-07
+
+### Changed
+* string reference updates
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* fixed a bug in home page accordition element
+
+
 ## 0.3.1 - 2017-04-07
 
 ### Changed

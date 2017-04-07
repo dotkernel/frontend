@@ -3,26 +3,27 @@
 {% block title %}Pending Activation{% endblock %}
 
 {% block content %}
-    
+
     <div class="container">
 
-    	<div class="row">
-    	
-    		<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 no-padding forms">
-    			<h1 class="page-header">Pending Activation</h1>
-			    <div class="info-content">
-				    <p><b>You cannot login without confirming your account.</b></p>
-				    <p>
-				        You must have received an activation e-mail when you registered with us. <br>
-				        Please check your e-mail inbox, or spam inbox, for the activation e-mail. <br><br>
-				
-				        If you cannot find it, you can <a href="{{ resendActivationUri }}">Resend the activation e-mail</a>
-				    </p>
-				 </div>
-    		</div>
-    	
-    	</div>
-    	
+        <div class="row">
+
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 no-padding forms">
+                <h1 class="page-header">Pending Activation</h1>
+                <div class="info-content">
+                    <p><b>You cannot login without confirming your account.</b></p>
+                    <p>
+                        You must have received an activation e-mail when you registered with us. <br>
+                        Please check your e-mail inbox, or spam inbox, for the activation e-mail. <br><br>
+
+                        If you cannot find it, you can <a href="{{ resendActivationUri }}">Resend the activation
+                            e-mail</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 {% endblock %}
