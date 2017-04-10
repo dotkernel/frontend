@@ -17,6 +17,10 @@ $( document ).ready(function() {
 	$('.panel-title .collapsed').on("click", function(){
         $('.panel-title .closed').removeClass("closed").addClass("open");
 		$(this).toggleClass("open closed");
+		if ($(this).attr("aria-expanded") == 'true')
+		{
+            $('.panel-title .closed').removeClass("closed").addClass("open");
+		}
 	});
 	
 });
