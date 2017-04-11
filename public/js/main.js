@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     // sidebar menu slowly slide on mobile
     $(window).resize(function () {
         if ($(window).width() > 767) {
@@ -15,7 +14,10 @@ $(document).ready(function () {
     // accordition toggle class on open/close
     $('.panel-title .collapsed').on("click", function () {
         $('.panel-title .closed').removeClass("closed").addClass("open");
-        $(this).toggleClass("open closed");
+		    $(this).toggleClass("open closed");
+		    if ($(this).attr("aria-expanded") == 'true')
+		    {
+            $('.panel-title .closed').removeClass("closed").addClass("open");
+		    }
     });
-
 });
