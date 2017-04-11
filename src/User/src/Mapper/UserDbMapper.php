@@ -1,17 +1,17 @@
 <?php
 /**
- * @see https://github.com/dotkernel/dot-frontend/ for the canonical source repository
+ * @see https://github.com/dotkernel/frontend/ for the canonical source repository
  * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/dot-frontend/blob/master/LICENSE.md MIT License
+ * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Frontend\User\Mapper;
 
+use Dot\Hydrator\ClassMethodsCamelCase;
 use Dot\Mapper\Event\MapperEvent;
 use Dot\Mapper\Mapper\MapperManager;
-use Dot\Hydrator\ClassMethodsCamelCase;
 use Frontend\User\Entity\UserDetailsEntity;
 use Frontend\User\Entity\UserEntity;
 use Zend\Db\Metadata\Object\ColumnObject;
@@ -20,11 +20,11 @@ use Zend\Hydrator\HydratorInterface;
 
 /**
  * Class UserDbMapper
- * @package App\User\Mapper
+ * @package Frontend\User\Mapper
  */
 class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
 {
-    /** @var string  */
+    /** @var string */
     protected $userDetailsTable = 'user_details';
 
     /** @var  UserDetailsEntity */
@@ -117,7 +117,7 @@ class UserDbMapper extends \Dot\User\Mapper\UserDbMapper
             // update details
             $query = $this->getSql()->update($this->userDetailsTable)
                 ->set($detailsData)
-                ->where(['userId' => (int) $details->getUserId()]);
+                ->where(['userId' => (int)$details->getUserId()]);
         } else {
             $details->setUserId($entity->getId());
             $detailsData['userId'] = $entity->getId();

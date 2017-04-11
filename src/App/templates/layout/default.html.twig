@@ -6,11 +6,11 @@
     <title>{% block title %}{% endblock %} - DotKernel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
-    
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet"> 
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
@@ -18,64 +18,65 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="app">
-	<div id="wrapper">
-		<header class="app-header">
-		    <nav class="navbar navbar-inverse" role="navigation">
-		        <div class="container">
-		            <div class="navbar-header">
-		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		                    <span class="icon-bar"></span>
-		                    <span class="icon-bar"></span>
-		                    <span class="icon-bar"></span>
-		                </button>
-		                <a class="navbar-brand" href="{{ path('home') }}">
-							<!-- change logo to png for IE <= 8 and Android <= 2.3 -->
-							<img src="{{ asset('img/logo.svg') }}" alt="DotKernel" onerror="this.onerror=null; this.src={{ asset('img/logo.png') }}" />
-		                </a>
-		            </div>
-		            <div class="collapse navbar-collapse">
-		                <!-- parse the main menu -->
-		                {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-center', 'depth' : 0}) }}
-		
-		                <!-- navbar-right with login form or account menu -->
-		                {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
-		
-		                {% if not hasIdentity() %}
-		                    <div class="navbar-right">
-		                        <a href="{{ path('user', {'action' : 'login'}) }}" class="user-icon"></a>
-		                    </div>
-		                {% endif %}
-		
-		            </div>
-		        </div>
-		    </nav>
-		</header>
-	
-	    <main class="content-wrapper">
-	        
-	        {% block content %}{% endblock %}
-	        
-	    </main>
+<div id="wrapper">
+    <header class="app-header">
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('home') }}">
+                        <!-- change logo to png for IE <= 8 and Android <= 2.3 -->
+                        <img src="{{ asset('img/logo.svg') }}" alt="DotKernel"
+                             onerror="this.onerror=null; this.src={{ asset('img/logo.png') }};"/>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <!-- parse the main menu -->
+                    {{ navigationPartial('main_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-center', 'depth' : 0}) }}
 
-		<div id="push"></div>
-	</div>
-	
-	<footer id="footer" class="app-footer">
-	    {% block footer %}
-	        <p class="enjoy">
-	        	enjoy dotkernel!
-	        </p>
-	        <p>
-	            &copy; {{ "now"|date("Y") }} DotKernel by Apidemia
-	        </p>
-	    {% endblock %}
-	</footer>
-	
-	<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	<script src="{{ asset('js/main.js') }}"></script>
-	
-	{% block javascript %}{% endblock %}
+                    <!-- navbar-right with login form or account menu -->
+                    {{ navigationPartial('account_menu', 'partial::navigation', {'ulClass' : 'nav navbar-nav navbar-right', 'depth' : 0}) }}
+
+                    {% if not hasIdentity() %}
+                        <div class="navbar-right">
+                            <a href="{{ path('user', {'action' : 'login'}) }}" class="user-icon"></a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+    <div id="push"></div>
+</div>
+
+<footer id="footer" class="app-footer">
+    {% block footer %}
+        <p class="enjoy">
+            enjoy dotkernel!
+        </p>
+        <p>
+            &copy; {{ "now"|date("Y") }} DotKernel by Apidemia
+        </p>
+    {% endblock %}
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="{{ asset('js/main.js') }}"></script>
+
+{% block javascript %}{% endblock %}
 </body>
 </html>

@@ -23,7 +23,7 @@ return [
         'default' => [
             'smtp_options' => [
                 'host' => '',
-                'port' => 587
+                'port' => 587,
                 'connection_config' => [
                     'username' => '',
                     'password' => ''

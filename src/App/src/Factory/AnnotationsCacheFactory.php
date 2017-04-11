@@ -1,8 +1,8 @@
 <?php
 /**
- * @see https://github.com/dotkernel/dot-frontend/ for the canonical source repository
+ * @see https://github.com/dotkernel/frontend/ for the canonical source repository
  * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/dot-frontend/blob/master/LICENSE.md MIT License
+ * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
  */
 
 namespace Frontend\App\Factory;
@@ -12,7 +12,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class AnnotationsCacheFactory
- * @package Dot\App\Factory
+ * @package Frontend\App\Factory
  */
 class AnnotationsCacheFactory
 {

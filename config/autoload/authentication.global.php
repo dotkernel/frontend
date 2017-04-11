@@ -1,8 +1,8 @@
 <?php
 
-use Frontend\User\Entity\UserEntity;
 use Dot\Hydrator\ClassMethodsCamelCase;
 use Dot\User\Service\PasswordCheck;
+use Frontend\User\Entity\UserEntity;
 
 return [
     'dot_authentication' => [

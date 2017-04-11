@@ -1,5 +1,5 @@
 {
-  "name": "dotkernel/dot-frontend",
+  "name": "dotkernel/frontend",
   "description": "Dotkernel Frontend Application",
   "type": "project",
   "license": "MIT",
@@ -100,8 +100,8 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.2-dev",
-      "dev-develop": "0.3-dev"
+      "dev-master": "0.3-dev",
+      "dev-develop": "0.4-dev"
     }
   }
 }
