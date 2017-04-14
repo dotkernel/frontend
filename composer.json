@@ -35,7 +35,7 @@
     "dotkernel/dot-authentication-service": "^0.2",
     "dotkernel/dot-authentication-web": "^0.2",
     "dotkernel/dot-cache": "^1.1",
-    "dotkernel/dot-controller": "^0.2",
+    "dotkernel/dot-controller": "0.3.x-dev as 0.2.0",
     "dotkernel/dot-controller-plugin-flashmessenger": "^0.2",
     "dotkernel/dot-controller-plugin-authentication": "^0.2",
     "dotkernel/dot-controller-plugin-authorization": "^0.2",
