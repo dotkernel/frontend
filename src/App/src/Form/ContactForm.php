@@ -29,6 +29,38 @@ class ContactForm extends Form
 
     public function init()
     {
-        // TODO: add elements
+        $this->add([
+            'type' => 'UserMessageFieldset',
+            'options' => [
+                'use_as_base_fieldset' => true,
+            ]
+        ]);
+
+        $this->add([
+            'type' => 'Csrf',
+            'name' => 'contact_csrf',
+            'options' => [
+                'csrf_options' => [
+                    'timeout' => 3600,
+                    'message' => 'The form used to make the request has expired and was refreshed. Please try again.'
+                ]
+            ]
+        ]);
+
+        $this->add([
+            'name' => 'captcha',
+            'type' => 'Captcha',
+            'options' => [
+                'label' => 'Please verify you are human',
+                'captcha' => [
+                    'class' => 'recaptcha',
+                    'options' => [
+                        'site_key' => '6LcskCMTAAAAAM14rWOGRy4mMTfwk41dJHF75B2A',
+                        'secret_key' => '6LcskCMTAAAAANFDwPGBvXxPgVuDQFJxfXrMmEsX',
+                        'theme' => 'light',
+                    ]
+                ],
+            ]
+        ], ['priority' => -100]);
     }
 }
