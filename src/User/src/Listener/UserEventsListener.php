@@ -65,7 +65,10 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
         if ($token instanceof ConfirmTokenEntity) {
             /** @var UserEntity $user */
             $user = $e->getParam('user');
-            $this->userMailer->sendActivationEmail($user, $token);
+            $r = $this->userMailer->sendActivationEmail($user, $token);
+            if (!$r) {
+                // TODO: show an error message, email could not be sent
+            }
         }
     }
 
@@ -78,7 +81,10 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
         if ($token instanceof ResetTokenEntity) {
             /** @var UserEntity $user */
             $user = $e->getParam('user');
-            $this->userMailer->sendPasswordRecoveryEmail($user, $token);
+            $r = $this->userMailer->sendPasswordRecoveryEmail($user, $token);
+            if (!$r) {
+                // TODO: show an error message, email could not be sent
+            }
         }
     }
 
