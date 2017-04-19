@@ -16,7 +16,7 @@ namespace Frontend\User;
 class Messages
 {
     const ACTIVATION_RESENT = 'Activation e-mail was sent to %s';
-    const EMAIL_SEND_ERROR = 'There was a problem with the e-mail service. Please try again';
+    const EMAIL_SEND_ERROR = 'E-mail could not be sent due to an unexpected error. Please try again later.';
     const INVALID_PARAMETERS = 'Invalid parameters provided';
     const GENERATE_CONFIRM_TOKEN_ERROR = 'Could not generate activation token';
     const SIGN_OUT_FIRST = 'Sign out first in order to access the requested link';

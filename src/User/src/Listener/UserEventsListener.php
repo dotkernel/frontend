@@ -11,6 +11,7 @@ namespace Frontend\User\Listener;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
+use Dot\FlashMessenger\FlashMessengerInterface;
 use Dot\User\Entity\ConfirmTokenEntity;
 use Dot\User\Entity\ResetTokenEntity;
 use Dot\User\Event\TokenEvent;
@@ -22,6 +23,7 @@ use Dot\User\Event\UserEventListenerTrait;
 use Dot\User\Service\TokenService;
 use Dot\User\Service\UserService;
 use Frontend\User\Entity\UserEntity;
+use Frontend\User\Messages;
 use Frontend\User\Service\UserMailerService;
 use Zend\EventManager\EventManagerInterface;
 
@@ -44,14 +46,19 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
     /** @var  UserMailerService */
     protected $userMailer;
 
+    /** @var FlashMessengerInterface  */
+    protected $messenger;
+
     /**
      * UserEventsListener constructor.
      * @param UserMailerService $userMailer
+     * @param FlashMessengerInterface $flashMessenger
      *
-     * @Inject({UserMailerService::class})
+     * @Inject({UserMailerService::class, FlashMessengerInterface::class})
      */
-    public function __construct(UserMailerService $userMailer)
+    public function __construct(UserMailerService $userMailer, FlashMessengerInterface $flashMessenger)
     {
+        $this->messenger = $flashMessenger;
         $this->userMailer = $userMailer;
     }
 
@@ -65,10 +72,9 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
         if ($token instanceof ConfirmTokenEntity) {
             /** @var UserEntity $user */
             $user = $e->getParam('user');
-            $r = $this->userMailer->sendActivationEmail($user, $token);
-            if (!$r) {
-                // TODO: show an error message, email could not be sent
-            }
+            // we silently fail to send the e-mail, probably the service was not configured
+            // the failure should be logged instead
+            $this->userMailer->sendActivationEmail($user, $token);
         }
     }
 
@@ -81,10 +87,9 @@ class UserEventsListener implements UserEventListenerInterface, TokenEventListen
         if ($token instanceof ResetTokenEntity) {
             /** @var UserEntity $user */
             $user = $e->getParam('user');
-            $r = $this->userMailer->sendPasswordRecoveryEmail($user, $token);
-            if (!$r) {
-                // TODO: show an error message, email could not be sent
-            }
+            // we silently fail to send the e-mail, probably the service was not configured
+            // the failure should be logged instead
+            $this->userMailer->sendPasswordRecoveryEmail($user, $token);
         }
     }
 
