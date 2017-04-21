@@ -23,7 +23,6 @@ use Dot\User\Event\UserEventListenerTrait;
 use Dot\User\Service\TokenService;
 use Dot\User\Service\UserService;
 use Frontend\User\Entity\UserEntity;
-use Frontend\User\Messages;
 use Frontend\User\Service\UserMailerService;
 use Zend\EventManager\EventManagerInterface;
 

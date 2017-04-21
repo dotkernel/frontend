@@ -11,7 +11,6 @@ namespace Frontend\User\Service;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
-use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailServiceInterface;
 use Dot\User\Entity\ConfirmTokenEntity;
 use Dot\User\Entity\ResetTokenEntity;
@@ -97,14 +96,7 @@ class UserMailerService
             $this->serverUrlHelper->generate($optOutUri)
         ));
 
-        try {
-            $result = $this->mailService->send();
-        } catch (MailException $e) {
-            // for now we silently ignore this
-            // probably the configuration was not setup correctly, e-mails will not be sent
-            return false;
-        }
-
+        $result = $this->mailService->send();
         return $result->isValid();
     }
 
@@ -138,14 +130,7 @@ class UserMailerService
             $this->serverUrlHelper->generate($resetPasswordUri)
         ));
 
-        try {
-            $result = $this->mailService->send();
-        } catch (MailException $e) {
-            // for now we silently ignore this
-            // probably the configuration was not setup correctly, e-mails will not be sent
-            return false;
-        }
-
+        $result = $this->mailService->send();
         return $result->isValid();
     }
 }
