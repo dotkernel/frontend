@@ -9,6 +9,10 @@ declare(strict_types=1);
 
 namespace Frontend\App;
 
+use Frontend\App\Form\ContactForm;
+use Frontend\App\Form\UserMessageFieldset;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 /**
  * Class ConfigProvider
  * @package Frontend\App
@@ -21,6 +25,8 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
 
             'templates' => $this->getTemplates(),
+
+            'dot_form' => $this->getForms(),
         ];
     }
 
@@ -38,6 +44,22 @@ class ConfigProvider
                 'layout' => [__DIR__ . '/../templates/layout'],
                 'page' => [__DIR__ . '/../templates/page'],
                 'partial' => [__DIR__ . '/../templates/partial'],
+            ],
+        ];
+    }
+
+    public function getForms()
+    {
+        return [
+            'form_manager' => [
+                'factories' => [
+                    UserMessageFieldset::class => InvokableFactory::class,
+                    ContactForm::class => InvokableFactory::class,
+                ],
+                'aliases' => [
+                    'UserMessageFieldset' => UserMessageFieldset::class,
+                    'ContactForm' => ContactForm::class,
+                ]
             ],
         ];
     }

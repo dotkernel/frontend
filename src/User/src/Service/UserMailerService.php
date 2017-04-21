@@ -56,9 +56,9 @@ class UserMailerService
     /**
      * @param UserEntity $user
      * @param ConfirmTokenEntity $token
-     * @return \Dot\Mail\Result\ResultInterface
+     * @return bool
      */
-    public function sendActivationEmail(UserEntity $user, ConfirmTokenEntity $token)
+    public function sendActivationEmail(UserEntity $user, ConfirmTokenEntity $token): bool
     {
         $queryParams = ['email' => $user->getEmail(), 'token' => $token->getToken()];
 
@@ -96,15 +96,16 @@ class UserMailerService
             $this->serverUrlHelper->generate($optOutUri)
         ));
 
-        return $this->mailService->send();
+        $result = $this->mailService->send();
+        return $result->isValid();
     }
 
     /**
      * @param UserEntity $user
      * @param ResetTokenEntity $token
-     * @return \Dot\Mail\Result\ResultInterface
+     * @return bool
      */
-    public function sendPasswordRecoveryEmail(UserEntity $user, ResetTokenEntity $token)
+    public function sendPasswordRecoveryEmail(UserEntity $user, ResetTokenEntity $token): bool
     {
         $query = ['email' => $user->getEmail(), 'token' => $token->getToken()];
         $resetPasswordUri = $this->urlHelper->generate(
@@ -129,6 +130,7 @@ class UserMailerService
             $this->serverUrlHelper->generate($resetPasswordUri)
         ));
 
-        return $this->mailService->send();
+        $result = $this->mailService->send();
+        return $result->isValid();
     }
 }

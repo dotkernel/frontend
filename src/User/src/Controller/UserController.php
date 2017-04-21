@@ -179,12 +179,17 @@ class UserController extends AbstractActionController
 
                 if (!empty($tokens)) {
                     $confirmToken = $tokens[0];
-                    $this->userMailer->sendActivationEmail($user, $confirmToken);
+                    $mailResult = $this->userMailer->sendActivationEmail($user, $confirmToken);
 
                     $session = $this->session('user');
                     unset($session->salt);
 
-                    $this->messenger()->addSuccess(sprintf(Messages::ACTIVATION_RESENT, $email));
+                    if (!$mailResult) {
+                        $this->messenger()->addError(Messages::EMAIL_SEND_ERROR);
+                    } else {
+                        $this->messenger()->addSuccess(sprintf(Messages::ACTIVATION_RESENT, $email));
+                    }
+
                     return new RedirectResponse($this->url(static::LOGIN_ROUTE));
                 }
             }

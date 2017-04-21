@@ -1,3 +1,21 @@
+## 0.4.0 - unreleased
+
+### Changed
+* better email failure handling
+
+### Added
+* Contact us page - in progress...
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
+
 ## 0.3.2 - 2017-04-07
 
 ### Changed
