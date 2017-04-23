@@ -65,7 +65,9 @@ class UserMessageFieldset extends Fieldset implements InputFilterProviderInterfa
                 'label' => 'Message'
             ],
             'attributes' => [
-                'placeholder' => 'Message...'
+                'id' => 'userMessage_textarea',
+                'placeholder' => 'Message...',
+                'rows' => 5,
             ]
         ]);
     }

@@ -45,8 +45,9 @@ class ContactController extends AbstractActionController
     public function indexAction(): ResponseInterface
     {
         $form = $this->forms('ContactForm');
-        //var_dump($form);exit;
-        return new HtmlResponse($this->template('app::contact'));
+        return new HtmlResponse($this->template('app::contact', [
+            'form' => $form
+        ]));
     }
 
     /**

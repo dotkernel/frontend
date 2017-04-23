@@ -120,6 +120,9 @@ return [
                                 'label' => 'Contact',
                                 'route' => [
                                     'route_name' => 'contact',
+                                    'options' => [
+                                        'reuse_result_params' => false,
+                                    ]
                                 ],
                                 'icon' => '',
                             ]

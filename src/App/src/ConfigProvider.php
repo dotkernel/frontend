@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Frontend\App;
 
+use Frontend\App\Factory\ContactFormFactory;
 use Frontend\App\Form\ContactForm;
 use Frontend\App\Form\UserMessageFieldset;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -54,7 +55,7 @@ class ConfigProvider
             'form_manager' => [
                 'factories' => [
                     UserMessageFieldset::class => InvokableFactory::class,
-                    ContactForm::class => InvokableFactory::class,
+                    ContactForm::class => ContactFormFactory::class,
                 ],
                 'aliases' => [
                     'UserMessageFieldset' => UserMessageFieldset::class,
