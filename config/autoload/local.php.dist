@@ -43,5 +43,10 @@ return [
                 ]
             ]
         ],
-    ]
+    ],
+
+    'recaptcha' => [
+        'site_key' => 'YOUR SITE KEY',
+        'secret_key' => 'YOUR SECRET KEY',
+    ],
 ];
