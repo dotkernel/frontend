@@ -17,9 +17,11 @@ use Dot\Controller\Plugin\FlashMessenger\FlashMessengerPlugin;
 use Dot\Controller\Plugin\Forms\FormsPlugin;
 use Dot\Controller\Plugin\TemplatePlugin;
 use Dot\Controller\Plugin\UrlHelperPlugin;
+use Fig\Http\Message\RequestMethodInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Form\Form;
 use Zend\Session\Container;
 
@@ -45,6 +47,23 @@ class ContactController extends AbstractActionController
     public function indexAction(): ResponseInterface
     {
         $form = $this->forms('ContactForm');
+        $request = $this->getRequest();
+
+        if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
+            $data = $request->getParsedBody();
+
+            $form->setData($data);
+            if ($form->isValid()) {
+                $message = $form->getData();
+                var_dump($message);exit;
+
+            } else {
+                $this->messenger()->addError($this->forms()->getMessages($form));
+                $this->forms()->saveState($form);
+                return new RedirectResponse($request->getUri(), 303);
+            }
+        }
+
         return new HtmlResponse($this->template('app::contact', [
             'form' => $form
         ]));

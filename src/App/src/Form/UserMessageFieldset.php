@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Frontend\App\Form;
 
+use Dot\Hydrator\ClassMethodsCamelCase;
+use Frontend\App\Entity\UserMessageEntity;
 use Zend\Form\Fieldset;
 use Zend\InputFilter\InputFilterProviderInterface;
 
@@ -21,6 +23,9 @@ class UserMessageFieldset extends Fieldset implements InputFilterProviderInterfa
     public function __construct()
     {
         parent::__construct('userMessage');
+
+        $this->setObject(new UserMessageEntity());
+        $this->setHydrator(new ClassMethodsCamelCase());
     }
 
     public function init()
