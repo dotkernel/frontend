@@ -49,4 +49,9 @@ return [
         'site_key' => 'YOUR SITE KEY',
         'secret_key' => 'YOUR SECRET KEY',
     ],
+
+    'contact' => [
+        'notification_receivers' => [
+        ],
+    ],
 ];

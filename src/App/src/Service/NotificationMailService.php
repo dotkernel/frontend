@@ -26,17 +26,19 @@ class NotificationMailService
     protected $mailService;
 
     /** @var array  */
-    protected $notificationList = ['n3vrax@gmail.com'];
+    protected $notificationList = [];
 
     /**
      * NotificationMailService constructor.
      * @param MailService $mailService
+     * @param array $notificationReceivers
      *
-     * @Inject({"dot-mail.service.default"})
+     * @Inject({"dot-mail.service.default", "config.contact.notification_receivers"})
      */
-    public function __construct(MailService $mailService)
+    public function __construct(MailService $mailService, array $notificationReceivers = [])
     {
         $this->mailService = $mailService;
+        $this->notificationList = $notificationReceivers;
     }
 
     /**
@@ -53,9 +55,9 @@ class NotificationMailService
         $message->setFrom($userMessage->getEmail(), $userMessage->getName());
         $message->setTo($this->notificationList);
 
-        $message->setSubject($userMessage->getSubject());
+        $message->setSubject("DotKernel notification");
         $this->mailService->setBody(sprintf(
-            "You have a new user message from %s" .
+            "A new user message from %s was submitted!" .
             "<br><br><strong>Subject:</strong>" .
             "<br>%s" .
             "<br><br><strong>Message:</strong>" .
