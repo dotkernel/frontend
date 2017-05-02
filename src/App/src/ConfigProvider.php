@@ -14,6 +14,7 @@ use Frontend\App\Entity\UserMessageEntity;
 use Frontend\App\Factory\ContactFormFactory;
 use Frontend\App\Form\ContactForm;
 use Frontend\App\Form\UserMessageFieldset;
+use Frontend\App\Listener\UserMessageMapperEventListener;
 use Frontend\App\Mapper\UserMessageDbMapper;
 use Frontend\App\Service\UserMessageService;
 use Frontend\App\Service\UserMessageServiceInterface;
@@ -60,6 +61,15 @@ class ConfigProvider
                 ],
                 'aliases' => [
                     UserMessageEntity::class => UserMessageDbMapper::class,
+                ]
+            ],
+            'options' => [
+                UserMessageEntity::class => [
+                    'mapper' => [
+                        'event_listeners' => [
+                            UserMessageMapperEventListener::class,
+                        ]
+                    ]
                 ]
             ]
         ];
