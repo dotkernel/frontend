@@ -10,6 +10,13 @@
                 <div class="form-content">
                     {{ messagesPartial('partial::alerts') }}
 
+                    {% set dummy = form.prepare() %}
+                    {{ form().openTag(form) | raw }}
+
+                    {% include '@partial/form-display.html.twig' with {'form': form, 'showLabels': true} %}
+
+                    {{ form().closeTag() | raw }}
+
                 </div>
             </div>
         </div>

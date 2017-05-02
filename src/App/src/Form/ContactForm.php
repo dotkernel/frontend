@@ -17,13 +17,18 @@ use Zend\Form\Form;
  */
 class ContactForm extends Form
 {
+    /** @var  array */
+    protected $recaptchaOptions;
+
     /**
      * ContactForm constructor.
+     * @param array $recaptchaOptions
      * @param string $name
      * @param array $options
      */
-    public function __construct($name = 'contactForm', array $options = [])
+    public function __construct(array $recaptchaOptions, $name = 'contactForm', array $options = [])
     {
+        $this->recaptchaOptions = $recaptchaOptions;
         parent::__construct($name, $options);
     }
 
@@ -55,12 +60,21 @@ class ContactForm extends Form
                 'captcha' => [
                     'class' => 'recaptcha',
                     'options' => [
-                        'site_key' => '6LcskCMTAAAAAM14rWOGRy4mMTfwk41dJHF75B2A',
-                        'secret_key' => '6LcskCMTAAAAANFDwPGBvXxPgVuDQFJxfXrMmEsX',
+                        'site_key' => $this->recaptchaOptions['site_key'],
+                        'secret_key' => $this->recaptchaOptions['secret_key'],
                         'theme' => 'light',
                     ]
                 ],
             ]
         ], ['priority' => -100]);
+
+        $this->add([
+            'name' => 'submit',
+            'type' => 'submit',
+            'attributes' => [
+                'type' => 'submit',
+                'value' => 'Send message'
+            ]
+        ], ['priority' => -105]);
     }
 }

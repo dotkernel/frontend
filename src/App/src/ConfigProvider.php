@@ -9,8 +9,15 @@ declare(strict_types=1);
 
 namespace Frontend\App;
 
+use Dot\Mapper\Factory\DbMapperFactory;
+use Frontend\App\Entity\UserMessageEntity;
+use Frontend\App\Factory\ContactFormFactory;
 use Frontend\App\Form\ContactForm;
 use Frontend\App\Form\UserMessageFieldset;
+use Frontend\App\Listener\UserMessageMapperEventListener;
+use Frontend\App\Mapper\UserMessageDbMapper;
+use Frontend\App\Service\UserMessageService;
+use Frontend\App\Service\UserMessageServiceInterface;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
@@ -27,12 +34,45 @@ class ConfigProvider
             'templates' => $this->getTemplates(),
 
             'dot_form' => $this->getForms(),
+
+            'dot_mapper' => $this->getMappers(),
         ];
     }
 
     public function getDependencies(): array
     {
-        return [];
+        return [
+            'factories' => [
+                UserMessageService::class => InvokableFactory::class,
+            ],
+            'aliases' => [
+                UserMessageServiceInterface::class => UserMessageService::class,
+                'UserMessageService' => UserMessageServiceInterface::class,
+            ]
+        ];
+    }
+
+    public function getMappers(): array
+    {
+        return [
+            'mapper_manager' => [
+                'factories' => [
+                    UserMessageDbMapper::class => DbMapperFactory::class,
+                ],
+                'aliases' => [
+                    UserMessageEntity::class => UserMessageDbMapper::class,
+                ]
+            ],
+            'options' => [
+                UserMessageEntity::class => [
+                    'mapper' => [
+                        'event_listeners' => [
+                            UserMessageMapperEventListener::class,
+                        ]
+                    ]
+                ]
+            ]
+        ];
     }
 
     public function getTemplates(): array
@@ -54,7 +94,7 @@ class ConfigProvider
             'form_manager' => [
                 'factories' => [
                     UserMessageFieldset::class => InvokableFactory::class,
-                    ContactForm::class => InvokableFactory::class,
+                    ContactForm::class => ContactFormFactory::class,
                 ],
                 'aliases' => [
                     'UserMessageFieldset' => UserMessageFieldset::class,

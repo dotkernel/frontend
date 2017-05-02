@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Frontend\App\Entity;
 
+use Dot\Mapper\Entity\Entity;
+
 /**
  * Class UserMessageEntity
  * @package Frontend\App\Entity
  */
-class UserMessageEntity
+class UserMessageEntity extends Entity
 {
     /** @var  int */
     protected $id;

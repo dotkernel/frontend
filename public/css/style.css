@@ -136,6 +136,10 @@ input.form-control {
     margin-top: 15px;
 }
 
+#userMessage_textarea {
+    resize: vertical;
+}
+
 @media ( max-width: 1199px) {
     .form-content {
         padding: 20px;

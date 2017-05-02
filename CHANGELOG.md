@@ -1,10 +1,10 @@
-## 0.4.0 - unreleased
+## 0.4.0 - 2017-05-02
 
 ### Changed
 * better email failure handling
 
 ### Added
-* Contact us page - in progress...
+* Contact us page
 
 ### Deprecated
 * Nothing
