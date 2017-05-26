@@ -51,10 +51,12 @@ $aggregator = new ConfigAggregator([
     \Dot\Twig\ConfigProvider::class,
     \Dot\User\ConfigProvider::class,
     \Dot\Validator\ConfigProvider::class,
+    \Dot\Console\ConfigProvider::class,
 
     //application
     \Frontend\User\ConfigProvider::class,
     \Frontend\App\ConfigProvider::class,
+    \Frontend\Console\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):
