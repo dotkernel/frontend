@@ -24,7 +24,7 @@ return [
                     ],
                     'subscriber' => [
                         'permissions' => [
-                            'premium-content',
+                            'premium-content', 'authenticated',
                         ]
                     ]
                 ]
