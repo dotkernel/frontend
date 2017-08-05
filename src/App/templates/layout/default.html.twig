@@ -3,17 +3,19 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
     <title>{% block title %}{% endblock %} - DotKernel</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+    <script src="{{ asset('dist/styles.js') }}"></script>
 
     {% block stylesheets %}{% endblock %}
 </head>
@@ -72,10 +74,7 @@
     {% endblock %}
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('dist/app.js') }}"></script>
 
 {% block javascript %}{% endblock %}
 </body>
