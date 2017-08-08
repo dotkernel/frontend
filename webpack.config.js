@@ -1,43 +1,81 @@
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const extractSass = new ExtractTextPlugin({
+    filename: "[name]",
+});
 
 module.exports = {
+    context: path.resolve(__dirname, './src/App/assets'),
     entry: {
-        app: './src/App/assets/js/app.js',
-        styles: './src/App/assets/js/styles.js'
+        'js/app.js': './js/app.js',
+        'css/app.css': './scss/app.scss'
     },
     output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, 'public/dist')
+        filename: '[name]',
+        path: path.resolve(__dirname, './public/assets/')
     },
     module: {
         rules: [
             {
+                test: /\.js$/,
+                exclude: [/node_modules/],
+                use: [{
+                    loader: 'babel-loader',
+                    options: { presets: ['es2017'] },
+                }],
+            },
+            {
                 test: /\.css$/,
+                use: [{
+                    loader: 'style-loader'
+                },{
+                    loader: 'css-loader', options: {
+                        sourceMap: process.env.NODE_ENV === "development"
+                    }
+                }]
+            },
+            {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    use: [{
+                        loader: "css-loader", options: {
+                            sourceMap: process.env.NODE_ENV === "development"
+                        }
+                    }, {
+                        loader: "sass-loader",options: {
+                            sourceMap: process.env.NODE_ENV === "development"
+                        }
+                    }],
+                    // use style-loader in development
+                    fallback: "style-loader"
+                })
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+                exclude: [/images?|img/],
                 use: [
-                    'style-loader',
-                    'css-loader'
+                    // As SVG may count as both font or image
+                    // we will not treat any file in a folder
+                    // with the name image(s) or img as a font
+                    'file-loader?name=./fonts/[hash].[ext]'
                 ]
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
+                exclude: [/fonts?/],
                 use: [
-                    'file-loader'
+                    // As SVG may count as both font or image
+                    // we will not treat any file in a folder
+                    // with the name of font(s) as an image
+                    'file-loader?name=./images/[hash].[ext]'
                 ]
             },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    'file-loader']
-            }
+
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['public/dist']),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
+        extractSass,
     ]
 };

@@ -1,0 +1,31 @@
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+    height: 115px;
+}
+
+/***** Footer *****/
+.app-footer {
+    padding: 30px 50px;
+    background: #F9F9F9;
+}
+
+.app-footer p {
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.app-footer .enjoy {
+    margin-bottom: 10px;
+    font-size: 26px;
+    color: #3B3B3B;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}
+
+@media ( max-width: 768px) {
+    .app-footer {
+        padding: 30px 30px;
+    }
+}
+

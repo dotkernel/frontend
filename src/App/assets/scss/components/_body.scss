@@ -1,0 +1,23 @@
+/***** General *****/
+/* The html and body elements cannot have any padding or margin. */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    line-height: 1.3em;
+    font-weight: 300;
+}
+
+/* Wrapper for page content to push down footer */
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -115px;
+    background: #F5F5F5;
+}
