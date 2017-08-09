@@ -1,31 +1,18 @@
 /*
  * Webpack is used to compile and minify/uglify JS and Sass.
- * Since this will nuke the public/assets folder every time it is run,
+ * Since this will nuke some of the directories inside the public directory,
  * you should no longer manually add images etc. to the public folder.
  * We have setup a configuration that will automatically copy any image
- * from the images folder here to public/assets/images.
+ * from the images folder here to public/images.
  *
- * so please, DO NOT MANUALLY ADD FILES TO PUBLIC/ASSETS!
+ * so please, DO NOT MANUALLY ADD ASSETS TO THE PUBLIC DIRECTORY!
  */
 
 "use strict";
 
-// Include npm modules
-const path = require('path');
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-let pathsToNuke = [
-    './public/js',
-    './public/css',
-    './public/font',
-    './public/images'
-];
-
-// registered app modules, that contain assets
+// Every module that publishes assets should
+// be registered below
 let appModules = [
     {
         name: 'app',
@@ -35,6 +22,39 @@ let appModules = [
         images: true
     }
 ];
+
+// These paths will be completely
+// rebuilt before every commit.
+// DO NOT MANUALLY ADD ANYTHING 
+// TO THESE DIRECTORIES
+let pathsToNuke = [
+    './public/js',
+    './public/css',
+    './public/fonts',
+    './public/images'
+];
+
+
+
+/*
+ *
+ * Do not touch anything below here,
+ * unless you know what you are doing.
+ *
+ * The only configuration you should
+ * need to touch will be above this comment.
+ *
+ */
+
+
+// Include npm modules
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 
 // Prepare plugin to extract styles into a css file
 // instead of a javascript file
@@ -148,6 +168,7 @@ module.exports = {
         extractStyles,
 
         // Nuke the assets folder
+        // This will only be run on production
         new CleanWebpackPlugin(pathsToNuke, {
             verbose: process.env.NODE_ENV !== "development",
             dry: process.env.NODE_ENV === "development"
