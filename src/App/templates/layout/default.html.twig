@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
 
-    <script src="{{ asset('dist/styles.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     {% block stylesheets %}{% endblock %}
 </head>
@@ -32,8 +32,8 @@
                     </button>
                     <a class="navbar-brand" href="{{ path('home') }}">
                         <!-- change logo to png for IE <= 8 and Android <= 2.3 -->
-                        <img src="{{ asset('img/logo.svg') }}" alt="DotKernel"
-                             onerror="this.onerror=null; this.src={{ asset('img/logo.png') }};"/>
+                        <img src="{{ asset('images/logo.svg') }}" alt="DotKernel"
+                             onerror="this.onerror=null; this.src={{ asset('images/logo.png') }};"/>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse">
@@ -74,7 +74,7 @@
     {% endblock %}
 </footer>
 
-<script src="{{ asset('dist/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 
 {% block javascript %}{% endblock %}
 </body>
