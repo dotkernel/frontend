@@ -1,32 +1,19 @@
 /*
  * Webpack is used to compile and minify/uglify JS and Sass.
- * Since this will nuke the public/assets folder every time it is run,
+ * Since this will nuke some of the directories inside the public directory,
  * you should no longer manually add images etc. to the public folder.
  * We have setup a configuration that will automatically copy any image
- * from the images folder here to public/assets/images.
+ * from the images folder here to public/images/{moduleName}.
  *
- * so please, DO NOT MANUALLY ADD FILES TO PUBLIC/ASSETS!
+ * so please, DO NOT MANUALLY ADD ASSETS TO THE PUBLIC DIRECTORY!
  */
 
 "use strict";
 
-// Include npm modules
-const path = require('path');
-const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-let pathsToNuke = [
-    './public/js',
-    './public/css',
-    './public/font',
-    './public/images'
-];
-
-// registered app modules, that contain assets
-let appModules = [
+// Every module that publishes assets should
+// be registered below
+const appModules = [
     {
         name: 'app',
         assets_path: './App/assets',
@@ -35,6 +22,44 @@ let appModules = [
         images: true
     }
 ];
+
+
+// These paths will be completely
+// rebuilt before every commit.
+// DO NOT MANUALLY ADD ANYTHING 
+// TO THESE DIRECTORIES
+const pathsToNuke = [
+    './public/js',
+    './public/css',
+    './public/fonts',
+    './public/images'
+];
+
+
+
+
+
+
+/*
+ *
+ * Do not touch anything below here,
+ * unless you know what you are doing.
+ *
+ * The only configuration you should
+ * need to touch will be above this comment.
+ *
+ */
+
+
+// Include npm modules
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CssRewritePlugin = require('css-rewrite-webpack-plugin');
+
 
 // Prepare plugin to extract styles into a css file
 // instead of a javascript file
@@ -45,6 +70,14 @@ const extractStyles = new ExtractTextPlugin({
 // dynamically build webpack entries based on registered app modules
 let entries = {};
 let copyImages = [];
+let rules = generateBaseRules();
+
+
+/*
+ * Run the setup to prepare
+ * each module for asset transfer.
+ *
+ */
 appModules.forEach(function(appModule) {
     if (appModule.js === true) {
         entries['js/' + appModule.name + '.js'] = appModule.assets_path + '/js/index.js';
@@ -53,10 +86,27 @@ appModules.forEach(function(appModule) {
         entries['css/' + appModule.name + '.css'] = appModule.assets_path + '/scss/index.scss';
     }
     if (appModule.images === true) {
-        copyImages.push({from: appModule.assets_path + '/images', to: './images'});
+        copyImages.push({from: appModule.assets_path + '/images', to: './images/'+appModule.name});
+
+        rules.push({
+            test: /\.(png|svg|jpg|gif)$/,
+            include: [
+            	path.resolve(__dirname, './src/' + appModule.assets_path)
+            ],
+            use: [
+                // As SVG may count as both font or image
+                // we will not treat any file in a folder
+                // with the name of font(s) as an image
+                'file-loader?name=images/'+appModule.name+'/[name].[ext]'
+            ]
+        })
     }
 });
 
+/*
+ * Lastly, export the final module
+ * and the assets
+ */
 module.exports = {
 	// This is the basepath for Webpack to look for source files
 	// if you need to include modules outside of the App module,
@@ -84,70 +134,13 @@ module.exports = {
     // IMPORTANT NOTE: loaders are evaluated in REVERSE-ARRAY ORDER,
     // that means that they move from the end and towards the start.
     module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: [/node_modules/],
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['es2017'],
-                        sourceMap: process.env.NODE_ENV === "development"
-                    },
-                }],
-            },
-            {
-                test: /\.scss$/,
-                use: extractStyles.extract({
-                    use: [{
-                        loader: "css-loader",
-                        options: {
-                            url: false,
-                            sourceMap: process.env.NODE_ENV === "development"
-                        }
-                    }, {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: process.env.NODE_ENV === "development",
-                            plugins () {
-                                return [autoprefixer]
-                            }
-                        }
-                    }, {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: process.env.NODE_ENV === "development"
-                        }
-                    }],
-                    fallback: "style-loader"
-                })
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-                exclude: [/images?|img/],
-                use: [
-                    // As SVG may count as both font or image
-                    // we will not treat any file in a folder
-                    // with the name image(s) or img as a font
-                    'file-loader?name=fonts/[name].[ext]'
-                ]
-            },
-            {
-                test: /\.(png|svg|jpg|gif)$/,
-                exclude: [/fonts?/],
-                use: [
-                    // As SVG may count as both font or image
-                    // we will not treat any file in a folder
-                    // with the name of font(s) as an image
-                    'file-loader?name=images/[name].[ext]'
-                ]
-            },
-        ]
+        rules:rules,
     },
     plugins: [
         extractStyles,
 
         // Nuke the assets folder
+        // This will only be run on production
         new CleanWebpackPlugin(pathsToNuke, {
             verbose: process.env.NODE_ENV !== "development",
             dry: process.env.NODE_ENV === "development"
@@ -158,3 +151,59 @@ module.exports = {
         new CopyWebpackPlugin(copyImages),
     ]
 };
+
+/*
+ * Generate base rule-set to be manipulated
+ * in the forEach loop
+ */
+function generateBaseRules(){
+	return [ 
+            { 
+                test: /\.js$/, 
+                exclude: [/node_modules/], 
+                use: [{ 
+                    loader: 'babel-loader', 
+                    options: { 
+                        presets: ['es2017'], 
+                        sourceMap: process.env.NODE_ENV === "development" 
+                    }, 
+                }], 
+            }, 
+            { 
+                test: /\.scss$/, 
+                use: extractStyles.extract({ 
+                    use: [{ 
+                        loader: "css-loader", 
+                        options: { 
+                            url: true, 
+                            sourceMap: process.env.NODE_ENV === "development" 
+                        } 
+                    }, { 
+                        loader: 'postcss-loader', 
+                        options: { 
+                            sourceMap: process.env.NODE_ENV === "development", 
+                            plugins () { 
+                                return [autoprefixer] 
+                            } 
+                        } 
+                    }, { 
+                        loader: "sass-loader", 
+                        options: { 
+                            sourceMap: process.env.NODE_ENV === "development" 
+                        } 
+                    }], 
+                    fallback: "style-loader" 
+                }) 
+            }, 
+            { 
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/, 
+                exclude: [/images?|img/], 
+                use: [ 
+                    // As SVG may count as both font or image 
+                    // we will not treat any file in a folder 
+                    // with the name image(s) or img as a font 
+                    'file-loader?name=fonts/[name].[ext]' 
+                ] 
+            }, 
+        ];
+}
