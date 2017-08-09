@@ -8,20 +8,33 @@
  * so please, DO NOT MANUALLY ADD FILES TO PUBLIC/ASSETS!
  */
 
+"use strict";
+
 // Include npm modules
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let pathsToNuke = [
     './public/js',
     './public/css',
     './public/font',
     './public/images'
-]
+];
+
+// registered app modules, that contain assets
+let appModules = [
+    {
+        name: 'app',
+        assets_path: './App/assets',
+        styles: true,
+        js: true,
+        images: true
+    }
+];
 
 // Prepare plugin to extract styles into a css file
 // instead of a javascript file
@@ -29,21 +42,33 @@ const extractStyles = new ExtractTextPlugin({
     filename: "[name]",
 });
 
+// dynamically build webpack entries based on registered app modules
+let entries = {};
+let copyImages = [];
+appModules.forEach(function(appModule) {
+    if (appModule.js === true) {
+        entries['js/' + appModule.name + '.js'] = appModule.assets_path + '/js/index.js';
+    }
+    if (appModule.styles === true) {
+        entries['css/' + appModule.name + '.css'] = appModule.assets_path + '/scss/index.scss';
+    }
+    if (appModule.images === true) {
+        copyImages.push({from: appModule.assets_path + '/images', to: './images'});
+    }
+});
+
 module.exports = {
 	// This is the basepath for Webpack to look for source files
 	// if you need to include modules outside of the App module,
 	// move the "/App/assets" portion of the context onto the two
 	// strings below, so it becomes "./App/assets/js/app.js" etc.
-    context: path.resolve(__dirname, './src/App/assets'),
+    context: path.resolve(__dirname, './src'),
 
     // These are our entry files, this is the files Webpack will use
     // when looking for Sass and Javascript to compile.
     // The format is "DESTINATION": "SOURCE", and each path is
     // relative to the output path and the context respectively.
-    entry: {
-        'js/app.js': './js/app.js',
-        'css/app.css': './scss/app.scss',
-    },
+    entry: entries,
 
     // The Output is where Webpack will export our files to
     // the filename will be resolved to the key in the entry object above.
@@ -130,8 +155,6 @@ module.exports = {
 
         // Copy images from the source folder to the
         // destination folder
-        new CopyWebpackPlugin([ {
-        	from:'./images',to:'./images'
-        }]),
+        new CopyWebpackPlugin(copyImages),
     ]
 };

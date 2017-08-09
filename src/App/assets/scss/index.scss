@@ -1,0 +1,24 @@
+// Bootstrap
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Base
+@import 'components/_variables';
+@import 'components/_body';
+
+// General styling
+@import 'components/_alert';
+@import 'components/_button';
+@import 'components/_footer';
+@import 'components/_form';
+@import 'components/_header';
+@import 'components/_input';
+@import 'components/_nav';
+@import 'components/_typography';
+
+// Page specific
+@import 'components/_about-us';
+@import 'components/_account';
+@import 'components/_home';
+@import 'components/_info-content';
+@import 'components/_page-intro';
