@@ -4,9 +4,9 @@
     "description": "Dotkernel web starter package suitable for frontend applications.",
     "main": "index.js",
     "scripts": {
-        "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack -d --progress",
-        "watch": "cross-env NODE_ENV=development node_modules/.bin/webpack -d --watch --progress",
-        "prod": "cross-env NODE_ENV=production node_modules/.bin/webpack -p --progress",
+        "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack -d --progress --hide-modules",
+        "watch": "cross-env NODE_ENV=development node_modules/.bin/webpack -d --watch --hide-modules",
+        "prod": "cross-env NODE_ENV=production node_modules/.bin/webpack -p --progress --hide-modules",
         "precommit-msg": "echo 'Pre-commit checks...' && exit 0 "
     },
     "pre-commit": [
