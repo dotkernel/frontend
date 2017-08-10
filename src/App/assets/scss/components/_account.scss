@@ -3,118 +3,111 @@
     padding: 60px 0px;
     background: #F6F6F6;
     text-align: center;
-}
 
-.account-intro h1 {
-    margin-top: 0px;
-    font-size: 30px;
-    font-weight: 400;
-    text-transform: uppercase;
-    text-align: center;
-    letter-spacing: 4px;
+    h1 {
+        margin-top: 0px;
+        font-size: 30px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        letter-spacing: 4px;
+    }
 }
 
 .account-settings {
     padding: 0px 15px 0px 15px;
     background: #FFFFFF;
-}
 
-.account-settings .row {
-    padding: 25px 25px 40px 25px;
-}
+    .row {
+        padding: 25px 25px 40px 25px;
+    }
+    .btn-primary {
+        width: auto !important;
+    }
+    .sidebar {
+        display: block;
+        margin-top: 15px;
+    }
+    .sidebar-menu-header {
+        position: relative;
+        margin-top: 15px;
+        padding: 10px 15px 10px 0px;
+        color: #000000;
+        border-bottom: 1px solid #E7E7E7;
+        cursor: pointer;
+        display: none;
+        font-weight: 400;
+        text-transform: uppercase;
 
-.account-settings .btn-primary {
-    width: auto !important;
-}
+        .burger-menu {
+            position: absolute;
+            top: 9px;
+            right: 0px;
+            width: 20px;
 
-.account-settings .sidebar {
-    display: block;
-}
-
-.account-settings .sidebar-menu-header {
-    position: relative;
-    margin-top: 15px;
-    padding: 10px 15px 10px 0px;
-    color: #000000;
-    border-bottom: 1px solid #E7E7E7;
-    cursor: pointer;
-    display: none;
-    font-weight: 400;
-    text-transform: uppercase;
-}
-
-.account-settings .sidebar-menu-header .burger-menu {
-    position: absolute;
-    top: 9px;
-    right: 0px;
-    width: 20px;
-}
-
-.account-settings .sidebar-menu-header .burger-menu span {
-    display: block;
-    margin: 3px 0px;
-    height: 3px;
-    background: #000000;
-}
-
-.account-settings .sidebar {
-    margin-top: 15px;
-}
-
-.account-settings .nav-pills > li > a {
-    border-radius: 0px;
-}
-
-.account-settings .nav-pills > li > a {
-    padding-left: 0px;
-}
-
-.account-settings .nav-pills > li.active > a,
-.account-settings .nav-pills > li.active > a:focus,
-.account-settings .nav-pills > li.active > a:hover {
-    background: transparent;
-    color: #000000;
-}
-
-.account-settings .nav-pills > li > a:focus,
-.account-settings .nav-pills > li > a:hover {
-    background: transparent;
-    color: #C60B31;
-}
-
-@media ( max-width: 767px) {
-    .account-settings {
-        padding: 0px;
+            span {
+                display: block;
+                margin: 3px 0px;
+                height: 3px;
+                background: #000000;
+            }
+        }
     }
 
-    .account-settings .row {
-        padding: 15px 0px 30px 0px;
+    .nav-pills > li {
+        > a {
+            border-radius: 0px;
+            padding-left: 0px;
+
+            &:focus,
+            &:hover {
+                background: transparent;
+                color: #C60B31;
+            }
+        }
+
+        &.active {
+            a,
+            a:focus
+            &:hover {
+                background: transparent;
+                color: #000000;
+            }
+        }
+    }
+
+    p.not-implemented {
+        margin-top: 15px;
+        font-size: 20px;
+    }
+    .spacer {
+        height: 15px;
+    }
+
+    p.intro {
+        margin-top: 15px;
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .account-settings {
+        padding: 0px;
+
+        .row {
+            padding: 15px 0px 30px 0px;
+        }
     }
 
     .sidebar-container {
         margin-bottom: 30px;
+
+        .sidebar-menu-header {
+            display: block;
+        }
+
+        .sidebar {
+            display: none;
+        }
     }
-
-    .sidebar-container .sidebar-menu-header {
-        display: block;
-    }
-
-    .sidebar-container .sidebar {
-        display: none;
-    }
-
-}
-
-.account-settings p.not-implemented {
-    margin-top: 15px;
-    font-size: 20px;
-}
-
-.account-settings .spacer {
-    height: 15px;
-}
-
-.account-settings p.intro {
-    margin-top: 15px;
-    font-size: 24px;
 }

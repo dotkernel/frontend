@@ -7,7 +7,11 @@ input.form-control {
     background: #FFFFFF;
     border-radius: 2px;
     border: 1px solid #E7E7E7;
-    font-size: 16px;
+    font-size: $defaultFontSize;
     line-height: 50px;
     height: 50px;
+}
+
+textarea{
+    resize: vertical;
 }

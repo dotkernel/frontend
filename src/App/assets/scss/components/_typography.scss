@@ -1,43 +1,43 @@
 h1 {
-    font-size: 80px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: $defaultFontSize*5;
+    font-family: $headingFontFamily;
     font-weight: 200;
     color: #2C2C2C;
 }
 
 h2 {
-    font-size: 48px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: $defaultFontSize*3;
+    font-family: $headingFontFamily;
     font-weight: 200;
     color: #2C2C2C;
 }
 
 h3 {
-    font-size: 32px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: $defaultFontSize*2;
+    font-family: $headingFontFamily;
     font-weight: 200;
     color: #2C2C2C;
 }
 
 h4 {
-    font-size: 24px;
-    font-family: 'Montserrat', sans-serif;
+    font-size: $defaultFontSize*1.5;
+    font-family: $headingFontFamily;
     font-weight: 200;
     color: #2C2C2C;
 }
 
 a {
     color: #555ec4;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: $defaultFontFamily;
     font-weight: 300;
-}
 
-a:hover {
-    color: #C60B31;
+    &:hover {
+        color: #C60B31;
+    }
 }
 
 p {
     color: #B1B1B1;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: $defaultFontFamily;
     font-weight: 300;
 }

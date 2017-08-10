@@ -6,8 +6,8 @@ body {
 }
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 16px;
+    font-family: $defaultFontFamily;
+    font-size: $defaultFontSize;
     line-height: 1.3em;
     font-weight: 300;
 }
@@ -18,6 +18,6 @@ body {
     height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
-    margin: 0 auto -115px;
-    background: #F5F5F5;
+    margin: 0 auto -$footerHeight;
+    background: $defaultBackground;
 }

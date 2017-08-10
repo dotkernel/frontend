@@ -1,48 +1,43 @@
 .forms {
     padding: 80px 15px;
-}
 
-.forms h1 {
-    margin-bottom: 40px;
-    margin-top: 0px;
-    font-size: 30px;
-    font-weight: 400;
-    text-transform: uppercase;
-    text-align: center;
-    letter-spacing: 4px;
-}
+    h1 {
+        margin-bottom: 40px;
+        margin-top: 0px;
+        font-size: 30px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+        letter-spacing: 4px;
+    }
 
-.forms .no-account {
-    margin-top: 15px;
-    color: #929292;
+    .no-account {
+        margin-top: 15px;
+        color: #929292;
+    }
 }
 
 .form-content {
     padding: 40px;
     background: #FFFFFF;
-}
 
-.form-content a {
-    display: block;
-    width: auto;
-    margin-top: 15px;
-    color: #999CA5;
-}
-
-.form-content .btn {
-    margin-top: 15px;
-}
-
-#userMessage_textarea {
-    resize: vertical;
-}
-
-@media ( max-width: 1199px) {
-    .form-content {
-        padding: 20px;
+    a {
+        display: block;
+        width: auto;
+        margin-top: 15px;
+        color: #999CA5;
     }
 
-    .form-content h1 {
-        margin-bottom: 20px;
+    .btn {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .form-content {
+        padding: 20px;
+        h1 {
+            margin-bottom: 20px;
+        }
     }
 }
