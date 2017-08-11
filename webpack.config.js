@@ -159,9 +159,21 @@ function generateBaseRules() {
                 loader: 'babel-loader',
                 options: {
                     presets: ['es2017'],
-                    sourceMap: process.env.NODE_ENV === "development"
+                    comments: process.env.NODE_ENV === "development",
+                    minified: process.env.NODE_ENV === "development",
+                    sourceMaps: process.env.NODE_ENV === "development"
                 },
             }],
+        },
+        {
+            test: /\.tsx?$/,
+            exclude: [/node_modules/],
+            use: [{
+                loader: 'ts-loader',
+                options: {
+                    sourceMap: process.env.NODE_ENV === "development",
+                }
+            }]
         },
         {
             test: /\.scss$/,

@@ -43,6 +43,8 @@
         "pre-commit": "^1.2.2",
         "sass-loader": "^6.0.6",
         "style-loader": "^0.18.2",
+        "ts-loader": "^2.3.2",
+        "typescript": "^2.4.2",
         "webpack": "^3.5.0"
     },
     "dependencies": {}
