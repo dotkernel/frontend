@@ -60,11 +60,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 -- Dumping data for table `user_role`
 --
 
-LOCK TABLES `user_role` WRITE;
-/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
 INSERT INTO `user_role` VALUES (2,'subscriber'),(1,'user');
-/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 --
