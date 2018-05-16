@@ -10,6 +10,13 @@ $cacheConfig = [
     'config_cache_path' => __DIR__ . '/../data/config-cache.php',
 ];
 $aggregator = new ConfigAggregator([
+    \Zend\Expressive\ConfigProvider::class,
+    \Zend\Expressive\Router\ConfigProvider::class,
+    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+    \Zend\Expressive\Twig\ConfigProvider::class,
+    \Zend\Expressive\Helper\ConfigProvider::class,
+    \Zend\HttpHandlerRunner\ConfigProvider::class,
+
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
@@ -33,6 +40,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Controller\Plugin\Mail\ConfigProvider::class,
     \Dot\Controller\Plugin\Forms\ConfigProvider::class,
     \Dot\Controller\Plugin\Session\ConfigProvider::class,
+    \Dot\Event\ConfigProvider::class,
     \Dot\Mapper\ConfigProvider::class,
     \Dot\Event\ConfigProvider::class,
     \Dot\Filter\ConfigProvider::class,

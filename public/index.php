@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
 
 // Delegate static file requests back to the PHP built-in webserver
-if (php_sapi_name() === 'cli-server'
-    && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))
-) {
+if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
     return false;
 }
 
@@ -14,17 +13,18 @@ require 'vendor/autoload.php';
 /**
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.
  */
-call_user_func(function () {
-    /** @var \Interop\Container\ContainerInterface $container */
+(function () {
+    /** @var \Psr\Container\ContainerInterface $container */
     $container = require 'config/container.php';
 
     /** @var \Zend\Expressive\Application $app */
     $app = $container->get(\Zend\Expressive\Application::class);
+    $factory = $container->get(\Zend\Expressive\MiddlewareFactory::class);
 
-    // Import programmatic/declarative middleware pipeline and routing
+    // Execute programmatic/declarative middleware pipeline and routing
     // configuration statements
-    require 'config/pipeline.php';
-    require 'config/routes.php';
+    (require 'config/pipeline.php')($app, $factory, $container);
+    (require 'config/routes.php')($app, $factory, $container);
 
     $app->run();
-});
+})();
