@@ -11,8 +11,14 @@ use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
+use Zend\Expressive\Router\Middleware\DispatchMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
+use Psr\Container\ContainerInterface;
+use Zend\Expressive\Application;
+use Zend\Expressive\MiddlewareFactory;
+
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
 /**
  * Setup middleware pipeline:
  */
@@ -35,7 +41,7 @@ $app->pipe(AutoLogin::class);
 // - modifications to outgoing responses
 
 // Register the routing middleware in the middleware pipeline
-$app->pipeRoutingMiddleware();
+$app->pipe(\Zend\Expressive\Router\Middleware\RouteMiddleware::class);
 
 // zend expressive middleware
 $app->pipe(ImplicitHeadMiddleware::class);
@@ -59,9 +65,10 @@ $app->pipe(NavigationMiddleware::class);
 $app->pipe(RbacGuardMiddleware::class);
 
 // Register the dispatch middleware in the middleware pipeline
-$app->pipeDispatchMiddleware();
+$app->pipe(DispatchMiddleware::class);
 
 // At this point, if no Response is return by any middleware, the
 // NotFoundHandler kicks in; alternately, you can provide other fallback
 // middleware to execute.
 $app->pipe(NotFoundHandler::class);
+};
