@@ -22,7 +22,7 @@ In `composer.json` replace the matching repositories with the following:
 "dotkernel/dot-mapper":"^1.0",
 "dotkernel/dot-navigation":"^1.0",
 "dotkernel/dot-rbac":"^0.2.1",
-"dotkernel/dot-rbac-guard":"dev-migrate",
+"dotkernel/dot-rbac-guard":"^1.0",
 "dotkernel/dot-session":"^3.0",
 "dotkernel/dot-twigrenderer":"^1.1",
 "dotkernel/dot-user":"^1.0",
@@ -44,9 +44,9 @@ Remove packages:
 * http-interop/http-middleware 
 * webimpress/http-middleware-compatibility
 ```
-composer require \
+composer require dotkernel/dot-authentication-service:^1.0\
  dotkernel/dot-authentication-service:^1.0\
- dotkernel/dot-authentication-web:^1.0\
+ dotkernel/dot-authentication-web:^1.0.1\
  dotkernel/dot-authentication:^1.0\
  dotkernel/dot-controller:^1.0\
  dotkernel/dot-controller-plugin-authentication:^1.0\
@@ -60,7 +60,7 @@ composer require \
  dotkernel/dot-mail:^1.0\
  dotkernel/dot-mapper:^1.0\
  dotkernel/dot-navigation:^1.0\
- dotkernel/dot-rbac-guard:dev-migrate\
+ dotkernel/dot-rbac-guard:^1.0\
  dotkernel/dot-session:^3.0\
  dotkernel/dot-twigrenderer:^1.1\
  dotkernel/dot-user:^1.0\
@@ -75,8 +75,7 @@ composer require \
  zendframework/zend-stratigility:^3.0\
  zendframework/zend-component-installer:^2.0
 
-composer remove \
- http-interop/http-middleware\
+composer remove http-interop/http-middleware\
  webimpress/http-middleware-compatibility
 
 
