@@ -3,6 +3,9 @@ DotKernel3 Migration
 
 Migration from Zend Expressive 2 to 3.
 
+
+## Packages
+
 In `composer.json` replace the matching repositories with the following:
 
 ```  
@@ -80,3 +83,86 @@ composer remove http-interop/http-middleware\
 
 
 ```
+
+## Configurations
+
+### Main Configuration
+In `config/config.php` add the following config providers:
+
+```php
+// zend expressive & middleware factory
+\Zend\Expressive\ConfigProvider::class,
+
+// router config
+\Zend\Expressive\Router\ConfigProvider::class,
+\Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+
+\Zend\Expressive\Twig\ConfigProvider::class,
+\Zend\Expressive\Helper\ConfigProvider::class,
+
+// handler runner
+\Zend\HttpHandlerRunner\ConfigProvider::class,
+```
+
+Make sure they are the first ConfigProviders or before cached config (`ArrayProvider`)	
+
+### Routing
+
+Wrap routing from `config/routes.php` in a callable with the following format:
+
+```php
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+    /** @var \Zend\Expressive\Application $app */
+    $app->route('/', [PageController::class], ['GET', 'POST'], 'home');
+};
+```
+
+add the following use statements and make sure the names are not duplicate:
+
+```php
+use Psr\Container\ContainerInterface;
+use Zend\Expressive\Application;
+use Zend\Expressive\MiddlewareFactory;
+```
+
+### Pipeline
+
+Wrap routing from `config/pipeline.php` in a callable with the following format:
+
+```php
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+    /** @var \Zend\Expressive\Application $app */
+    $app->route('/', [PageController::class], ['GET', 'POST'], 'home');
+};
+```
+
+add the following use statements and make sure the names are not duplicate:
+
+```php
+use Psr\Container\ContainerInterface;
+use Zend\Expressive\Application;
+use Zend\Expressive\MiddlewareFactory;
+```
+
+
+#### Routing middleware migration
+
+add the following use statements
+```php
+use Zend\Expressive\Router\Middleware\RouteMiddleware;
+use Zend\Expressive\Router\Middleware\DispatchMiddleware;
+```
+
+Replace the following lines to reflect the changes:
+
+`$app->pipeRoutingMiddleware();` -> `$app->pipe(RouteMiddleware::class);`
+`$app->pipeDispatchMiddleware();` -> `$app->pipe(DispatchMiddleware::class);`
+
+
+
+
+
+
+
+
+
