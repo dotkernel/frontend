@@ -1,3 +1,63 @@
+## 1.0.0 - 2018-05-30
+
+Migrated to Expressive 3
+
+### Changed
+* Updated dependencies and other packages to support Zend Framework 3 and PSR15 middlewares
+
+#### List of updated packages
+* dotkernel/dot-authentication-service:^1.0
+* dotkernel/dot-authentication-web:^1.0.1
+* dotkernel/dot-authentication:^1.0
+* dotkernel/dot-controller:^1.0
+* dotkernel/dot-controller-plugin-authentication:^1.0
+* dotkernel/dot-controller-plugin-authorization:^1.0
+* dotkernel/dot-controller-plugin-flashmessenger:^1.0
+* dotkernel/dot-controller-plugin-forms:^1.0
+* dotkernel/dot-controller-plugin-mail:^1.0
+* dotkernel/dot-controller-plugin-session:^1.0
+* dotkernel/dot-flashmessenger:^1.0
+* dotkernel/dot-helpers:^1.0
+* dotkernel/dot-log:^1.1.1
+* dotkernel/dot-mail:^1.0
+* dotkernel/dot-mapper:^1.0
+* dotkernel/dot-navigation:^1.0
+* dotkernel/dot-rbac:^0.2.1
+* dotkernel/dot-rbac-guard:^1.0
+* dotkernel/dot-session:^3.0
+* dotkernel/dot-twigrenderer:^1.1
+* dotkernel/dot-user:^1.0
+
+#### List of updated dependencies
+* psr/http-server-middleware:^1.0
+* php-fig/http-server-handler:^1.0
+* zendframework/zend-expressive-helpers:^5.0
+* zendframework/zend-expressive-twigrenderer:^2.0
+* zendframework/zend-expressive-template:^2.0
+* zendframework/zend-expressive:^3.0
+* zendframework/zend-expressive-fastroute:^3.0
+* zendframework/zend-expressive-tooling:^1.0
+* zendframework/zend-expressive-router:^3.0
+* zendframework/zend-stratigility:^3.0
+* zendframework/zend-component-installer:^2.0
+
+### Added
+* Migration instructions
+
+### Deprecated
+* Nothing
+
+### Removed
+* Old middleware implementations
+
+#### List of removed packages
+* http-interop/http-middleware
+* webimpress/http-middleware-compatibility
+
+### Fixed
+* Nothing
+
+
 ## 0.5.0 - 2017-05-26
 
 ### Changed

@@ -159,10 +159,43 @@ Replace the following lines to reflect the changes:
 `$app->pipeDispatchMiddleware();` -> `$app->pipe(DispatchMiddleware::class);`
 
 
+### Middleware Migration
 
+#### Middleware files
 
+Replace `Interop\Http\ServerMiddleware\DelegateInterface` with
+`Psr\Http\Server\RequestHandlerInterface` in your use statement
 
+Replace `Interop\Http\ServerMiddleware\MiddlewareInterface` with
+`Psr\Http\Server\MiddlewareInterface`
 
+Update your `process` method from:
+```php
+public function process(ServerRequestInterface $request, DelegateInterface $delegate);
+```
+to
+```php
+public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
+```
 
+#### Delegate files
 
+Replace `Interop\Http\ServerMiddleware\DelegateInterface` with
+`Psr\Http\Server\RequestHandlerInterface` in your use statement
+
+Make sure your class implements the newly added use statement (`RequestHandlerInterface`).
+
+Change the process method as follows:
+
+from:
+```php
+public function process(ServerRequestInterface $request);
+```
+
+to:
+```php
+public function handle(ServerRequestInterface $request): ResponseInterface;
+```
+
+This covers all the changes to be made on a basic `dotkernel/frontend` installation.
 
