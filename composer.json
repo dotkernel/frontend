@@ -5,8 +5,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "n3vrax",
-      "email": "tibi@apidemia.com"
+      "name": "DotKernel Team",
+      "email": "team@dotkernel.com"
     }
   ],
   "config": {
@@ -26,14 +26,14 @@
     "dotkernel/dot-controller-plugin-forms": "1.0",
     "dotkernel/dot-controller-plugin-mail": "1.0",
     "dotkernel/dot-controller-plugin-session": "1.0",
-    "dotkernel/dot-event": "0.2.0",
+    "dotkernel/dot-event": "^0.2",
     "dotkernel/dot-filter": "^1.1",
     "dotkernel/dot-flashmessenger": "1.0",
     "dotkernel/dot-form": "^1.1",
     "dotkernel/dot-helpers": "1.0",
     "dotkernel/dot-hydrator": "^1.1",
     "dotkernel/dot-inputfilter": "^1.1",
-    "dotkernel/dot-log": "^1.1",
+    "dotkernel/dot-log": "^1.1.1",
     "dotkernel/dot-mail": "1.0",
     "dotkernel/dot-mapper": "1.0",
     "dotkernel/dot-navigation": "1.0",
