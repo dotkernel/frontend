@@ -4,7 +4,7 @@ return [
 
     /**
      * Dk mail module configuration
-     * Note that many of these options can be set programmaticaly too, when sending mail messages
+     * Note that many of these options can be set programmaticaly when sending mail messages
      * actually that is what you'll usually do, these config provide just default and
      * options that remain the same for all mails
      */
@@ -95,7 +95,7 @@ return [
                 'port' => 587,
 
                 //connection class used for authentication
-                //the calue can be one of smtp, plain, login or crammd5
+                //the value can be one of smtp, plain, login or crammd5
                 'connection_class' => 'login',
 
                 'connection_config' => [
