@@ -10,7 +10,6 @@ In `composer.json` replace the matching repositories with the following:
 
 ```  
 "dotkernel/dot-authentication-service":"^1.0",
-"dotkernel/dot-authentication-service":"^1.0",
 "dotkernel/dot-authentication-web":"^1.0.1",
 "dotkernel/dot-authentication":"^1.0",
 "dotkernel/dot-authorization":"^0.1.2",
@@ -59,7 +58,6 @@ Remove packages:
 * webimpress/http-middleware-compatibility
 ```
 composer require dotkernel/dot-authentication-service:^1.0\
- dotkernel/dot-authentication-service:^1.0\
  dotkernel/dot-authentication-web:^1.0.1\
  dotkernel/dot-authentication:^1.0\
  dotkernel/dot-authorization:^0.1.2\
