@@ -1,3 +1,22 @@
+## 1.0.1 - 2018-10-15
+
+### Changed
+* Update service manager requirement
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
+
+
 ## 1.0.0 - 2018-05-30
 
 Migrated to Expressive 3
