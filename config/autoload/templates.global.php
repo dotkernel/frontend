@@ -1,5 +1,10 @@
 <?php
 
+use Dot\Twig\Extension\AuthenticationExtension;
+use Dot\Twig\Extension\AuthorizationExtension;
+use Dot\Twig\Extension\FlashMessengerExtension;
+use Dot\Twig\Extension\FormElementsExtension;
+use Dot\Twig\Extension\NavigationExtension;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Expressive\Twig\TwigEnvironmentFactory;
 use Zend\Expressive\Twig\TwigRendererFactory;
@@ -7,7 +12,7 @@ use Zend\Expressive\Twig\TwigRendererFactory;
 return [
     'dependencies' => [
         'factories' => [
-            Twig_Environment::class => TwigEnvironmentFactory::class,
+            Twig\Environment::class => TwigEnvironmentFactory::class,
             TemplateRendererInterface::class => TwigRendererFactory::class,
         ],
     ],
@@ -22,6 +27,11 @@ return [
         'assets_version' => null,
         'extensions' => [
             // extension service names or instances
+            AuthenticationExtension::class,
+            AuthorizationExtension::class,
+            FlashMessengerExtension::class,
+            FormElementsExtension::class,
+            NavigationExtension::class,
         ],
         'runtime_loaders' => [
             // runtime loader names or instances

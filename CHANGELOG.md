@@ -1,3 +1,24 @@
+## 1.0.2 - 2019-05-15
+
+### Changed
+* Fixed the twig renderer extension issue ("unknown function navigationPartial")
+(#60)
+* Removed rendered mail template from config
+
+### Added
+* Nothing
+
+### Deprecated
+* Nothing
+
+### Removed
+* Nothing
+
+### Fixed
+* Nothing
+
+
+
 ## 1.0.1 - 2018-10-15
 
 ### Changed
