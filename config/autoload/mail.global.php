@@ -63,6 +63,7 @@ return [
 
                     'charset' => 'utf-8',
 
+                    /* // uncomment this segment if you use dot-mail-template
                     //enable if you want body content to come from a template
                     'use_template' => false,
 
@@ -71,6 +72,7 @@ return [
                         'name' => '',
                         'params' => [],
                     ],
+                    // */
                 ],
 
                 //attachments config
