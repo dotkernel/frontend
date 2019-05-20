@@ -37,7 +37,7 @@
     "dotkernel/dot-mail": "^1.0.0",
     "dotkernel/dot-mapper": "^1.0",
     "dotkernel/dot-navigation": "^1.0",
-    "dotkernel/dot-paginator": "^^1.1",
+    "dotkernel/dot-paginator": "^1.1",
     "dotkernel/dot-rbac": "^0.2",
     "dotkernel/dot-rbac-guard": "^1.0",
     "dotkernel/dot-session": "^3.0",
