@@ -5,6 +5,7 @@ use Dot\Twig\Extension\AuthorizationExtension;
 use Dot\Twig\Extension\FlashMessengerExtension;
 use Dot\Twig\Extension\FormElementsExtension;
 use Dot\Twig\Extension\NavigationExtension;
+
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Expressive\Twig\TwigEnvironmentFactory;
 use Zend\Expressive\Twig\TwigRendererFactory;
@@ -27,11 +28,13 @@ return [
         'assets_version' => null,
         'extensions' => [
             // extension service names or instances
-            AuthenticationExtension::class,
-            AuthorizationExtension::class,
-            FlashMessengerExtension::class,
-            FormElementsExtension::class,
-            NavigationExtension::class,
+
+            // already declared in delegator
+            // AuthenticationExtension::class,
+            // AuthorizationExtension::class,
+            // FlashMessengerExtension::class,
+            // FormElementsExtension::class,
+            // NavigationExtension::class,
         ],
         'runtime_loaders' => [
             // runtime loader names or instances
