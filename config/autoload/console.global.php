@@ -10,7 +10,8 @@ return [
         'commands' => [
             [
                 'name' => 'hello',
-                'description' => 'Hello, World! command example',
+                'description' => 'Hello, World! command full description',
+                'short_description' => 'Hello, World! command short description',
                 'handler' => HelloCommand::class,
             ],
         ]
