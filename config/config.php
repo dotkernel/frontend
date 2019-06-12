@@ -60,6 +60,7 @@ $aggregator = new ConfigAggregator([
     \Dot\User\ConfigProvider::class,
     \Dot\Validator\ConfigProvider::class,
     \Dot\Console\ConfigProvider::class,
+    \Dot\ErrorHandler\ConfigProvider::class,
 
     //application
     \Frontend\User\ConfigProvider::class,
