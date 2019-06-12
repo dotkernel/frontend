@@ -67,3 +67,11 @@ If you cannot use these commands(for example if you cannot upgrade PHP globally)
 * disable dev mode by reverting the above procedure
 * manually clear cached data from `data/cache` directory and optionally `data/proxies`
 
+## Handling errors
+[dot-errorhandler](https://github.com/dotkernel/dot-errorhandler) automatically captures errors and saves them to `log/error-log-{CURRENT_DATE}.log`.
+
+The name and location of the log file can be customized by editing it in the following config file: `config/autoload/error-handling.global.php`.
+
+To learn more about configuring the error handler and adding more stream writers, read the following articles:
+* [Logging with dot-log in Zend Expressive and DotKernel](https://www.dotkernel.com/dotkernel/logging-with-dot-log-in-zend-expressive-and-dotkernel/)
+* [Handling and Logging errors with dot-errorhandler and dot-log](https://www.dotkernel.com/dotkernel/handling-and-logging-errors-with-dot-errorhandler-and-dot-log/)

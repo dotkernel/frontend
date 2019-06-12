@@ -10,7 +10,6 @@ return [
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
         ]
-
     ],
     'dot-errorhandler' => [
         'loggerEnabled' => true,
