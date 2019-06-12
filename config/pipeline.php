@@ -12,7 +12,7 @@ use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Expressive\Router\Middleware\DispatchMiddleware;
-use Zend\Stratigility\Middleware\ErrorHandler;
+use Dot\ErrorHandler\ErrorHandlerInterface;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
@@ -26,7 +26,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 // The error handler should be the first (most outer) middleware to catch
 // all Exceptions.
 /** @var \Zend\Expressive\Application $app */
-$app->pipe(ErrorHandler::class);
+$app->pipe(ErrorHandlerInterface::class);
 $app->pipe(ServerUrlMiddleware::class);
 
 // starts the session and tracks session activity

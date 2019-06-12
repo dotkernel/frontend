@@ -26,6 +26,7 @@
     "dotkernel/dot-controller-plugin-forms": "^1.0",
     "dotkernel/dot-controller-plugin-mail": "^1.0",
     "dotkernel/dot-controller-plugin-session": "^1.0",
+    "dotkernel/dot-errorhandler": "^1.0",
     "dotkernel/dot-event": "^0.2",
     "dotkernel/dot-filter": "^1.1",
     "dotkernel/dot-flashmessenger": "^1.0",
