@@ -35,21 +35,21 @@ In `composer.json` replace the matching repositories with the following:
 "dotkernel/dot-rbac":"^0.2.1",
 "dotkernel/dot-validator":"^1.1",
 
-"zendframework/zend-escaper":"^2.6",
-"zendframework/zend-expressive-helpers":"^5.0",
-"zendframework/zend-expressive-twigrenderer":"^2.0",
-"zendframework/zend-expressive-template":"^2.0",
-"zendframework/zend-expressive":"^3.0",
-"zendframework/zend-expressive-fastroute":"^3.0",
-"zendframework/zend-expressive-tooling":"^1.0",
-"zendframework/zend-expressive-router":"^3.0",
-"zendframework/zend-stratigility":"^3.0",
-"zendframework/zend-component-installer":"^2.0
+"laminas/laminas-escaper":"^2.6",
+"mezzio/mezzio-helpers":"^5.0",
+"mezzio/mezzio-twigrenderer":"^2.0",
+"mezzio/mezzio-template":"^2.0",
+"mezzio/mezzio":"^3.0",
+"mezzio/mezzio-fastroute":"^3.0",
+"mezzio/mezzio-tooling":"^1.0",
+"mezzio/mezzio-router":"^3.0",
+"laminas/laminas-stratigility":"^3.0",
+"laminas/laminas-component-installer":"^2.0
 ```
 also update require-dev dependencies
 ```
-"zendframework/zend-expressive-tooling:": "^1.0",
-"zendframework/zend-component-installer": "^2.0",
+"mezzio/mezzio-tooling:": "^1.0",
+"laminas/laminas-component-installer": "^2.0",
 
 ```
 
@@ -82,16 +82,16 @@ composer require dotkernel/dot-authentication-service:^1.0\
  dotkernel/dot-user:^1.0\
  dotkernel/dot-rbac:^0.2.1\
  dotkernel/dot-validator:^1.1\
- zendframework/zend-escaper:^2.6\
- zendframework/zend-expressive-helpers:^5.0\
- zendframework/zend-expressive-twigrenderer:^2.0\
- zendframework/zend-expressive-template:^2.0\
- zendframework/zend-expressive:^3.0\
- zendframework/zend-expressive-fastroute:^3.0\
- zendframework/zend-expressive-tooling:^1.0\
- zendframework/zend-expressive-router:^3.0\
- zendframework/zend-stratigility:^3.0\
- zendframework/zend-component-installer:^2.0
+ laminas/laminas-escaper:^2.6\
+ mezzio/mezzio-helpers:^5.0\
+ mezzio/mezzio-twigrenderer:^2.0\
+ mezzio/mezzio-template:^2.0\
+ mezzio/mezzio:^3.0\
+ mezzio/mezzio-fastroute:^3.0\
+ mezzio/mezzio-tooling:^1.0\
+ mezzio/mezzio-router:^3.0\
+ laminas/laminas-stratigility:^3.0\
+ laminas/laminas-component-installer:^2.0
  
 composer remove http-interop/http-middleware\
  webimpress/http-middleware-compatibility
@@ -106,17 +106,17 @@ In `config/config.php` add the following config providers:
 
 ```php
 // zend expressive & middleware factory
-\Zend\Expressive\ConfigProvider::class,
+\Mezzio\ConfigProvider::class,
 
 // router config
-\Zend\Expressive\Router\ConfigProvider::class,
-\Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+\Mezzio\Router\ConfigProvider::class,
+\Mezzio\Router\FastRouteRouter\ConfigProvider::class,
 
-\Zend\Expressive\Twig\ConfigProvider::class,
-\Zend\Expressive\Helper\ConfigProvider::class,
+\Mezzio\Twig\ConfigProvider::class,
+\Mezzio\Helper\ConfigProvider::class,
 
 // handler runner
-\Zend\HttpHandlerRunner\ConfigProvider::class,
+\Laminas\HttpHandlerRunner\ConfigProvider::class,
 ```
 
 Make sure they are the first ConfigProviders or before cached config (`ArrayProvider`)	
@@ -127,7 +127,7 @@ Wrap routing from `config/routes.php` in a callable with the following format:
 
 ```php
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    /** @var \Zend\Expressive\Application $app */
+    /** @var \Mezzio\Application $app */
     $app->route('/', [PageController::class], ['GET', 'POST'], 'home');
 };
 ```
@@ -136,8 +136,8 @@ add the following use statements and make sure the names are not duplicate:
 
 ```php
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\MiddlewareFactory;
+use Mezzio\Application;
+use Mezzio\MiddlewareFactory;
 ```
 
 ### Pipeline
@@ -146,7 +146,7 @@ Wrap routing from `config/pipeline.php` in a callable with the following format:
 
 ```php
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    /** @var \Zend\Expressive\Application $app */
+    /** @var \Mezzio\Application $app */
     $app->route('/', [PageController::class], ['GET', 'POST'], 'home');
 };
 ```
@@ -155,8 +155,8 @@ add the following use statements and make sure the names are not duplicate:
 
 ```php
 use Psr\Container\ContainerInterface;
-use Zend\Expressive\Application;
-use Zend\Expressive\MiddlewareFactory;
+use Mezzio\Application;
+use Mezzio\MiddlewareFactory;
 ```
 
 
@@ -164,8 +164,8 @@ use Zend\Expressive\MiddlewareFactory;
 
 add the following use statements
 ```php
-use Zend\Expressive\Router\Middleware\RouteMiddleware;
-use Zend\Expressive\Router\Middleware\DispatchMiddleware;
+use Mezzio\Router\Middleware\RouteMiddleware;
+use Mezzio\Router\Middleware\DispatchMiddleware;
 ```
 
 Replace the following lines to reflect the changes:

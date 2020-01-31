@@ -18,10 +18,10 @@ use Dot\Authentication\Web\Event\AuthenticationEvent;
 use Frontend\User\Entity\UserEntity;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Expressive\Helper\UrlHelper;
-use Zend\Math\Rand;
-use Zend\Session\Container;
+use Laminas\Diactoros\Response\RedirectResponse;
+use Mezzio\Helper\UrlHelper;
+use Laminas\Math\Rand;
+use Laminas\Session\Container;
 
 /**
  * Class AuthenticationListener

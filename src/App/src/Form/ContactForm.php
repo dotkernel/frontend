@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Frontend\App\Form;
 
-use Zend\Form\Form;
+use Laminas\Form\Form;
 
 /**
  * Class ContactForm

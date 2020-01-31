@@ -6,9 +6,9 @@ use Dot\Twig\Extension\FlashMessengerExtension;
 use Dot\Twig\Extension\FormElementsExtension;
 use Dot\Twig\Extension\NavigationExtension;
 
-use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\Expressive\Twig\TwigEnvironmentFactory;
-use Zend\Expressive\Twig\TwigRendererFactory;
+use Mezzio\Template\TemplateRendererInterface;
+use Mezzio\Twig\TwigEnvironmentFactory;
+use Mezzio\Twig\TwigRendererFactory;
 
 return [
     'dependencies' => [

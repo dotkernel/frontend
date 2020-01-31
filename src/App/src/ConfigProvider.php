@@ -18,7 +18,7 @@ use Frontend\App\Listener\UserMessageMapperEventListener;
 use Frontend\App\Mapper\UserMessageDbMapper;
 use Frontend\App\Service\UserMessageService;
 use Frontend\App\Service\UserMessageServiceInterface;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class ConfigProvider

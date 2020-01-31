@@ -11,8 +11,8 @@ namespace Frontend\User\Fieldset;
 
 use Dot\Hydrator\ClassMethodsCamelCase;
 use Frontend\User\Entity\UserDetailsEntity;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Class UserDetailsFieldset

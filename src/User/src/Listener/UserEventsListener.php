@@ -24,7 +24,7 @@ use Dot\User\Service\TokenService;
 use Dot\User\Service\UserService;
 use Frontend\User\Entity\UserEntity;
 use Frontend\User\Service\UserMailerService;
-use Zend\EventManager\EventManagerInterface;
+use Laminas\EventManager\EventManagerInterface;
 
 /**
  * Class UserEventsListener

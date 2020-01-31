@@ -14,9 +14,9 @@ use Dot\Mapper\Event\MapperEvent;
 use Dot\Mapper\Mapper\MapperManager;
 use Frontend\User\Entity\UserDetailsEntity;
 use Frontend\User\Entity\UserEntity;
-use Zend\Db\Metadata\Object\ColumnObject;
-use Zend\Db\Sql\Select;
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Db\Metadata\Object\ColumnObject;
+use Laminas\Db\Sql\Select;
+use Laminas\Hydrator\HydratorInterface;
 
 /**
  * Class UserDbMapper

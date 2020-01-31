@@ -15,8 +15,8 @@ use Dot\Mail\Service\MailServiceInterface;
 use Dot\User\Entity\ConfirmTokenEntity;
 use Dot\User\Entity\ResetTokenEntity;
 use Frontend\User\Entity\UserEntity;
-use Zend\Expressive\Helper\ServerUrlHelper;
-use Zend\Expressive\Helper\UrlHelper;
+use Mezzio\Helper\ServerUrlHelper;
+use Mezzio\Helper\UrlHelper;
 
 /**
  * Class UserMailerService

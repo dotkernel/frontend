@@ -22,10 +22,10 @@ use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\UserMessageServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\RedirectResponse;
-use Zend\Form\Form;
-use Zend\Session\Container;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Form\Form;
+use Laminas\Session\Container;
 
 /**
  * Class ContactController

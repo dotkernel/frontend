@@ -21,7 +21,7 @@ use Frontend\User\Form\AccountForm;
 use Frontend\User\Form\RegisterForm;
 use Frontend\User\Listener\UserEventsListener;
 use Frontend\User\Mapper\UserDbMapper;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class ConfigProvider

@@ -11,8 +11,8 @@ namespace Frontend\App\Form;
 
 use Dot\Hydrator\ClassMethodsCamelCase;
 use Frontend\App\Entity\UserMessageEntity;
-use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
+use Laminas\Form\Fieldset;
+use Laminas\InputFilter\InputFilterProviderInterface;
 
 /**
  * Class UserMessageFieldset

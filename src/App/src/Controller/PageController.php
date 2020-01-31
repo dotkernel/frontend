@@ -17,8 +17,8 @@ use Dot\Controller\Plugin\TemplatePlugin;
 use Dot\Controller\Plugin\UrlHelperPlugin;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Form\Form;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Form\Form;
 
 /**
  * Class PageController

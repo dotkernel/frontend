@@ -1,3 +1,21 @@
+## 2.0.0 - 2019-05-21
+
+### Changed
+* Replaced Zend namespace with Laminas and Mezzio namespaces.
+
+### Added
+* Added Laminas dependencies
+
+### Deprecated
+* Nothing
+
+### Removed
+* Removed Zend packages dependencies
+
+### Fixed
+* Nothing
+
+
 ## 1.0.2 - 2019-05-21
 
 ### Changed

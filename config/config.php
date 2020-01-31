@@ -1,8 +1,8 @@
 <?php
 
-use Zend\ConfigAggregator\ArrayProvider;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\ConfigAggregator\PhpFileProvider;
+use Laminas\ConfigAggregator\ArrayProvider;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\ConfigAggregator\PhpFileProvider;
 
 // To enable or disable caching, set the `ConfigAggregator::ENABLE_CACHE` boolean in
 // `config/autoload/local.php`.
@@ -10,19 +10,19 @@ $cacheConfig = [
     'config_cache_path' => __DIR__ . '/../data/config-cache.php',
 ];
 $aggregator = new ConfigAggregator([
-    \Zend\Expressive\ConfigProvider::class,
-    \Zend\Expressive\Router\ConfigProvider::class,
-    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
-    \Zend\Expressive\Twig\ConfigProvider::class,
-    \Zend\Expressive\Helper\ConfigProvider::class,
-    \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Mezzio\ConfigProvider::class,
+    \Mezzio\Router\ConfigProvider::class,
+    \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
+    \Mezzio\Twig\ConfigProvider::class,
+    \Mezzio\Helper\ConfigProvider::class,
+    \Laminas\HttpHandlerRunner\ConfigProvider::class,
 
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
     //zend framework configs
-    \Zend\Db\ConfigProvider::class,
-    \Zend\Mail\ConfigProvider::class,
+    \Laminas\Db\ConfigProvider::class,
+    \Laminas\Mail\ConfigProvider::class,
 
     // dotkernel components default configs
     // some of these configs are overwriting and customizing the underlying zendframework configs
@@ -77,6 +77,6 @@ $aggregator = new ConfigAggregator([
 
     // Load development config if it exists
     new PhpFileProvider('config/development.config.php'),
-], $cacheConfig['config_cache_path']);
+], $cacheConfig['config_cache_path'], [\Laminas\ZendFrameworkBridge\ConfigPostProcessor::class]);
 
 return $aggregator->getMergedConfig();
