@@ -1,4 +1,4 @@
-## 2.0.0 - 2019-05-21
+## 2.0.0 - 2020-01-31
 
 ### Changed
 * Replaced Zend namespace with Laminas and Mezzio namespaces.
