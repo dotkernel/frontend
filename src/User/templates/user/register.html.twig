@@ -1,0 +1,12 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>Register</h1>
+        {% for element in form.elements %}
+            {{ formElement(element) }}
+        {% endfor %}
+    </div>
+{% endblock %}

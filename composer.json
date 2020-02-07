@@ -1,0 +1,94 @@
+{
+    "name": "dotkernel/frontend",
+    "description": "Dotkernel Frontend Application",
+    "type": "project",
+    "license": "MIT",
+    "homepage": "https://github.com/dotkernel/frontend",
+    "authors": [
+        {
+            "name": "DotKernel Team",
+            "email": "team@dotkernel.com"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "component-whitelist": [
+                "mezzio/mezzio",
+                "mezzio/mezzio-helpers",
+                "mezzio/mezzio-router",
+                "laminas/laminas-httphandlerrunner",
+                "mezzio/mezzio-fastroute",
+                "mezzio/mezzio-twigrenderer"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.1",
+        "brick/math": "^0.8.9",
+        "dasprid/container-interop-doctrine": "^1.1",
+        "doctrine/migrations": "^2.2",
+        "dotkernel/dot-annotated-services": "^2.0",
+        "dotkernel/dot-errorhandler": "^2.0.0",
+        "dotkernel/dot-flashmessenger": "^2.0",
+        "dotkernel/dot-twigrenderer": "^2.0",
+        "laminas/laminas-component-installer": "^2.1.1",
+        "laminas/laminas-config-aggregator": "^1.0",
+        "laminas/laminas-dependency-plugin": "^1.0",
+        "laminas/laminas-diactoros": "^1.7.1 || ^2.0",
+        "laminas/laminas-form": "^2.14",
+        "laminas/laminas-servicemanager": "^3.3",
+        "laminas/laminas-stdlib": "^3.1",
+        "laminas/laminas-zendframework-bridge": "^1.0",
+        "mezzio/mezzio": "^3.0.1",
+        "mezzio/mezzio-fastroute": "^3.0",
+        "mezzio/mezzio-helpers": "^5.0",
+        "mezzio/mezzio-twigrenderer": "^2.0",
+        "ramsey/uuid-doctrine": "^1.5",
+        "tuupola/cors-middleware": "^1.1"
+    },
+    "require-dev": {
+        "laminas/laminas-development-mode": "^3.1",
+        "mezzio/mezzio-tooling": "^1.0",
+        "phpunit/phpunit": "^7.0.1",
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^2.9.1",
+        "filp/whoops": "^2.1.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Frontend\\App\\": "src/App/src/",
+            "Frontend\\Page\\": "src/Page/src/",
+            "Frontend\\User\\": "src/User/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AppTest\\": "test/AppTest/"
+        }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@development-enable"
+        ],
+        "development-disable": "laminas-development-mode disable",
+        "development-enable": "laminas-development-mode enable",
+        "development-status": "laminas-development-mode status",
+        "mezzio": "mezzio --ansi",
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "clear-config-cache": "php bin/clear-config-cache.php",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "serve": "php -S 0.0.0.0:8080 -t public/",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "replace": {
+        "mezzio/mezzio-skeleton": "3.2.3"
+    }
+}

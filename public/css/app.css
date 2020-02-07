@@ -1,0 +1,15 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.app {
+    min-height: 100vh;
+}
+.app-footer {
+    padding-bottom: 1em;
+}
