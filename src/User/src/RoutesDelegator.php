@@ -3,9 +3,13 @@
 namespace Frontend\User;
 
 use Fig\Http\Message\RequestMethodInterface;
+use Frontend\User\Handler\ActivateHandler;
 use Frontend\User\Handler\LoginHandler;
 use Frontend\User\Handler\LogoutHandler;
 use Frontend\User\Handler\RegisterHandler;
+use Frontend\User\Handler\RequestResetPasswordHandler;
+use Frontend\User\Handler\ResetPasswordHandler;
+use Frontend\User\Handler\UnregisterHandler;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
 
@@ -45,6 +49,34 @@ class RoutesDelegator
             RegisterHandler::class,
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
             'user.register'
+        );
+
+        $app->route(
+            '/account/activate[/{hash}]',
+            ActivateHandler::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            'account:activate'
+        );
+
+        $app->route(
+            '/account/unregister[/{hash}]',
+            UnregisterHandler::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            'account:unregister'
+        );
+
+        $app->route(
+            '/account/request-reset-password',
+            RequestResetPasswordHandler::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            'account:request-reset-password'
+        );
+
+        $app->route(
+            '/account/reset-password[/{hash}]',
+            ResetPasswordHandler::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            'account:reset-password'
         );
 
         return $app;

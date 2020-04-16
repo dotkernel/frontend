@@ -6,9 +6,12 @@ namespace Frontend\User\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Frontend\App\Common\UuidOrderedTimeGenerator;
 use Frontend\App\Entity\AbstractEntity;
 
 use function array_map;
+use function bin2hex;
+use function random_bytes;
 
 /**
  * Class User
@@ -19,9 +22,15 @@ use function array_map;
  */
 class User extends AbstractEntity implements UserInterface
 {
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DELETED = 'deleted';
     const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVE = 'active';
+    const STATUSES = [
+        self::STATUS_PENDING,
+        self::STATUS_ACTIVE
+    ];
+
+    const IS_DELETED_YES = 'yes';
+    const IS_DELETED_NO = 'no';
 
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserDetail", cascade={"persist", "remove"}, mappedBy="user")
@@ -54,6 +63,18 @@ class User extends AbstractEntity implements UserInterface
     protected $status = self::STATUS_PENDING;
 
     /**
+     * @ORM\Column(name="isDeleted", type="string")
+     * @var string $isDeleted
+     */
+    protected $isDeleted = self::IS_DELETED_NO;
+
+    /**
+     * @ORM\Column(name="hash", type="string", length=64, nullable=false, unique=true)
+     * @var string $hash
+     */
+    protected $hash;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Frontend\User\Entity\UserRole")
      * @ORM\JoinTable(
      *     name="user_roles",
@@ -65,13 +86,24 @@ class User extends AbstractEntity implements UserInterface
     protected $roles = [];
 
     /**
+     * @ORM\OneToMany(targetEntity="UserResetPassword",
+     *     cascade={"persist", "remove"}, mappedBy="user", fetch="EXTRA_LAZY")
+     * @var UserResetPassword[] $resetPassword
+     */
+    protected $resetPasswords;
+
+    /**
      * User constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
 
         $this->roles = new ArrayCollection();
+        $this->resetPasswords = new ArrayCollection();
+
+        $this->renewHash();
     }
 
     /**
@@ -89,8 +121,6 @@ class User extends AbstractEntity implements UserInterface
     public function setDetail(UserDetail $detail): UserInterface
     {
         $this->detail = $detail;
-
-        $detail->setUser($this);
 
         return $this;
     }
@@ -144,10 +174,10 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string $password
+     * @param string|null $password
      * @return UserInterface
      */
-    public function setPassword(string $password): UserInterface
+    public function setPassword(?string $password): UserInterface
     {
         $this->password = $password;
 
@@ -169,6 +199,44 @@ class User extends AbstractEntity implements UserInterface
     public function setStatus(string $status): UserInterface
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function isDeleted(): string
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param string $isDeleted
+     * @return $this
+     */
+    public function setIsDeleted(string $isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     * @return $this
+     */
+    public function setHash(string $hash)
+    {
+        $this->hash = $hash;
 
         return $this;
     }
@@ -202,6 +270,143 @@ class User extends AbstractEntity implements UserInterface
     {
         if (!$this->roles->contains($role)) {
             $this->roles->removeElement($role);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws \Exception
+     */
+    public function renewHash()
+    {
+        $this->hash = self::generateHash();
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public static function generateHash(): string
+    {
+        try {
+            $bytes = random_bytes(32);
+        } catch (\Exception $exception) {
+            $bytes = UuidOrderedTimeGenerator::generateUuid()->getBytes();
+        }
+
+        return bin2hex($bytes);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->status === self::STATUS_ACTIVE;
+    }
+
+    /**
+     * @return $this
+     */
+    public function markAsDeleted()
+    {
+        $this->isDeleted = self::IS_DELETED_YES;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getDetail()->getFirstName() . ' ' . $this->getDetail()->getLastName();
+    }
+
+    /**
+     * @return User
+     */
+    public function activate()
+    {
+        return $this->setStatus(self::STATUS_ACTIVE);
+    }
+
+    /**
+     * @return $this
+     */
+    public function resetRoles()
+    {
+        foreach ($this->roles->getIterator()->getArrayCopy() as $role) {
+            $this->removeRole($role);
+        }
+        $this->roles = new ArrayCollection();
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws \Exception
+     */
+    public function createResetPassword()
+    {
+        $resetPassword = new UserResetPassword();
+        $resetPassword->setHash(self::generateHash());
+        $resetPassword->setUser($this);
+
+        $this->resetPasswords->add($resetPassword);
+
+        return $this;
+    }
+
+    /**
+     * @param UserResetPassword $resetPassword
+     */
+    public function addResetPassword(UserResetPassword $resetPassword)
+    {
+        $this->resetPasswords->add($resetPassword);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getResetPasswords()
+    {
+        return $this->resetPasswords;
+    }
+
+    /**
+     * @param UserResetPassword $resetPassword
+     * @return bool
+     */
+    public function hasResetPassword(UserResetPassword $resetPassword)
+    {
+        return $this->resetPasswords->contains($resetPassword);
+    }
+
+    /**
+     * @param UserResetPassword $resetPassword
+     * @return $this
+     */
+    public function removeResetPassword(UserResetPassword $resetPassword)
+    {
+        $this->resetPasswords->removeElement($resetPassword);
+
+        return $this;
+    }
+
+    /**
+     * @param array $resetPasswords
+     * @return $this
+     */
+    public function setResetPasswords(array $resetPasswords)
+    {
+        foreach ($resetPasswords as $resetPassword) {
+            $this->resetPasswords->add($resetPassword);
         }
 
         return $this;

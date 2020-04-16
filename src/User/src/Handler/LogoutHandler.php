@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Frontend\User\Handler;
 
-use Dot\AnnotatedServices\Annotation\Inject;
 use Frontend\User\Service\UserService;
+use Dot\AnnotatedServices\Annotation\Inject;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -24,18 +26,24 @@ class LogoutHandler implements RequestHandlerInterface
     /** @var UserService $userService */
     protected $userService;
 
+    /** @var AuthenticationServiceInterface $authenticationService */
+    protected $authenticationService;
+
     /**
      * LogoutHandler constructor.
      * @param RouterInterface $router
      * @param UserService $userService
+     * @param AuthenticationService $authenticationService
      *
-     * @Inject({RouterInterface::class, UserService::class})
+     * @Inject({RouterInterface::class, AuthenticationService::class, UserService::class})
      */
     public function __construct(
         RouterInterface $router,
+        AuthenticationService $authenticationService,
         UserService $userService
     ) {
         $this->router = $router;
+        $this->authenticationService = $authenticationService;
         $this->userService = $userService;
     }
 
@@ -45,7 +53,7 @@ class LogoutHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        exit('ok');
+        $this->authenticationService->clearIdentity();
         return new RedirectResponse(
             $this->router->generateUri('page.home')
         );

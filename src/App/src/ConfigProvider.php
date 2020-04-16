@@ -7,8 +7,12 @@ namespace Frontend\App;
 use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\App\Factory\EntityListenerResolverFactory;
+use Frontend\App\Handler\LanguageHandler;
 use Frontend\App\Resolver\EntityListenerResolver;
+use Frontend\App\Service\TranslateService;
+use Frontend\App\Service\TranslateServiceInterface;
 use Mezzio\Application;
 
 /**
@@ -50,10 +54,13 @@ class ConfigProvider
             'factories'  => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class => EntityListenerResolverFactory::class,
+                TranslateService::class => AnnotatedServiceFactory::class,
+                LanguageHandler::class => AnnotatedServiceFactory::class,
             ],
             'aliases' => [
                 EntityManager::class => 'doctrine.entity_manager.orm_default',
                 EntityManagerInterface::class => 'doctrine.entity_manager.default',
+                TranslateServiceInterface::class => TranslateService::class,
             ]
         ];
     }
@@ -82,6 +89,8 @@ class ConfigProvider
                 'app'    => [__DIR__ . '/../templates/app'],
                 'error'  => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
+                'partial' => [__DIR__ . '/../templates/partial'],
+                'language' => [__DIR__ . '/../templates/language'],
             ],
         ];
     }
