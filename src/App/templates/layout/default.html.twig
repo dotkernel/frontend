@@ -53,9 +53,15 @@
                                 </li>
                             </ul>
                             <ul class="navbar-nav ml-auto">
+                                {% if hasIdentity() %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('user.logout') }}">{% trans 'Log out' %}</a>
+                                    </li>
+                                {% else %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('user.login') }}">{% trans 'Log in' %}</a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
