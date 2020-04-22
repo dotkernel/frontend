@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "010fe0394b33ca194ced5cfa33233332",
+    "content-hash": "bb5b408dd9de55184d6269c0ed00f558",
     "packages": [
         {
             "name": "brick/math",
@@ -120,24 +120,26 @@
             ],
             "description": "Doctrine factories for container-interop",
             "homepage": "https://github.com/DASPRiD/container-interop-doctrine",
+            "abandoned": "roave/psr-container-doctrine",
             "time": "2018-01-24T23:25:49+00:00"
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.8.0",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc"
+                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/904dca4eb10715b92569fbcd79e201d5c349b6bc",
-                "reference": "904dca4eb10715b92569fbcd79e201d5c349b6bc",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b9d758e831c70751155c698c2f7df4665314a1cb",
+                "reference": "b9d758e831c70751155c698c2f7df4665314a1cb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "1.*",
+                "ext-tokenizer": "*",
                 "php": "^7.1"
             },
             "require-dev": {
@@ -147,7 +149,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.9.x-dev"
                 }
             },
             "autoload": {
@@ -188,7 +190,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2019-10-01T18:55:10+00:00"
+            "time": "2020-04-20T09:18:32+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -1106,24 +1108,24 @@
         },
         {
             "name": "dotkernel/dot-annotated-services",
-            "version": "v2.0.0",
+            "version": "v3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-annotated-services.git",
-                "reference": "25b2b3444b2f9674672141faa56d159155cc1e2e"
+                "reference": "bab3a95b79d9438862d3016053db511bd0910fc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-annotated-services/zipball/25b2b3444b2f9674672141faa56d159155cc1e2e",
-                "reference": "25b2b3444b2f9674672141faa56d159155cc1e2e",
+                "url": "https://api.github.com/repos/dotkernel/dot-annotated-services/zipball/bab3a95b79d9438862d3016053db511bd0910fc6",
+                "reference": "bab3a95b79d9438862d3016053db511bd0910fc6",
                 "shasum": ""
             },
             "require": {
-                "doctrine/annotations": "^1.6",
-                "doctrine/cache": "^1.7",
+                "doctrine/annotations": "^1.10",
+                "doctrine/cache": "^1.10",
                 "laminas/laminas-dependency-plugin": "^1.0",
-                "laminas/laminas-servicemanager": "^3.3",
-                "php": "^7.2"
+                "laminas/laminas-servicemanager": "^3.4",
+                "php": "^7.4"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.7",
@@ -1150,7 +1152,7 @@
             ],
             "authors": [
                 {
-                    "name": "DotKerenel Team",
+                    "name": "DotKernel Team",
                     "email": "team@dotkernel.com"
                 }
             ],
@@ -1164,25 +1166,26 @@
                 "zf2",
                 "zf3"
             ],
-            "time": "2020-01-30T12:22:50+00:00"
+            "time": "2020-04-12T15:27:31+00:00"
         },
         {
             "name": "dotkernel/dot-errorhandler",
-            "version": "v2.0.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-errorhandler.git",
-                "reference": "f7d05dbae141a9fe1dee45bfac6cb408c8341f0c"
+                "reference": "dce6ef4aec5795be62fc8fdbe55da8dfac0fca6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-errorhandler/zipball/f7d05dbae141a9fe1dee45bfac6cb408c8341f0c",
-                "reference": "f7d05dbae141a9fe1dee45bfac6cb408c8341f0c",
+                "url": "https://api.github.com/repos/dotkernel/dot-errorhandler/zipball/dce6ef4aec5795be62fc8fdbe55da8dfac0fca6c",
+                "reference": "dce6ef4aec5795be62fc8fdbe55da8dfac0fca6c",
                 "shasum": ""
             },
             "require": {
-                "dotkernel/dot-log": "^2.0",
+                "dotkernel/dot-log": "^3.0",
                 "laminas/laminas-dependency-plugin": "^1.0",
+                "laminas/laminas-diactoros": "^2.0",
                 "laminas/laminas-log": "^2.10",
                 "mezzio/mezzio": "^3.0",
                 "psr/container": "^1.0",
@@ -1205,27 +1208,27 @@
                 }
             ],
             "description": "Logging Error Handler for Middleware Applications",
-            "time": "2020-01-30T12:41:47+00:00"
+            "time": "2020-04-17T13:25:37+00:00"
         },
         {
             "name": "dotkernel/dot-flashmessenger",
-            "version": "v2.0.0",
+            "version": "v3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-flashmessenger.git",
-                "reference": "1e74a6bf22d17f77321d800d0931e935b2151970"
+                "reference": "85a9f3fd9ee5f52c4723a8048d690bae8ea2075f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/1e74a6bf22d17f77321d800d0931e935b2151970",
-                "reference": "1e74a6bf22d17f77321d800d0931e935b2151970",
+                "url": "https://api.github.com/repos/dotkernel/dot-flashmessenger/zipball/85a9f3fd9ee5f52c4723a8048d690bae8ea2075f",
+                "reference": "85a9f3fd9ee5f52c4723a8048d690bae8ea2075f",
                 "shasum": ""
             },
             "require": {
                 "dotkernel/dot-session": "^4.0",
                 "laminas/laminas-dependency-plugin": "^1.0",
                 "laminas/laminas-servicemanager": "^3.3.0",
-                "php": "^7.2",
+                "php": "^7.4",
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
@@ -1256,28 +1259,28 @@
                 }
             ],
             "description": "DotKernel flash messenger component for session messages between redirects",
-            "time": "2020-01-30T11:39:44+00:00"
+            "time": "2020-04-17T09:07:32+00:00"
         },
         {
             "name": "dotkernel/dot-log",
-            "version": "v2.0.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-log.git",
-                "reference": "a1535f35023f1728f6308d60845c2db5aa9acf4f"
+                "reference": "f52bf746b9a9472975602c126a199f4c930e160c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-log/zipball/a1535f35023f1728f6308d60845c2db5aa9acf4f",
-                "reference": "a1535f35023f1728f6308d60845c2db5aa9acf4f",
+                "url": "https://api.github.com/repos/dotkernel/dot-log/zipball/f52bf746b9a9472975602c126a199f4c930e160c",
+                "reference": "f52bf746b9a9472975602c126a199f4c930e160c",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-dependency-plugin": "^1.0",
-                "laminas/laminas-log": "^2.9.0",
-                "laminas/laminas-servicemanager": "^3.3.0",
-                "php": "^7.2",
-                "psr/http-message": "^1.0"
+                "laminas/laminas-dependency-plugin": "^1.0.3",
+                "laminas/laminas-log": "^2.12.0",
+                "laminas/laminas-servicemanager": "^3.4.0",
+                "php": "^7.4",
+                "psr/http-message": "^1.0.1"
             },
             "require-dev": {
                 "dotkernel/dot-mail": "^2.0",
@@ -1307,7 +1310,7 @@
                 }
             ],
             "description": "DotKernel log component extending and customizing laminas-log",
-            "time": "2020-01-30T12:46:31+00:00"
+            "time": "2020-04-17T12:46:29+00:00"
         },
         {
             "name": "dotkernel/dot-session",
@@ -1363,32 +1366,33 @@
         },
         {
             "name": "dotkernel/dot-twigrenderer",
-            "version": "2.0.0",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotkernel/dot-twigrenderer.git",
-                "reference": "e499164852a11a295c1aca00be4f1b25a88f20b2"
+                "reference": "412746b39d78bc3e761204dadbc0038139252958"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotkernel/dot-twigrenderer/zipball/e499164852a11a295c1aca00be4f1b25a88f20b2",
-                "reference": "e499164852a11a295c1aca00be4f1b25a88f20b2",
+                "url": "https://api.github.com/repos/dotkernel/dot-twigrenderer/zipball/412746b39d78bc3e761204dadbc0038139252958",
+                "reference": "412746b39d78bc3e761204dadbc0038139252958",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-dependency-plugin": "^1.0",
+                "laminas/laminas-authentication": "^2.7",
                 "laminas/laminas-servicemanager": "^3.3",
                 "laminas/laminas-view": "^2.10",
-                "mezzio/mezzio-twigrenderer": "^2.2",
+                "mezzio/mezzio-twigrenderer": "^2.5",
                 "ocramius/proxy-manager": "^2.1",
-                "php": "^7.2"
+                "php": "^7.4"
             },
             "require-dev": {
-                "dotkernel/dot-authentication": "^2.0",
-                "dotkernel/dot-authorization": "^2.0",
-                "dotkernel/dot-flashmessenger": "^2.0",
-                "dotkernel/dot-navigation": "^2.0",
+                "doctrine/doctrine-module": "^3.0",
+                "dotkernel/dot-flashmessenger": "^3.0",
+                "dotkernel/dot-navigation": "^3.0",
+                "laminas/laminas-dependency-plugin": "^1.0",
                 "laminas/laminas-form": "^2.9",
+                "mezzio/mezzio-authorization": "^1.0",
                 "phpunit/phpunit": "^4.8",
                 "squizlabs/php_codesniffer": "^2.3"
             },
@@ -1415,7 +1419,7 @@
                 }
             ],
             "description": "DotKernel component providing twig extensions and customization",
-            "time": "2020-01-30T12:06:58+00:00"
+            "time": "2020-04-17T13:51:46+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -1466,6 +1470,72 @@
                 "response"
             ],
             "time": "2018-11-19T16:19:58+00:00"
+        },
+        {
+            "name": "laminas/laminas-authentication",
+            "version": "2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-authentication.git",
+                "reference": "53505e07858d243792b96be763456f786d953501"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-authentication/zipball/53505e07858d243792b96be763456f786d953501",
+                "reference": "53505e07858d243792b96be763456f786d953501",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-stdlib": "^3.2.1",
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^5.6 || ^7.0"
+            },
+            "replace": {
+                "zendframework/zend-authentication": "self.version"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-crypt": "^2.6 || ^3.2.1",
+                "laminas/laminas-db": "^2.8.2",
+                "laminas/laminas-http": "^2.7",
+                "laminas/laminas-ldap": "^2.8",
+                "laminas/laminas-session": "^2.8",
+                "laminas/laminas-uri": "^2.5.2",
+                "laminas/laminas-validator": "^2.10.1",
+                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
+            },
+            "suggest": {
+                "laminas/laminas-crypt": "Laminas\\Crypt component",
+                "laminas/laminas-db": "Laminas\\Db component",
+                "laminas/laminas-http": "Laminas\\Http component",
+                "laminas/laminas-ldap": "Laminas\\Ldap component",
+                "laminas/laminas-session": "Laminas\\Session component",
+                "laminas/laminas-uri": "Laminas\\Uri component",
+                "laminas/laminas-validator": "Laminas\\Validator component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7.x-dev",
+                    "dev-develop": "2.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Authentication\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides an API for authentication and includes concrete authentication adapters for common use case scenarios",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "Authentication",
+                "laminas"
+            ],
+            "time": "2019-12-31T16:14:48+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -6505,7 +6575,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1"
+        "php": "^7.4"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
