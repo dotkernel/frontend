@@ -115,4 +115,9 @@ interface UserInterface
      * @return array
      */
     public function toArray(): array;
+
+    /**
+     * @return UserInterface
+     */
+    public function activate();
 }

@@ -40,5 +40,31 @@ return [
             'url'  => $baseUrl . '/uploads/user',
             'path' => \realpath(__DIR__ . '/../../public/uploads/user'),
         ]
-    ]
+    ],
+    'contact' => [
+        'notification_receivers' => [
+        ],
+        'message_receivers' => [
+            'to' => [
+                'iu_ly190809@yahoo.com'
+            ],
+            'cc' => [
+                'tech@example.com'
+            ]
+        ]
+    ],
+    'translator' => [
+        'cookie' => [
+            'name' => 'dk30Translator',
+            'lifetime' => 3600 * 24 * 30,
+        ],
+        'default' => 'en',
+        'locale' => [
+            'en' => 'en_EN',
+            'dk' => 'da_DK',
+        ],
+        'code_set' => 'UTF-8',
+        'domain' => 'messages',
+        'base_dir' => getcwd() . '/data/language',
+    ],
 ];

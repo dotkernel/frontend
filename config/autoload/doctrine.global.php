@@ -1,12 +1,21 @@
 <?php
 
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
 use Ramsey\Uuid\Doctrine\UuidType;
 
 return [
+    'dependencies' => [
+        'factories' => [
+            'doctrine.entity_manager.orm_default' => \Roave\PsrContainerDoctrine\EntityManagerFactory::class,
+        ],
+        'aliases' => [
+            \Doctrine\ORM\EntityManager::class => 'doctrine.entity_manager.orm_default',
+            \Doctrine\ORM\EntityManagerInterface::class => 'doctrine.entity_manager.default',
+            'doctrine.entitymanager.orm_default' => 'doctrine.entity_manager.orm_default'
+        ]
+    ],
+
     'doctrine' => [
         'connection' => [
             'orm_default' => [
@@ -17,22 +26,17 @@ return [
             ]
         ],
         'driver' => [
+            // default metadata driver, aggregates all other drivers into a single one.
+            // Override `orm_default` only if you know what you're doing
             'orm_default' => [
-                'class' => MappingDriverChain::class,
-                'drivers' => [
-                    'Frontend\\User\\Entity' => 'UserEntities'
-                ]
+                'class' => \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain::class,
+                'drivers' => [],
             ],
-            'UserEntities' => [
-                'class' => AnnotationDriver::class,
-                'cache' => 'array',
-                'paths' => __DIR__ . '/../../src/User/src/Entity',
-            ]
         ],
         'types' => [
             UuidType::NAME => UuidType::class,
             UuidBinaryType::NAME => UuidBinaryType::class,
             UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
-        ]
+        ],
     ],
 ];

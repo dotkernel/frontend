@@ -1,0 +1,43 @@
+<h3>{% trans 'Contact Us' %}</h3>
+<p>{% trans 'Any issues or good feedback?' %}<br /><br />{% trans 'Write us here and we will get in touch with you as soon as possible.' %}</p>
+<hr />
+{{ messagesPartial('partial::alerts') }}
+
+{% set dummy = form.prepare() %}
+{% set dummy = form.setAttribute('id', 'contact_form') %}
+{{ form().openTag(form) | raw }}
+
+<div class="row">
+    {% set email = form.get('email') %}
+    {% set dummy = email.setAttribute('class', 'form-control') %}
+    {% set dummy = email.setAttribute('id', 'email') %}
+    {% set emailTranslatePlaceholder = email.getAttribute('placeholder')|trans|raw %}
+    {% set dummy = email.setAttribute('placeholder', emailTranslatePlaceholder) %}
+    <div class="col-md-12">
+        {{ formElement(email) }}
+    </div>
+</div>
+
+<div class="row">
+    {% set name = form.get('name') %}
+    {% set dummy = name.setAttribute('class', 'form-control') %}
+    {% set dummy = name.setAttribute('id', 'name') %}
+    {% set nameTranslatePlaceholder = name.getAttribute('placeholder')|trans|raw %}
+    {% set dummy = name.setAttribute('placeholder', nameTranslatePlaceholder) %}
+    <div class="col-md-12">
+        {{ formElement(name) }}
+    </div>
+</div>
+
+<div class="row">
+    {% set message = form.get('message') %}
+    {% set dummy = message.setAttribute('class', 'form-control') %}
+    {% set dummy = message.setAttribute('id', 'message') %}
+    {% set messageTranslatePlaceholder = message.getAttribute('placeholder')|trans|raw %}
+    {% set dummy = message.setAttribute('placeholder', messageTranslatePlaceholder) %}
+    <div class="col-md-12">
+        {{ formElement(message) }}
+    </div>
+</div>
+
+{{ form().closeTag() | raw }}
