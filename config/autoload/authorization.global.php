@@ -29,6 +29,7 @@ return [
                 'page.premium-content',
                 'user.logout',
                 'user.view',
+                'profile.get-post'
             ],
         ],
     ]

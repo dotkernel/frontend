@@ -14,6 +14,7 @@ use Frontend\User\Form\LoginForm;
 use Frontend\User\Handler\ActivateHandler;
 use Frontend\User\Handler\LoginHandler;
 use Frontend\User\Handler\LogoutHandler;
+use Frontend\User\Handler\ProfileHandler;
 use Frontend\User\Handler\RegisterHandler;
 use Frontend\User\Handler\RequestResetPasswordHandler;
 use Frontend\User\Handler\ResetPasswordHandler;
@@ -58,6 +59,8 @@ class ConfigProvider
                 ResetPasswordHandler::class => AnnotatedServiceFactory::class,
                 UnregisterHandler::class => AnnotatedServiceFactory::class,
 
+                ProfileHandler::class => AnnotatedServiceFactory::class,
+
                 EntityListenerResolver::class => EntityListenerResolverFactory::class,
 
                 UserService::class => AnnotatedServiceFactory::class,
@@ -78,7 +81,8 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'user' => [__DIR__ . '/../templates/user']
+                'user' => [__DIR__ . '/../templates/user'],
+                'profile' => [__DIR__ . '/../templates/profile']
             ],
         ];
     }

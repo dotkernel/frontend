@@ -46,5 +46,5 @@ package-lock.json
 .buildpath
 .settings/
 
-public/uploads/
-!public/uploads/.gitkeep
+public/uploads/user/*
+!public/uploads/user/.gitkeep

@@ -2,6 +2,7 @@
 try {
     window.$ = window.jQuery = require('jquery');
     require('bootstrap');
+    require('bootstrap-fileinput');
     require('bootstrap-slider');
     require('jquery-mousewheel');
 
@@ -31,3 +32,5 @@ try {
 
 require('./components/_contact');
 require('./components/_language');
+require('./components/_avatar');
+require('./components/_profile');

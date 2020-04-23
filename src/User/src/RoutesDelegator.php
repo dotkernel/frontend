@@ -6,6 +6,7 @@ use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\Handler\ActivateHandler;
 use Frontend\User\Handler\LoginHandler;
 use Frontend\User\Handler\LogoutHandler;
+use Frontend\User\Handler\ProfileHandler;
 use Frontend\User\Handler\RegisterHandler;
 use Frontend\User\Handler\RequestResetPasswordHandler;
 use Frontend\User\Handler\ResetPasswordHandler;
@@ -49,6 +50,13 @@ class RoutesDelegator
             RegisterHandler::class,
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
             'user.register'
+        );
+
+        $app->route(
+            '/profile[/{action}[/{uuid}]]',
+            ProfileHandler::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            'profile.get-post'
         );
 
         $app->route(

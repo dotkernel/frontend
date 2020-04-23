@@ -55,6 +55,9 @@
                             <ul class="navbar-nav ml-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('profile.get-post') }}">{% trans 'Profile' %}</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="{{ path('user.logout') }}">{% trans 'Log out' %}</a>
                                     </li>
                                 {% else %}
