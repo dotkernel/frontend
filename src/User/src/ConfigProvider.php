@@ -119,7 +119,7 @@ class ConfigProvider
                 'UserEntities' => [
                     'class' => AnnotationDriver::class,
                     'cache' => 'array',
-                    'paths' => __DIR__ . '/Entity',
+                    'paths' => [__DIR__ . '/Entity'],
                 ]
             ]
         ];
