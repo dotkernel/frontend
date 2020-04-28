@@ -51,7 +51,6 @@
         "laminas/laminas-i18n": "^2.10",
         "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-stdlib": "^3.2",
-        "laminas/laminas-zendframework-bridge": "^1.0",
         "mezzio/mezzio": "^3.2",
         "mezzio/mezzio-authorization-rbac": "^1.0",
         "mezzio/mezzio-fastroute": "^3.0",
