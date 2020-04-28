@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class EntityListenerResolver
- * @package Core\Doctrine\Service
+ * @package Frontend\User\Doctrine\Service
  */
 class EntityListenerResolver extends DefaultEntityListenerResolver
 {

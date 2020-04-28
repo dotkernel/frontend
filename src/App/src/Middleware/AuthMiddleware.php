@@ -58,7 +58,7 @@ class AuthMiddleware implements MiddlewareInterface
      * @Inject({AuthenticationService::class, AuthorizationInterface::class,
      *      "config.authorization", RouterInterface::class, FlashMessenger::class, UserServiceInterface::class})
      */
-    public function __construct (
+    public function __construct(
         AuthenticationService $authenticationService,
         AuthorizationInterface $authorization,
         array $authorizationConfig,

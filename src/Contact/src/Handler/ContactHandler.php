@@ -86,7 +86,8 @@ class ContactHandler extends AbstractHandler
      */
     public function indexAction(): ResponseInterface
     {
-        var_dump('index'); exit;
+        var_dump('index');
+        exit;
     }
 
     /**
@@ -107,7 +108,7 @@ class ContactHandler extends AbstractHandler
      */
     public function saveContactMessageAction()
     {
-        $form = new ContactForm;
+        $form = new ContactForm();
         $request = $this->getRequest();
 
         $messages = [
@@ -117,7 +118,7 @@ class ContactHandler extends AbstractHandler
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
             $data = $request->getParsedBody();
-            $data['subject'] = 'DotKernel Message '. date("Y-m-d H:i:s");
+            $data['subject'] = 'DotKernel Message ' . date("Y-m-d H:i:s");
             $form->setData($data);
             if ($form->isValid()) {
                 $dataForm = $form->getData();
@@ -135,7 +136,6 @@ class ContactHandler extends AbstractHandler
                         'text' => 'Thank you for contacting us!'
                     ];
                 }
-
             } else {
                 $messages = [
                     'type' => 'error',

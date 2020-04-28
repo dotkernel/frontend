@@ -156,7 +156,6 @@ abstract class AbstractHandler implements RequestHandlerInterface
      */
     public function getPluginManager(): PluginManager
     {
-        var_dump($this->pluginManager); exit;
         if (!$this->pluginManager) {
             throw new RuntimeException(
                 sprintf(
