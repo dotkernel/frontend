@@ -1,4 +1,5 @@
-Copyright (c) 2019, Laminas Foundation
+Copyright (c) 2017 - 2020 DotKernel (https://www.dotkernel.com)
+
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

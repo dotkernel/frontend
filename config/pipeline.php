@@ -16,6 +16,7 @@ use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddleware;
 use Psr\Container\ContainerInterface;
 use Tuupola\Middleware\CorsMiddleware;
+use Frontend\App\Middleware\TranslatorMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -49,6 +50,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // This middleware registers the Mezzio\Router\RouteResult request attribute.
     $app->pipe(RouteMiddleware::class);
 
+    $app->pipe(\Frontend\App\Middleware\AuthMiddleware::class);
+
     // The following handle routing failures for common conditions:
     // - HEAD request but no routes answer that method
     // - OPTIONS request but no routes answer that method
@@ -68,6 +71,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based authentication
     // - route-based validation
     // - etc.
+
+    $app->pipe(TranslatorMiddleware::class);
 
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);

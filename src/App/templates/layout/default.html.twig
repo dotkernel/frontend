@@ -4,48 +4,131 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
         <title>{% block title %}{% endblock %} | DotKernel 4</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+        <link rel="apple-touch-icon" href="{{ asset('images/app/favicon.png') }}">
+        <link rel="icon" href="{{ asset('images/app/favicon.ico') }}" type="image/x-icon"/>
+
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400" rel="stylesheet">
+
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+
         {% block stylesheets %}{% endblock %}
     </head>
-    <body class="app">
-        <header class="app-header">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <body class="app {% block body_class %}{% endblock %} language-{{ language_key }}">
+        <div id="wrapper">
+            <header class="app-header">
+
+                <nav class="navbar navbar-expand-sm navbar-light bg-light">
+                    <div class="container">
+                        <a href="/" class="navbar-brand">
+                            <img src="{{ asset('images/app/logo.svg') }}"
+                                 onerror="this.onerror=null; this.src='{{ asset('images/app/logo.png') }}';"
+                                 alt="DotKernel" />
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                                aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <!-- Brand -->
-                        <a class="navbar-brand" href="{{ path('page.home') }}">
-                            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" alt="DotKernel 4" height="28" />
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </header>
 
-        <div class="app-content">
-            <main class="container">
-                {% block content %}{% endblock %}{{ appName }}
-            </main>
+                        <div class="collapse navbar-collapse" id="navbarHeader">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
+                                    <div class="dropdown-menu" aria-labelledby="pageDropdown">
+                                        <a class="dropdown-item" href="{{ path('page.home') }}">{% trans 'Home' %}</a>
+                                        <a class="dropdown-item" href="{{ path('page.about') }}">{% trans 'About Us' %}</a>
+                                        <a class="dropdown-item" href="{{ path('page.who-we-are') }}">{% trans 'Who We Are' %}</a>
+                                        <a class="dropdown-item" href="{{ path('page.premium-content') }}">{% trans 'Protected Content' %}</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://github.com/dotkernel" target="_blank">{% trans 'Contribute' %}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="{{ path('page.home') }}">{% trans 'Disabled' %}</a>
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav ml-auto">
+                                {% if hasIdentity() %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('profile.get-post') }}">{% trans 'Profile' %}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('user.logout') }}">{% trans 'Log out' %}</a>
+                                    </li>
+                                {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('user.login') }}">{% trans 'Log in' %}</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="app-content content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    {% block page_title %}{% endblock %}
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    {% block content %}{% endblock %}
+                </section>
+            </div>
+
+            <div id="push"></div>
         </div>
 
         <footer class="app-footer">
             <div class="container">
-                <hr />
-                {% block footer %}
-                    <p>
-                        &copy; 2005 - {{ "now"|date("Y") }} by Laminas Technologies Ltd. All rights reserved.
-                    </p>
-                {% endblock %}
+                <p class="enjoy">
+                    {% trans 'enjoy dotkernel!' %}
+                </p>
+                <p>
+                    © 2020 {% trans 'DotKernel by Apidemia' %}
+                </p>
             </div>
         </footer>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <div class="language-container">
+            <div class="languages">
+                <div class="language-active clearfix">
+                    <img src="{{ asset('images/app/flags/' ~ language_key ~ '.png') }}" alt="" />
+                    <div class="language-selector"></div>
+                </div>
+                <ul class="language-list">
+                    <li class="language language-en clearfix" data-language-key="en">
+                        <img src="{{ asset('images/app/flags/en.png') }}" alt="" /><span>EN</span>
+                    </li>
+                    <li class="language language-dk clearfix" data-language-key="dk">
+                        <img src="{{ asset('images/app/flags/dk.png') }}" alt="" /><span>DK</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-container">
+            <button class="btn open-button" title="Contact Us">
+                <img src="{{ asset('images/app/contact/message.svg') }}" onerror="this.onerror=null; this.src='{{ asset('images/app/message@2x.png') }}';" />
+            </button>
+            <div class="form-popup contact-popup" id="contact-form-yb-frontend">
+                <div id="contact-form-container">
+                </div>
+                <div class="buttons">
+                    <button type="button" class="btn cancel">{% trans 'Close' %}</button>
+                    <button type="button" class="btn" id="send-expert-contact-form">{% trans 'Send' %}</button>
+                </div>
+            </div>
+        </div>
+
         <script src="{{ asset('js/app.js') }}"></script>
         {% block javascript %}{% endblock %}
     </body>

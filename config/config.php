@@ -14,6 +14,7 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
+    \Mezzio\Authorization\Rbac\ConfigProvider::class,
     \Mezzio\Twig\ConfigProvider::class,
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
     // Include cache configuration
@@ -28,7 +29,11 @@ $aggregator = new ConfigAggregator([
         ? \Mezzio\Swoole\ConfigProvider::class
         : function(){ return[]; },
 
+    \DoctrineModule\ConfigProvider::class,
+
     // DotKernel packages
+    \Dot\Mail\ConfigProvider::class,
+    \Dot\Form\ConfigProvider::class,
     \Dot\Log\ConfigProvider::class,
     \Dot\ErrorHandler\ConfigProvider::class,
     \Dot\AnnotatedServices\ConfigProvider::class,
@@ -37,7 +42,9 @@ $aggregator = new ConfigAggregator([
 
     // Default App module config
     \Frontend\App\ConfigProvider::class,
+    \Frontend\Contact\ConfigProvider::class,
     \Frontend\Page\ConfigProvider::class,
+    \Frontend\Plugin\ConfigProvider::class,
     \Frontend\User\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings

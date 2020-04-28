@@ -24,16 +24,16 @@ class UserDetail extends AbstractEntity
     protected $user;
 
     /**
-     * @ORM\Column(name="firstname", type="string", length=191, nullable=true)
-     * @var $firstname
+     * @ORM\Column(name="firstName", type="string", length=191, nullable=true)
+     * @var $firstName
      */
-    protected $firstname;
+    protected $firstName;
 
     /**
-     * @ORM\Column(name="lastname", type="string", length=191, nullable=true)
-     * @var $lastname
+     * @ORM\Column(name="lastName", type="string", length=191, nullable=true)
+     * @var $lastName
      */
-    protected $lastname;
+    protected $lastName;
 
     /**
      * UserDetail constructor.
@@ -44,18 +44,18 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @return UserInterface
+     * @return User
      */
-    public function getUser(): UserInterface
+    public function getUser(): User
     {
         return $this->user;
     }
 
     /**
-     * @param UserInterface $user
-     * @return UserDetail
+     * @param User $user
+     * @return $this
      */
-    public function setUser(UserInterface $user): self
+    public function setUser(User $user)
     {
         $this->user = $user;
 
@@ -65,18 +65,18 @@ class UserDetail extends AbstractEntity
     /**
      * @return mixed
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
     /**
-     * @param $firstname
+     * @param $firstName
      * @return UserDetail
      */
-    public function setFirstname($firstname): self
+    public function setFirstName($firstName): self
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -84,18 +84,18 @@ class UserDetail extends AbstractEntity
     /**
      * @return mixed
      */
-    public function getLastname()
+    public function getLastName()
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
     /**
-     * @param $lastname
+     * @param $lastName
      * @return UserDetail
      */
-    public function setLastname($lastname): self
+    public function setLastName($lastName): self
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -107,8 +107,8 @@ class UserDetail extends AbstractEntity
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'firstname' => $this->getFirstname(),
-            'lastname' => $this->getLastname(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

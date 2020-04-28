@@ -1,0 +1,165 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  line-height: 1.3em;
+  font-weight: 300;
+}
+
+h1,
+.h1 {
+  font-size: 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+h2,
+.h2 {
+  font-size: 32px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+h3,
+.h3 {
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+h4,
+.h4 {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+h5,
+.h5 {
+  font-size: 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+h6,
+.h6 {
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  color: #2C2C2C;
+}
+
+a {
+  color: #555ec4;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+
+a:hover {
+  color: #C60B31;
+}
+
+p {
+  color: #B1B1B1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+
+label {
+  color: #B1B1B1;
+}
+
+#wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -115px;
+  background: #F5F5F5;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  background-color: #FFFFFF;
+  border: 0;
+  border-bottom: 1px solid #F6F6F6;
+
+  .navbar-brand {
+    img {
+      display: block;
+      width: 170px;
+      height: 29px;
+    }
+  }
+}
+
+.content-header {
+}
+
+.user-form {
+  .content {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+}
+
+#push,
+.app-footer {
+  height: 115px;
+}
+
+.app-footer {
+  padding: 30px 50px;
+  background: #F9F9F9;
+
+  p {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+
+  .enjoy {
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #3B3B3B;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+  }
+}
+
+.alert {
+  ul {
+    display: block;
+    margin: 0;
+    padding-left: 15px;
+  }
+}
+
+input {
+  padding: 15px 15px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  border: 1px solid #E7E7E7;
+  font-size: 16px;
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+}
+
+input[type="submit"] {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 50px;
+  border-radius: 2px;
+  background: #C60B31;
+  border-color: #C60B31;
+  color: #FFFFFF;
+}

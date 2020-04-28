@@ -1,0 +1,10 @@
+<h3>Avatar</h3>
+<span class="sub-title"></span>
+
+{{ messagesPartial('partial::alerts', {}, null, 'profile-avatar') }}
+
+<input type="file" class="img-input" name="image"
+       data-url="{{ path('profile.get-post', {'action': 'avatar'}) }}"
+       data-preview="{% if user.avatar is not null %}{{ user.avatar.url }}
+                                {% else %}{{ asset('images/app/user/user-placeholder.png') }}{% endif %}">
+

@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\Mail\Factory\MailOptionsAbstractFactory;
+use Dot\Mail\Factory\MailServiceAbstractFactory;
+use Dot\Mail\Service\MailService;
 use Frontend\App\Factory\CorsFactory;
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ErrorHandler\LogErrorHandler;
+use Frontend\App\Middleware\AuthMiddleware;
 
 return [
     // Provides application-wide services.
@@ -15,6 +20,9 @@ return [
         // key is the alias name, the value is the service to which it points.
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
+            Mezzio\Authorization\AuthorizationInterface::class => Mezzio\Authorization\Rbac\LaminasRbac::class,
+            \Laminas\Authentication\AuthenticationService::class => 'doctrine.authenticationservice.orm_default',
+            MailService::class => 'dot-mail.service.default',
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
@@ -24,7 +32,10 @@ return [
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories'  => [
-            Tuupola\Middleware\CorsMiddleware::class => CorsFactory::class
+            'dot-mail.options.default' => MailOptionsAbstractFactory::class,
+            'dot-mail.service.default' => MailServiceAbstractFactory::class,
+            Tuupola\Middleware\CorsMiddleware::class => CorsFactory::class,
+            AuthMiddleware::class => AnnotatedServiceFactory::class,
         ],
     ],
 ];
