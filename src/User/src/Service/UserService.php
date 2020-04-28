@@ -30,7 +30,7 @@ use Mezzio\Template\TemplateRendererInterface;
  */
 class UserService implements UserServiceInterface
 {
-    const EXTENSIONS = [
+    public const EXTENSIONS = [
         'image/jpg' => 'jpg',
         'image/jpeg' => 'jpg',
         'image/png' => 'png'
@@ -165,10 +165,10 @@ class UserService implements UserServiceInterface
             $user->setIsDeleted($data['isDeleted']);
 
             // make user anonymous
-            $user->setIdentity('anonymous'.date('dmYHis').'@dotkernel.com');
+            $user->setIdentity('anonymous' . date('dmYHis') . '@dotkernel.com');
             $userDetails = $user->getDetail();
-            $userDetails->setFirstName('anonymous'.date('dmYHis'));
-            $userDetails->setLastName('anonymous'.date('dmYHis'));
+            $userDetails->setFirstName('anonymous' . date('dmYHis'));
+            $userDetails->setLastName('anonymous' . date('dmYHis'));
 
             $user->setDetail($userDetails);
         }
@@ -229,14 +229,17 @@ class UserService implements UserServiceInterface
             $avatar = new UserAvatar();
             $avatar->setUser($user);
         }
-        $fileName = sprintf('avatar-%s.%s',
+        $fileName = sprintf(
+            'avatar-%s.%s',
             UuidOrderedTimeGenerator::generateUuid(),
             self::EXTENSIONS[$uploadedFile->getClientMediaType()]
         );
         $avatar->setName($fileName);
 
         $uploadedFile = new UploadedFile(
-            $uploadedFile->getStream()->getMetadata()['uri'], $uploadedFile->getSize(), $uploadedFile->getError()
+            $uploadedFile->getStream()->getMetadata()['uri'],
+            $uploadedFile->getSize(),
+            $uploadedFile->getError()
         );
         $uploadedFile->moveTo($path . $fileName);
 

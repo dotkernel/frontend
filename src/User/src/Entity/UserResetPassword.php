@@ -17,9 +17,9 @@ use Frontend\App\Entity\AbstractEntity;
  */
 class UserResetPassword extends AbstractEntity
 {
-    const STATUS_COMPLETED = 'completed';
-    const STATUS_REQUESTED = 'requested';
-    const STATUSES = [
+    public const STATUS_COMPLETED = 'completed';
+    public const STATUS_REQUESTED = 'requested';
+    public const STATUSES = [
         self::STATUS_COMPLETED,
         self::STATUS_REQUESTED
     ];
@@ -155,7 +155,8 @@ class UserResetPassword extends AbstractEntity
     {
         try {
             return $this->getExpires() > (new DateTime());
-        } catch (\Exception $exception) {}
+        } catch (\Exception $exception) {
+        }
 
         return false;
     }

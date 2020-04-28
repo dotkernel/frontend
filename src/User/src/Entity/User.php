@@ -22,15 +22,15 @@ use function random_bytes;
  */
 class User extends AbstractEntity implements UserInterface
 {
-    const STATUS_PENDING = 'pending';
-    const STATUS_ACTIVE = 'active';
-    const STATUSES = [
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_ACTIVE = 'active';
+    public const STATUSES = [
         self::STATUS_PENDING,
         self::STATUS_ACTIVE
     ];
 
-    const IS_DELETED_YES = 'yes';
-    const IS_DELETED_NO = 'no';
+    public const IS_DELETED_YES = 'yes';
+    public const IS_DELETED_NO = 'no';
 
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserDetail", cascade={"persist", "remove"}, mappedBy="user")

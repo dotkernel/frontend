@@ -16,10 +16,10 @@ use Frontend\App\Entity\AbstractEntity;
  */
 class UserRole extends AbstractEntity
 {
-    const ROLE_ADMIN = 'admin';
-    const ROLE_USER = 'user';
-    const ROLE_GUEST = 'guest';
-    const ROLES = [
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_USER = 'user';
+    public const ROLE_GUEST = 'guest';
+    public const ROLES = [
         self::ROLE_ADMIN,
         self::ROLE_USER,
         self::ROLE_GUEST

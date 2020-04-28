@@ -38,7 +38,7 @@ class ProfileDetailsForm extends Form
         $this->inputFilter = new InputFilter();
         $detailsInputFilter = new UserDetailInputFilter();
         $detailsInputFilter->init();
-        $this->inputFilter->add($detailsInputFilter,'detail');
+        $this->inputFilter->add($detailsInputFilter, 'detail');
     }
 
     public function init()

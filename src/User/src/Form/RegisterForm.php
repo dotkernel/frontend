@@ -39,7 +39,7 @@ class RegisterForm extends Form
         $this->inputFilter->init();
         $detailsInputFilter = new UserDetailInputFilter();
         $detailsInputFilter->init();
-        $this->inputFilter->add($detailsInputFilter,'detail');
+        $this->inputFilter->add($detailsInputFilter, 'detail');
     }
 
     public function init()
