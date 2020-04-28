@@ -2,7 +2,6 @@
 
 namespace Frontend\User\Service;
 
-
 use Frontend\User\Entity\UserRole;
 
 /**

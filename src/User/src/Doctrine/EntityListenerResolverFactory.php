@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @see https://github.com/dotkernel/frontend/ for the canonical source repository
  * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
@@ -14,7 +15,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class EntityListenerResolverFactory
- * @package Core\Doctrine\Factory
+ * @package Frontend\User\Doctrine\Factory
  */
 class EntityListenerResolverFactory
 {

@@ -15,7 +15,7 @@ use Mezzio\Template\TemplateRendererInterface;
 
 /**
  * Class MessageService
- * @package Core\Contact\Service
+ * @package Frontend\Contact\Service
  */
 class MessageService implements MessageServiceInterface
 {

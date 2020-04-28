@@ -8,7 +8,7 @@ use Mezzio\Authentication\UserInterface;
 
 /**
  * Class UserIdentity
- * @package Core\User\Entity
+ * @package Frontend\User\Entity
  */
 class UserIdentity implements UserInterface
 {

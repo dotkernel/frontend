@@ -60,7 +60,8 @@ class UserAvatarEventListener
     private function setAvatarUrl(UserAvatar $avatar)
     {
         $avatar->setUrl(
-            sprintf('%s/%s/%s',
+            sprintf(
+                '%s/%s/%s',
                 $this->config['uploads']['user']['url'],
                 $avatar->getUser()->getUuid()->toString(),
                 $avatar->getName()
