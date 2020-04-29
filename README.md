@@ -5,26 +5,26 @@ Dotkernel web starter package suitable for frontend applications.
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/frontend)](https://github.com/dotkernel/frontend/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/frontend)](https://github.com/dotkernel/frontend/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotkernel/frontend)](https://github.com/dotkernel/frontend/stargazers)
-[![GitHub license](https://img.shields.io/github/license/dotkernel/frontend)](https://github.com/dotkernel/frontend/blob/master/LICENSE.md)
+[![GitHub license](https://img.shields.io/github/license/dotkernel/frontend)](https://github.com/dotkernel/frontend/blob/3.0/LICENSE.md)
 
 
 ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/3.0.x-dev)
 
 
-# Installing DotKernel 3 `frontend`
+# Installing DotKernel `frontend`
 
-- [Installing DotKernel 3 `frontend`](#installing-dotkernel-3-frontend)
+- [Installing DotKernel `frontend`](#installing-dotkernel-frontend)
     - [Installation](#installation)
         - [Composer](#composer)
-    - [Choose a destination path for DotKernel 3 Frontend installation](#choose-a-destination-path-for-dotkernel-3-frontend-installation)
+    - [Choose a destination path for DotKernel Frontend installation](#choose-a-destination-path-for-dotkernel-frontend-installation)
     - [Installing the `frontend` Composer package](#installing-the-frontend-composer-package)
-        - [Installing DotKernel 3 Frontend](#installing-dotkernel-3-frontend)
+        - [Installing DotKernel Frontend](#installing-dotkernel-frontend)
     - [Configuration - First Run](#configuration---first-run)
     - [Testing (Running)](#testing-running)
 
 ## Installation
 
-DotKernel 3 can be installed through a single command that utilizes [Composer](https://getcomposer.org/). Because of that, Composer is required to install DotKernel Frontend.
+DotKernel can be installed through a single command that utilizes [Composer](https://getcomposer.org/). Because of that, Composer is required to install DotKernel Frontend.
 
 ### Composer
 
@@ -35,12 +35,12 @@ Instructions for installing:
 
 > If you have never used composer before make sure you read the [`Composer Basic Usage`](https://getcomposer.org/doc/01-basic-usage.md) section in Composer's documentation
 
-## Choose a destination path for DotKernel 3 Frontend installation
+## Choose a destination path for DotKernel Frontend installation
 
 Example:
 
-- absolute path `/var/www/dk3`
-- or relative path `dk3` (equivalent with `./dk3`)
+- absolute path `/var/www/dk`
+- or relative path `dk` (equivalent with `./dk`)
 
 ## Installing the `frontend` Composer package
 
@@ -51,16 +51,16 @@ Depending on what the purpose of your project is, one of the following packages 
 
 > Note: In case you need both packages, you must install them as different projects
 
-### Installing DotKernel 3 Frontend
+### Installing DotKernel Frontend
 
-After choosing the path for DotKernel 3 (`dk3` will be used for the remainder of this example) and which base package to use (`frontend` during this example) it must be installed. There are two methods of installation. 
+After choosing the path for DotKernel (`dk` will be used for the remainder of this example) and which base package to use (`frontend` during this example) it must be installed. There are two methods of installation. 
 
-#### I. Installing DotKernel 3 (frontend) using composer 
+#### I. Installing DotKernel (frontend) using composer 
 
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
 ```bash
-$ composer create-project dotkernel/frontend -s dev dk3
+$ composer create-project dotkernel/frontend -s dev dk
 ```
 
 This command will download the `frontend` package, then the `dependencies` will be downloaded and installed.
@@ -74,7 +74,7 @@ Please select which config file you wish to inject 'Zend\Session\ConfigProvider'
   Make your selection (default is 0):
 ```
 
-Simply select `[0] Do not inject`, because DotKernel 3 includes its own configProvider which already contains the prompted configurations.
+Simply select `[0] Do not inject`, because DotKernel includes its own configProvider which already contains the prompted configurations.
 If you choose `[1] config/config.php` Laminas's `ConfigProvider` from `session` will be injected.
 
 The next question is:
@@ -83,7 +83,7 @@ The next question is:
 
 Simply type `y` here, and hit `enter`
 
-#### II. Installing DotKernel 3 (frontend) using git clone
+#### II. Installing DotKernel (frontend) using git clone
 
 This process requires more manual input, but it ensures that the default branch is installed, even if it is not released. Run the following command:
 
@@ -96,7 +96,7 @@ The dependencies have to be installed separately, by running this command
 $ composer install
 ```
 
-Just like for `II Installing DotKernel 3 (frontend) using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
+Just like for `II Installing DotKernel (frontend) using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
 
 ## Configuration - First Run
 
