@@ -53,13 +53,17 @@ Depending on what the purpose of your project is, one of the following packages 
 
 ### Installing DotKernel 3 Frontend
 
-After choosing the path for DotKernel 3 (`dk` will be used for the remainder of this example) and which base package to use (`frontend` during this example) it must be installed. Therefore to install DotKernel 3 (frontend) run the following command:
+After choosing the path for DotKernel 3 (`dk3` will be used for the remainder of this example) and which base package to use (`frontend` during this example) it must be installed. There are two methods of installation. 
+
+#### I. Installing DotKernel 3 (frontend) using composer 
+
+The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
 ```bash
 $ composer create-project dotkernel/frontend -s dev dk3
 ```
 
-This command will begin by downloading the `frontend` package, after successfully downloading it, the `dependencies` will be downloaded and installed.
+This command will download the `frontend` package, then the `dependencies` will be downloaded and installed.
 
 The setup script will prompt for some configuration settings, for example the lines below:
 
@@ -79,23 +83,40 @@ The next question is:
 
 Simply type `y` here, and hit `enter`
 
+#### II. Installing DotKernel 3 (frontend) using git clone
+
+This process requires more manual input, but it ensures that the default branch is installed, even if it is not released. Run the following command:
+
+```bash
+$ git clone https://github.com/dotkernel/frontend.git .
+```
+
+The dependencies have to be installed separately, by running this command
+```bash
+$ composer install
+```
+
+Just like for `II Installing DotKernel 3 (frontend) using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
+
 ## Configuration - First Run
 
 - remove the `.dist` extension from the files `local.php.dist` and `mail.local.php.dist` located in `config/autoload`
 - edit `local.php` according to your dev machine and fill in the `database` configuration 
 - edit `mail.local.php` smtp credentials if you want your application to send mails on registration etc.
-- Run the [migrations](../Overview/Migrations.md) with the command: `php vendor/bin/phinx migrate --config="config/migrations.php"
+- Run the [migrations](../Overview/Migrations.md) with this command:
+
+`php vendor/bin/phinx migrate --config="config/migrations.php"`
 - [get a recaptcha key pair](https://www.google.com/recaptcha/admin) and configure the `local.php` with them
-- if you use the create-project command after installing, the project will go into development mode automatically
-- you can also toggle development mode by using the composer commands
+- if you use `composer create-project`, the project will go into development mode automatically after installing
+- the development mode status can be checked and toggled by using these composer commands
 
 ```bash
+$ composer development-status
 $ composer development-enable
 $ composer development-disable
 ```
 
 - if not already done on installation, copy file `development.global.php.dist` to `development.global.php`
-
 This will enable dev mode by turning debug flag to true and turning configuration caching to off. It will also make sure that any existing config cache is cleared.
 
 > Charset recommendation: utf8mb4_general_ci
@@ -125,6 +146,6 @@ php bin/clear-config-cache.php
 
 > If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
 
-- Open a browser and access `http://localhost:8080/`
+- Open a web browser and visit `http://localhost:8080/`
 
 You should see the `DotKernel Frontend` welcome page.
