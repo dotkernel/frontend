@@ -58,7 +58,7 @@
         "mezzio/mezzio-twigrenderer": "^2.2",
         "ramsey/uuid-doctrine": "^1.6",
         "roave/psr-container-doctrine": "^2.2",
-        "robmorgan/phinx": "^0.11",
+        "robmorgan/phinx": "^0.12",
         "tuupola/cors-middleware": "^1.1",
         "twig/extensions": "^1.5"
     },
