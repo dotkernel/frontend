@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "Zimplify web starter package suitable for frontend applications.",
+  "description": "Web starter package suitable for frontend applications.",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack -d --progress --hide-modules",
@@ -35,7 +35,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^5.0.2",
     "imports-loader": "^0.8.0",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "jquery-mousewheel": "^3.1.13",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
