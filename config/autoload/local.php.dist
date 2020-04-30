@@ -46,7 +46,7 @@ return [
         ],
         'message_receivers' => [
             'to' => [
-                'iu_ly190809@yahoo.com'
+                'tech@example.com'
             ],
             'cc' => [
                 'tech@example.com'
