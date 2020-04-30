@@ -99,7 +99,6 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 ```bash
 php vendor/bin/phinx migrate --config="config/migrations.php"
 ```
-- [Get a recaptcha key pair](https://www.google.com/recaptcha/admin) and add them in `config/autoload/local.php`
 - If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
 
 ```bash
@@ -112,6 +111,25 @@ $ composer development-disable
 This will enable dev mode by turning debug flag to `true` and turning configuration caching to `off`. It will also make sure that any existing config cache is cleared.
 
 > Charset recommendation: utf8mb4_general_ci
+
+## NPM Commands
+
+To install dependencies into the `node_modules` directory run this command.
+```bash
+npm install
+``` 
+
+The watch command compiles the components then watches the files and recompiles when one of them changes.
+
+```bash
+npm run watch
+```  
+
+After all updates are done, this command compiles the assets locally, minifies them and makes them ready for production. 
+
+```bash
+npm run prod
+```
 
 ## Testing (Running)
 
