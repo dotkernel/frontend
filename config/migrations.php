@@ -6,12 +6,12 @@ $config = $container->get('config');
 
 $dbConfig = [
     'adapter' => 'mysql',
-    'host' => $config['databases'][ $config['databaseDefault'] ]['host'],
-    'name' => $config['databases'][ $config['databaseDefault'] ]['dbname'],
-    'user' => $config['databases'][ $config['databaseDefault'] ]['user'],
-    'pass' => $config['databases'][ $config['databaseDefault'] ]['password'],
-    'port' => $config['databases'][ $config['databaseDefault'] ]['port'],
-    'charset' => $config['databases'][ $config['databaseDefault'] ]['charset'],
+    'host' => $config['databases']['default']['host'],
+    'name' => $config['databases']['default']['dbname'],
+    'user' => $config['databases']['default']['user'],
+    'pass' => $config['databases']['default']['password'],
+    'port' => $config['databases']['default']['port'],
+    'charset' => $config['databases']['default']['charset'],
 ];
 
 return [
