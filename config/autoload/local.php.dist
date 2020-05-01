@@ -31,7 +31,7 @@ return [
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'params' => $databases['databaseDefault']
+                'params' => $databases['default']
             ]
         ]
     ],
