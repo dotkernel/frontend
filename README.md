@@ -97,7 +97,7 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 - Run the [migrations](../Overview/Migrations.md) with this command:
 
 ```bash
-php vendor/bin/phinx migrate --config="config/migrations.php"
+php vendor/bin/phinx migrate --configuration="config/migrations.php"
 ```
 - If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
 
