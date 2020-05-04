@@ -133,7 +133,7 @@ npm run prod
 
 ## Languages
 
-The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.mo` files like the example in `data/language/da_DK/LC_MESSAGES/messages.mo`
+The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.po` files like the example in `data/language/da_DK/LC_MESSAGES/messages.po`. The compiled file will have the extension `.mo`
 
 To apply the translations 
 - the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
