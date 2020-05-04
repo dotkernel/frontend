@@ -76,8 +76,6 @@ class UnregisterHandler implements RequestHandlerInterface
     /**
      * @param ServerRequestInterface $request
      * @return ResponseInterface
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -102,7 +100,7 @@ class UnregisterHandler implements RequestHandlerInterface
         }
 
         try {
-            $user = $this->userService->deleteUser($user);
+            $user = $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
         } catch (\Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
 

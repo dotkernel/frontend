@@ -27,6 +27,10 @@ $databases = [
 
 return [
     'annotations_cache_dir' => getcwd() . '/data/cache/annotations',
+    'application' => [
+        'name' => 'DotKernel',
+        'url' => $baseUrl
+    ],
     'databases' => $databases,
     'doctrine' => [
         'connection' => [
