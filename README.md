@@ -131,6 +131,15 @@ After all updates are done, this command compiles the assets locally, minifies t
 npm run prod
 ```
 
+## Languages
+
+The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.po` files like the example in `data/language/da_DK/LC_MESSAGES/messages.po`. The compiled file will have the extension `.mo`
+
+To apply the translations 
+- the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
+- then the js file needs `translateText("translateText")`
+
+
 ## Testing (Running)
 
 Note: **Do not enable dev mode in production**
