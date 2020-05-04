@@ -41,7 +41,7 @@ class RoutesDelegator
         $app->route(
             '/logout',
             LogoutHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            [RequestMethodInterface::METHOD_GET],
             'user.logout'
         );
 
@@ -53,7 +53,7 @@ class RoutesDelegator
         );
 
         $app->route(
-            '/profile[/{action}[/{uuid}]]',
+            '/profile[/{action}]',
             ProfileHandler::class,
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
             'profile.get-post'
@@ -62,14 +62,14 @@ class RoutesDelegator
         $app->route(
             '/account/activate[/{hash}]',
             ActivateHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            [RequestMethodInterface::METHOD_GET],
             'account:activate'
         );
 
         $app->route(
             '/account/unregister[/{hash}]',
             UnregisterHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
+            [RequestMethodInterface::METHOD_GET],
             'account:unregister'
         );
 
