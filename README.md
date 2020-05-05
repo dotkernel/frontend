@@ -94,10 +94,11 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 - Remove the `.dist` extension from the files `config/autoload/local.php.dist` and `config/autoload/mail.local.php.dist`
 - Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration 
 - Add smtp credentials in `config/autoload/mail.local.php` if you want your application to send mails on registration etc.
-- Run the [migrations](../Overview/Migrations.md) with this command:
+- Run the migrations and seeds with these commands:
 
 ```bash
 php vendor/bin/phinx migrate --configuration="config/migrations.php"
+php vendor/bin/phinx seed:run --configuration="config/migrations.php"
 ```
 - If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
 
