@@ -102,6 +102,19 @@ label {
   }
 }
 
+@media (max-width: 767px){
+  .navbar {
+    .navbar-collapse {
+      margin-top: 10px;
+
+      .dropdown-menu {
+        border: none;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
 .content-header {
 }
 
