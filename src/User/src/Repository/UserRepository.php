@@ -100,7 +100,7 @@ class UserRepository extends AbstractRepository
                 ->andWhere('resetPasswords.hash = :hash')->setParameter('hash', $hash);
 
             return $qb->getQuery()->getSingleResult();
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             return null;
         }
     }
