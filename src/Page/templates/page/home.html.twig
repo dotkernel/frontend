@@ -20,97 +20,87 @@
         <div class="container">
             <h2><a href="https://docs.mezzio.dev/mezzio/" target="_blank">Laminas</a></h2>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h3>
-                                <a href="https://github.com/php-fig/container" target="_blank">
-                                    containers
-                                </a>
-                            </h3>
-                            <p>
-                                DotKernel is built around the PSR-11 dependency container.
-                                We have chosen <b>Laminas Service Manager</b> as our default implementation.
-                            </p>
-                            <p>
-                                Get Started with <a href="https://github.com/laminas/laminas-servicemanager"
-                                                    target="_blank">Laminas Service Manager</a>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <h3>
-                                <a href="https://github.com/twigphp/Twig" target="_blank">
-                                    templating
-                                </a>
-                            </h3>
-                            <p>
-                                By default, no middleware in Laminas is templated.
-                                For DotKernel's Frontend application, we have chosen <b>Twig</b>
-                                as the default templating engine.
-                            </p>
-                            <p>
-                                Get started with <a href="https://twig.symfony.com/doc/3.x/"
-                                                    target="_blank">Twig</a>
-                            </p>
-                        </div>
-                    </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>
+                        <a href="https://github.com/php-fig/container" target="_blank">
+                            containers
+                        </a>
+                    </h3>
+                    <p>
+                        DotKernel is built around the PSR-11 dependency container.
+                        We have chosen <b>Laminas Service Manager</b> as our default implementation.
+                    </p>
+                    <p>
+                        Get Started with <a href="https://github.com/laminas/laminas-servicemanager"
+                                            target="_blank">Laminas Service Manager</a>
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h3>
-                                <a href="https://github.com/nikic/FastRoute" target="_blank">
-                                    routers
-                                </a>
-                            </h3>
-                            <p>
-                                Among the various routing implementations compatible with Expressive, we have chosen <b>FastRoute</b>
-                                as DotKernel's default routing library.
-                            </p>
-                            <p>
-                                Get started with <a href="https://github.com/nikic/FastRoute"
-                                                    target="_blank">FastRoute</a>
-                            </p>
-                        </div>
-                        <div class="col-sm-6">
-                            <h3>
-                                <a href="https://github.com/laminas/laminas-diactoros" target="_blank">
-                                    http messages
-                                </a>
-                            </h3>
-                            <p>
-                                Laminas, and consequently DotKernel, is built around the PSR-7 standard. It uses <b>Laminas
-                                    Diactoros</b> as the PSR-7 implementation.
-                            </p>
-                            <p>
-                                Get started with <a href="https://github.com/php-fig/http-message"
-                                                    target="_blank">PSR-7</a> and <a
-                                        href="https://github.com/laminas/laminas-diactoros"
-                                        target="_blank">Diactoros</a>
-                            </p>
-                        </div>
-                    </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>
+                        <a href="https://github.com/twigphp/Twig" target="_blank">
+                            templating
+                        </a>
+                    </h3>
+                    <p>
+                        By default, no middleware in Laminas is templated.
+                        For DotKernel's Frontend application, we have chosen <b>Twig</b>
+                        as the default templating engine.
+                    </p>
+                    <p>
+                        Get started with <a href="http://twig.sensiolabs.org/documentation"
+                                            target="_blank">Twig</a>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h3>
+                        <a href="https://github.com/nikic/FastRoute" target="_blank">
+                            routers
+                        </a>
+                    </h3>
+                    <p>
+                        Among the various routing implementations compatible with Expressive, we have chosen <b>FastRoute</b>
+                        as DotKernel's default routing library.
+                    </p>
+                    <p>
+                        Get started with <a href="https://github.com/nikic/FastRoute"
+                                            target="_blank">FastRoute</a>
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>
+                        <a href="https://github.com/laminas/laminas-diactoros" target="_blank">
+                            http messages
+                        </a>
+                    </h3>
+                    <p>
+                        Laminas, and consequently DotKernel, is built around the PSR-7 standard. It uses <b>Laminas
+                            Diactoros</b> as the PSR-7 implementation.
+                    </p>
+                    <p>
+                        Get started with <a href="https://github.com/php-fig/http-message"
+                                            target="_blank">PSR-7</a> and <a
+                                href="https://github.com/laminas/laminas-diactoros"
+                                target="_blank">Diactoros</a>
+                    </p>
                 </div>
             </div>
 
+            <h2>DotKernel components</h2>
             <div class="row">
-                <h2>DotKernel components</h2>
                 <div class="col-md-12">
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
-                                       aria-controls="collapseTwo">
+                    <div class="accordion" id="dotkernelComponents">
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         Authorization
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseTwo" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingTwo">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-authorization" target="_blank">dot-authorization</a>:
@@ -121,19 +111,17 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFour">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseFour" aria-expanded="false"
-                                       aria-controls="collapseFour">
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                                         Forms
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseFour" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingFour">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-form"
@@ -145,19 +133,17 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingFive">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseFive" aria-expanded="false"
-                                       aria-controls="collapseFive">
+                        <div class="card">
+                            <div class="card-header" id="headingFive">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                         Session
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseFive" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingFive">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-session" target="_blank">dot-session</a>
@@ -172,19 +158,17 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingSix">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseSix" aria-expanded="false"
-                                       aria-controls="collapseSix">
+                        <div class="card">
+                            <div class="card-header" id="headingSix">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                                         Mailing
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseSix" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingSix">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-mail" target="_blank">dot-mail</a>
@@ -195,19 +179,17 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingEight">
+                        <div class="card">
+                            <div class="card-header" id="headingEight">
                                 <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseEight" aria-expanded="false"
-                                       aria-controls="collapseEight">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                                         Navigation
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseEight" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingEight">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-navigation" target="_blank">dot-navigation</a>:
@@ -218,19 +200,17 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingNine">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseNine" aria-expanded="false"
-                                       aria-controls="collapseNine">
+                        <div class="card">
+                            <div class="card-header" id="headingNine">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
                                         Others
-                                    </a>
+                                    </button>
                                 </h4>
                             </div>
-                            <div id="collapseNine" class="panel-collapse collapse" role="tabpanel"
+                            <div id="collapseNine" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingNine">
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-log" target="_blank">dot-log</a>
