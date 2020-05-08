@@ -9,7 +9,7 @@
         <div class="container">
             <p class="welcome">DotKernel is a collection of</p>
             <h1>PSR-7 Middleware applications</h1>
-            <p>built on top of Laminas microframework. <br/>It is composed of a set of custom and extended Laminas components.</p>
+            <p>Built on top of the Laminas microframework. <br/>Ccomposed of a set of custom and extended Laminas components.</p>
         </div>
         <div class="arrow_down">
             <div class="arrow_down_content">&nbsp;</div>
@@ -49,7 +49,7 @@
                                 as the default templating engine.
                             </p>
                             <p>
-                                Get started with <a href="http://twig.sensiolabs.org/documentation"
+                                Get started with <a href="https://twig.symfony.com/doc/3.x/"
                                                     target="_blank">Twig</a>
                             </p>
                         </div>
@@ -99,45 +99,6 @@
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
                         <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseOne" aria-expanded="false"
-                                       aria-controls="collapseOne">
-                                        Authentication and user
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-authentication" target="_blank">dot-authentication</a>:
-                                            core authentication interfaces
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-authentication-service"
-                                               target="_blank">dot-authentication-service</a> (<a
-                                                    href="https://docs.laminas.dev/laminas-authentication//"
-                                                    target="_blank">laminas-authentication</a>): concrete authentication
-                                            implementation based on laminas-authentication adapters
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-authentication-web"
-                                               target="_blank">dot-authentication-web</a>: simple login/logout web flow
-                                            leveraging dot-authentication
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-user" target="_blank">dot-user</a>:
-                                            configurable user component providing common user functionality
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="headingTwo">
                                 <h4 class="panel-title">
                                     <a class="collapsed open" role="button" data-toggle="collapse"
@@ -155,76 +116,6 @@
                                             <a href="https://github.com/dotkernel/dot-authorization" target="_blank">dot-authorization</a>:
                                             core authorization interfaces
                                         </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-rbac" target="_blank">dot-rbac</a>:
-                                            RBAC authorization implementation
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-rbac-guard" target="_blank">dot-rbac-guard</a>:
-                                            RBAC for authorizing sections of an application
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingThree">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                                       aria-controls="collapseThree">
-                                        Controllers
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingThree">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-controller" target="_blank">dot-controller</a>:
-                                            controller-like middleware for zend-expressive
-                                        </li>
-                                        <li>
-                                            Plugins
-                                            <ul>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-authentication"
-                                                       target="_blank">dot-controller-plugin-authentication</a>
-                                                    (<a href="https://github.com/dotkernel/dot-authentication"
-                                                        target="_blank">dot-authentication</a>)
-                                                </li>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-authorization"
-                                                       target="_blank">dot-controller-plugin-authorization</a>
-                                                    (<a href="https://github.com/dotkernel/dot-authorization"
-                                                        target="_blank">dot-authorization</a>)
-                                                </li>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-flashmessenger"
-                                                       target="_blank">dot-controller-plugin-flashmessenger</a>
-                                                    (<a href="https://github.com/dotkernel/dot-flashmessenger"
-                                                        target="_blank">dot-flashmessenger</a>)
-                                                </li>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-forms"
-                                                       target="_blank">dot-controller-plugin-forms</a>
-                                                    (<a href="https://github.com/dotkernel/dot-controller-plugin-forms"
-                                                        target="_blank">dot-forms</a>)
-                                                </li>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-mail"
-                                                       target="_blank">dot-controller-plugin-mail</a>
-                                                    (<a href="https://github.com/dotkernel/dot-mail" target="_blank">dot-mail</a>)
-                                                </li>
-                                                <li>
-                                                    <a href="https://github.com/dotkernel/dot-controller-plugin-session"
-                                                       target="_blank">dot-controller-plugin-session</a>
-                                                    (<a href="https://github.com/dotkernel/dot-session" target="_blank">dot-session</a>)
-                                                </li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -236,7 +127,7 @@
                                     <a class="collapsed open" role="button" data-toggle="collapse"
                                        data-parent="#accordion" href="#collapseFour" aria-expanded="false"
                                        aria-controls="collapseFour">
-                                        Forms, hydration and input validation
+                                        Forms
                                     </a>
                                 </h4>
                             </div>
@@ -245,26 +136,9 @@
                                 <div class="panel-body">
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-filter"
-                                               target="_blank">dot-filter</a>
-                                            (<a href="https://docs.zendframework.com/zend-filter/" target="_blank">zend-filter</a>)
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-validator" target="_blank">dot-validator</a>
-                                            (<a href="https://docs.zendframework.com/zend-validator/" target="_blank">zend-validator</a>)
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-inputfilter" target="_blank">dot-inputfilter</a>
-                                            (<a href="https://docs.zendframework.com/zend-inputfilter/" target="_blank">zend-inputfilter</a>)
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-hydrator" target="_blank">dot-hydrator</a>
-                                            (<a href="https://docs.zendframework.com/zend-hydrator/" target="_blank">zend-hydrator</a>)
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-controller-plugin-forms"
-                                               target="_blank">dot-forms</a>
-                                            (<a href="https://docs.zendframework.com/zend-form/" target="_blank">zend-form</a>)
+                                            <a href="https://github.com/dotkernel/dot-form"
+                                               target="_blank">dot-form</a>
+                                            (<a href="https://docs.laminas.dev/laminas-form/" target="_blank">laminas-form</a>)
                                         </li>
                                     </ul>
                                 </div>
@@ -287,11 +161,11 @@
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-session" target="_blank">dot-session</a>
-                                            (<a href="https://docs.zendframework.com/zend-session/" target="_blank">zend-session</a>)
+                                            (<a href="https://docs.laminas.dev/laminas-session/" target="_blank">laminas-session</a>)
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-flashmessenger" target="_blank">dot-flashmessenger</a>:
-                                            short lived session messages
+                                            short-lived session messages
                                         </li>
                                     </ul>
                                 </div>
@@ -314,34 +188,7 @@
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-mail" target="_blank">dot-mail</a>
-                                            (<a href="https://docs.zendframework.com/zend-mail/" target="_blank">zend-mail</a>)
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingSeven">
-                                <h4 class="panel-title">
-                                    <a class="collapsed open" role="button" data-toggle="collapse"
-                                       data-parent="#accordion" href="#collapseSeven" aria-expanded="false"
-                                       aria-controls="collapseSeven">
-                                        Backend abstraction(database)
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel"
-                                 aria-labelledby="headingSeven">
-                                <div class="panel-body">
-                                    <ul>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-mapper"
-                                               target="_blank">dot-mapper</a>: a simple mapper pattern implementation
-                                        </li>
-                                        <li>
-                                            <a href="https://docs.zendframework.com/zend-db/"
-                                               target="_blank">zend-db</a>
+                                            (<a href="https://docs.laminas.dev/laminas-mail/" target="_blank">laminas-mail</a>)
                                         </li>
                                     </ul>
                                 </div>
@@ -354,7 +201,7 @@
                                     <a class="collapsed open" role="button" data-toggle="collapse"
                                        data-parent="#accordion" href="#collapseEight" aria-expanded="false"
                                        aria-controls="collapseEight">
-                                        Navigation and pagination
+                                        Navigation
                                     </a>
                                 </h4>
                             </div>
@@ -365,10 +212,6 @@
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-navigation" target="_blank">dot-navigation</a>:
                                             easy menu configuration and parsing
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-paginator" target="_blank">dot-paginator</a>
-                                            (<a href="https://docs.zendframework.com/zend-paginator/" target="_blank">zend-paginator</a>)
                                         </li>
                                     </ul>
                                 </div>
@@ -390,32 +233,32 @@
                                 <div class="panel-body">
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-cache"
-                                               target="_blank">dot-cache</a>
-                                            (<a href="https://docs.zendframework.com/zend-cache/" target="_blank">zend-cache</a>)
+                                            <a href="https://github.com/dotkernel/dot-log" target="_blank">dot-log</a>
+                                            (<a href="https://docs.laminas.dev/laminas-log/"
+                                                target="_blank">laminas-log</a>)
                                         </li>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-log" target="_blank">dot-log</a>
-                                            (<a href="https://docs.zendframework.com/zend-log/"
-                                                target="_blank">zend-log</a>)
+                                            <a href="https://github.com/dotkernel/dot-errorhandler" target="_blank">dot-errorhandler</a>
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-annotated-services"
-                                               target="_blank">dot-annotated-services</a>: create and inject services
-                                            with dependecies through annotations
+                                               target="_blank">dot-annotated-services</a>: creates and injects services
+                                            with dependencies through annotations
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-event"
                                                target="_blank">dot-event</a>
-                                            (<a href="https://docs.zendframework.com/zend-eventmanager/"
-                                                target="_blank">zend-eventmanager</a>)
+                                            (<a href="https://docs.laminas.dev/laminas-eventmanager/"
+                                                target="_blank">laminas-eventmanager</a>)
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-helpers" target="_blank">dot-helpers</a>
+                                            (<a href="https://docs.mezzio.dev/mezzio/v3/features/helpers/intro/"
+                                                target="_blank">mezzio/mezzio-helpers</a>)
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-twigrenderer" target="_blank">dot-twigrenderer</a>:
-                                            extend the twig renderer with useful extensions and zend-view helpers
+                                            extends the twig renderer with useful extensions and customizations
                                         </li>
                                     </ul>
                                 </div>
