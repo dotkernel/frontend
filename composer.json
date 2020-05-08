@@ -27,9 +27,7 @@
     },
     "require": {
         "php": "^7.4",
-        "brick/math": "^0.8",
         "doctrine/doctrine-module": "^4.0",
-        "doctrine/migrations": "^2.2",
         "dotkernel/dot-annotated-services": "^3.0",
         "dotkernel/dot-authorization": "^3.0",
         "dotkernel/dot-errorhandler": "^3.0",
