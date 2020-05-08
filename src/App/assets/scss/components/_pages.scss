@@ -32,7 +32,6 @@
   margin-bottom: 40px;
   font-size: 100px;
   letter-spacing: 5px;
-  font-weight: 300;
 }
 
 @media ( max-width: 1199px) {
@@ -127,6 +126,7 @@
 
 .home-list h2 {
   margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .home-list h2,
@@ -144,62 +144,53 @@
   font-weight: 200;
 }
 
-.home-list .panel-group {
-  margin-top: 30px;
-  text-align: left;
+.home-list .card {
+  border: none;
 }
 
-.home-list .panel-default {
-  border-color: transparent;
-  box-shadow: none;
-}
-
-.home-list .panel-group .panel + .panel {
-  margin-top: 0;
-}
-
-.home-list .panel-group .panel {
-  border-radius: 0;
+.home-list .accordion > .card:not(:last-of-type) {
   border-bottom: 1px solid #B8B8B8;
 }
 
-.home-list .panel-heading {
+.home-list .card .card-header {
+  background-color: #FFFFFF;
+  text-align: left;
+  border: none;
   padding: 15px;
-  border-radius: 0;
-  background-color: transparent;
 }
 
-.home-list .panel-heading h4 a {
-  text-decoration: none;
-  color: #555ec4;
+.home-list .card .card-header h4 {
+  margin-bottom: 0;
+}
+
+.home-list .card .card-header h4 .btn-link {
+  padding: 0 0 0 30px;
   font-size: 26px;
+  color: #555ec4;
+  text-decoration: none;
+  font-weight: 300;
+  text-align: left;
 }
 
-.home-list .panel-heading h4 a.open {
-  padding-left: 30px;
-  background: url("/images/app/icon/open.png") no-repeat left center;
-}
-
-.home-list .panel-heading h4 a.closed {
-  padding-left: 30px;
+.home-list .card .card-header h4 .btn-link[aria-expanded="true"]{
   background: url("/images/app/icon/close.png") no-repeat left center;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-.home-list .panel-heading h4 a:hover {
-  color: #000000;
+.home-list .card .card-header h4 .btn-link[aria-expanded="false"]{
+  background: url("/images/app/icon/open.png") no-repeat left center;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-.home-list .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: transparent;
+.home-list .card .card-body {
+  text-align: left;
+  padding: 15px;
+  //border: none;
 }
 
-.home-list .panel-body ul {
+.home-list .card .card-body ul {
   padding-left: 20px;
   margin: 0;
-}
-
-.home-list .panel-body ul li {
-  line-height: 1.3em;
 }
 
 @media ( max-width: 1199px) {
@@ -214,7 +205,7 @@
     font-size: 26px;
   }
 
-  .home-list .panel-heading h4 a {
+  .home-list .card .card-header h4 .btn-link  {
     font-size: 20px;
     line-height: 1.3em;
   }
@@ -228,7 +219,7 @@
   text-align: center;
 }
 
-.about-list .col-md-4 {
+.about-list .col-md-12 {
   padding-bottom: 30px;
   padding-left: 30px;
   padding-right: 30px;
