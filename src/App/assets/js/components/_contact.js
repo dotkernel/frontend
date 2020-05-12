@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'GET',
-            url: '/contact/get-contact-form',
+            url: '/contact/form',
         }).done(function (response) {
             container.replaceWith(response);
             document.getElementById("contact-form-yb-frontend").style.display = "block";

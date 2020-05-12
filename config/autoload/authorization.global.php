@@ -12,24 +12,13 @@ return [
         ],
         'permissions' => [
             'guest' => [
-                'page.home',
-                'page.about',
-                'page.who-we-are',
-                'user.login',
-                'user.register',
-                'account:activate',
-                'account:unregister',
-                'account:request-reset-password',
-                'account:reset-password',
-                'contact.get-form',
-                'contact.save-form',
-                'language.change',
+                'page',
+                'user',
+                'language',
+                'contact'
             ],
             'user' => [
-                'page.premium-content',
-                'user.logout',
-                'user.view',
-                'profile.get-post'
+                'account'
             ],
         ],
     ]

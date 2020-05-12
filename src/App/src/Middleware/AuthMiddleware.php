@@ -126,7 +126,7 @@ class AuthMiddleware implements MiddlewareInterface
                 'user-login'
             );
 
-            return new RedirectResponse($this->router->generateUri("user.login"));
+            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
         return $handler->handle(
