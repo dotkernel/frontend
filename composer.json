@@ -39,6 +39,8 @@
         "dotkernel/dot-log": "^3.0",
         "dotkernel/dot-mail": "^3.0",
         "dotkernel/dot-navigation": "^3.0",
+        "dotkernel/dot-rbac": "^3.0",
+        "dotkernel/dot-rbac-guard": "^3.0",
         "dotkernel/dot-session": "^4.0",
         "dotkernel/dot-twigrenderer": "^3.0",
         "laminas/laminas-authentication": "^2.7",
