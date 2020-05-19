@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020 DotKernel
+Copyright (c) 2020 DotKernel (https://www.dotkernel.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
