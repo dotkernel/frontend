@@ -14,7 +14,6 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
-    \Mezzio\Authorization\Rbac\ConfigProvider::class,
     \Mezzio\Twig\ConfigProvider::class,
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
     // Include cache configuration
@@ -39,6 +38,8 @@ $aggregator = new ConfigAggregator([
     \Dot\AnnotatedServices\ConfigProvider::class,
     \Dot\Twig\ConfigProvider::class,
     \Dot\FlashMessenger\ConfigProvider::class,
+    \Dot\Rbac\ConfigProvider::class,
+    \Dot\Rbac\Guard\ConfigProvider::class,
 
     // Default App module config
     \Frontend\App\ConfigProvider::class,

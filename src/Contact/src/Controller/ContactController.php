@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types=1);
 
-namespace Frontend\Contact\Handler;
+namespace Frontend\Contact\Controller;
 
-use Frontend\Contact\Entity\Message;
-use Frontend\Contact\Service\MessageServiceInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
-use Frontend\User\Service\UserService;
+
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Dot\Controller\AbstractActionController;
 use Dot\FlashMessenger\FlashMessenger;
+use Dot\Mail\Exception\MailException;
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\App\Handler\AbstractHandler;
 use Frontend\Contact\Form\ContactForm;
+use Frontend\Contact\Service\MessageService;
 use Frontend\Plugin\FormsPlugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
@@ -20,93 +20,81 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
+use Dot\AnnotatedServices\Annotation\Inject;
 
-/**
- * Class ContactHandler
- * @package Frontend\Contact\Handler
- */
-class ContactHandler extends AbstractHandler
+
+class ContactController extends AbstractActionController
 {
     /** @var RouterInterface $router */
-    protected $router;
+    protected RouterInterface $router;
 
     /** @var TemplateRendererInterface $template */
-    protected $template;
+    protected TemplateRendererInterface $template;
 
-    /** @var UserService $userService */
-    protected $userService;
+    /** @var MessageService $messageService */
+    protected MessageService $messageService;
 
     /** @var AuthenticationServiceInterface $authenticationService */
-    protected $authenticationService;
+    protected AuthenticationServiceInterface $authenticationService;
 
     /** @var FlashMessenger $messenger */
-    protected $messenger;
+    protected FlashMessenger $messenger;
 
     /** @var FormsPlugin $forms */
-    protected $forms;
-
-    /** @var MessageServiceInterface $messageService */
-    protected $messageService;
+    protected FormsPlugin $forms;
 
     /**
-     * ContactHandler constructor.
+     * UserController constructor.
+     * @param MessageService $messageService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
-     * @param UserService $userService
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
-     * @param MessageServiceInterface $messageService
-     *
-     * @Inject({RouterInterface::class, TemplateRendererInterface::class, AuthenticationService::class,
-     *      UserService::class, FlashMessenger::class, FormsPlugin::class, MessageServiceInterface::class})
+     * @Inject({
+     *     MessageService::class,
+     *     RouterInterface::class,
+     *     TemplateRendererInterface::class,
+     *     AuthenticationService::class,
+     *     FlashMessenger::class,
+     *     FormsPlugin::class
+     *     })
      */
     public function __construct(
+        MessageService $messageService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
-        UserService $userService,
         FlashMessenger $messenger,
-        FormsPlugin $forms,
-        MessageServiceInterface $messageService
+        FormsPlugin $forms
     ) {
+        $this->messageService = $messageService;
         $this->router = $router;
         $this->template = $template;
-        $this->userService = $userService;
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
-        $this->messageService = $messageService;
-    }
-
-    /**
-     * @return ResponseInterface
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function indexAction(): ResponseInterface
-    {
-        var_dump('index');
-        exit;
     }
 
     /**
      * @return HtmlResponse
      */
-    public function getContactFormAction()
+    public function formAction(): ResponseInterface
     {
         $form = new ContactForm();
-        return new HtmlResponse($this->template->render('contact-contact::contact-form', [
+        return new HtmlResponse($this->template->render('contact::contact-form', [
             'form' => $form
         ]));
     }
 
+
     /**
-     * @return JsonResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return ResponseInterface
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws MailException
      */
-    public function saveContactMessageAction()
+    public function saveContactMessageAction(): ResponseInterface
     {
         $form = new ContactForm();
         $request = $this->getRequest();

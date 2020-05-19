@@ -53,7 +53,7 @@
 
                     <hr>
                     <p class="terms">{% trans "When you sign up for an account, you agree to our" %} <a href="#">{% trans 'terms and conditions' %}</a>.</p>
-                    <p>{% trans 'Already registered?' %} <a href="{{ path('user.login') }}">{% trans 'Log in' %}</a>!</p>
+                    <p>{% trans 'Already registered?' %} <a href="{{ path('user', {'action' : 'login'}) }}">{% trans 'Log in' %}</a>!</p>
                 </div>
             </div>
         </div>

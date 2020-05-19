@@ -3,16 +3,19 @@
 namespace Frontend\User;
 
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\User\Handler\ActivateHandler;
-use Frontend\User\Handler\LoginHandler;
-use Frontend\User\Handler\LogoutHandler;
-use Frontend\User\Handler\ProfileHandler;
-use Frontend\User\Handler\RegisterHandler;
-use Frontend\User\Handler\RequestResetPasswordHandler;
-use Frontend\User\Handler\ResetPasswordHandler;
-use Frontend\User\Handler\UnregisterHandler;
+use Frontend\User\Controller\ActivateHandler;
+use Frontend\User\Controller\LoginHandler;
+use Frontend\User\Controller\LogoutHandler;
+use Frontend\User\Controller\AccountController;
+use Frontend\User\Controller\ProfileHandler;
+use Frontend\User\Controller\RegisterHandler;
+use Frontend\User\Controller\RequestResetPasswordHandler;
+use Frontend\User\Controller\ResetPasswordHandler;
+use Frontend\User\Controller\UnregisterHandler;
+use Frontend\User\Controller\UserController;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
+use Twig\Profiler\Profile;
 
 /**
  * Class RoutesDelegator
@@ -32,59 +35,17 @@ class RoutesDelegator
         $app = $callback();
 
         $app->route(
-            '/login',
-            LoginHandler::class,
+            '/user[/{action}]',
+            UserController::class,
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'user.login'
+            'user'
         );
 
         $app->route(
-            '/logout',
-            LogoutHandler::class,
-            [RequestMethodInterface::METHOD_GET],
-            'user.logout'
-        );
-
-        $app->route(
-            '/register',
-            RegisterHandler::class,
+            '/account[/{action}[/{hash}]]',
+            AccountController::class,
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'user.register'
-        );
-
-        $app->route(
-            '/profile[/{action}]',
-            ProfileHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'profile.get-post'
-        );
-
-        $app->route(
-            '/account/activate[/{hash}]',
-            ActivateHandler::class,
-            [RequestMethodInterface::METHOD_GET],
-            'account:activate'
-        );
-
-        $app->route(
-            '/account/unregister[/{hash}]',
-            UnregisterHandler::class,
-            [RequestMethodInterface::METHOD_GET],
-            'account:unregister'
-        );
-
-        $app->route(
-            '/account/request-reset-password',
-            RequestResetPasswordHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'account:request-reset-password'
-        );
-
-        $app->route(
-            '/account/reset-password[/{hash}]',
-            ResetPasswordHandler::class,
-            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
-            'account:reset-password'
+            'account'
         );
 
         return $app;

@@ -39,30 +39,30 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
                                     <div class="dropdown-menu" aria-labelledby="pageDropdown">
-                                        <a class="dropdown-item" href="{{ path('page.home') }}">{% trans 'Home' %}</a>
-                                        <a class="dropdown-item" href="{{ path('page.about') }}">{% trans 'About Us' %}</a>
-                                        <a class="dropdown-item" href="{{ path('page.who-we-are') }}">{% trans 'Who We Are' %}</a>
-                                        <a class="dropdown-item" href="{{ path('page.premium-content') }}">{% trans 'Protected Content' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {'action': 'home'}) }}">{% trans 'Home' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {'action': 'about-us'}) }}">{% trans 'About Us' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {'action': 'who-we-are'}) }}">{% trans 'Who We Are' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {'action': 'premium-content'}) }}">{% trans 'Protected Content' %}</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="https://github.com/dotkernel" target="_blank">{% trans 'Contribute' %}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" href="{{ path('page.home') }}">{% trans 'Disabled' %}</a>
+                                    <a class="nav-link disabled" href="{{ url('page', {'action': 'index'}) }}">{% trans 'Disabled' %}</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('profile.get-post') }}">{% trans 'Profile' %}</a>
+                                        <a class="nav-link" href="{{ url('account', {'action': 'details'}) }}">{% trans 'Profile' %}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('user.logout') }}">{% trans 'Log out' %}</a>
+                                        <a class="nav-link" href="{{ url('user', {'action': 'logout'}) }}">{% trans 'Log out' %}</a>
                                     </li>
                                 {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('user.login') }}">{% trans 'Log in' %}</a>
+                                    <a class="nav-link" href="{{ url('user', {'action': 'login'}) }}">{% trans 'Log in' %}</a>
                                 </li>
                                 {% endif %}
                             </ul>

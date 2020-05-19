@@ -3,7 +3,8 @@
 namespace Frontend\App;
 
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\App\Handler\LanguageHandler;
+use Frontend\App\Controller\LanguageController;
+use Frontend\App\Controller\LanguageHandler;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
 
@@ -26,9 +27,9 @@ class RoutesDelegator
 
         $app->route(
             '/language/{action}',
-            LanguageHandler::class,
+            LanguageController::class,
             [RequestMethodInterface::METHOD_POST],
-            'language.change'
+            'language'
         );
 
         return $app;
