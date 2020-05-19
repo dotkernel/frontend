@@ -22,16 +22,24 @@ return [
                         'options' => [
                             'rules' => [
                                 [
-                                    'route' => 'user',
-                                    'actions' => ['account'],
-                                    'permissions' => ['*']
+                                    'route' => 'account',
+                                    'actions' => [
+                                        'unregister',
+                                        'requestResetPassword',
+                                        'resetPassword',
+                                        'avatar',
+                                        'details',
+                                        'changePassword',
+                                        'deleteAccount'
+                                    ],
+                                    'permissions' => ['user']
                                 ],
                                 [
                                     'route' => 'page',
                                     'actions' => [
                                         'premium-content'
                                     ],
-                                     'permissions' => ['admin']
+                                     'permissions' => ['user']
                                 ]
                             ],
                         ]
