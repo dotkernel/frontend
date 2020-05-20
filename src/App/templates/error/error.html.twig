@@ -3,13 +3,17 @@
 {% block title %}{{ status }} {{ reason }}{% endblock %}
 
 {% block content %}
-    <h1>Oops!</h1>
-    <h2>This is awkward.</h2>
-    <p>We encountered a {{ status }} {{ reason }} error.</p>
-    {% if status == 404 %}
-        <p>
-            You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
-            or head back to <a href="{{ path('home') }}">Home</a>.
-        </p>
-    {% endif %}
+    <div class="page-intro home-intro">
+        <div class="container">
+            <h1>We encountered a {{ status }} {{ reason }} error.</h1>
+            <h2>Oops!</h2>
+            <p>This is awkward.</p>
+            {% if status == 404 %}
+                <p>
+                    You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
+                    or head back to <a href="{{ path('home') }}">Home</a>.
+                </p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
