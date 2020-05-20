@@ -306,7 +306,7 @@ class AccountController extends AbstractActionController
     public function detailsAction(): ResponseInterface
     {
         $userDetails = [];
-        $user = $this->getRequest()->getAttribute(UserInterface::class, false);
+        $user = $this->authenticationService->getIdentity();
         if (!empty($user)) {
             $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
             $userDetails['detail']['lastName'] = $user->getDetail()->getLastName();
