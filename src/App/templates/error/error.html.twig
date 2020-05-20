@@ -5,7 +5,7 @@
 {% block content %}
     <div class="page-intro home-intro">
         <div class="container">
-            <h1>We encountered a {{ status }} {{ reason }} error.</h1>
+            <h1>{{ status }} {{ reason }}.</h1>
             <h2>Oops!</h2>
             <p>This is awkward.</p>
             {% if status == 404 %}
