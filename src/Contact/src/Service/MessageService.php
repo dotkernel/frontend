@@ -91,7 +91,7 @@ class MessageService implements MessageServiceInterface
     public function sendContactMail(Message $message)
     {
         $this->mailService->setBody(
-            $this->templateRenderer->render('contact-contact::email', [
+            $this->templateRenderer->render('contact::email', [
                 'config' => $this->config,
                 'message' => $message
             ])

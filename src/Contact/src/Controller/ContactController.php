@@ -1,9 +1,8 @@
 <?php
 
-
 namespace Frontend\Contact\Controller;
 
-
+use Dot\AnnotatedServices\Annotation\Inject;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
@@ -16,12 +15,10 @@ use Frontend\Plugin\FormsPlugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
-
 
 class ContactController extends AbstractActionController
 {
@@ -77,32 +74,15 @@ class ContactController extends AbstractActionController
     }
 
     /**
-     * @return HtmlResponse
+     * @return ResponseInterface
+     * @throws MailException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function formAction(): ResponseInterface
     {
         $form = new ContactForm();
-        return new HtmlResponse($this->template->render('contact::contact-form', [
-            'form' => $form
-        ]));
-    }
-
-
-    /**
-     * @return ResponseInterface
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws MailException
-     */
-    public function saveContactMessageAction(): ResponseInterface
-    {
-        $form = new ContactForm();
         $request = $this->getRequest();
-
-        $messages = [
-            'type' => 'error',
-            'text' => 'Something went wrong. Try again later.'
-        ];
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
             $data = $request->getParsedBody();
@@ -113,25 +93,20 @@ class ContactController extends AbstractActionController
 
                 $result = $this->messageService->processMessage($dataForm);
 
-                $messages = [
-                    'type' => 'error',
-                    'text' => 'Error sending message. Try again or contact us at tech@dotkernel.com.'
-                ];
-
                 if ($result) {
-                    $messages = [
-                        'type' => 'success',
-                        'text' => 'Thank you for contacting us!'
-                    ];
+                    return new HtmlResponse($this->template->render('contact::thank-you'));
+                } else {
+                    $this->messenger->addError('Something went wrong. Please try again later!');
+                    return new RedirectResponse($request->getUri(), 303);
                 }
             } else {
-                $messages = [
-                    'type' => 'error',
-                    'text' => $this->forms->getMessages($form)
-                ];
+                $this->messenger->addError($this->forms->getMessages($form));
+                return new RedirectResponse($request->getUri(), 303);
             }
         }
 
-        return new JsonResponse(['message' => $messages]);
+        return new HtmlResponse($this->template->render('contact::contact-form', [
+            'form' => $form
+        ]));
     }
 }

@@ -25,9 +25,10 @@ class RoutesDelegator
         /** @var Application $app */
         $app = $callback();
 
-        $app->get(
+        $app->route(
             '/contact/[{action}]',
             ContactController::class,
+            [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
             'contact'
         );
 
