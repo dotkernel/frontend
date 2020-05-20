@@ -8,8 +8,9 @@ use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
-use Frontend\App\Handler\LanguageHandler;
+use Frontend\App\Controller\LanguageHandler;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\TranslateService;
 use Frontend\App\Service\TranslateServiceInterface;
@@ -55,7 +56,7 @@ class ConfigProvider
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class => EntityListenerResolverFactory::class,
                 TranslateService::class => AnnotatedServiceFactory::class,
-                LanguageHandler::class => AnnotatedServiceFactory::class,
+                LanguageController::class => AnnotatedServiceFactory::class,
             ],
             'aliases' => [
                 EntityManager::class => 'doctrine.entity_manager.orm_default',

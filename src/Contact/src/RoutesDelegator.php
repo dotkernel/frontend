@@ -3,7 +3,7 @@
 namespace Frontend\Contact;
 
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\Contact\Handler\ContactHandler;
+use Frontend\Contact\Controller\ContactController;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
 
@@ -27,14 +27,8 @@ class RoutesDelegator
 
         $app->get(
             '/contact/[{action}]',
-            ContactHandler::class,
-            'contact.get-form'
-        );
-
-        $app->post(
-            '/contact/[{action}]',
-            ContactHandler::class,
-            'contact.save-form'
+            ContactController::class,
+            'contact'
         );
 
         return $app;

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Frontend\Page;
 
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
-use Frontend\Page\Handler\AboutHandler;
-use Frontend\Page\Handler\HomeHandler;
-use Frontend\Page\Handler\PremiumContentHandler;
-use Frontend\Page\Handler\WhoWeAreHandler;
+use Frontend\Page\Controller\AboutHandler;
+use Frontend\Page\Controller\HomeHandler;
+use Frontend\Page\Controller\PageController;
+use Frontend\Page\Controller\PremiumContentHandler;
+use Frontend\Page\Controller\TestController;
+use Frontend\Page\Controller\WhoWeAreHandler;
 
 /**
  * Class ConfigProvider
@@ -34,10 +36,7 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                HomeHandler::class => AnnotatedServiceFactory::class,
-                AboutHandler::class => AnnotatedServiceFactory::class,
-                WhoWeAreHandler::class => AnnotatedServiceFactory::class,
-                PremiumContentHandler::class => AnnotatedServiceFactory::class
+                PageController::class => AnnotatedServiceFactory::class,
             ],
         ];
     }

@@ -6,8 +6,9 @@ namespace Frontend\Contact;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Frontend\Contact\Controller\ContactController;
 use Frontend\Contact\Form\ContactForm;
-use Frontend\Contact\Handler\ContactHandler;
+use Frontend\Contact\Controller\ContactHandler;
 use Frontend\Contact\Service\MessageService;
 use Frontend\Contact\Service\MessageServiceInterface;
 use Laminas\Form\ElementFactory;
@@ -44,7 +45,7 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                ContactHandler::class => AnnotatedServiceFactory::class,
+                ContactController::class => AnnotatedServiceFactory::class,
                 MessageService::class => AnnotatedServiceFactory::class,
             ],
             'aliases' => [
@@ -60,7 +61,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'contact-contact' => [__DIR__ . '/../templates/contact']
+                'contact' => [__DIR__ . '/../templates/contact']
             ],
         ];
     }

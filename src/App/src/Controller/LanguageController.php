@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
 
-namespace Frontend\App\Handler;
+namespace Frontend\App\Controller;
 
-use Dot\AnnotatedServices\Annotation\Inject;
+
+use Dot\Controller\AbstractActionController;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\TranslateServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -12,24 +12,22 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
+use Dot\AnnotatedServices\Annotation\Inject;
 
-/**
- * Class LanguageHandler
- * @package Frontend\App\Handler
- */
-class LanguageHandler extends AbstractHandler
+
+class LanguageController extends AbstractActionController
 {
-    /** @var TranslateServiceInterface */
-    protected $translateService;
+    /** @var TranslateServiceInterface $translateService */
+    protected TranslateServiceInterface $translateService;
 
     /** @var RouterInterface $router */
-    protected $router;
+    protected RouterInterface $router;
 
     /** @var TemplateRendererInterface $template */
-    protected $template;
+    protected TemplateRendererInterface $template;
 
-    /** @var array */
-    protected $translatorConfig;
+    /** @var array $translatorConfig */
+    protected array $translatorConfig;
 
     /**
      * LanguageHandler constructor.
@@ -59,9 +57,7 @@ class LanguageHandler extends AbstractHandler
     public function changeAction(): ResponseInterface
     {
         $data = $this->getRequest()->getParsedBody();
-
         $languageKey = (!empty($data['languageKey'])) ? $data['languageKey'] : $this->translatorConfig['default'];
-
         $this->translateService->addTranslatorCookie($languageKey);
 
         return new HtmlResponse('', 200);

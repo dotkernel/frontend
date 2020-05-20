@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Frontend\App\Middleware;
 
-use Frontend\User\Entity\User;
-use Frontend\User\Entity\UserInterface;
-use Frontend\User\Entity\UserRole;
-use Frontend\User\Service\UserServiceInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\Rbac\Guard\Exception\RuntimeException;
+use Dot\Rbac\Guard\Guard\GuardInterface;
+use Dot\Rbac\Guard\Options\RbacGuardOptions;
+use Dot\Rbac\Guard\Provider\GuardsProviderInterface;
 use Dot\FlashMessenger\FlashMessenger;
-use Laminas\Authentication\AuthenticationService;
-use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Laminas\Http\Response;
-use Mezzio\Authorization\AuthorizationInterface;
 use Mezzio\Router\RouterInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -28,94 +23,61 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class AuthMiddleware implements MiddlewareInterface
 {
-    /** @var AuthenticationService $authenticationService */
-    protected $authenticationService;
-
-    /** @var AuthorizationInterface $authorization */
-    protected $authorization;
-
-    /** @var array $authorizationConfig */
-    protected $authorizationConfig;
 
     /** @var RouterInterface $router */
-    protected $router;
+    protected RouterInterface $router;
 
     /** @var FlashMessenger $messenger */
-    protected $messenger;
+    protected FlashMessenger $messenger;
 
-    /** @var UserServiceInterface $userService */
-    protected $userService;
+    /** @var GuardsProviderInterface $guardProvider */
+    protected GuardsProviderInterface $guardProvider;
+
+    /** @var  RbacGuardOptions */
+    protected RbacGuardOptions $options;
 
     /**
      * IdentityMiddleware constructor.
-     * @param AuthenticationService $authenticationService
-     * @param AuthorizationInterface $authorization
-     * @param array $authorizationConfig
      * @param RouterInterface $router
      * @param FlashMessenger $messenger
-     * @param UserServiceInterface $userService
-     *
-     * @Inject({AuthenticationService::class, AuthorizationInterface::class,
-     *      "config.authorization", RouterInterface::class, FlashMessenger::class, UserServiceInterface::class})
+     * @param GuardsProviderInterface $guardProvider
+     * @param RbacGuardOptions $options
      */
     public function __construct(
-        AuthenticationService $authenticationService,
-        AuthorizationInterface $authorization,
-        array $authorizationConfig,
         RouterInterface $router,
         FlashMessenger $messenger,
-        UserServiceInterface $userService
+        GuardsProviderInterface $guardProvider,
+        RbacGuardOptions $options
     ) {
-        $this->authenticationService = $authenticationService;
-        $this->authorization = $authorization;
-        $this->authorizationConfig = $authorizationConfig;
         $this->router = $router;
         $this->messenger = $messenger;
-        $this->userService = $userService;
-    }
-
-    /**
-     * @return AuthorizationInterface
-     */
-    public function getAuthorization(): AuthorizationInterface
-    {
-        return $this->authorization;
+        $this->guardProvider = $guardProvider;
+        $this->options = $options;
     }
 
     /**
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        /** @var User $user */
-        $user = $this->authenticationService->getIdentity() ?? null;
+        $guards = $this->guardProvider->getGuards();
 
-        if (!is_null($user)) {
-            $userRoles = $user->getRoles();
-            $userRoles = array_map(function (UserRole $userRole) {
-                return $userRole->getName();
-            }, $userRoles);
-        } else {
-            // get user roles by email
-            $emailRoles = [];
-            $requestData = $request->getParsedBody();
-            if (!empty($requestData['identity'])) {
-                $emailRoles = $this->userService->getRoleNamesByEmail($requestData['identity']);
+        //iterate over guards, which are sorted by priority
+        //break on the first one that does not grants access
+
+        $isGranted = $this->options->getProtectionPolicy() === GuardInterface::POLICY_ALLOW;
+
+        foreach ($guards as $guard) {
+            if (!$guard instanceof GuardInterface) {
+                throw new RuntimeException("Guard is not an instance of " . GuardInterface::class);
             }
+            //according to the policy, we whitelist or blacklist matched routes
 
-            $userRoles = [UserRole::ROLE_GUEST];
-            if (!empty($emailRoles)) {
-                $userRoles = $emailRoles;
-            }
-        }
-
-        $isGranted = false;
-        foreach ($userRoles as $userRole) {
-            if ($this->authorization->isGranted($userRole, $request)) {
-                $isGranted = true;
+            $r = $guard->isGranted($request);
+            if ($r !== $isGranted) {
+                $isGranted = $r;
                 break;
             }
         }
@@ -126,11 +88,9 @@ class AuthMiddleware implements MiddlewareInterface
                 'user-login'
             );
 
-            return new RedirectResponse($this->router->generateUri("user.login"));
+            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
-        return $handler->handle(
-            $request->withAttribute(UserInterface::class, $user)
-        );
+        return $handler->handle($request);
     }
 }
