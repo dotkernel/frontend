@@ -1,119 +1,28 @@
-.contact-form {
-
-  h4 {
-    color: #979DB1;
-    font-size: 20px;
-  }
-
-  span {
-    color: #49557D;
-    font-size: 20px;
-    display: block;
-    margin-bottom: 10px;
-
-    a {
-      display: inline-block;
-      color: #49557D;
-      font-size: 20px;
-      margin-top: 0;
-    }
-  }
-  .or {
-    color: #979DB1;
-    font-size: 20px;
-    font-weight: 300;
-  }
-
-  input {
-    width: 100%;
-  }
-}
-
-.thank-you {
-
-  .info-content {
-
-    p {
-      font-size: 18px;
-      line-height: 28px;
-
-      a {
-        display: block;
-        margin-top: 50px;
-        color: #49557D;
-      }
-    }
-  }
-}
-
-.open-button {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  border-radius: 15px;
-  background-color: #C60B31;
-  z-index: 10;
-
-  img {
-    display: block;
-    width: 28px;
-    height: 26px;
-  }
-}
-
-.contact-popup {
-  position: fixed;
-  display: none;
-  bottom: 15px;
-  right: 15px;
-  padding: 25px;
-  max-width: 350px;
-  border-radius: 15px;
-  background-color: #FFFFFF;
-  border: 3px solid #f1f1f1;
-  z-index: 99;
+.contact-block {
+  width: 380px;
+  margin: auto;
+  padding: 40px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,.07);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,.07);
+  border-radius: 10px;
 
   h3 {
-    margin-top: 0;
+    margin-bottom: 20px;
   }
 
-  input[type=text],
-  input[type=email],
+  input,
   textarea {
-    width: 100% !important;
-    padding: 15px;
-    margin: 5px 0 15px 0;
-    border: none;
-    background: #f1f1f1;
-    box-sizing: border-box;
+    margin-bottom: 10px;
   }
 
-  input[type=text]:focus,
-  input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
+  p {
+    margin: 0;
   }
+}
 
-  .btn {
-    float: right;
-    padding: 7px 20px;
-    color: white;
-    background-color: #C60B31;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-  }
-
-  .btn.cancel {
-    float: left;
-    background-color: #a5a5a5;
-  }
-
-  .btn:hover {
-    color: #FFFFFF;
+@media (max-width: 575px) {
+  .contact-block {
+    width: auto;
   }
 }
