@@ -92,6 +92,13 @@ class RegisterInputFilter extends InputFilter
                         'max' => 150,
                         'message' => '<b>Confirm Password</b> must have between 8 and 150 characters',
                     ]
+                ],
+                [
+                    'name' => 'Identical',
+                    'options' => [
+                        'token' => 'password',
+                        'message' => '<b>Password confirm</b> does not match',
+                    ]
                 ]
             ]
         ]);
