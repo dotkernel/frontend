@@ -115,20 +115,6 @@
             </div>
         </div>
 
-        <div class="contact-container">
-            <button class="btn open-button" title="Contact Us">
-                <img src="{{ asset('images/app/contact/message.svg') }}" onerror="this.onerror=null; this.src='{{ asset('images/app/message@2x.png') }}';" />
-            </button>
-            <div class="form-popup contact-popup" id="contact-form-yb-frontend">
-                <div id="contact-form-container">
-                </div>
-                <div class="buttons">
-                    <button type="button" class="btn cancel">{% trans 'Close' %}</button>
-                    <button type="button" class="btn" id="send-expert-contact-form">{% trans 'Send' %}</button>
-                </div>
-            </div>
-        </div>
-
         <script src="{{ asset('js/app.js') }}"></script>
         {% block javascript %}{% endblock %}
     </body>
