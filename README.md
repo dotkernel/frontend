@@ -92,9 +92,21 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 ## Configuration - First Run
 
 - Remove the `.dist` extension from the files `config/autoload/local.php.dist` and `config/autoload/mail.local.php.dist`
-- Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration 
-- Add smtp credentials in `config/autoload/mail.local.php` if you want your application to send mails on registration etc.
-- Run the migrations and seeds with these commands:
+- Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration
+ 
+If you want your application to send mails on registration, contact... please provide valid credentials to the following keys in `config/autoload/mail.local.php`
+
+Under `message_options` key:
+- `from` - email address from whom users will receive emails
+
+Under `smtp_options` key:
+- `host` - hostname or IP address of the mail server
+- `connection_config` - please complete the `username` and `password` keys
+
+In `config/autoload/local.php` add under `contact` => `message_receivers` => `to` key *string* values with the emails that should receive contact messages
+
+
+Run the migrations and seeds with these commands:
 
 ```bash
 php vendor/bin/phinx migrate --configuration="config/migrations.php"
