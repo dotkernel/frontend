@@ -237,3 +237,27 @@
     font-size: 36px;
   }
 }
+
+.error-messages {
+  h1 {
+    font-weight: bold;
+    font-size: 150px;
+  }
+
+  h2.message {
+    margin-top: 30px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 576px) {
+  .error-messages {
+    h1 {
+      font-size: 42px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+  }
+}

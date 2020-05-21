@@ -3,11 +3,11 @@
 {% block title %}403 Forbidden{% endblock %}
 
 {% block content %}
-    <div class="page-intro home-intro">
+    <div class="page-intro home-intro error-messages">
         <div class="container">
-            <h1>You don't have enough permissions to access the requested content!</h1>
             <h2>Oops!</h2>
-            <p>This is awkward.</p>
+            <h2>This is awkward.</h2>
+            <h2 class="message">You don't have enough permissions to access the requested content!</h2>
             <p>
                 You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
                 or head back to <a href="{{ path('home') }}">Home</a>.
