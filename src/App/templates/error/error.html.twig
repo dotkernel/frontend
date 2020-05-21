@@ -3,11 +3,11 @@
 {% block title %}{{ status }} {{ reason }}{% endblock %}
 
 {% block content %}
-    <div class="page-intro home-intro">
+    <div class="page-intro home-intro error-messages">
         <div class="container">
-            <h1>{{ status }} {{ reason }}.</h1>
             <h2>Oops!</h2>
-            <p>This is awkward.</p>
+            <h2>This is awkward.</h2>
+            <h1>{{ status }}</h1>
             {% if status == 404 %}
                 <p>
                     You are looking for something that doesn't exist or may have moved. Check out one of the links on this page
