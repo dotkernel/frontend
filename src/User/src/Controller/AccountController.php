@@ -415,7 +415,7 @@ class AccountController extends AbstractActionController
      */
     public function deleteAccountAction(): ResponseInterface
     {
-        $user = $this->getRequest()->getAttribute(UserInterface::class, false);
+        $user = $this->authenticationService->getIdentity();
 
         $form = new ProfileDeleteForm();
 
