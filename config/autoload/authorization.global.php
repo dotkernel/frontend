@@ -20,9 +20,6 @@ return [
                         'permissions' => [
                             'unauthenticated',
                         ]
-                    ],
-                    'admin' => [
-                        'authenticated',
                     ]
                 ]
             ]
