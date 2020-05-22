@@ -3,11 +3,25 @@
 
 {{ messagesPartial('partial::alerts', {}, null, 'profile-avatar') }}
 
-<input type="file" class="img-input" name="image"
-       data-url="{{ path('account', {'action': 'avatar'}) }}"
-       data-preview="{% if user.avatar is not null %}
-                            {{ user.avatar.url }}
-                        {% else %}
-                    {{ asset('images/app/user/user-placeholder.png') }}
-                    {% endif %}">
+{% set dummy = form.prepare() %}
+{{ form().openTag(form) | raw }}
 
+{% if user.avatar is not null %}
+    {% set imagePreview = user.avatar.url %}
+{% else %}
+    {% set imagePreview = asset('images/app/user/user-placeholder.png') %}
+{% endif %}
+
+{% set imageInput = form.get('avatar') %}
+
+{% set image = imageInput.get('image') %}
+{% set dummy = image.setAttribute('data-preview', imagePreview) %}
+{% set dummy = image.setAttribute('data-url', path('account', {'action': 'avatar'})) %}
+{{ formElement(image) }}
+
+{% set submit = form.get('submit') %}
+{% set submitValue = submit.getValue|trans|raw %}
+{% set dummy = submit.setAttribute('value', submitValue) %}
+{{ formSubmit(submit) }}
+
+{{ form().closeTag() | raw }}
