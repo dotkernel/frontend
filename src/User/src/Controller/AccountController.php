@@ -17,6 +17,7 @@ use Frontend\User\Form\ProfileDetailsForm;
 use Frontend\User\Form\ProfilePasswordForm;
 use Frontend\User\Form\RequestResetPasswordForm;
 use Frontend\User\Form\ResetPasswordForm;
+use Frontend\User\Form\UploadAvatarForm;
 use Frontend\User\Service\UserService;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
@@ -28,6 +29,7 @@ use Mezzio\Template\TemplateRendererInterface;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UploadedFileInterface;
+use Exception;
 
 class AccountController extends AbstractActionController
 {
@@ -264,29 +266,38 @@ class AccountController extends AbstractActionController
         );
     }
 
+
     /**
      * @return ResponseInterface
-     * @throws NoResultException
-     * @throws NonUniqueResultException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function avatarAction(): ResponseInterface
     {
-        $user = $this->getRequest()->getAttribute(UserInterface::class, false);
+        $user = $this->authenticationService->getIdentity();
+        $form = new UploadAvatarForm();
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
-            $file = $this->request->getUploadedFiles()['image'] ?? '';
-
-            if (!$file instanceof UploadedFileInterface) {
-                $this->messenger->addSuccess('Please select a file for upload.', 'profile-avatar');
+            $file = $this->request->getUploadedFiles()['avatar']['image'] ?? '';
+            if ($file->getSize() === 0) {
+                $this->messenger->addWarning('Please select a file for upload.', 'profile-avatar');
+                return new RedirectResponse($this->router->generateUri(
+                    "account",
+                    ['action' => 'avatar']
+                ));
             }
 
-            $user = $this->userService->updateUser($user, ['avatar' => $file]);
-
-            return new JsonResponse([
-                'ok' => 'Profile image updated successfully!',
-                'imageUrl' => $user->getAvatar()->getUrl(),
-            ]);
+            try {
+                $this->userService->updateUser($user, ['avatar' => $file]);
+            } catch (Exception $e) {
+                $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
+                return new RedirectResponse($this->router->generateUri(
+                    "account",
+                    ['action' => 'avatar']
+                ));
+            }
+            $this->messenger->addSuccess('Profile image updated successfully!', 'profile-avatar');
+            return new RedirectResponse($this->router->generateUri(
+                "account",
+                ['action' => 'avatar']
+            ));
         }
 
         return new HtmlResponse(
@@ -294,7 +305,8 @@ class AccountController extends AbstractActionController
                 'action' => 'avatar',
                 'content' => $this->template->render('profile::avatar', [
                     'userUploadsBaseUrl' => 'http://localhost:8080/uploads/user/',
-                    'user' => $user
+                    'user' => $user,
+                    'form' => $form
                 ]),
             ])
         );
