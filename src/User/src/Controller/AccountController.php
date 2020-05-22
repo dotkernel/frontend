@@ -363,7 +363,7 @@ class AccountController extends AbstractActionController
      */
     public function changePasswordAction(): ResponseInterface
     {
-        $user = $this->getRequest()->getAttribute(UserInterface::class, false);
+        $user = $this->authenticationService->getIdentity();
 
         $form = new ProfilePasswordForm();
 
@@ -390,7 +390,7 @@ class AccountController extends AbstractActionController
                 $this->authenticationService->clearIdentity();
 
                 $this->messenger->addSuccess('Password updated. Login with your new credentials.', 'user-login');
-                return new RedirectResponse($this->router->generateUri("user.login"));
+                return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
@@ -415,7 +415,7 @@ class AccountController extends AbstractActionController
      */
     public function deleteAccountAction(): ResponseInterface
     {
-        $user = $this->getRequest()->getAttribute(UserInterface::class, false);
+        $user = $this->authenticationService->getIdentity();
 
         $form = new ProfileDeleteForm();
 
