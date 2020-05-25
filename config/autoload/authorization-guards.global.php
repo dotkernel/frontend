@@ -30,14 +30,14 @@ return [
                                         'changePassword',
                                         'deleteAccount'
                                     ],
-                                    'permissions' => ['user']
+                                    'permissions' => ['authenticated']
                                 ],
                                 [
                                     'route' => 'page',
                                     'actions' => [
                                         'premium-content'
                                     ],
-                                     'permissions' => ['user']
+                                     'permissions' => ['premium']
                                 ]
                             ],
                         ]
