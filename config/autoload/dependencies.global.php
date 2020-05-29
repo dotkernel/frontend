@@ -20,7 +20,7 @@ return [
         // key is the alias name, the value is the service to which it points.
         'aliases' => [
             ErrorHandlerInterface::class => LogErrorHandler::class,
-            Mezzio\Authorization\AuthorizationInterface::class => Mezzio\Authorization\Rbac\LaminasRbac::class,
+            \Dot\Authorization\AuthorizationInterface::class => \Dot\Rbac\Authorization\AuthorizationService::class,
             \Laminas\Authentication\AuthenticationService::class => 'doctrine.authenticationservice.orm_default',
             MailService::class => 'dot-mail.service.default',
         ],
