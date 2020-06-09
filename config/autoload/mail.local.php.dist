@@ -27,7 +27,7 @@ return [
              * defaults to sendmail
              **/
 
-            'transport' => \Laminas\Mail\Transport\Smtp::class,
+            'transport' => Laminas\Mail\Transport\Sendmail::class,
 
             //message configuration
             'message_options' => [

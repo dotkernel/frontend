@@ -14,6 +14,7 @@ return [
                     'user' => [
                         'permissions' => [
                             'authenticated',
+                            'premium'
                         ]
                     ],
                     'guest' => [
