@@ -93,18 +93,27 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 
 - Remove the `.dist` extension from the files `config/autoload/local.php.dist` and `config/autoload/mail.local.php.dist`
 - Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration
+
+## Configuration - Mail
  
 If you want your application to send mails on registration, contact... please provide valid credentials to the following keys in `config/autoload/mail.local.php`
 
 Under `message_options` key:
-- `from` - email address from whom users will receive emails
+- `from` - email address from whom users will receive emails (required)
+- `from_name` - organization name from whom users will receive emails (optional)
 
 Under `smtp_options` key:
-- `host` - hostname or IP address of the mail server
-- `connection_config` - please complete the `username` and `password` keys
+- `host` - hostname or IP address of the mail server (required)
+- `connection_config` - please complete the `username` and `password` keys (required)
 
 In `config/autoload/local.php` add under `contact` => `message_receivers` => `to` key *string* values with the emails that should receive contact messages
 
+Note: **Please add at least 1 email address in order for contact message to reach someone**
+
+Also feel free to add as many cc as you want under `contact` => `message_receivers` => `cc` key
+
+
+## Migrations
 
 Run the migrations and seeds with these commands:
 
