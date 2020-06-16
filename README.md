@@ -125,6 +125,14 @@ This will enable dev mode by turning debug flag to `true` and turning configurat
 
 > Charset recommendation: utf8mb4_general_ci
 
+## Email Templates
+
+These are the email templates provided on a fresh installation, all present in the User module
+
+- `activate.html.twig` used for the activation email
+- `reset-password-requested.html.twig` used when the user requests a password reset
+- `reset-password-completed.html.twig` used when the password has reset successfully
+
 ## NPM Commands
 
 To install dependencies into the `node_modules` directory run this command.
