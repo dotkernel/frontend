@@ -7,8 +7,12 @@
 
         <title>{% block title %}{% endblock %} | DotKernel frontend V3</title>
 
-        <link rel="apple-touch-icon" href="{{ asset('images/app/favicon-180x180.png') }}">
-        <link rel="icon" href="{{ asset('images/app/favicon.png') }}" type="image/x-icon"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/app/favicon/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/app/favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/app/favicon/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ asset('images/app/favicon/site.webmanifest') }}">
+        <meta name="msapplication-TileColor" content="#2d89ef">
+        <meta name="theme-color" content="#ffffff">
 
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet">
