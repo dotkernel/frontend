@@ -25,16 +25,16 @@ class AuthMiddleware implements MiddlewareInterface
 {
 
     /** @var RouterInterface $router */
-    protected RouterInterface $router;
+    protected $router;
 
     /** @var FlashMessenger $messenger */
-    protected FlashMessenger $messenger;
+    protected $messenger;
 
     /** @var GuardsProviderInterface $guardProvider */
-    protected GuardsProviderInterface $guardProvider;
+    protected $guardProvider;
 
     /** @var  RbacGuardOptions */
-    protected RbacGuardOptions $options;
+    protected $options;
 
     /**
      * IdentityMiddleware constructor.
