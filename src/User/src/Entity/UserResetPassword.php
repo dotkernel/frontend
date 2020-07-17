@@ -6,7 +6,7 @@ namespace Frontend\User\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Common\AbstractEntity;
 
 /**
  * Class UserResetPassword

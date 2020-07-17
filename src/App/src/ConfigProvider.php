@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
-use Frontend\App\Controller\LanguageHandler;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\TranslateService;
 use Frontend\App\Service\TranslateServiceInterface;

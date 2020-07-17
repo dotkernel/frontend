@@ -30,7 +30,7 @@ class LanguageController extends AbstractActionController
     protected array $translatorConfig;
 
     /**
-     * LanguageHandler constructor.
+     * LanguageController constructor.
      * @param TranslateServiceInterface $translateService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
