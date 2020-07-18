@@ -10,7 +10,7 @@ use Frontend\User\Entity\UserAvatar;
 
 /**
  * Class UserAvatarEventListener
- * @package Api\User\EventListener
+ * @package Frontend\User\EventListener
  *
  * @Service
  */

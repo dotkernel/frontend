@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Common\AbstractEntity;
 
 /**
  * Class UserAvatar

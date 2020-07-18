@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace Frontend\User\Repository;
 
-use Frontend\App\Repository\AbstractRepository;
+use Doctrine\ORM\EntityRepository;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\NoResultException;
+use Exception;
 
 /**
  * Class UserRepository
  * @package Frontend\User\Repository
  */
-class UserRepository extends AbstractRepository
+class UserRepository extends EntityRepository
 {
     /**
      * @param string $identity
      * @return UserInterface|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByIdentity(string $identity): ?UserInterface
     {
-        $qb = $this->getQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
 
         $qb
             ->select('user')
@@ -35,8 +40,8 @@ class UserRepository extends AbstractRepository
 
     /**
      * @param User $user
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function saveUser(User $user)
     {
@@ -48,8 +53,6 @@ class UserRepository extends AbstractRepository
      * @param string $email
      * @param string|null $uuid
      * @return mixed|null
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function exists(string $email = '', ?string $uuid = '')
     {
@@ -65,7 +68,7 @@ class UserRepository extends AbstractRepository
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return null;
         }
     }
@@ -73,7 +76,7 @@ class UserRepository extends AbstractRepository
     /**
      * @param string $email
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function getUserByEmail(string $email)
     {
@@ -88,8 +91,6 @@ class UserRepository extends AbstractRepository
     /**
      * @param string $hash
      * @return User|null
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findByResetPasswordHash(string $hash): ?User
     {
@@ -100,7 +101,7 @@ class UserRepository extends AbstractRepository
                 ->andWhere('resetPasswords.hash = :hash')->setParameter('hash', $hash);
 
             return $qb->getQuery()->getSingleResult();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return null;
         }
     }

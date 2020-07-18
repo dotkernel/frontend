@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Frontend\User\Doctrine;
+namespace Frontend\App\Common;
 
 use Frontend\User\Entity\User;
 
 /**
  * Class UserAuthentication
- * @package Frontend\User\Doctrine
+ * @package Frontend\App\Middleware
  */
 class UserAuthentication
 {

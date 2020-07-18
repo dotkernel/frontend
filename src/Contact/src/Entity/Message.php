@@ -10,9 +10,8 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Entity;
 
-use Frontend\App\Entity\AbstractEntity;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Laminas\Stdlib\ArraySerializableInterface;
 
 /**
  * Class Message
@@ -23,7 +22,7 @@ use Laminas\Stdlib\ArraySerializableInterface;
  * @ORM\HasLifecycleCallbacks
  * @package Frontend\Contact\Entity
  */
-class Message extends AbstractEntity
+class Message extends EntityRepository
 {
     public const PLATFORM_WEBSITE = 'website';
     public const PLATFORM_ADMIN = 'admin';

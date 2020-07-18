@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\Contact\Controller\ContactController;
 use Frontend\Contact\Form\ContactForm;
-use Frontend\Contact\Controller\ContactHandler;
 use Frontend\Contact\Service\MessageService;
 use Frontend\Contact\Service\MessageServiceInterface;
 use Laminas\Form\ElementFactory;

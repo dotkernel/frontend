@@ -6,8 +6,9 @@ namespace Frontend\User\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Frontend\App\Common\AbstractEntity;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
-use Frontend\App\Entity\AbstractEntity;
+use Exception;
 
 use function array_map;
 use function bin2hex;
@@ -29,8 +30,8 @@ class User extends AbstractEntity implements UserInterface
         self::STATUS_ACTIVE
     ];
 
-    public const IS_DELETED_YES = 'yes';
-    public const IS_DELETED_NO = 'no';
+    public const IS_DELETED_YES = true;
+    public const IS_DELETED_NO = false;
 
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserDetail", cascade={"persist", "remove"}, mappedBy="user")
@@ -63,8 +64,8 @@ class User extends AbstractEntity implements UserInterface
     protected $status = self::STATUS_PENDING;
 
     /**
-     * @ORM\Column(name="isDeleted", type="string")
-     * @var string $isDeleted
+     * @ORM\Column(name="isDeleted", type="boolean")
+     * @var bool $isDeleted
      */
     protected $isDeleted = self::IS_DELETED_NO;
 
@@ -94,7 +95,7 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * User constructor.
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct()
     {
@@ -204,18 +205,18 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function isDeleted(): string
+    public function isDeleted(): bool
     {
         return $this->isDeleted;
     }
 
     /**
-     * @param string $isDeleted
+     * @param bool $isDeleted
      * @return $this
      */
-    public function setIsDeleted(string $isDeleted)
+    public function setIsDeleted(bool $isDeleted)
     {
         $this->isDeleted = $isDeleted;
 
@@ -277,7 +278,7 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * @return $this
-     * @throws \Exception
+     * @throws Exception
      */
     public function renewHash()
     {
@@ -288,13 +289,13 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function generateHash(): string
     {
         try {
             $bytes = random_bytes(32);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $bytes = UuidOrderedTimeGenerator::generateUuid()->getBytes();
         }
 
@@ -337,6 +338,7 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * @return $this
+     * @throws Exception
      */
     public function resetRoles()
     {
@@ -350,7 +352,7 @@ class User extends AbstractEntity implements UserInterface
 
     /**
      * @return $this
-     * @throws \Exception
+     * @throws Exception
      */
     public function createResetPassword()
     {

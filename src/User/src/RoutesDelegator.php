@@ -3,15 +3,7 @@
 namespace Frontend\User;
 
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\User\Controller\ActivateHandler;
-use Frontend\User\Controller\LoginHandler;
-use Frontend\User\Controller\LogoutHandler;
 use Frontend\User\Controller\AccountController;
-use Frontend\User\Controller\ProfileHandler;
-use Frontend\User\Controller\RegisterHandler;
-use Frontend\User\Controller\RequestResetPasswordHandler;
-use Frontend\User\Controller\ResetPasswordHandler;
-use Frontend\User\Controller\UnregisterHandler;
 use Frontend\User\Controller\UserController;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
