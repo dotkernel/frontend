@@ -6,20 +6,10 @@ namespace Frontend\User;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
-use Frontend\User\Doctrine\EntityListenerResolver;
-use Frontend\User\Doctrine\EntityListenerResolverFactory;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Frontend\User\Form\LoginForm;
-use Frontend\User\Controller\ActivateHandler;
-use Frontend\User\Controller\LoginHandler;
-use Frontend\User\Controller\LogoutHandler;
 use Frontend\User\Controller\AccountController;
-use Frontend\User\Controller\ProfileHandler;
-use Frontend\User\Controller\RegisterHandler;
-use Frontend\User\Controller\RequestResetPasswordHandler;
-use Frontend\User\Controller\ResetPasswordHandler;
-use Frontend\User\Controller\UnregisterHandler;
 use Frontend\User\Controller\UserController;
 use Frontend\User\Service\UserRoleService;
 use Frontend\User\Service\UserRoleServiceInterface;
@@ -55,7 +45,6 @@ class ConfigProvider
             'factories'  => [
                 UserController::class => AnnotatedServiceFactory::class,
                 AccountController::class => AnnotatedServiceFactory::class,
-                EntityListenerResolver::class => EntityListenerResolverFactory::class,
                 UserService::class => AnnotatedServiceFactory::class,
                 UserRoleService::class => AnnotatedServiceFactory::class,
             ],
@@ -98,11 +87,6 @@ class ConfigProvider
     public function getDoctrineConfig()
     {
         return [
-            'configuration' => [
-                'orm_default' => [
-                    'entity_listener_resolver' => EntityListenerResolver::class,
-                ]
-            ],
             'driver' => [
                 'orm_default' => [
                     'drivers' => [

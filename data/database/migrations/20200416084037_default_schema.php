@@ -39,16 +39,16 @@ class DefaultSchema extends AbstractMigration
             ->addColumn('uuid', 'binary', ['null' => false, 'limit' => 16])
             ->addColumn('identity', 'string', ['null' => false, 'limit' => 100])
             ->addColumn('password', 'string', ['null' => false, 'limit' => 100])
-            ->addColumn('status', 'enum',
-                [
+            ->addColumn('status', 'enum', [
                     'default' => User::STATUS_PENDING,
                     'values' => User::STATUSES
-                ]
-            )
-            ->addColumn('isDeleted', 'enum',
+                ])
+            ->addColumn(
+                'isDeleted',
+                'boolean',
                 [
                     'default' => User::IS_DELETED_NO,
-                    'values' => [User::IS_DELETED_YES, User::IS_DELETED_NO]
+                    'null' => false
                 ]
             )
             ->addColumn('hash', 'string', ['null' => false, 'limit' => 100])
@@ -88,13 +88,21 @@ class DefaultSchema extends AbstractMigration
             ->addForeignKey('roleUuid', 'user_role', 'uuid', $this->fkCascade)
             ->create();
 
-        $this->table('user_reset_password', ['id' => false, 'primary_key' => 'uuid', 'collation' => 'utf8mb4_general_ci'])
+        $this->table(
+            'user_reset_password',
+            [
+                'id' => false,
+                'primary_key' => 'uuid',
+                'collation' => 'utf8mb4_general_ci'
+            ]
+        )
             ->addColumn('uuid', 'binary', ['null' => false, 'limit' => 16])
             ->addColumn('userUuid', 'binary', ['null' => true, 'limit' => 16])
             ->addColumn('hash', 'string', ['null' => false, 'limit' => 100])
             ->addColumn(
                 'status',
-                'enum', [
+                'enum',
+                [
                     'null' => false,
                     'default' => UserResetPassword::STATUS_REQUESTED,
                     'values' => UserResetPassword::STATUSES

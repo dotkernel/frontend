@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Frontend\App\Common;
 
 use DateTime;
+use Exception;
+use Ramsey\Uuid\UuidInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class AbstractEntity
- * @package Frontend\App\Common
+ * @package Core\Common
  */
 abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInterface
 {
@@ -23,6 +26,39 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
         $this->uuid = UuidOrderedTimeGenerator::generateUuid();
         $this->created = new DateTime('now');
         $this->updated = new DateTime('now');
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime
+    {
+        return $this->created;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdated(): ?DateTime
+    {
+        return $this->updated;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateTimestamps()
+    {
+        $this->touch();
     }
 
     /**
@@ -49,6 +85,22 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
                 }
                 $this->$method($values);
             }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function touch(): void
+    {
+        try {
+            if (!($this->created instanceof DateTime)) {
+                $this->created = new DateTime('now');
+            }
+
+            $this->updated = new DateTime('now');
+        } catch (Exception $exception) {
+            #TODO save the error message
         }
     }
 }

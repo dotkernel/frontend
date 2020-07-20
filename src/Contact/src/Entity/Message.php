@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Entity;
 
-use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Common\AbstractEntity;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Laminas\Stdlib\ArraySerializableInterface;
 
 /**
  * Class Message

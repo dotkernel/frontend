@@ -96,9 +96,9 @@ interface UserInterface
     public function getCreated(): DateTime;
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getUpdated(): DateTime;
+    public function getUpdated(): ?DateTime;
 
     /**
      * @ORM\PrePersist()

@@ -44,7 +44,19 @@ Example:
 
 ## Installing DotKernel `frontend`
 
-After choosing the path for DotKernel (`dk` will be used for the remainder of this example) it must be installed. There are two installation methods. 
+After choosing the path for DotKernel (`dk` will be used for the remainder of this example) it must be installed. There are two installation methods.
+
+#### Note
+The installation uses the PHP extension `ext-intl` that may not be enabled by default in your web server. If the installation returns a similar error to the below, check the `extension=intl` extension in your `php.ini`.
+
+```bash
+Your requirements could not be resolved to an installable set of packages.
+
+Problem 1
+ - laminas/laminas-i18n 2.10.3 requires ext-intl * -> the requested PHP extension intl is missing from your system.
+```
+
+To enable an extension, remove the semicolon (;) in front of it.
 
 #### I. Installing DotKernel `frontend` using composer 
 
