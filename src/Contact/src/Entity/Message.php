@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Entity;
 
+use Frontend\App\Common\AbstractEntity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  * @package Frontend\Contact\Entity
  */
-class Message extends EntityRepository
+class Message extends AbstractEntity
 {
     public const PLATFORM_WEBSITE = 'website';
     public const PLATFORM_ADMIN = 'admin';
