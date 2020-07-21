@@ -10,7 +10,13 @@ return [
                 'identity_class' => User::class,
                 'identity_property' => 'identity',
                 'credential_property' => 'password',
-                'credential_callable' => 'Frontend\App\Common\UserAuthentication::verifyCredential',
+                'messages' => [
+                    'success' => 'Authenticated successfully.',
+                    'failure_not_found' => 'Identity not found.',
+                    'failure_invalid_credential' => 'Invalid credentials.',
+                    'failure_deleted' => 'User is deleted.',
+                    'failure_deactivated' => 'User is not activated.'
+                ]
             ],
         ],
     ],

@@ -11,7 +11,6 @@ use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\NoResultException;
 use Exception;
 
 /**
@@ -21,20 +20,20 @@ use Exception;
 class UserRepository extends EntityRepository
 {
     /**
+     * @param string $key
      * @param string $identity
      * @return UserInterface|null
      * @throws NonUniqueResultException
      */
-    public function findByIdentity(string $identity): ?UserInterface
+    public function findByIdentity(string $key, string $identity): ?UserInterface
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-
         $qb
             ->select('user')
             ->from(User::class, 'user')
-            ->andWhere('user.identity = :identity')
-            ->setParameter('identity', $identity);
-
+            ->andWhere("user.$key = :$key")
+            ->setParameter($key, $identity)
+            ->setMaxResults(1);
         return $qb->getQuery()->getOneOrNullResult();
     }
 
@@ -84,7 +83,6 @@ class UserRepository extends EntityRepository
         $qb->select('user')
             ->from(User::class, 'user')
             ->where('user.identity = :identity')->setParameter('identity', $email);
-
         return $qb->getQuery()->getOneOrNullResult();
     }
 

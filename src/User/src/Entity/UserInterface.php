@@ -107,6 +107,11 @@ interface UserInterface
     public function updateTimestamps();
 
     /**
+     * @return bool
+     */
+    public function isDeleted(): bool;
+
+    /**
      * @return void
      */
     public function touch(): void;

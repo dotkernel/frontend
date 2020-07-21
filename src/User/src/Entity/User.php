@@ -232,10 +232,10 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string $hash
+     * @param string|null $hash
      * @return $this
      */
-    public function setHash(string $hash)
+    public function setHash(string $hash = null)
     {
         $this->hash = $hash;
 
