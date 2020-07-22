@@ -71,7 +71,7 @@ interface UserInterface
     /**
      * @return mixed
      */
-    public function getRoles(): array;
+    public function getRoles();
 
     /**
      * @param UserRole $role
@@ -109,7 +109,7 @@ interface UserInterface
     /**
      * @return bool
      */
-    public function isDeleted(): bool;
+    public function getIsDeleted(): bool;
 
     /**
      * @return void
@@ -119,7 +119,7 @@ interface UserInterface
     /**
      * @return array
      */
-    public function toArray(): array;
+    public function getArrayCopy(): array;
 
     /**
      * @return UserInterface

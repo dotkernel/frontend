@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Factory;
 
+use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
 use Psr\Container\ContainerInterface;
 use Mezzio\Authentication\UserInterface;
@@ -20,8 +21,13 @@ class UserIdentityFactory
      */
     public function __invoke(ContainerInterface $container): callable
     {
-        return function (string $identity, array $roles = [], array $details = []): UserInterface {
-            return new UserIdentity($identity, $roles, $details);
+        return function (
+            string $uniqueIdentifier,
+            string $identity,
+            array $roles = [],
+            array $details = []
+        ): UserInterface {
+            return new UserIdentity($uniqueIdentifier, $identity, $roles, $details);
         };
     }
 }

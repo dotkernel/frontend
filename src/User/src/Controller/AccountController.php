@@ -10,6 +10,7 @@ use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Common\Message;
 use Frontend\Plugin\FormsPlugin;
 use Frontend\User\Entity\User;
+use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserResetPassword;
 use Frontend\User\Form\ProfileDeleteForm;
@@ -272,7 +273,11 @@ class AccountController extends AbstractActionController
      */
     public function avatarAction(): ResponseInterface
     {
-        $user = $this->authenticationService->getIdentity();
+        /** @var UserIdentity $identity */
+        $identity = $this->authenticationService->getIdentity();
+
+        /** @var User $user */
+        $user = $this->userService->findByUuid($identity->getUuid());
         $form = new UploadAvatarForm();
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $file = $this->request->getUploadedFiles()['avatar']['image'] ?? '';
@@ -317,12 +322,11 @@ class AccountController extends AbstractActionController
      */
     public function detailsAction(): ResponseInterface
     {
-        $userDetails = [];
-        $user = $this->authenticationService->getIdentity();
-        if (!empty($user)) {
-            $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
-            $userDetails['detail']['lastName'] = $user->getDetail()->getLastName();
-        }
+        /** @var UserIdentity $identity */
+        $identity = $this->authenticationService->getIdentity();
+
+        /** @var User $user */
+        $user = $this->userService->findByUuid($identity->getUuid());
         $form = new ProfileDetailsForm();
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
@@ -357,6 +361,8 @@ class AccountController extends AbstractActionController
                 return new RedirectResponse($this->request->getUri(), 303);
             }
         } else {
+            $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
+            $userDetails['detail']['lastName'] = $user->getDetail()->getLastName();
             $form->setData($userDetails);
         }
 
@@ -375,7 +381,11 @@ class AccountController extends AbstractActionController
      */
     public function changePasswordAction(): ResponseInterface
     {
-        $user = $this->authenticationService->getIdentity();
+        /** @var UserIdentity $identity */
+        $identity = $this->authenticationService->getIdentity();
+
+        /** @var User $user */
+        $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfilePasswordForm();
 
@@ -427,7 +437,11 @@ class AccountController extends AbstractActionController
      */
     public function deleteAccountAction(): ResponseInterface
     {
-        $user = $this->authenticationService->getIdentity();
+        /** @var UserIdentity $identity */
+        $identity = $this->authenticationService->getIdentity();
+
+        /** @var User $user */
+        $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfileDeleteForm();
 

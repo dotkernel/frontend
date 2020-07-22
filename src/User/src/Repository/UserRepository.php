@@ -19,20 +19,37 @@ use Exception;
  */
 class UserRepository extends EntityRepository
 {
+
     /**
-     * @param string $key
-     * @param string $identity
-     * @return UserInterface|null
+     * @param string $uuid
+     * @return User|null
      * @throws NonUniqueResultException
      */
-    public function findByIdentity(string $key, string $identity): ?UserInterface
+    public function findByUuid(string $uuid): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb
             ->select('user')
             ->from(User::class, 'user')
-            ->andWhere("user.$key = :$key")
-            ->setParameter($key, $identity)
+            ->where("user.uuid = :uuid")
+            ->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME)
+            ->setMaxResults(1);
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @param string $identity
+     * @return UserInterface
+     * @throws NonUniqueResultException
+     */
+    public function findByIdentity(string $identity): UserInterface
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb
+            ->select('user')
+            ->from(User::class, 'user')
+            ->andWhere("user.identity = :identity")
+            ->setParameter('identity', $identity)
             ->setMaxResults(1);
         return $qb->getQuery()->getOneOrNullResult();
     }

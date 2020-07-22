@@ -48,4 +48,10 @@ interface UserServiceInterface
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getRoleNamesByEmail(string $email);
+
+    /**
+     * @param string $uuid
+     * @return User|null
+     */
+    public function findByUuid(string $uuid);
 }

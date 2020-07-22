@@ -12,11 +12,19 @@ return [
                 'credential_property' => 'password',
                 'messages' => [
                     'success' => 'Authenticated successfully.',
-                    'failure_not_found' => 'Identity not found.',
-                    'failure_invalid_credential' => 'Invalid credentials.',
-                    'failure_deleted' => 'User is deleted.',
-                    'failure_deactivated' => 'User is not activated.'
-                ]
+                    'not_found' => 'Identity not found.',
+                    'invalid_credential' => 'Invalid credentials.',
+                 ],
+                'options' => [
+                    'status' => [
+                        'value' => User::STATUS_ACTIVE,
+                        'message' => 'User not activated.'
+                    ],
+                    'isDeleted' => [
+                        'value' => false,
+                        'message' => 'User is deleted.'
+                    ]
+                ],
             ],
         ],
     ],

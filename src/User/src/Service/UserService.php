@@ -60,7 +60,7 @@ class UserService implements UserServiceInterface
     /**
      * UserService constructor.
      * @param EntityManager $em
-     * @param @param UserRoleServiceInterface $userRoleService
+     * @param UserRoleServiceInterface $userRoleService
      * @param MailService $mailService
      * @param TemplateRendererInterface $templateRenderer
      * @param array $config
@@ -82,6 +82,26 @@ class UserService implements UserServiceInterface
         $this->mailService = $mailService;
         $this->templateRenderer = $templateRenderer;
         $this->config = $config;
+    }
+
+    /**
+     * @param string $uuid
+     * @return User|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByUuid(string $uuid)
+    {
+        return $this->userRepository->findByUuid($uuid);
+    }
+
+    /**
+     * @param string $identity
+     * @return UserInterface
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByIdentity(string $identity): UserInterface
+    {
+        return $this->userRepository->findByIdentity($identity);
     }
 
     /**
