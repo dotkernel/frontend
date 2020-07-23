@@ -92,14 +92,11 @@ class UserController extends AbstractActionController
             if ($form->isValid()) {
                 $adapter = $this->authenticationService->getAdapter();
                 $data = $form->getData();
-                $adapter->setIdentity($data['identity']);
-                $adapter->setCredential($data['password']);
+                $adapter->setIdentity($data['identity'])->setCredential($data['password']);
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
                     $identity = $authResult->getIdentity();
-                    $identity->setPassword(null);
                     $this->authenticationService->getStorage()->write($identity);
-
                     return new RedirectResponse($this->router->generateUri("page"));
                 } else {
                     $this->messenger->addData('shouldRebind', true);

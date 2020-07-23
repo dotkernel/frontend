@@ -71,7 +71,7 @@ interface UserInterface
     /**
      * @return mixed
      */
-    public function getRoles(): array;
+    public function getRoles();
 
     /**
      * @param UserRole $role
@@ -107,6 +107,11 @@ interface UserInterface
     public function updateTimestamps();
 
     /**
+     * @return bool
+     */
+    public function getIsDeleted(): bool;
+
+    /**
      * @return void
      */
     public function touch(): void;
@@ -114,7 +119,7 @@ interface UserInterface
     /**
      * @return array
      */
-    public function toArray(): array;
+    public function getArrayCopy(): array;
 
     /**
      * @return UserInterface

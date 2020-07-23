@@ -100,10 +100,8 @@ class User extends AbstractEntity implements UserInterface
     public function __construct()
     {
         parent::__construct();
-
         $this->roles = new ArrayCollection();
         $this->resetPasswords = new ArrayCollection();
-
         $this->renewHash();
     }
 
@@ -207,7 +205,7 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return bool
      */
-    public function isDeleted(): bool
+    public function getIsDeleted(): bool
     {
         return $this->isDeleted;
     }
@@ -232,10 +230,10 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @param string $hash
+     * @param string|null $hash
      * @return $this
      */
-    public function setHash(string $hash)
+    public function setHash(string $hash = null)
     {
         $this->hash = $hash;
 
@@ -245,9 +243,9 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return mixed
      */
-    public function getRoles(): array
+    public function getRoles()
     {
-        return $this->roles->toArray();
+        return $this->roles;
     }
 
     /**
@@ -417,17 +415,17 @@ class User extends AbstractEntity implements UserInterface
     /**
      * @return array
      */
-    public function toArray(): array
+    public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'detail' => $this->getDetail() instanceof UserDetail ? $this->getDetail()->toArray() : null,
-            'avatar' => $this->getAvatar() instanceof UserAvatar ? $this->getAvatar()->toArray() : null,
+            'detail' => ($this->getDetail() instanceof UserDetail) ? $this->getDetail()->getArrayCopy() : null,
+            'avatar' => ($this->getAvatar() instanceof UserAvatar) ? $this->getAvatar()->getArrayCopy() : null,
             'identity' => $this->getIdentity(),
             'status' => $this->getStatus(),
-            'roles' => array_map(function (UserRole $role) {
-                return $role->toArray();
-            }, $this->getRoles()),
+            'roles' => $this->getRoles()->map(function (UserRole $userRole) {
+                return $userRole->getArrayCopy();
+            })->toArray(),
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

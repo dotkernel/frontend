@@ -100,7 +100,7 @@ class UserAvatar extends AbstractEntity
     /**
      * @return array
      */
-    public function toArray(): array
+    public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),

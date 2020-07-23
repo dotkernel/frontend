@@ -46,7 +46,7 @@ class UserDetail extends AbstractEntity
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
@@ -103,7 +103,7 @@ class UserDetail extends AbstractEntity
     /**
      * @return array
      */
-    public function toArray(): array
+    public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),

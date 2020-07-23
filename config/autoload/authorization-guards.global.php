@@ -37,7 +37,7 @@ return [
                                     'actions' => [
                                         'premium-content'
                                     ],
-                                     'permissions' => ['premium']
+                                    'permissions' => ['premium']
                                 ]
                             ],
                         ]

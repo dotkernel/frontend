@@ -21,14 +21,24 @@ class UserIdentity implements UserInterface
     /** @var array $details */
     protected $details;
 
+    /** @var string $uuid */
+    protected $uuid;
+
+
     /**
      * UserIdentity constructor.
+     * @param string $uuid
      * @param string $identity
      * @param array $roles
      * @param array $details
      */
-    public function __construct(string $identity, array $roles = [], array $details = [])
-    {
+    public function __construct(
+        string $uuid,
+        string $identity,
+        array $roles = [],
+        array $details = []
+    ) {
+        $this->uuid = $uuid;
         $this->identity = $identity;
         $this->roles = $roles;
         $this->details = $details;
@@ -69,10 +79,10 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @param array $roles
+     * @return User
      */
-    public function setRoles(array $roles = [])
+    public function getUuid(): string
     {
-        $this->roles = $roles;
+        return $this->uuid;
     }
 }
