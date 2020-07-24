@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Frontend\User\Entity\User;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
@@ -48,8 +49,8 @@ class ProfileDeleteForm extends Form
             'options' => [
                 'label' => 'I want to delete account',
                 'use_hidden_element' => true,
-                'checked_value' => 'yes',
-                'unchecked_value' => 'no',
+                'checked_value' => User::IS_DELETED_YES,
+                'unchecked_value' => User::IS_DELETED_NO,
             ]
         ]);
 
