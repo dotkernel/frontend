@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Frontend\User\InputFilter;
 
+use Frontend\App\Common\Message;
+use Frontend\User\Entity\User;
 use Laminas\InputFilter\InputFilter;
 
 /**
@@ -29,12 +31,17 @@ class ProfileDeleteInputFilter extends InputFilter
                 [
                     'name' => 'InArray',
                     'options' => [
-                        'haystack' => [
-                            'yes',
-                        ],
-                        'message' => 'You must check delete option.',
+                        'haystack' => User::IS_DELETED,
+                        'message' => Message::DELETE_ACCOUNT,
                     ],
-                ]
+                ],
+                [
+                    'name' => 'NotEmpty',
+                    'break_chain_on_failure' => true,
+                    'options' => [
+                        'message' => Message::DELETE_ACCOUNT
+                    ]
+                ],
             ]
         ]);
     }

@@ -34,4 +34,6 @@ class Message
     public const USER_NOT_FOUND_BY_EMAIL = 'Could not find account identified by email \'%s\'';
     public const VALIDATOR_REQUIRED_FIELD = 'This field is required and cannot be empty.';
     public const VALIDATOR_REQUIRED_UPLOAD = 'A file must be uploaded first.';
+    public const DELETE_ACCOUNT = 'You must check delete option.';
+    public const IS_DELETED = 'User is deleted.';
 }

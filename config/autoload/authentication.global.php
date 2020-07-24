@@ -1,6 +1,7 @@
 <?php
 
 use Frontend\User\Entity\User;
+use Frontend\App\Common\Message;
 
 return [
     'doctrine' => [
@@ -18,11 +19,11 @@ return [
                 'options' => [
                     'status' => [
                         'value' => User::STATUS_ACTIVE,
-                        'message' => 'User not activated.'
+                        'message' => Message::USER_NOT_ACTIVATED
                     ],
                     'isDeleted' => [
                         'value' => false,
-                        'message' => 'User is deleted.'
+                        'message' => Message::IS_DELETED
                     ]
                 ],
             ],

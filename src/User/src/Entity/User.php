@@ -33,6 +33,11 @@ class User extends AbstractEntity implements UserInterface
     public const IS_DELETED_YES = true;
     public const IS_DELETED_NO = false;
 
+    public const IS_DELETED = [
+        self::IS_DELETED_YES,
+        self::IS_DELETED_NO
+    ];
+
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserDetail", cascade={"persist", "remove"}, mappedBy="user")
      * @var UserDetail $detail

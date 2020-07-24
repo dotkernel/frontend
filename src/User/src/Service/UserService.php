@@ -183,7 +183,7 @@ class UserService implements UserServiceInterface
         }
 
         if (isset($data['isDeleted']) && !is_null($data['isDeleted'])) {
-            $user->setIsDeleted($data['isDeleted']);
+            $user->setIsDeleted((bool)$data['isDeleted']);
 
             // make user anonymous
             $user->setIdentity('anonymous' . date('dmYHis') . '@dotkernel.com');
