@@ -34,7 +34,7 @@ class UserRepository extends EntityRepository
             ->where("user.uuid = :uuid")
             ->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME)
             ->setMaxResults(1);
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
     /**
@@ -51,7 +51,7 @@ class UserRepository extends EntityRepository
             ->andWhere("user.identity = :identity")
             ->setParameter('identity', $identity)
             ->setMaxResults(1);
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
     /**
@@ -100,7 +100,7 @@ class UserRepository extends EntityRepository
         $qb->select('user')
             ->from(User::class, 'user')
             ->where('user.identity = :identity')->setParameter('identity', $email);
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
     /**
@@ -115,7 +115,7 @@ class UserRepository extends EntityRepository
                 ->leftJoin('user.resetPasswords', 'resetPasswords')
                 ->andWhere('resetPasswords.hash = :hash')->setParameter('hash', $hash);
 
-            return $qb->getQuery()->getSingleResult();
+            return $qb->getQuery()->useQueryCache(true)->getSingleResult();
         } catch (Exception $exception) {
             return null;
         }
