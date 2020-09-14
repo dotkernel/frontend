@@ -25,6 +25,9 @@ return [
         'configuration' => [
             'orm_default' => [
                 'entity_listener_resolver' => EntityListenerResolver::class,
+                'query_cache' => \Doctrine\Common\Cache\PhpFileCache::class,
+                'metadata_cache' => \Doctrine\Common\Cache\PhpFileCache::class,
+                'result_cache' => \Doctrine\Common\Cache\PhpFileCache::class
             ]
         ],
         'connection' => [
@@ -48,5 +51,12 @@ return [
             UuidBinaryType::NAME => UuidBinaryType::class,
             UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
         ],
+        'cache' => [
+            \Doctrine\Common\Cache\PhpFileCache::class => [
+                'class' => \Doctrine\Common\Cache\PhpFileCache::class,
+                'directory' => getcwd() . '/data/cache/doctrine'
+            ]
+        ]
     ],
+    'resultCacheLifetime' => 600
 ];
