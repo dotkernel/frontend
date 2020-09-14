@@ -58,5 +58,5 @@ return [
             ]
         ]
     ],
-    'cacheLifetime' => 3600
+    'resultCacheLifetime' => 600
 ];
