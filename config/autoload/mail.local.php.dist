@@ -3,7 +3,7 @@
 return [
 
     /**
-     * Dk mail module configuration
+     * Dotkernel mail module configuration
      * Note that many of these options can be set programmaticaly too, when sending mail messages
      * actually that is what you'll usually do, these config provide just default and options that remain the same for all mails
      */
