@@ -38,7 +38,7 @@
         "dotkernel/dot-annotated-services": "^3.1",
         "dotkernel/dot-authorization": "^3.1",
         "dotkernel/dot-controller": "^3.1",
-        "dotkernel/dot-errorhandler": "^3.0",
+        "dotkernel/dot-errorhandler": "^3.1",
         "dotkernel/dot-event": "^3.1",
         "dotkernel/dot-flashmessenger": "^3.1.1",
         "dotkernel/dot-form": "^3.2",
