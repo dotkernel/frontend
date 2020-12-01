@@ -2,6 +2,10 @@
 
 Dotkernel web starter package suitable for frontend applications.
 
+
+![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/frontend)
+
+
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/frontend)](https://github.com/dotkernel/frontend/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/frontend)](https://github.com/dotkernel/frontend/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotkernel/frontend)](https://github.com/dotkernel/frontend/stargazers)
