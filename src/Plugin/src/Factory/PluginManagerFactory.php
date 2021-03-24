@@ -13,6 +13,7 @@ namespace Frontend\Plugin\Factory;
 use Frontend\Plugin\PluginManager;
 use Frontend\Plugin\TemplatePlugin;
 use Frontend\Plugin\UrlHelperPlugin;
+use Frontend\Slug\SlugInterface;
 use Psr\Container\ContainerInterface;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Template\TemplateRendererInterface;
@@ -32,9 +33,12 @@ class PluginManagerFactory
         $pluginManager = new PluginManager($container, $container->get('config')['dot_controller']['plugin_manager']);
 
         //register the built in plugins, if the required component is present
-        if ($container->has(UrlHelper::class)) {
+        if ($container->has(UrlHelper::class) && $container->has(SlugInterface::class)) {
             $pluginManager->setFactory('url', function (ContainerInterface $container) {
-                return new UrlHelperPlugin($container->get(UrlHelper::class));
+                return new UrlHelperPlugin(
+                    $container->get(UrlHelper::class),
+                    $container->get(SlugInterface::class)
+                );
             });
         }
 

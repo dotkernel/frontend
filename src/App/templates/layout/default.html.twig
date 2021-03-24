@@ -62,7 +62,7 @@
                             <ul class="navbar-nav ml-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('account', {'action': 'details'}) }}">{% trans 'Profile' %}</a>
+                                        <a class="nav-link" href="{{ url('account', {'action': 'details', 'hash': getIdentity().getUuid()}) }}">{% trans 'Profile' %}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('user', {'action': 'logout'}) }}">{% trans 'Log out' %}</a>

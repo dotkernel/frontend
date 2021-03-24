@@ -20,6 +20,7 @@ use Frontend\App\Middleware\TranslatorMiddleware;
 use Dot\Rbac\Guard\Middleware\ForbiddenHandler;
 use Dot\Rbac\Guard\Middleware\RbacGuardMiddleware;
 use Frontend\App\Middleware\AuthMiddleware;
+use Frontend\Slug\Middleware\SlugMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -48,6 +49,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/api', $apiMiddleware);
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
+
+    // Slug Middleware must be triggered before RouteMiddleware!
+    $app->pipe(SlugMiddleware::class);
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Mezzio\Router\RouteResult request attribute.
