@@ -83,7 +83,7 @@ class SlugService implements SlugServiceInterface
     /**
      * @param array $param
      * @param array $exchange
-     * @return bool
+     * @return bool|string
      * @throws \Doctrine\DBAL\Driver\Exception
      */
     protected function generateSlug(array $param, array $exchange)
@@ -91,6 +91,7 @@ class SlugService implements SlugServiceInterface
         $exchangeValue = $param[$exchange['exchangeColumn']];
         $exchangeValue = strtolower($exchangeValue);
         $exchangeValue = preg_replace('/\s+/', '-', $exchangeValue);
+        $exchangeValue = str_replace('.com', '', $exchangeValue);
 
         $response = $this->checkDuplicateSlug($exchangeValue, $exchange);
 
@@ -115,10 +116,10 @@ class SlugService implements SlugServiceInterface
     /**
      * @param string $slug
      * @param array $exchange
-     * @return int
+     * @return bool|array
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    protected function checkDuplicateSlug(string $slug, array $exchange): ?int
+    protected function checkDuplicateSlug(string $slug, array $exchange)
     {
         try {
             $stmt = $this->em->getConnection()->prepare(
@@ -138,10 +139,10 @@ class SlugService implements SlugServiceInterface
      * @param string $param
      * @param array $db
      * @param Slug $slug
-     * @return array|null
+     * @return array|bool
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    protected function proceedSlug(Slug $slug, string $param, array $db): ?array
+    protected function proceedSlug(Slug $slug, string $param, array $db)
     {
         $searchParam = $db['identifier'];
         if ($slug->getType() === Slug::REQUEST_TYPE) {

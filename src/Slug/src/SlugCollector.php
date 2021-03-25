@@ -311,7 +311,9 @@ class SlugCollector implements SlugInterface
                 } else {
                     if (is_string($part)) {
                         // Append the string
-                        $path .= $part;
+                        if ($part !== '/') {
+                            $path .= $part;
+                        }
                         continue;
                     }
 
@@ -334,9 +336,13 @@ class SlugCollector implements SlugInterface
                                 $attribute
                             );
                         }
+                        if ($attribute) {
+                            $path .= '/' . (string)$attribute;
+                        }
+                    } else {
+                        $path .= $attribute;
                     }
-                    // Append the substituted value
-                    $path .= $attribute;
+
                 }
             }
             // Return generated path
