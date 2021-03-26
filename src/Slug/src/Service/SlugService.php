@@ -123,7 +123,7 @@ class SlugService implements SlugServiceInterface
     {
         try {
             $stmt = $this->em->getConnection()->prepare(
-                'SELECT * FROM `' . $exchange['table'] . '` WHERE `' .
+                'SELECT ' . $exchange['slugColumn'] . ' FROM `' . $exchange['table'] . '` WHERE `' .
                 $exchange['slugColumn'] . '` = :slug'
             );
             $stmt->bindValue('slug', $slug);
@@ -150,8 +150,12 @@ class SlugService implements SlugServiceInterface
         }
         try {
             $table = $db['table'];
+            unset($db['table']);
+            $collum = array_values($db);
+            $collum = implode(',', $collum);
+
             $stmt = $this->em->getConnection()->prepare(
-                'SELECT * FROM `' . $table . '` WHERE `' . $searchParam . '` = :searchParam'
+                'SELECT ' . $collum . ' FROM `' . $table . '` WHERE `' . $searchParam . '` = :searchParam'
             );
             if ($slug->getType() === Slug::REQUEST_TYPE) {
                 $stmt->bindValue('searchParam', $this->escapeCharacter($param));
