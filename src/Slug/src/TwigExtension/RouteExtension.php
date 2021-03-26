@@ -19,7 +19,7 @@ class RouteExtension extends AbstractExtension
     /** @var UrlHelper $urlHelper */
     private UrlHelper $urlHelper;
 
-    /** @var SlugInterface */
+    /** @var SlugInterface $slugAdapter */
     private SlugInterface $slugAdapter;
 
     /** @var ServerUrlHelper $serverUrlHelper*/

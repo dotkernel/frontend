@@ -24,7 +24,7 @@ class SlugCollectorFactory
      */
     public function __invoke(ContainerInterface $container, $requestedName): SlugCollector
     {
-        $config             = $container->get('config')['slug_configuration'];
+        $config             = $container->get('config')['slug_configuration'] ?? [];
         $router             = $container->get(RouterInterface::class);
         $url                = $container->get(UrlHelper::class);
         $slugService        = $container->get(SlugServiceInterface::class);

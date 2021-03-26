@@ -319,13 +319,10 @@ class AccountController extends AbstractActionController
 
     /**
      * @return ResponseInterface
+     * @throws NonUniqueResultException
      */
     public function detailsAction(): ResponseInterface
     {
-        $uuid = $this->request->getAttribute('hash',null);
-
-//        var_dump($uuid);exit();
-
         /** @var UserIdentity $identity */
         $identity = $this->authenticationService->getIdentity();
 

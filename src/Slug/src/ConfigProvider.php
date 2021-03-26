@@ -6,10 +6,8 @@ namespace Frontend\Slug;
 
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\Slug\Factory\RouteExtensionFactory;
-use Frontend\Slug\Factory\UrlPluginFactory;
 use Frontend\Slug\Middleware\SlugMiddleware;
 use Frontend\Slug\Factory\SlugCollectorFactory;
-use Frontend\Slug\Plugin\UrlPlugin;
 use Frontend\Slug\Service\SlugService;
 use Frontend\Slug\Service\SlugServiceInterface;
 use Frontend\Slug\TwigExtension\RouteExtension;

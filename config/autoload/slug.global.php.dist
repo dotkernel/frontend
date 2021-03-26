@@ -1,0 +1,34 @@
+<?php
+
+return [
+
+    /**
+     * Dotkernel slug module configuration.
+     *
+     * How to set a slug for registered routes:
+     *
+     *  'slug_route' => [
+     *     [
+     *       'route' => 'contact',     <- route name
+     *       'action' => 'form',       <- route action
+     *       'alias' => '/contact',    <- route alias, this will replace /routePath/action
+     *       'exchange' => [           <- if you want to exchange your route attribute specify
+     *                                      the exchange configuration or leave it empty
+     *         'hash' => [                          <- attribute name
+     *              'table' => 'user',              <- table name
+     *              'identifier' => 'uuid',         <- main attribute identifier ex. id, uuid
+     *              'exchangeColumn' => 'identity', <- exchange value from witch the slug will be generated
+     *              'slugColumn' => 'slug'          <- slug column where the slug will be stored
+     *           ]
+     *        ]
+     *     ],
+     *
+     *  Use UrlHelperPlugin::class to generate url, this class can detect slug.
+     */
+
+    'slug_configuration' => [
+        'detect_duplicates' => true,
+        'slug_route' => [
+        ]
+    ]
+];

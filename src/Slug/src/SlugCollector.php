@@ -41,7 +41,7 @@ class SlugCollector implements SlugInterface
     /** @var RouterInterface $router */
     private RouterInterface $router;
 
-    /** @var null|DuplicateSlugDetector */
+    /** @var null|DuplicateSlugDetector $duplicateSlugDetector */
     private ?DuplicateSlugDetector $duplicateSlugDetector;
 
     /** @var UrlHelper $url */
@@ -53,8 +53,8 @@ class SlugCollector implements SlugInterface
     /** @var bool $detectDuplicates */
     protected bool $detectDuplicates = true;
 
-    /** @var array|mixed $config */
-    private $config;
+    /** @var array $config */
+    private array $config;
 
     /**
      * SlugCollector constructor.
@@ -90,12 +90,12 @@ class SlugCollector implements SlugInterface
     /**
      * Load configuration parameters
      *
-     * @param null|array $config Array of custom configuration options.
+     * @param array $config Array of custom configuration options.
      * @throws DuplicateSlugException
      */
-    public function loadConfig(?array $config)
+    public function loadConfig(array $config)
     {
-        if (null === $config) {
+        if (empty($config)) {
             return;
         }
 
@@ -342,7 +342,6 @@ class SlugCollector implements SlugInterface
                     } else {
                         $path .= $attribute;
                     }
-
                 }
             }
             // Return generated path
