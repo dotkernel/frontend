@@ -104,13 +104,22 @@ class SlugService implements SlugServiceInterface
                 'UPDATE `' . $exchange['table'] . '` SET `' . $exchange['slugColumn'] .
                 '` = :slug WHERE `' . $exchange['identifier'] . '` = :identifier'
             );
-            $stmt->bindValue('slug', $exchangeValue);
+            $stmt->bindValue('slug', $this->clean($exchangeValue));
             $stmt->bindValue('identifier', $param[$exchange['identifier']]);
             $stmt->execute();
             return $exchangeValue;
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         }
+    }
+
+    /**
+     * @param $input
+     * @return string
+     */
+    public function clean($input): string
+    {
+        return preg_replace('/[^A-Za-z0-9. -]/', '', $input);
     }
 
     /**
@@ -126,7 +135,7 @@ class SlugService implements SlugServiceInterface
                 'SELECT ' . $exchange['slugColumn'] . ' FROM `' . $exchange['table'] . '` WHERE `' .
                 $exchange['slugColumn'] . '` = :slug'
             );
-            $stmt->bindValue('slug', $slug);
+            $stmt->bindValue('slug', $this->clean($slug));
             $stmt->execute();
             return $stmt->fetchAssociative();
         } catch (Exception $exception) {

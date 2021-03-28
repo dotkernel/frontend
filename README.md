@@ -205,7 +205,7 @@ The `authorization.global.php` file provides multiple configurations specifying 
 The `authorization-guards.global.php` file provides configuration to restrict access to certain actions based on the permissions defined in `authorization.global.php` so basically we have to add the permissions in the dot-rbac configuration file first to specify the action restriction permissions.
 
 ```php
-//example of configuration example to restrict certain actions of some routes based on the permissions specified in the dot-rbac configuration file
+// configuration example to restrict certain actions of some routes based on the permissions specified in the dot-rbac configuration file
     'rules' => [
                     [
                         'route' => 'account',
@@ -229,6 +229,52 @@ The `authorization-guards.global.php` file provides configuration to restrict ac
                     ]
                 ]
 ```
+
+## Slug 
+
+In terms of business logic, any application launched in production needs to be indexed by search engines as friendly as possible.
+
+Here comes the *Slug module* that works together with the application's routing system, which adds the option to customize each route replacing the old pattern such as the name of the route as well as its action with a chosen alias. On top of that, it allows you to replace the attributes with a more coherent version without losing their main functionality.
+
+The `slug.global.php.dist` is the main configuration for *Slug module* .
+
+```php
+ // How to add a registered route to your slug configuration.
+ 'slug_configuration' => [
+        // Detect a duplicate alias to avoid confusion.
+        // We may have duplicate aliases but it is not recommended
+        // that it requires future development on each project.
+        'detect_duplicates' => true,
+        // Main slug declaration.
+        'slug_route' => [
+            [
+                'route' => '[route name]',      // <- Specify the route name.
+                'action' => '[route action]',   // <- Specify the route action.
+                'alias' => '/[alias]',          // <- Here you must add an alias for the
+                // specific route ex: /list/detail -> /product-detail.
+                'exchange' => [                 // <- If you want to exchange your route
+                // attribute specify the exchange configuration or leave it empty.
+                    '[attribute name]' => [                             // <- Attribute name.
+                          'table' => '[table name]',                    // <- The main table from which the attribute belongs. 
+                          'identifier' => '[table identifier]',         // <- This must be the main attribute afferent column.
+                          'exchangeColumn' => '[exchange column name]', // <- Specify the main column from which the slug will be generated.
+                          'slugColumn' => '[slug column]'               // <- This will be the main storage column for the generated slug.
+                     ],
+                     .
+                     .
+                     // You can add here more attribute.
+                ]
+            ],
+            .
+            .
+            // You can add here more routes.
+        ]
+    ]
+```
+
+*Remember that you can add the slug configuration only to a valid registered route !*
+
+For redirect response you must use `UrlHelperPlugin::class` to generate the url, this class can detect the slug configuration.
 
 ## Languages
 
