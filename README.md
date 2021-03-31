@@ -248,17 +248,17 @@ The `slug.global.php.dist` is the main configuration for *Slug module* .
         // Main slug declaration.
         'slug_route' => [
             [
-                'route' => '[route name]',      // <- Specify the route name.
-                'action' => '[route action]',   // <- Specify the route action.
-                'alias' => '/[alias]',          // <- Here you must add an alias for the
+                'route'     => '[route name]',    // <- Specify the route name.
+                'action'    => '[route action]',  // <- Specify the route action.
+                'alias'     => '/[alias]',        // <- Here you must add an alias for the
                 // specific route ex: /list/detail -> /product-detail.
-                'exchange' => [                 // <- If you want to exchange your route
+                'exchange'  => [                  // <- If you want to exchange your route
                 // attribute specify the exchange configuration or leave it empty.
-                    '[attribute name]' => [                             // <- Attribute name.
-                          'table' => '[table name]',                    // <- The main table from which the attribute belongs. 
-                          'identifier' => '[table identifier]',         // <- This must be the main attribute afferent column.
-                          'exchangeColumn' => '[exchange column name]', // <- Specify the main column from which the slug will be generated.
-                          'slugColumn' => '[slug column]'               // <- This will be the main storage column for the generated slug.
+                    '[attribute name]' => [                              // <- Attribute name.
+                          'table'           => '[table name]',           // <- The main table from which the attribute belongs. 
+                          'identifier'      => '[table identifier]',     // <- This must be the main attribute afferent column.
+                          'exchangeColumn'  => '[exchange column name]', // <- Specify the main column from which the slug will be generated.
+                          'slugColumn'      => '[slug column]'           // <- This will be the main storage column for the generated slug.
                      ],
                      .
                      .
@@ -268,6 +268,46 @@ The `slug.global.php.dist` is the main configuration for *Slug module* .
             .
             .
             // You can add here more routes.
+        ]
+    ]
+```
+The main functionality of the `exchange` key is to replace one or more attributes that play the role of unique identifier later being used in controllers to access certain information, these unique identifiers can have an unfriendly format, irrelevant to the end user.
+
+Therefore, we can replace the attribute with an auto-generated value from the column specified in the `exchangeColumn` key and then saved in the `slugColumn`.
+
+Of course, we will have to make certain changes in the respective table requiring a field in which the generated value will be saved.
+
+```php
+ // Example of slug configuration.
+ 'slug_configuration' => [
+        'detect_duplicates' => true,
+        'slug_route' => [
+            [
+                'route'     => 'page',
+                'action'    => 'home',
+                'alias'     => '/home-page',
+                'exchange'  => []
+            ],
+              // The slug configuration will replace the basic route pattern with a specified alias so
+              // the route path will be changed from `/page/home` to `/home-page`.
+            [
+                'route'     => 'product',
+                'action'    => 'detail',
+                'alias'     => '/product',
+                'exchange'  => [
+                    'uuid' => [
+                          'table'           => 'products',
+                          'identifier'      => 'uuid',
+                          'exchangeColumn'  => 'name',
+                          'slugColumn'      => 'slug'
+                     ],
+                ]
+            ],
+              // The above configuration will replace the `uuid` attribute from 
+              // the route declaration path `/product[/{action}[/{uuid}]]` with a generated value from
+              // `exchangeColumn` and stored in `slugColumn` key without changing his main functionality
+              // Therefore, changing the path with a more friendly format from
+              // `/product/detail/2e4c49d2-8187-11eb-a1c1-0c4de9a75a56` to `/product/product-name`.
         ]
     ]
 ```
