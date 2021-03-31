@@ -136,8 +136,13 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
-        if ($user->isDeleted() === User::IS_DELETED_YES) {
+        if ($user->getIsDeleted() === User::IS_DELETED_YES) {
             $this->messenger->addError(Message::USER_ALREADY_DEACTIVATED, 'user-login');
+            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+        }
+
+        if ($user->getStatus() != User::STATUS_PENDING) {
+            $this->messenger->addError(Message::USER_UNREGISTER_STATUS, 'user-login');
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
