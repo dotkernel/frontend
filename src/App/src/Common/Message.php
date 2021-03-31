@@ -29,6 +29,7 @@ class Message
     public const USER_ALREADY_DEACTIVATED = 'This account is already deactivated.';
     public const USER_ACTIVATED_SUCCESSFULLY = 'Successfully activated.';
     public const USER_DEACTIVATED_SUCCESSFULLY = 'Successfully deactivated.';
+    public const USER_UNREGISTER_STATUS = 'Only pending accounts can be unregistered directly.';
     public const PASSWORD_RESET_SUCCESSFULLY = 'Password Successfully reset.';
     public const USER_NOT_ACTIVATED = 'User account must be activated first.';
     public const USER_NOT_FOUND_BY_EMAIL = 'Could not find account identified by email \'%s\'';

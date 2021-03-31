@@ -24,7 +24,6 @@ return [
                                 [
                                     'route' => 'account',
                                     'actions' => [
-                                        'unregister',
                                         'avatar',
                                         'details',
                                         'changePassword',

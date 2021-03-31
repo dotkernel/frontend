@@ -12,18 +12,21 @@
             <p style="margin: 0; line-height: 24px;">{% trans 'You are one step away from accessing your new account.' %}</p>
             <p style="margin: 0; line-height: 24px;">{% trans 'Click the button or copy the link below in your browser to activate the account.' %}</p>
 
-            <a href="{{ url('user', {'action': 'activate', 'hash': user.hash}) }}" target="_blank"
+            <a href="{{ url('account', {'action': 'activate', 'hash': user.hash}) }}" target="_blank"
                style="display: block; margin: 25px auto 40px auto; background-color: #C60B31; border: none; color: #fff; border-radius: 5px; padding: 10px 20px; font-size: 14px;
 			cursor: pointer; max-width: 140px; text-align: center; text-decoration: none;">
                 {% trans 'Activate my account' %}
             </a>
 
-            <p>{% trans 'Activation link' %}: {{ url('user', {'action': 'activate', 'hash': user.hash}) }}</p>
+            <p>{% trans 'Activation link' %}:</p>
+            <a href="{{ url('account', {'action': 'activate', 'hash': user.hash}) }}" target="_blank">
+                {{ url('account', {'action': 'activate', 'hash': user.hash}) }}
+            </a>
 
             <p style="margin: 0; line-height: 24px;">{% trans 'You will be redirected to the sign-in page upon successful confirmation.' %}</p>
 
             <p style="font-size: 11px; margin: 40px 0 0; line-height: 24px;">{% trans 'If you received this e-mail without you registering, please click the link below, to un-register your e-mail address.' %}</p>
-            <a href="{{ url('user', {'action': 'unregister', 'hash': user.hash}) }}" style="color: #846577; font-size: 11px">{% trans 'Un-register my account' %}</a>
+            <a href="{{ url('account', {'action': 'unregister', 'hash': user.hash}) }}" style="color: #846577; font-size: 11px">{% trans 'Un-register my account' %}</a>
         </td>
     </tr>
 </table>
