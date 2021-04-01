@@ -5,6 +5,7 @@ namespace Frontend\User\Authentication;
 use Doctrine\ORM\EntityManager;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
+use Frontend\User\Entity\UserRole;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Exception;
 use Laminas\Authentication\Result;
@@ -155,7 +156,9 @@ class AuthenticationAdapter implements AdapterInterface
             new UserIdentity(
                 $identityClass->getUuid()->toString(),
                 $identityClass->getIdentity(),
-                $identityClass->getRoles()->toArray(),
+                $identityClass->getRoles()->map(function (UserRole $userRole) {
+                    return $userRole->getArrayCopy();
+                })->toArray(),
                 $identityClass->getDetail()->getArrayCopy(),
             ),
             [$this->config['orm_default']['messages']['success']]

@@ -29,39 +29,6 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
     }
 
     /**
-     * @return UuidInterface
-     */
-    public function getUuid(): UuidInterface
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreated(): DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getUpdated(): ?DateTime
-    {
-        return $this->updated;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function updateTimestamps()
-    {
-        $this->touch();
-    }
-
-    /**
      * Exchange internal values from provided array
      *
      * @param array $data
@@ -85,22 +52,6 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
                 }
                 $this->$method($values);
             }
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function touch(): void
-    {
-        try {
-            if (!($this->created instanceof DateTime)) {
-                $this->created = new DateTime('now');
-            }
-
-            $this->updated = new DateTime('now');
-        } catch (Exception $exception) {
-            #TODO save the error message
         }
     }
 }
