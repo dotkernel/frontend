@@ -324,6 +324,7 @@ class AccountController extends AbstractActionController
 
     /**
      * @return ResponseInterface
+     * @throws NonUniqueResultException
      */
     public function detailsAction(): ResponseInterface
     {

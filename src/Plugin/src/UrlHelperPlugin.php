@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Frontend\Plugin;
 
+use Frontend\Slug\SlugInterface;
 use Mezzio\Helper\UrlHelper;
 
 /**
@@ -18,16 +19,21 @@ use Mezzio\Helper\UrlHelper;
  */
 class UrlHelperPlugin implements PluginInterface
 {
-    /** @var UrlHelper */
-    protected $urlHelper;
+    /** @var UrlHelper $urlHelper */
+    protected UrlHelper $urlHelper;
+
+    /** @var SlugInterface $slugAdapter */
+    private SlugInterface $slugAdapter;
 
     /**
      * UrlHelperPlugin constructor.
      * @param UrlHelper $helper
+     * @param SlugInterface $slugAdapter
      */
-    public function __construct(UrlHelper $helper)
+    public function __construct(UrlHelper $helper, SlugInterface $slugAdapter)
     {
         $this->urlHelper = $helper;
+        $this->slugAdapter = $slugAdapter;
     }
 
     /**
@@ -68,6 +74,13 @@ class UrlHelperPlugin implements PluginInterface
         $fragmentIdentifier = null,
         array $options = []
     ): string {
+
+        $response = $this->slugAdapter->match($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
+
+        if ($response->isSuccess()) {
+            return $response->getUrl();
+        }
+
         return $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
     }
 }
