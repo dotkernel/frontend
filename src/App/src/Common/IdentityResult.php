@@ -6,7 +6,7 @@ namespace Frontend\App\Common;
  * Class Identity
  * @package Frontend\App\Common
  */
-class Identity
+class IdentityResult
 {
     /** @var string $uuid */
     public string $uuid;
@@ -20,6 +20,13 @@ class Identity
     /** @var array $details */
     public array $details;
 
+    /**
+     * IdentityResult constructor.
+     * @param string $uuid
+     * @param string $identity
+     * @param array $roles
+     * @param array $details
+     */
     public function __construct(
         string $uuid,
         string $identity,
@@ -41,27 +48,11 @@ class Identity
     }
 
     /**
-     * @param string $identity
-     */
-    public function setIdentity(string $identity): void
-    {
-        $this->identity = $identity;
-    }
-
-    /**
      * @return array
      */
     public function getRoles(): array
     {
         return $this->roles;
-    }
-
-    /**
-     * @param array $roles
-     */
-    public function setRoles(array $roles): void
-    {
-        $this->roles = $roles;
     }
 
     /**
@@ -73,26 +64,10 @@ class Identity
     }
 
     /**
-     * @param array $details
-     */
-    public function setDetails(array $details): void
-    {
-        $this->details = $details;
-    }
-
-    /**
      * @return string
      */
     public function getUuid(): string
     {
         return $this->uuid;
-    }
-
-    /**
-     * @param string $uuid
-     */
-    public function setUuid(string $uuid): void
-    {
-        $this->uuid = $uuid;
     }
 }

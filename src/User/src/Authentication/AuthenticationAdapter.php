@@ -3,6 +3,7 @@
 namespace Frontend\User\Authentication;
 
 use Doctrine\ORM\EntityManager;
+use Frontend\App\Common\IdentityResult;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Entity\UserRole;
@@ -153,7 +154,7 @@ class AuthenticationAdapter implements AdapterInterface
 
         return new Result(
             Result::SUCCESS,
-            new UserIdentity(
+            new IdentityResult(
                 $identityClass->getUuid()->toString(),
                 $identityClass->getIdentity(),
                 $identityClass->getRoles()->map(function (UserRole $userRole) {
