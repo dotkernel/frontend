@@ -157,7 +157,7 @@ class AuthenticationAdapter implements AdapterInterface
                 $identityClass->getUuid()->toString(),
                 $identityClass->getIdentity(),
                 $identityClass->getRoles()->map(function (UserRole $userRole) {
-                    return $userRole->getArrayCopy();
+                    return $userRole->getName();
                 })->toArray(),
                 $identityClass->getDetail()->getArrayCopy(),
             ),

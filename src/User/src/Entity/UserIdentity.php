@@ -13,16 +13,16 @@ use Mezzio\Authentication\UserInterface;
 class UserIdentity implements UserInterface
 {
     /** @var string $identity */
-    protected $identity;
+    private $identity;
 
     /** @var array $roles */
-    protected $roles;
+    private $roles;
 
     /** @var array $details */
-    protected $details;
+    private $details;
 
     /** @var string $uuid */
-    protected $uuid;
+    private $uuid;
 
 
     /**
