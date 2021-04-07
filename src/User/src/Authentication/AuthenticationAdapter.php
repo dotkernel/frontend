@@ -5,6 +5,7 @@ namespace Frontend\User\Authentication;
 use Doctrine\ORM\EntityManager;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
+use Frontend\User\Entity\UserRole;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Exception;
 use Laminas\Authentication\Result;
@@ -15,16 +16,16 @@ class AuthenticationAdapter implements AdapterInterface
     private const OPTION_VALUE_NOT_PROVIDED = "Option '%s' not provided for '%s' option.";
 
     /** @var string $identity */
-    private $identity;
+    private string $identity;
 
     /** @var string $credential */
-    private $credential;
+    private string $credential;
 
     /** @var EntityManager $entityManager */
-    private $entityManager;
+    private EntityManager $entityManager;
 
     /** @var array $config */
-    private $config;
+    private array $config;
 
     /**
      * AuthenticationAdapter constructor.
@@ -155,7 +156,9 @@ class AuthenticationAdapter implements AdapterInterface
             new UserIdentity(
                 $identityClass->getUuid()->toString(),
                 $identityClass->getIdentity(),
-                $identityClass->getRoles()->toArray(),
+                $identityClass->getRoles()->map(function (UserRole $userRole) {
+                    return $userRole->getName();
+                })->toArray(),
                 $identityClass->getDetail()->getArrayCopy(),
             ),
             [$this->config['orm_default']['messages']['success']]

@@ -24,7 +24,6 @@ class UserIdentity implements UserInterface
     /** @var string $uuid */
     protected $uuid;
 
-
     /**
      * UserIdentity constructor.
      * @param string $uuid
