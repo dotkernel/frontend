@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\App\Common;
 
-use DateTime;
-use Exception;
-use Ramsey\Uuid\UuidInterface;
-use Doctrine\ORM\Mapping as ORM;
+use DateTimeImmutable;
 
 /**
  * Class AbstractEntity
@@ -24,8 +21,8 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
     public function __construct()
     {
         $this->uuid = UuidOrderedTimeGenerator::generateUuid();
-        $this->created = new DateTime('now');
-        $this->updated = new DateTime('now');
+        $this->created = new DateTimeImmutable();
+        $this->updated = new DateTimeImmutable();
     }
 
     /**
