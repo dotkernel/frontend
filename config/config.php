@@ -40,6 +40,7 @@ $aggregator = new ConfigAggregator([
     \Dot\FlashMessenger\ConfigProvider::class,
     \Dot\Rbac\ConfigProvider::class,
     \Dot\Rbac\Guard\ConfigProvider::class,
+    \Dot\ResponseHeader\ConfigProvider::class,
 
     // Default App module config
     \Frontend\App\ConfigProvider::class,
