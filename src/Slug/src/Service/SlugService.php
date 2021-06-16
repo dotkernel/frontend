@@ -15,9 +15,14 @@ use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactory;
 
+
+/**
+ * Class SlugService
+ *
+ * @package Frontend\Slug\Service
+ */
 class SlugService implements SlugServiceInterface
 {
-
     protected const CONFIGURATION = [
         'table',
         'identifier',
@@ -69,12 +74,16 @@ class SlugService implements SlugServiceInterface
                 if ($slug->getType() === Slug::REQUEST_TYPE) {
                     return $this->processUuidToString($result[$exchange['identifier']]);
                 }
-
-                if (isset($result[$exchange['slugColumn']]) && !is_null($result[$exchange['slugColumn']])) {
-                    return $result[$exchange['slugColumn']];
+                if ($result[$exchange['exchangeColumn']]) {
+                    if (isset($result[$exchange['slugColumn']]) && !is_null($result[$exchange['slugColumn']])) {
+                        return $result[$exchange['slugColumn']];
+                    } else {
+                        return $this->generateSlug($result, $exchange);
+                    }
                 } else {
-                    return $this->generateSlug($result, $exchange);
+                    return $value;
                 }
+
             }
         }
         return false;
@@ -82,21 +91,22 @@ class SlugService implements SlugServiceInterface
 
     /**
      * @param array $param
-     * @param array $exchange
-     * @return bool|string
+     * @param array  $exchange
+     * @return string
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    protected function generateSlug(array $param, array $exchange)
+    protected function generateSlug(array $param, array $exchange): string
     {
         $exchangeValue = $param[$exchange['exchangeColumn']];
         $exchangeValue = strtolower($exchangeValue);
-        $exchangeValue = preg_replace('/\s+/', '-', $exchangeValue);
+        $exchangeValue = str_replace(' ', '-', $exchangeValue);
+        $exchangeValue = preg_replace('/[^A-Za-z0-9\-]/', '', $exchangeValue);
         $exchangeValue = str_replace('.com', '', $exchangeValue);
 
         $response = $this->checkDuplicateSlug($exchangeValue, $exchange);
 
         if ($response) {
-            $exchangeValue .= '-' . count($response);
+            $exchangeValue .= '-' . $this->getSlugSuffix($param, $exchange);
         }
 
         try {
@@ -106,9 +116,29 @@ class SlugService implements SlugServiceInterface
             );
             $stmt->bindValue('slug', $this->clean($exchangeValue));
             $stmt->bindValue('identifier', $param[$exchange['identifier']]);
-            $stmt->execute();
+            $stmt->executeStatement();
             return $exchangeValue;
         } catch (Exception $exception) {
+            throw new RuntimeException($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param       $param
+     * @param array $exchange
+     * @return int
+     */
+    protected function getSlugSuffix($param, array $exchange): int
+    {
+        try {
+            $stmt = $this->em->getConnection()->prepare(
+                'SELECT ' . $exchange['exchangeColumn'] . ' FROM `' . $exchange['table'] . '` WHERE `' .
+                $exchange['exchangeColumn'] . '` = :exchangeColumn AND `' .
+                $exchange['slugColumn'] . '` IS NOT NULL'
+            );
+            $stmt->bindValue('exchangeColumn', $param[$exchange['exchangeColumn']]);
+            return $stmt->executeQuery()->rowCount();
+        } catch (Exception | \Doctrine\DBAL\Driver\Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         }
     }
@@ -125,10 +155,10 @@ class SlugService implements SlugServiceInterface
     /**
      * @param string $slug
      * @param array $exchange
-     * @return bool|array
+     * @return int
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    protected function checkDuplicateSlug(string $slug, array $exchange)
+    protected function checkDuplicateSlug(string $slug, array $exchange): int
     {
         try {
             $stmt = $this->em->getConnection()->prepare(
@@ -136,19 +166,17 @@ class SlugService implements SlugServiceInterface
                 $exchange['slugColumn'] . '` = :slug'
             );
             $stmt->bindValue('slug', $this->clean($slug));
-            $stmt->execute();
-            return $stmt->fetchAssociative();
+            return $stmt->executeQuery()->rowCount();
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         }
     }
 
-
     /**
      * @param string $param
      * @param array $db
      * @param Slug $slug
-     * @return array|bool
+     * @return false|array
      * @throws \Doctrine\DBAL\Driver\Exception
      */
     protected function proceedSlug(Slug $slug, string $param, array $db)
@@ -171,8 +199,7 @@ class SlugService implements SlugServiceInterface
             } else {
                 $stmt->bindValue('searchParam', $param, UuidBinaryOrderedTimeType::NAME);
             }
-            $stmt->execute();
-            return $stmt->fetchAssociative();
+            return $stmt->executeQuery()->fetchAssociative();
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         }
