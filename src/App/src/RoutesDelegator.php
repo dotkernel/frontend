@@ -4,8 +4,11 @@ namespace Frontend\App;
 
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Controller\LanguageController;
+use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
+
+use function var_dump;
 
 /**
  * Class RoutesDelegator
