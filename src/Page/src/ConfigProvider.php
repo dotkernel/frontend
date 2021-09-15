@@ -5,12 +5,7 @@ declare(strict_types=1);
 namespace Frontend\Page;
 
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
-use Frontend\Page\Controller\AboutHandler;
-use Frontend\Page\Controller\HomeHandler;
 use Frontend\Page\Controller\PageController;
-use Frontend\Page\Controller\PremiumContentHandler;
-use Frontend\Page\Controller\TestController;
-use Frontend\Page\Controller\WhoWeAreHandler;
 
 /**
  * Class ConfigProvider
