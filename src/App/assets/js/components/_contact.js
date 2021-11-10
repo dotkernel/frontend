@@ -61,7 +61,6 @@ $(document).ready(function () {
 
 function validateContactUsForm()
 {
-    console.log(123);
     event.preventDefault();
     $('.contactUsFormErrors').hide();
     var submit = true;
