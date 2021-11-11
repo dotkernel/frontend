@@ -85,14 +85,14 @@ class ContactForm extends Form
             'type' => Textarea::class,
         ]);
 
-        $this->add([
-            'name' => 'submit',
-            'type' => 'submit',
-            'attributes' => [
-                'type' => 'submit',
-                'value' => 'Send message'
-            ]
-        ], ['priority' => -105]);
+//        $this->add([
+//            'name' => 'submit',
+//            'type' => 'submit',
+//            'attributes' => [
+//                'type' => 'submit',
+//                'value' => 'Send message'
+//            ]
+//        ], ['priority' => -105]);
     }
 
     /**

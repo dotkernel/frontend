@@ -58,3 +58,35 @@ $(document).ready(function () {
         });
     });
 });
+
+function validateContactUsForm()
+{
+    event.preventDefault();
+    $('.contactUsFormErrors').hide();
+    var submit = true;
+    if ($('#contact_form #name').val() == '') {
+        submit = false;
+        $('#contactUsErrors').show();
+        $('#contactUsEmptyName').show();
+    }
+    if ($('#contact_form #email').val() == '') {
+        submit = false;
+        $('#contactUsErrors').show();
+        $('#contactUsEmptyEmail').show();
+    }
+    if ($('#contact_form #message').val() == '') {
+        submit = false;
+        $('#contactUsErrors').show();
+        $('#contactUsEmptyText').show();
+    }
+    if (submit == true) {
+        grecaptcha.execute();
+    }
+}
+window.validateContactUsForm = validateContactUsForm;
+
+function submitContactUsForm()
+{
+    $('#contact_form').submit();
+}
+window.submitContactUsForm = submitContactUsForm;
