@@ -40,6 +40,9 @@ class ContactController extends AbstractActionController
     /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
 
+    /** @var array $config */
+    protected $config;
+
     /**
      * UserController constructor.
      * @param MessageService $messageService
@@ -54,7 +57,8 @@ class ContactController extends AbstractActionController
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
      *     FlashMessenger::class,
-     *     FormsPlugin::class
+     *     FormsPlugin::class,
+     *     "config"
      *     })
      */
     public function __construct(
@@ -63,7 +67,8 @@ class ContactController extends AbstractActionController
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
-        FormsPlugin $forms
+        FormsPlugin $forms,
+        array $config = []
     ) {
         $this->messageService = $messageService;
         $this->router = $router;
@@ -71,6 +76,7 @@ class ContactController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
+        $this->config = $config;
     }
 
     /**
@@ -86,6 +92,18 @@ class ContactController extends AbstractActionController
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
             $data = $request->getParsedBody();
+            //check recaptcha
+            if (isset($data['g-recaptcha-response'])) {
+                if (!$this->messageService->recaptchaIsValid($data['g-recaptcha-response'])) {
+                    unset($data['g-recaptcha-response']);
+                    $this->messenger->addError('Wrong recaptcha');
+                    return new RedirectResponse($request->getUri(), 303);
+                }
+            } else {
+                $this->messenger->addError('Missing recaptcha');
+                return new RedirectResponse($request->getUri(), 303);
+            }
+
             $data['subject'] = 'DotKernel Message ' . date("Y-m-d H:i:s");
             $form->setData($data);
             if ($form->isValid()) {
@@ -106,7 +124,8 @@ class ContactController extends AbstractActionController
         }
 
         return new HtmlResponse($this->template->render('contact::contact-form', [
-            'form' => $form
+            'form' => $form,
+            'recaptchaSiteKey' => $this->config['recaptcha']['siteKey']
         ]));
     }
 }

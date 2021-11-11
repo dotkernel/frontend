@@ -108,4 +108,30 @@ class MessageService implements MessageServiceInterface
 
         return $this->mailService->send()->isValid();
     }
+
+    /**
+     * @param $response
+     * @return bool
+     */
+    public function recaptchaIsValid($response)
+    {
+        $requestJson = [
+            'response' => $response,
+            'secret' => $this->config['recaptcha']['secretKey']
+        ];
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $requestJson);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $checkRecaptchaResponse = curl_exec($curl);
+        $checkRecaptchaResponse = json_decode($checkRecaptchaResponse, true);
+        if ($checkRecaptchaResponse['success'] == true) {
+            return true;
+        }
+        return false;
+    }
 }
