@@ -13,6 +13,7 @@
                     <h3>{% trans 'Contact Us' %}</h3>
                     <p>{% trans 'Any issues or good feedback?' %}<br /><br />{% trans 'Write us here and we will get in touch with you as soon as possible.' %}</p>
                     <hr />
+                    {{ messagesPartial('partial::alerts') }}
                     <div id="contactUsErrors" class="alert alert-danger contactUsFormErrors" role="alert" style="display:none">
                         <ul>
                             <li id="contactUsEmptyName" class="contactUsFormErrors" style="display:none">Name is empty.</li>
@@ -55,12 +56,10 @@
                         {% set dummy = message.setAttribute('placeholder', messageTranslatePlaceholder) %}
                         <div class="col-md-12">
                             {{ formElement(message) }}
-
-{#                            {{ formElement(form.get('submit')) }}#}
                         </div>
                     </div>
 
-                    <div class="g-recaptcha" data-sitekey="{siteKey}"
+                    <div class="g-recaptcha" data-sitekey="{{ recaptchaSiteKey }}"
                          data-callback="submitContactUsForm"
                          data-size="invisible">
                     </div>
