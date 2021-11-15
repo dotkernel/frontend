@@ -64,7 +64,7 @@ function validateContactUsForm()
     event.preventDefault();
     $('.contactUsFormErrors').hide();
     var submit = true;
-    if (!$('.g-recaptcha')[0].dataset.siteKey) {
+    if (!$('.g-recaptcha')[0].dataset.sitekey) {
         submit = false;
         $('#contactUsErrors').show();
         $('#recaptchaSiteKeyEmpty').show();
