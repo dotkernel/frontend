@@ -14,11 +14,12 @@
                     <p>{% trans 'Any issues or good feedback?' %}<br /><br />{% trans 'Write us here and we will get in touch with you as soon as possible.' %}</p>
                     <hr />
                     {{ messagesPartial('partial::alerts') }}
-                    <div id="contactUsErrors" class="alert alert-danger contactUsFormErrors" role="alert" style="display:none">
+                    <div id="contactUsErrors" class="alert alert-danger contactUsFormErrors" role="alert" {% if recaptchaSiteKey != '' %}style="display:none"{% endif %}>
                         <ul>
                             <li id="contactUsEmptyName" class="contactUsFormErrors" style="display:none">Name is empty.</li>
                             <li id="contactUsEmptyEmail" class="contactUsFormErrors" style="display:none">E-mail is empty.</li>
                             <li id="contactUsEmptyText" class="contactUsFormErrors" style="display:none">Message is empty.</li>
+                            <li id="recaptchaSiteKeyEmpty" class="contactUsFormErrors" {% if recaptchaSiteKey != '' %}style="display:none"{% endif %}>reCAPTCHA is empty.</li>
                         </ul>
                     </div>
 

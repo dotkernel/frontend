@@ -64,6 +64,12 @@ function validateContactUsForm()
     event.preventDefault();
     $('.contactUsFormErrors').hide();
     var submit = true;
+    if (!$('.g-recaptcha')[0].dataset.sitekey) {
+        submit = false;
+        $('#contactUsErrors').show();
+        $('#recaptchaSiteKeyEmpty').show();
+        return false;
+    }
     if ($('#contact_form #name').val() == '') {
         submit = false;
         $('#contactUsErrors').show();
