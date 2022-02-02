@@ -98,7 +98,7 @@ class ContactForm extends Form
     /**
      * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
      */
-    public function getInputFilter()
+    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
     {
         return $this->inputFilter;
     }
