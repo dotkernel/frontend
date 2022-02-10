@@ -59,6 +59,7 @@
         "laminas/laminas-component-installer": "^2.5",
         "laminas/laminas-config-aggregator": "^1.6",
         "laminas/laminas-i18n": "^2.11",
+        "mezzio/mezzio": "^3.6",
         "mezzio/mezzio-authorization-rbac": "^1.1",
         "mezzio/mezzio-cors": "^1.1",
         "mezzio/mezzio-fastroute": "^3.3",
