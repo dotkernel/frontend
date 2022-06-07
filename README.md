@@ -147,6 +147,53 @@ Run the migrations and seeds with these commands:
 php vendor/bin/phinx migrate --configuration="config/migrations.php"
 php vendor/bin/phinx seed:run --configuration="config/migrations.php"
 ```
+
+### Migration alternative with Doctrine
+Out of the box, we use Phinx like detailed above to populate the database. Doctrine is an alternative that is also ready to use for new migrations. An example file is included in `/data/doctrine/migrations`, but it's empty, so it won't run any queries. It can be edited freely. To generate a new migration file, use this command 
+
+```bash
+php vendor/bin/doctrine-migrations migrations:generate
+```
+It creates a PHP file like this one `/data/doctrine/migrations/Version20220606131835.php` that can then be edited in the IDE. You can add new queries to be executed when the migration is run (in `public function up`) and optionally queries that undo those changes (in `public function down`).
+
+Here is an example you can add in `public function up` 
+```bash
+$this->addSql('ALTER TABLE users ADD test VARCHAR(255) NOT NULL');
+```
+and its opposite in `public function down`
+```bash
+$this->addSql('ALTER TABLE users DROP test');
+```
+
+Running the migrations is done with this command
+```bash
+php vendor/bin/doctrine-migrations migrate
+```
+Note: if you have already run the phinx migrations, you may get this message
+```bash
+WARNING! You have x previously executed migrations in the database that are not registered migrations.
+  {migration list}
+Are you sure you wish to continue? (y/n)
+```
+After submitting `y`, you will get this confirmation message.
+```bash
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
+```
+Again, submit `y` to run all of the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
+
+You can opt to run a single migration
+```bash
+php vendor/bin/doctrine-migrations migrations:execute --up 20220606131835
+```
+and you can revert its changes with
+```bash
+php vendor/bin/doctrine-migrations migrations:execute --down 20220606131835
+```
+This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`. 
+Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
+
+## Development mode
+
 - If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
 
 ```bash
