@@ -62,6 +62,20 @@ class LoginForm extends Form
         ]);
 
         $this->add([
+            'name' => 'rememberMe',
+            'type' => 'checkbox',
+            'attributes' => [
+                'class' => 'tooltips',
+                'data-toggle' => 'tooltip',
+                'title' => 'Remember me',
+            ],
+            'options' => [
+                'label' => 'I want to delete account',
+                'use_hidden_element' => true,
+            ]
+        ]);
+
+        $this->add([
             'name' => 'submit',
             'attributes' => [
                 'type' => 'submit',

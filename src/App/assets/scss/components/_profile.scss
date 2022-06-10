@@ -124,6 +124,16 @@
   }
 }
 
+.remember-me-checkbox {
+  input {
+    display: block;
+    float: left;
+    margin: 4px 6px 10px 0;
+    width: auto;
+    height: auto;
+  }
+}
+
 @media (max-width: 767px) {
   .my-profile {
     .profile-actions {
