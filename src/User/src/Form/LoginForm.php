@@ -69,10 +69,6 @@ class LoginForm extends Form
                 'data-toggle' => 'tooltip',
                 'title' => 'Remember me',
             ],
-            'options' => [
-                'label' => 'I want to delete account',
-                'use_hidden_element' => true,
-            ]
         ]);
 
         $this->add([

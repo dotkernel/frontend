@@ -2,9 +2,11 @@
 
 namespace Frontend\User\Service;
 
+use Doctrine\ORM\ORMException;
 use Dot\Mail\Exception\MailException;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
+use Frontend\User\Repository\UserRepository;
 
 /**
  * Interface UserServiceInterface
@@ -54,4 +56,28 @@ interface UserServiceInterface
      * @return User|null
      */
     public function findByUuid(string $uuid);
+
+    /**
+     * @return UserRepository
+     */
+    public function getRepository(): UserRepository;
+
+    /**
+     * @param User $user
+     * @param string $userAgent
+     * @return void
+     * @throws ORMException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function addRememberMeToken(User $user, string $userAgent);
+
+    /**
+     * @return void
+     * @throws ORMException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deleteRememberMeCookie();
 }

@@ -12,6 +12,8 @@ use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
+use Frontend\Contact\Repository\MessageRepository;
+use Frontend\User\Entity\RememberUser;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
 use Frontend\User\Entity\UserDetail;
@@ -20,6 +22,8 @@ use Frontend\User\Entity\UserRole;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
+use Laminas\Session\Config\SessionConfig;
+use Laminas\Session\SessionManager;
 use Mezzio\Template\TemplateRendererInterface;
 
 /**
@@ -57,22 +61,30 @@ class UserService implements UserServiceInterface
     /** @var array $config */
     protected $config;
 
+    /** @var  SessionManager */
+    protected $defaultSessionManager;
+
+    /** @var UserRepository $repository */
+    protected $repository;
+
     /**
      * UserService constructor.
      * @param EntityManager $em
      * @param UserRoleServiceInterface $userRoleService
      * @param MailService $mailService
      * @param TemplateRendererInterface $templateRenderer
+     * @param SessionManager $defaultSessionManager
      * @param array $config
      *
      * @Inject({EntityManager::class, UserRoleServiceInterface::class, MailService::class,
-     *     TemplateRendererInterface::class, "config"})
+     *     TemplateRendererInterface::class, SessionManager::class, "config"})
      */
     public function __construct(
         EntityManager $em,
         UserRoleServiceInterface $userRoleService,
         MailService $mailService,
         TemplateRendererInterface $templateRenderer,
+        SessionManager $defaultSessionManager,
         array $config = []
     ) {
         $this->em = $em;
@@ -81,6 +93,7 @@ class UserService implements UserServiceInterface
         $this->userRoleService = $userRoleService;
         $this->mailService = $mailService;
         $this->templateRenderer = $templateRenderer;
+        $this->defaultSessionManager = $defaultSessionManager;
         $this->config = $config;
     }
 
@@ -436,5 +449,85 @@ class UserService implements UserServiceInterface
         $this->mailService->getMessage()->addTo($user->getIdentity(), $user->getName());
 
         return $this->mailService->send()->isValid();
+    }
+
+    /**
+     * @return UserRepository
+     */
+    public function getRepository(): UserRepository
+    {
+        return $this->userRepository;
+    }
+
+    /**
+     * @param User $user
+     * @param string $userAgent
+     * @return void
+     * @throws ORMException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function addRememberMeToken(User $user, string $userAgent)
+    {
+        $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
+        $checkUser = $this->getRepository()->findRememberMeUser($user, $userAgent);
+
+        if (is_null($checkUser)) {
+            $rememberUser = new RememberUser();
+            $rememberUser->setRememberMeToken(User::generateHash());
+            $rememberUser->setUser($user);
+            $rememberUser->setDeviceModel($userAgent);
+            $rememberUser->setExpireDate(new \DateTimeImmutable('@' .
+                (time() + $this->config['rememberMe']['cookie']['lifetime'] )));
+
+            $this->userRepository->saveRememberUser($rememberUser);
+
+            $rememberToken = $rememberUser->getRememberMeToken();
+            /** @var SessionConfig $config */
+            $rememberConfig = $this->defaultSessionManager->getConfig();
+            if ($rememberConfig->getUseCookies()) {
+                setcookie(
+                    $this->config['rememberMe']['cookie']['name'],
+                    $rememberToken,
+                    [
+                        'expires' => time() + $this->config['rememberMe']['cookie']['lifetime'],
+                        'path' => $rememberConfig->getCookiePath(),
+                        'domain' => $rememberConfig->getCookieDomain(),
+                        'samesite' => $this->config['rememberMe']['cookie']['samesite'],
+                        'secure' => $this->config['rememberMe']['cookie']['secure'],
+                        'httponly' => $this->config['rememberMe']['cookie']['httponly']
+                    ],
+                );
+            }
+        }
+    }
+
+    /**
+     * @return void
+     * @throws ORMException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deleteRememberMeCookie()
+    {
+        $cookie = $_COOKIE['rememberMe'];
+        $rememberUser = $this->getRepository()->getRememberUser($cookie);
+        $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
+        $this->getRepository()->removeRememberUser($rememberUser);
+
+        $rememberConfig = $this->defaultSessionManager->getConfig();
+        setcookie(
+            $this->config['rememberMe']['cookie']['name'],
+            '',
+            [
+                'expires' => time() - 1,
+                'path' => $rememberConfig->getCookiePath(),
+                'domain' => $rememberConfig->getCookieDomain(),
+                'samesite' => $this->config['rememberMe']['cookie']['samesite'],
+                'secure' => $this->config['rememberMe']['cookie']['secure'],
+                'httponly' => $this->config['rememberMe']['cookie']['httponly']
+            ],
+        );
     }
 }

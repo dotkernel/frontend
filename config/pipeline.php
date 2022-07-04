@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
+use Frontend\App\Middleware\RememberMeMiddleware;
 use Mezzio\Application;
 use Mezzio\Cors\Middleware\CorsMiddleware;
 use Mezzio\Handler\NotFoundHandler;
@@ -84,6 +85,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(AuthMiddleware::class);
     $app->pipe(ForbiddenHandler::class);
     $app->pipe(RbacGuardMiddleware::class);
+    $app->pipe(RememberMeMiddleware::class);
 
 
     // Register the dispatch middleware in the middleware pipeline
