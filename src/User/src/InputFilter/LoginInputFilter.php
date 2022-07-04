@@ -62,5 +62,18 @@ class LoginInputFilter extends InputFilter
                 ]
             ]
         ]);
+
+        $this->add([
+            'name' => 'rememberMe',
+            'filters' => [
+                ['name' => 'StringTrim']
+            ],
+            'validators' => [
+                [
+                    'name' => 'NotEmpty',
+                    'break_chain_on_failure' => true,
+                ]
+            ]
+        ]);
     }
 }

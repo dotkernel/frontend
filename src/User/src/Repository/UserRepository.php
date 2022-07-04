@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Frontend\User\Entity\RememberUser;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
@@ -119,5 +120,82 @@ class UserRepository extends EntityRepository
         } catch (Exception $exception) {
             return null;
         }
+    }
+
+    /**
+     * @param RememberUser $rememberUser
+     * @return void
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function saveRememberUser(RememberUser $rememberUser)
+    {
+        $em = $this->getEntityManager();
+        $rememberUser->touch();
+
+        $em->persist($rememberUser);
+        $em->flush();
+    }
+
+    /**
+     * @param $token
+     * @return RememberUser
+     * @throws NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function getRememberUser($token): RememberUser
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('rememberUser')
+            ->from(RememberUser::class, 'rememberUser')
+            ->where('rememberUser.rememberMeToken = :token')
+            ->setParameter('token', $token);
+
+        return $qb->getQuery()->useQueryCache(true)->getSingleResult();
+    }
+
+    /**
+     * @param User $user
+     * @param string $deviceModel
+     * @return int|mixed|string|null
+     * @throws NonUniqueResultException
+     */
+    public function findRememberMeUser(User $user, string $deviceModel)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('rememberUser')
+            ->from(RememberUser::class, 'rememberUser')
+            ->where('rememberUser.user = :uuid')
+            ->setParameter('uuid', $user->getUuid(), UuidBinaryOrderedTimeType::NAME)
+            ->andWhere('rememberUser.deviceModel = :deviceModel')
+            ->setParameter('deviceModel', $deviceModel);
+
+        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
+    }
+
+    /**
+     * @param \DateTimeImmutable $currentDate
+     * @return void
+     */
+    public function deleteExpiredCookies(\DateTimeImmutable $currentDate)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->delete(RememberUser::class, 'rememberUser')
+            ->where('rememberUser.expireDate <= :currentDate')
+            ->setParameter('currentDate', $currentDate);
+
+        return $qb->getQuery()->useQueryCache(true)->execute();
+    }
+
+    /**
+     * @param RememberUser $rememberUser
+     * @return void
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function removeRememberUser(RememberUser $rememberUser)
+    {
+        $this->getEntityManager()->remove($rememberUser);
+        $this->getEntityManager()->flush();
     }
 }

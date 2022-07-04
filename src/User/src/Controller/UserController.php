@@ -40,6 +40,9 @@ class UserController extends AbstractActionController
     /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
 
+    /** @var array $config */
+    protected $config;
+
     /**
      * UserController constructor.
      * @param UserService $userService
@@ -48,13 +51,15 @@ class UserController extends AbstractActionController
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
+     * @param array $config
      * @Inject({
      *     UserService::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
      *     FlashMessenger::class,
-     *     FormsPlugin::class
+     *     FormsPlugin::class,
+     *     "config"
      *     })
      */
     public function __construct(
@@ -63,7 +68,8 @@ class UserController extends AbstractActionController
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
-        FormsPlugin $forms
+        FormsPlugin $forms,
+        array $config = []
     ) {
         $this->userService = $userService;
         $this->router = $router;
@@ -71,14 +77,17 @@ class UserController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
+        $this->config = $config;
     }
 
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function loginAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
             return new RedirectResponse($this->router->generateUri("page"));
         }
-
         /** @var LoginForm $form */
         $form = new LoginForm();
 
@@ -96,7 +105,12 @@ class UserController extends AbstractActionController
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
                     $identity = $authResult->getIdentity();
+                    $user = $this->userService->findByIdentity($identity->getIdentity());
+                    $deviceType = $this->getRequest()->getServerParams();
                     $this->authenticationService->getStorage()->write($identity);
+                    if ($data['rememberMe']) {
+                        $this->userService->addRememberMeToken($user, $deviceType['HTTP_USER_AGENT']);
+                    }
                     return new RedirectResponse($this->router->generateUri("page"));
                 } else {
                     $this->messenger->addData('shouldRebind', true);
@@ -121,6 +135,9 @@ class UserController extends AbstractActionController
 
     public function logoutAction(): ResponseInterface
     {
+        if (!empty($_COOKIE['rememberMe'])) {
+            $this->userService->deleteRememberMeCookie();
+        }
         $this->authenticationService->clearIdentity();
         return new RedirectResponse(
             $this->router->generateUri('page')
