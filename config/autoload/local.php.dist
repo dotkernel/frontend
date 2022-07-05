@@ -79,4 +79,17 @@ return [
         'siteKey' => '',
         'secretKey' => ''
     ]
+
+    'rememberMe' => [
+            'cookie' => [
+                'name' => 'rememberMe',
+                'lifetime' => 3600 * 24 * 30,
+                'samesite' => 'Lax',
+                'secure' => false,
+                'httponly' => true
+            ],
+            'code_set' => 'UTF-8',
+            'domain' => 'messages',
+            'base_dir' => getcwd() . '/data/rememberMe',
+        ],
 ];
