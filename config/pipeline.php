@@ -82,10 +82,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - etc.
 
     $app->pipe(TranslatorMiddleware::class);
+    $app->pipe(RememberMeMiddleware::class);
     $app->pipe(AuthMiddleware::class);
     $app->pipe(ForbiddenHandler::class);
     $app->pipe(RbacGuardMiddleware::class);
-    $app->pipe(RememberMeMiddleware::class);
 
 
     // Register the dispatch middleware in the middleware pipeline
