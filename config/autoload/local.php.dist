@@ -78,7 +78,7 @@ return [
     'recaptcha' => [
         'siteKey' => '',
         'secretKey' => ''
-    ]
+    ],
 
     'rememberMe' => [
             'cookie' => [
@@ -87,7 +87,6 @@ return [
                 'samesite' => 'Lax',
                 'secure' => false,
                 'httponly' => true
-            ],
-            'domain' => 'messages',
+            ]
         ],
 ];
