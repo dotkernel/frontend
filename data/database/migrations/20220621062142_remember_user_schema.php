@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use Frontend\User\Entity\RememberUser;
+use Frontend\User\Entity\UserRememberMe;
 use Phinx\Migration\AbstractMigration;
 
 final class RememberUserSchema extends AbstractMigration
 {
-    protected string $rememberUser = 'remember_user';
+    protected string $rememberUser = 'user_remember_me';
 
     /**
      * Change Method.
@@ -28,7 +28,7 @@ final class RememberUserSchema extends AbstractMigration
             ->addColumn('uuid', 'binary', ['null' => false, 'limit' => 16])
             ->addColumn('userUuid', 'binary', ['null' => false, 'limit' => 16])
             ->addColumn('rememberMeToken', 'string', ['null' => true, 'limit' => 100])
-            ->addColumn('deviceModel', 'string', ['null' => true, 'default' => null, 'limit' => 255])
+            ->addColumn('userAgent', 'string', ['null' => true, 'default' => null, 'limit' => 255])
             ->addColumn('expireDate', 'timestamp', ['null' => true])
             ->addColumn('created', 'timestamp', ['null' => false, 'default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('updated', 'timestamp', ['null' => true])

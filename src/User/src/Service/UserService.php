@@ -13,7 +13,7 @@ use Dot\Mail\Service\MailService;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
 use Frontend\Contact\Repository\MessageRepository;
-use Frontend\User\Entity\RememberUser;
+use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
 use Frontend\User\Entity\UserDetail;
@@ -472,33 +472,35 @@ class UserService implements UserServiceInterface
         $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
         $checkUser = $this->getRepository()->findRememberMeUser($user, $userAgent);
 
-        if (is_null($checkUser)) {
-            $rememberUser = new RememberUser();
-            $rememberUser->setRememberMeToken(User::generateHash());
-            $rememberUser->setUser($user);
-            $rememberUser->setDeviceModel($userAgent);
-            $rememberUser->setExpireDate(new \DateTimeImmutable('@' .
-                (time() + $this->config['rememberMe']['cookie']['lifetime'] )));
+        if (!is_null($checkUser) && $checkUser->getRememberMeToken() != $_COOKIE['rememberMe']) {
+            $this->getRepository()->removeUserRememberMe($checkUser);
+        }
 
-            $this->userRepository->saveRememberUser($rememberUser);
+        $rememberUser = new UserRememberMe();
+        $rememberUser->setRememberMeToken(User::generateHash());
+        $rememberUser->setUser($user);
+        $rememberUser->setUserAgent($userAgent);
+        $rememberUser->setExpireDate(new \DateTimeImmutable('@' .
+            (time() + $this->config['rememberMe']['cookie']['lifetime'] )));
 
-            $rememberToken = $rememberUser->getRememberMeToken();
-            /** @var SessionConfig $config */
-            $rememberConfig = $this->defaultSessionManager->getConfig();
-            if ($rememberConfig->getUseCookies()) {
-                setcookie(
-                    $this->config['rememberMe']['cookie']['name'],
-                    $rememberToken,
-                    [
-                        'expires' => time() + $this->config['rememberMe']['cookie']['lifetime'],
-                        'path' => $rememberConfig->getCookiePath(),
-                        'domain' => $rememberConfig->getCookieDomain(),
-                        'samesite' => $this->config['rememberMe']['cookie']['samesite'],
-                        'secure' => $this->config['rememberMe']['cookie']['secure'],
-                        'httponly' => $this->config['rememberMe']['cookie']['httponly']
-                    ],
-                );
-            }
+        $this->userRepository->saveRememberUser($rememberUser);
+
+        $rememberToken = $rememberUser->getRememberMeToken();
+        /** @var SessionConfig $config */
+        $rememberConfig = $this->defaultSessionManager->getConfig();
+        if ($rememberConfig->getUseCookies()) {
+            setcookie(
+                $this->config['rememberMe']['cookie']['name'],
+                $rememberToken,
+                [
+                    'expires' => time() + $this->config['rememberMe']['cookie']['lifetime'],
+                    'path' => $rememberConfig->getCookiePath(),
+                    'domain' => $rememberConfig->getCookieDomain(),
+                    'samesite' => $this->config['rememberMe']['cookie']['samesite'],
+                    'secure' => $this->config['rememberMe']['cookie']['secure'],
+                    'httponly' => $this->config['rememberMe']['cookie']['httponly']
+                ],
+            );
         }
     }
 
@@ -514,7 +516,9 @@ class UserService implements UserServiceInterface
         $cookie = $_COOKIE['rememberMe'];
         $rememberUser = $this->getRepository()->getRememberUser($cookie);
         $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
-        $this->getRepository()->removeRememberUser($rememberUser);
+        if (!empty($rememberUser)) {
+            $this->getRepository()->removeUserRememberMe($rememberUser);
+        }
 
         $rememberConfig = $this->defaultSessionManager->getConfig();
         setcookie(

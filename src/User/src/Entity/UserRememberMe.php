@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
 /**
- * Class RememberUser
+ * Class UserRememberMe
  * @ORM\Entity()
- * @ORM\Table(name="remember_user")
+ * @ORM\Table(name="user_remember_me")
  * @ORM\HasLifecycleCallbacks()
  * @package Frontend\User\Entity
  */
-class RememberUser extends AbstractEntity
+class UserRememberMe extends AbstractEntity
 {
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User")
@@ -30,10 +30,10 @@ class RememberUser extends AbstractEntity
     protected $rememberMeToken;
 
     /**
-     * @ORM\Column(name="deviceModel", type="string", length=100)
-     * @var string|null $deviceModel
+     * @ORM\Column(name="userAgent", type="string", length=100)
+     * @var string|null $userAgent
      */
-    protected $deviceModel;
+    protected $userAgent;
 
     /**
      * @ORM\Column(name="expireDate", type="datetime_immutable")
@@ -81,17 +81,17 @@ class RememberUser extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getDeviceModel(): ?string
+    public function getUserAgent(): ?string
     {
-        return $this->deviceModel;
+        return $this->userAgent;
     }
 
     /**
-     * @param string|null $deviceModel
+     * @param string|null $userAgent
      */
-    public function setDeviceModel(?string $deviceModel): void
+    public function setUserAgent(?string $userAgent): void
     {
-        $this->deviceModel = $deviceModel;
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -119,7 +119,7 @@ class RememberUser extends AbstractEntity
             'uuid' => $this->getUuid()->toString(),
             'name' => $this->getuser(),
             'userHash' => $this->getRememberMeToken(),
-            'deviceModel' => $this->getDeviceModel(),
+            'userAgent' => $this->getUserAgent(),
             'expireDate' => $this->getExpireDate(),
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
