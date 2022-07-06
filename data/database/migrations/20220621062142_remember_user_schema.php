@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use Frontend\User\Entity\RememberUser;
+use Frontend\User\Entity\UserRememberMe;
 use Phinx\Migration\AbstractMigration;
 
 final class RememberUserSchema extends AbstractMigration
 {
-    protected string $rememberUser = 'remember_user';
+    protected string $rememberUser = 'user_remember_me';
 
     /**
      * Change Method.

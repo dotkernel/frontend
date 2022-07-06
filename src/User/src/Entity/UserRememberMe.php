@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
 /**
- * Class RememberUser
+ * Class UserRememberMe
  * @ORM\Entity()
- * @ORM\Table(name="remember_user")
+ * @ORM\Table(name="user_remember_me")
  * @ORM\HasLifecycleCallbacks()
  * @package Frontend\User\Entity
  */
-class RememberUser extends AbstractEntity
+class UserRememberMe extends AbstractEntity
 {
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User")

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Frontend\User\Entity\RememberUser;
+use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
@@ -123,12 +123,12 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param RememberUser $rememberUser
+     * @param UserRememberMe $rememberUser
      * @return void
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function saveRememberUser(RememberUser $rememberUser)
+    public function saveRememberUser(UserRememberMe $rememberUser)
     {
         $em = $this->getEntityManager();
         $rememberUser->touch();
@@ -139,19 +139,18 @@ class UserRepository extends EntityRepository
 
     /**
      * @param $token
-     * @return RememberUser
+     * @return UserRememberMe|null
      * @throws NonUniqueResultException
-     * @throws \Doctrine\ORM\NoResultException
      */
-    public function getRememberUser($token): RememberUser
+    public function getRememberUser($token): ?UserRememberMe
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('rememberUser')
-            ->from(RememberUser::class, 'rememberUser')
-            ->where('rememberUser.rememberMeToken = :token')
+        $qb->select('user_remember_me')
+            ->from(UserRememberMe::class, 'user_remember_me')
+            ->where('user_remember_me.rememberMeToken = :token')
             ->setParameter('token', $token);
 
-        return $qb->getQuery()->useQueryCache(true)->getSingleResult();
+        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
     /**
@@ -163,12 +162,13 @@ class UserRepository extends EntityRepository
     public function findRememberMeUser(User $user, string $deviceModel)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('rememberUser')
-            ->from(RememberUser::class, 'rememberUser')
-            ->where('rememberUser.user = :uuid')
+        $qb->select('user_remember_me')
+            ->from(UserRememberMe::class, 'user_remember_me')
+            ->where('user_remember_me.user = :uuid')
             ->setParameter('uuid', $user->getUuid(), UuidBinaryOrderedTimeType::NAME)
-            ->andWhere('rememberUser.deviceModel = :deviceModel')
+            ->andWhere('user_remember_me.deviceModel = :deviceModel')
             ->setParameter('deviceModel', $deviceModel);
+
 
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
@@ -180,22 +180,22 @@ class UserRepository extends EntityRepository
     public function deleteExpiredCookies(\DateTimeImmutable $currentDate)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->delete(RememberUser::class, 'rememberUser')
-            ->where('rememberUser.expireDate <= :currentDate')
+        $qb->delete(UserRememberMe::class, 'user_remember_me')
+            ->where('user_remember_me.expireDate <= :currentDate')
             ->setParameter('currentDate', $currentDate);
 
         return $qb->getQuery()->useQueryCache(true)->execute();
     }
 
     /**
-     * @param RememberUser $rememberUser
+     * @param UserRememberMe $userRememberMe
      * @return void
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function removeRememberUser(RememberUser $rememberUser)
+    public function removeUserRememberMe(UserRememberMe $userRememberMe)
     {
-        $this->getEntityManager()->remove($rememberUser);
+        $this->getEntityManager()->remove($userRememberMe);
         $this->getEntityManager()->flush();
     }
 }

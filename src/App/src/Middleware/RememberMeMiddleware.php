@@ -71,19 +71,21 @@ class RememberMeMiddleware implements MiddlewareInterface
         if (!empty($_COOKIE['rememberMe'])) {
             $hash = $_COOKIE['rememberMe'];
             $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
-            $user = $rememberUser->getUser();
-            $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
-            if ($hash == $rememberUser->getRememberMeToken() && $rememberUser->getDeviceModel() == $deviceType) {
-                $identity = new UserIdentity(
-                    $user->getUuid()->toString(),
-                    $user->getIdentity(),
-                    $user->getRoles()->map(function (UserRole $userRole) {
-                        return $userRole->getName();
-                    })->toArray(),
-                    $user->getDetail()->getArrayCopy(),
-                );
+            if (!empty($rememberUser)) {
+                $user = $rememberUser->getUser();
+                $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
+                if ($hash == $rememberUser->getRememberMeToken() && $rememberUser->getDeviceModel() == $deviceType) {
+                    $identity = new UserIdentity(
+                        $user->getUuid()->toString(),
+                        $user->getIdentity(),
+                        $user->getRoles()->map(function (UserRole $userRole) {
+                            return $userRole->getName();
+                        })->toArray(),
+                        $user->getDetail()->getArrayCopy(),
+                    );
 
-                $this->authenticationService->getStorage()->write($identity);
+                    $this->authenticationService->getStorage()->write($identity);
+                }
             }
         }
 
