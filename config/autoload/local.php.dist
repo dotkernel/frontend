@@ -88,8 +88,6 @@ return [
                 'secure' => false,
                 'httponly' => true
             ],
-            'code_set' => 'UTF-8',
             'domain' => 'messages',
-            'base_dir' => getcwd() . '/data/rememberMe',
         ],
 ];

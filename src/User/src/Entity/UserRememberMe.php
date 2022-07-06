@@ -30,10 +30,10 @@ class UserRememberMe extends AbstractEntity
     protected $rememberMeToken;
 
     /**
-     * @ORM\Column(name="deviceModel", type="string", length=100)
-     * @var string|null $deviceModel
+     * @ORM\Column(name="userAgent", type="string", length=100)
+     * @var string|null $userAgent
      */
-    protected $deviceModel;
+    protected $userAgent;
 
     /**
      * @ORM\Column(name="expireDate", type="datetime_immutable")
@@ -81,17 +81,17 @@ class UserRememberMe extends AbstractEntity
     /**
      * @return string|null
      */
-    public function getDeviceModel(): ?string
+    public function getUserAgent(): ?string
     {
-        return $this->deviceModel;
+        return $this->userAgent;
     }
 
     /**
-     * @param string|null $deviceModel
+     * @param string|null $userAgent
      */
-    public function setDeviceModel(?string $deviceModel): void
+    public function setUserAgent(?string $userAgent): void
     {
-        $this->deviceModel = $deviceModel;
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -119,7 +119,7 @@ class UserRememberMe extends AbstractEntity
             'uuid' => $this->getUuid()->toString(),
             'name' => $this->getuser(),
             'userHash' => $this->getRememberMeToken(),
-            'deviceModel' => $this->getDeviceModel(),
+            'userAgent' => $this->getUserAgent(),
             'expireDate' => $this->getExpireDate(),
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()

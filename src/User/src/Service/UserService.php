@@ -479,7 +479,7 @@ class UserService implements UserServiceInterface
         $rememberUser = new UserRememberMe();
         $rememberUser->setRememberMeToken(User::generateHash());
         $rememberUser->setUser($user);
-        $rememberUser->setDeviceModel($userAgent);
+        $rememberUser->setUserAgent($userAgent);
         $rememberUser->setExpireDate(new \DateTimeImmutable('@' .
             (time() + $this->config['rememberMe']['cookie']['lifetime'] )));
 

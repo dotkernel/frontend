@@ -155,19 +155,19 @@ class UserRepository extends EntityRepository
 
     /**
      * @param User $user
-     * @param string $deviceModel
+     * @param string $userAgent
      * @return int|mixed|string|null
      * @throws NonUniqueResultException
      */
-    public function findRememberMeUser(User $user, string $deviceModel)
+    public function findRememberMeUser(User $user, string $userAgent)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
             ->where('user_remember_me.user = :uuid')
             ->setParameter('uuid', $user->getUuid(), UuidBinaryOrderedTimeType::NAME)
-            ->andWhere('user_remember_me.deviceModel = :deviceModel')
-            ->setParameter('deviceModel', $deviceModel);
+            ->andWhere('user_remember_me.userAgent = :userAgent')
+            ->setParameter('userAgent', $userAgent);
 
 
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
