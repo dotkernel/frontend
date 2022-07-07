@@ -74,7 +74,10 @@ class RememberMeMiddleware implements MiddlewareInterface
             if (!empty($rememberUser)) {
                 $user = $rememberUser->getUser();
                 $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
-                if ($hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType) {
+                if (
+                    $hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType &&
+                    $rememberUser->getExpireDate() > new \DateTimeImmutable('now')
+                ) {
                     $identity = new UserIdentity(
                         $user->getUuid()->toString(),
                         $user->getIdentity(),
