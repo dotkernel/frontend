@@ -12,7 +12,7 @@ Dotkernel web starter package suitable for frontend applications.
 [![GitHub license](https://img.shields.io/github/license/dotkernel/frontend)](https://github.com/dotkernel/frontend/blob/3.0/LICENSE.md)
 
 
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/3.0.x-dev)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/3.3.0)
 
 
 # Installing DotKernel `frontend`

@@ -5,7 +5,7 @@ use Ramsey\Uuid\Doctrine\UuidBinaryType;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Roave\PsrContainerDoctrine\EntityManagerFactory;
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
+use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
