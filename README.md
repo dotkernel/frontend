@@ -179,18 +179,18 @@ After submitting `y`, you will get this confirmation message.
 ```bash
 WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
 ```
-Again, submit `y` to run all of the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
+Again, submit `y` to run all the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
 
 You can opt to run a single migration
 ```bash
-php vendor/bin/doctrine-migrations migrations:execute --up 20220606131835
+php vendor/bin/doctrine-migrations migrations:execute --up 'DotKernel4\Frontend\Migrations\Version20220606131835'
 ```
 and you can revert its changes with
 ```bash
-php vendor/bin/doctrine-migrations migrations:execute --down 20220606131835
+php vendor/bin/doctrine-migrations migrations:execute --down 'DotKernel4\Frontend\Migrations\Version20220606131835'
 ```
 This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`. 
-Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
+Note the `DotKernel4\Frontend\Migrations` is the migration namespace taken from the configuration file, `migrations.php`
 
 ## Development mode
 
