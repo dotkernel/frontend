@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Frontend\App;
 
-use ContainerInteropDoctrine\EntityManagerFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
 use Frontend\App\Resolver\EntityListenerResolver;
+use Frontend\App\Service\RecaptchaService;
 use Frontend\App\Service\TranslateService;
 use Frontend\App\Service\TranslateServiceInterface;
 use Mezzio\Application;
+use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
 /**
  * The configuration provider for the App module
@@ -56,6 +57,7 @@ class ConfigProvider
                 EntityListenerResolver::class => EntityListenerResolverFactory::class,
                 TranslateService::class => AnnotatedServiceFactory::class,
                 LanguageController::class => AnnotatedServiceFactory::class,
+                RecaptchaService::class => AnnotatedServiceFactory::class,
             ],
             'aliases' => [
                 EntityManager::class => 'doctrine.entity_manager.orm_default',
@@ -68,7 +70,7 @@ class ConfigProvider
     /**
      * @return array
      */
-    public function getDoctrineConfig()
+    public function getDoctrineConfig(): array
     {
         return [
             'configuration' => [

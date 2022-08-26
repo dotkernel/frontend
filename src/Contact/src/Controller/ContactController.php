@@ -9,6 +9,7 @@ use Dot\Controller\AbstractActionController;
 use Dot\FlashMessenger\FlashMessenger;
 use Dot\Mail\Exception\MailException;
 use Fig\Http\Message\RequestMethodInterface;
+use Frontend\App\Service\RecaptchaService;
 use Frontend\Contact\Form\ContactForm;
 use Frontend\Contact\Service\MessageService;
 use Frontend\Plugin\FormsPlugin;
@@ -31,6 +32,9 @@ class ContactController extends AbstractActionController
     /** @var MessageService $messageService */
     protected MessageService $messageService;
 
+    /** @var RecaptchaService $recaptchaService */
+    protected RecaptchaService $recaptchaService;
+
     /** @var AuthenticationServiceInterface $authenticationService */
     protected AuthenticationServiceInterface $authenticationService;
 
@@ -46,13 +50,16 @@ class ContactController extends AbstractActionController
     /**
      * UserController constructor.
      * @param MessageService $messageService
+     * @param RecaptchaService $recaptchaService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
+     * @param array $config
      * @Inject({
      *     MessageService::class,
+     *     RecaptchaService::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
@@ -63,6 +70,7 @@ class ContactController extends AbstractActionController
      */
     public function __construct(
         MessageService $messageService,
+        RecaptchaService $recaptchaService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
@@ -71,6 +79,7 @@ class ContactController extends AbstractActionController
         array $config = []
     ) {
         $this->messageService = $messageService;
+        $this->recaptchaService = $recaptchaService;
         $this->router = $router;
         $this->template = $template;
         $this->authenticationService = $authenticationService;
@@ -94,7 +103,7 @@ class ContactController extends AbstractActionController
             $data = $request->getParsedBody();
             //check recaptcha
             if (isset($data['g-recaptcha-response'])) {
-                if (!$this->messageService->recaptchaIsValid($data['g-recaptcha-response'])) {
+                if (! $this->recaptchaService->setResponse($data['g-recaptcha-response'])->isValid()) {
                     unset($data['g-recaptcha-response']);
                     $this->messenger->addError('Wrong recaptcha');
                     return new RedirectResponse($request->getUri(), 303);
