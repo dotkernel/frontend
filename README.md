@@ -141,7 +141,7 @@ Note: you need to whitelist `localhost` in the reCAPTCHA settings page during de
 
 ## Migrations
 
-Out of the box, we use Doctrine Migrations like detailed below to populate the database. An example file is included in `/data/doctrine/migrations`, but it's empty, so it won't run any queries. It can be edited freely. To generate a new migration file, use this command:
+Out of the box, we use Doctrine Migrations like detailed below to populate the database. An example file is included in `/data/doctrine/migrations`. To generate a new migration file, use this command:
 
 ```bash
 php vendor/bin/doctrine-migrations migrations:generate
@@ -185,7 +185,7 @@ This will also remove the log for that migration in the database, allowing the m
 Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
 
 ## Seeding the database (Fixtures)
-Seeding the database uses doctrine data fixtures and our custom CLI implementation that sits on top of ``doctrine/data-fixtures`` and provides an interface for listing and executing fixtures.
+Seeding the database is done with the help of our custom package ``dotkernel/dot-data-fixtures`` built on top of doctrine/data-fixtures. See below on how to use our CLI command for listing and executing Doctrine data fixtures.
 
 An example of a fixtures class is ``data/doctrine/fixtures/RoleLoader.php``
 
