@@ -57,25 +57,5 @@ final class Version20220817121035 extends AbstractMigration
         $this->addSql('DROP TABLE user_reset_password');
         $this->addSql('DROP TABLE user_role');
     }
-
-    public function postUp(Schema $schema): void
-    {
-        $this->connection->insert('user_role', [
-            'uuid' => UuidOrderedTimeGenerator::generateUuid()->getBytes(),
-            'name' => UserRole::ROLE_ADMIN,
-            'created' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-        ]);
-
-        $this->connection->insert('user_role', [
-            'uuid' => UuidOrderedTimeGenerator::generateUuid()->getBytes(),
-            'name' => UserRole::ROLE_USER,
-            'created' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-        ]);
-
-        $this->connection->insert('user_role', [
-            'uuid' => UuidOrderedTimeGenerator::generateUuid()->getBytes(),
-            'name' => UserRole::ROLE_GUEST,
-            'created' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
-        ]);
-    }
 }
+
