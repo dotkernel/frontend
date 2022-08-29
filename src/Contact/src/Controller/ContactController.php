@@ -105,7 +105,7 @@ class ContactController extends AbstractActionController
             if (isset($data['g-recaptcha-response'])) {
                 if (! $this->recaptchaService->setResponse($data['g-recaptcha-response'])->isValid()) {
                     unset($data['g-recaptcha-response']);
-                    $this->messenger->addError('Wrong recaptcha');
+                    $this->messenger->addError('Captcha verification failed. Please try again.');
                     return new RedirectResponse($request->getUri(), 303);
                 }
             } else {

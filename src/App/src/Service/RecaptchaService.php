@@ -17,8 +17,6 @@ class RecaptchaService
 
     private string $response;
 
-    private float $scoreThreshold;
-
     /**
      * RecaptchaService constructor.
      * @param array $config
@@ -27,8 +25,9 @@ class RecaptchaService
      */
     public function __construct(array $config)
     {
+        $this->validateConfig($config);
+
         $this->config = $config;
-        $this->scoreThreshold = $config['scoreThreshold'];
     }
 
     /**
@@ -38,20 +37,6 @@ class RecaptchaService
     public function setResponse(string $response): self
     {
         $this->response = $response;
-
-        return $this;
-    }
-
-    /**
-     *
-     * Overwrite the default score threshold if needed
-     *
-     * @param float $scoreThreshold
-     * @return $this
-     */
-    public function setScoreThreshold(float $scoreThreshold): self
-    {
-        $this->scoreThreshold = $scoreThreshold;
 
         return $this;
     }
@@ -89,6 +74,21 @@ class RecaptchaService
         $success = $response['success'] ?? false;
         $score = $response['score'] ?? 0;
 
-        return $success && $score > $this->scoreThreshold;
+        return $success && $score > $this->config['scoreThreshold'];
+    }
+
+    private function validateConfig(array $config): void
+    {
+        $keysToValidate = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];
+        foreach ($keysToValidate as $key) {
+            if (empty($config[$key])) {
+                throw new InvalidArgumentException("Invalid `{$key}` provided.");
+            }
+            if ($key === 'scoreThreshold' && ! is_float($config[$key])) {
+                throw new InvalidArgumentException(
+                    "Invalid `{$key}` provided. The value must be a float between 0 and 1."
+                );
+            }
+        }
     }
 }
