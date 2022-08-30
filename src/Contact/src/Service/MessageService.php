@@ -7,7 +7,6 @@ namespace Frontend\Contact\Service;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityNotFoundException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
