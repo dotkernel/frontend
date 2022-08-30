@@ -76,7 +76,7 @@ return [
         'base_dir' => getcwd() . '/data/language',
     ],
     'recaptcha' => [
-        'scoreThreshold' => 0.5,
+        'scoreThreshold' => (float) 0.5,
         'siteKey' => '',
         'secretKey' => '',
         'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify'

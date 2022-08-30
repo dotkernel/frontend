@@ -84,11 +84,12 @@ class RecaptchaService
             if (empty($config[$key])) {
                 throw new InvalidArgumentException("Invalid `{$key}` provided.");
             }
-            if ($key === 'scoreThreshold' && ! is_float($config[$key])) {
-                throw new InvalidArgumentException(
-                    "Invalid `{$key}` provided. The value must be a float between 0 and 1."
-                );
-            }
+        }
+
+        if (! is_float($config['scoreThreshold']) || $config['scoreThreshold'] < 0 || $config['scoreThreshold'] > 1) {
+            throw new InvalidArgumentException(
+                "Invalid `{$key}` provided. The value must be a float between 0.0 and 1.0"
+            );
         }
     }
 }
