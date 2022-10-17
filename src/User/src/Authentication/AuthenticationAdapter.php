@@ -6,20 +6,21 @@ use Doctrine\ORM\EntityManager;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Entity\UserRole;
+use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Exception;
 use Laminas\Authentication\Result;
 
-class AuthenticationAdapter implements AdapterInterface
+class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 {
     private const METHOD_NOT_EXISTS = "Method %s not found in %s .";
     private const OPTION_VALUE_NOT_PROVIDED = "Option '%s' not provided for '%s' option.";
 
     /** @var string $identity */
-    private string $identity;
+    protected $identity;
 
     /** @var string $credential */
-    private string $credential;
+    protected $credential;
 
     /** @var EntityManager $entityManager */
     private EntityManager $entityManager;
@@ -36,42 +37,6 @@ class AuthenticationAdapter implements AdapterInterface
     {
         $this->entityManager = $entityManager;
         $this->config = $config;
-    }
-
-    /**
-     * @param string $identity
-     * @return $this
-     */
-    public function setIdentity(string $identity): self
-    {
-        $this->identity = $identity;
-        return $this;
-    }
-
-    /**
-     * @param string $credential
-     * @return $this
-     */
-    public function setCredential(string $credential): self
-    {
-        $this->credential = $credential;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    private function getIdentity(): string
-    {
-        return $this->identity;
-    }
-
-    /**
-     * @return string
-     */
-    private function getCredential(): string
-    {
-        return $this->credential;
     }
 
     /**
@@ -99,7 +64,6 @@ class AuthenticationAdapter implements AdapterInterface
             );
         }
 
-        /** @var callable $getCredential */
         $getCredential = "get" . ucfirst($this->config['orm_default']['credential_property']);
 
         /** Check if get credential method exist in the provided identity class */
@@ -117,7 +81,6 @@ class AuthenticationAdapter implements AdapterInterface
         /** Check for extra validation options */
         if (! empty($this->config['orm_default']['options'])) {
             foreach ($this->config['orm_default']['options'] as $property => $option) {
-                /** @var callable $methodName */
                 $methodName = "get" . ucfirst($property);
 
                 /** Check if the method exists in the provided identity class */

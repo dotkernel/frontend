@@ -2,6 +2,7 @@
 
 namespace Frontend\User\Service;
 
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\Mail\Exception\MailException;
 use Frontend\User\Entity\User;
@@ -14,12 +15,13 @@ use Frontend\User\Repository\UserRepository;
  */
 interface UserServiceInterface
 {
+    // TODO refactor this interface, it should only have CRUD methods.
     /**
      * @param array $data
      * @return UserInterface
      * @throws \Exception
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function createUser(array $data): UserInterface;
 
@@ -28,7 +30,7 @@ interface UserServiceInterface
      * @return bool
      * @throws MailException
      */
-    public function sendActivationMail(User $user);
+    public function sendActivationMail(User $user): bool;
 
     /**
      * @param array $params
@@ -39,17 +41,10 @@ interface UserServiceInterface
     /**
      * @param User $user
      * @return User
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function activateUser(User $user);
-
-    /**
-     * @param string $email
-     * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getRoleNamesByEmail(string $email);
 
     /**
      * @param string $uuid
@@ -68,7 +63,7 @@ interface UserServiceInterface
      * @return void
      * @throws ORMException
      * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
     public function addRememberMeToken(User $user, string $userAgent);
 
@@ -77,7 +72,7 @@ interface UserServiceInterface
      * @throws ORMException
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
     public function deleteRememberMeCookie();
 }

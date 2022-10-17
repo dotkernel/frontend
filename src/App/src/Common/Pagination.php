@@ -30,8 +30,8 @@ class Pagination
         }
 
         return [
-            'offset' => (int)$offset,
-            'limit' => (int)$limit
+            'offset' => $offset,
+            'limit' => $limit
         ];
     }
 }

@@ -9,6 +9,7 @@ use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * Class RequestResetPasswordForm
@@ -16,11 +17,11 @@ use Laminas\InputFilter\InputFilter;
  */
 class RequestResetPasswordForm extends Form
 {
-    /** @var InputFilter $inputFilter */
+    /** @var InputFilterInterface $inputFilter */
     protected $inputFilter;
 
     /**
-     * LoginForm constructor.
+     * RequestResetPasswordForm constructor.
      * @param null $name
      * @param array $options
      */
@@ -60,9 +61,9 @@ class RequestResetPasswordForm extends Form
     }
 
     /**
-     * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
+     * @return InputFilterInterface
      */
-    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
+    public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
     }

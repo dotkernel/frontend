@@ -9,6 +9,7 @@ use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * Class ProfileDeleteForm
@@ -16,7 +17,7 @@ use Laminas\InputFilter\InputFilter;
  */
 class ProfileDeleteForm extends Form
 {
-    /** @var InputFilter $inputFilter */
+    /** @var InputFilterInterface $inputFilter */
     protected $inputFilter;
 
     /**
@@ -65,9 +66,9 @@ class ProfileDeleteForm extends Form
     }
 
     /**
-     * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
+     * @return InputFilterInterface
      */
-    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
+    public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
     }

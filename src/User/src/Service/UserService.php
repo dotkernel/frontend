@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Frontend\User\Service;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
@@ -100,7 +102,7 @@ class UserService implements UserServiceInterface
     /**
      * @param string $uuid
      * @return User|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByUuid(string $uuid)
     {
@@ -110,7 +112,7 @@ class UserService implements UserServiceInterface
     /**
      * @param string $identity
      * @return UserInterface
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByIdentity(string $identity): UserInterface
     {
@@ -121,8 +123,8 @@ class UserService implements UserServiceInterface
      * @param array $data
      * @return UserInterface
      * @throws \Exception
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function createUser(array $data): UserInterface
     {
@@ -173,8 +175,8 @@ class UserService implements UserServiceInterface
      * @return User
      * @throws ORMException
      * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NonUniqueResultException
+     * @throws OptimisticLockException
      */
     public function updateUser(User $user, array $data = [])
     {
@@ -265,7 +267,7 @@ class UserService implements UserServiceInterface
         }
         $fileName = sprintf(
             'avatar-%s.%s',
-            UuidOrderedTimeGenerator::generateUuid(),
+            UuidOrderedTimeGenerator::generateUuid()->toString(),
             self::EXTENSIONS[$uploadedFile->getClientMediaType()]
         );
         $avatar->setName($fileName);
@@ -302,7 +304,7 @@ class UserService implements UserServiceInterface
      * @param string|null $uuid
      * @return bool
      * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function exists(string $email = '', ?string $uuid = '')
     {
@@ -324,7 +326,7 @@ class UserService implements UserServiceInterface
      * @return bool
      * @throws MailException
      */
-    public function sendActivationMail(User $user)
+    public function sendActivationMail(User $user): bool
     {
         if ($user->isActive()) {
             return false;
@@ -362,10 +364,10 @@ class UserService implements UserServiceInterface
     /**
      * @param User $user
      * @return User
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    public function activateUser(User $user)
+    public function activateUser(User $user): User
     {
         $this->userRepository->saveUser($user->activate());
 
@@ -373,33 +375,11 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param string $email
-     * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function getRoleNamesByEmail(string $email)
-    {
-        $roleList = [];
-
-        /** @var User $user */
-        $user = $this->userRepository->getUserByEmail($email);
-
-        if (!empty($user)) {
-            /** @var UserRole $role */
-            foreach ($user->getRoles() as $role) {
-                $roleList[] = $role->getName();
-            }
-        }
-
-        return $roleList;
-    }
-
-    /**
      * @param User $user
      * @return bool
      * @throws MailException
      */
-    public function sendResetPasswordRequestedMail(User $user)
+    public function sendResetPasswordRequestedMail(User $user): bool
     {
         $this->mailService->setBody(
             $this->templateRenderer->render('user::reset-password-requested', [
@@ -419,7 +399,7 @@ class UserService implements UserServiceInterface
      * @param string|null $hash
      * @return User|null
      * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByResetPasswordHash(?string $hash): ?User
     {
@@ -464,8 +444,8 @@ class UserService implements UserServiceInterface
      * @param string $userAgent
      * @return void
      * @throws ORMException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NonUniqueResultException
+     * @throws OptimisticLockException
      */
     public function addRememberMeToken(User $user, string $userAgent)
     {
@@ -508,8 +488,8 @@ class UserService implements UserServiceInterface
      * @return void
      * @throws ORMException
      * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NonUniqueResultException
+     * @throws OptimisticLockException
      */
     public function deleteRememberMeCookie()
     {

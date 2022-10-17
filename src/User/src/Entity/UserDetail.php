@@ -19,21 +19,18 @@ class UserDetail extends AbstractEntity
     /**
      * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User", inversedBy="detail")
      * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     * @var UserInterface $user
      */
-    protected $user;
+    protected UserInterface $user;
 
     /**
      * @ORM\Column(name="firstName", type="string", length=191, nullable=true)
-     * @var $firstName
      */
-    protected $firstName;
+    protected string $firstName;
 
     /**
      * @ORM\Column(name="lastName", type="string", length=191, nullable=true)
-     * @var $lastName
      */
-    protected $lastName;
+    protected string $lastName;
 
     /**
      * UserDetail constructor.
@@ -44,7 +41,7 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @return User
+     * @return UserInterface
      */
     public function getUser(): UserInterface
     {
@@ -53,9 +50,9 @@ class UserDetail extends AbstractEntity
 
     /**
      * @param User $user
-     * @return $this
+     * @return self
      */
-    public function setUser(User $user)
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -63,16 +60,16 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
     /**
      * @param $firstName
-     * @return UserDetail
+     * @return self
      */
     public function setFirstName($firstName): self
     {
@@ -82,16 +79,16 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
     /**
      * @param $lastName
-     * @return UserDetail
+     * @return self
      */
     public function setLastName($lastName): self
     {
