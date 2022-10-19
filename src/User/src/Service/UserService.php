@@ -12,9 +12,9 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
+use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
-use Frontend\Contact\Repository\MessageRepository;
 use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
@@ -122,9 +122,8 @@ class UserService implements UserServiceInterface
     /**
      * @param array $data
      * @return UserInterface
-     * @throws \Exception
+     * @throws Exception
      * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function createUser(array $data): UserInterface
     {
@@ -148,7 +147,7 @@ class UserService implements UserServiceInterface
             foreach ($data['roles'] as $roleName) {
                 $role = $this->userRoleRepository->findByName($roleName);
                 if (!$role instanceof UserRole) {
-                    throw new \Exception('Role not found: ' . $roleName);
+                    throw new Exception('Role not found: ' . $roleName);
                 }
                 $user->addRole($role);
             }
@@ -160,7 +159,7 @@ class UserService implements UserServiceInterface
         }
 
         if (empty($user->getRoles())) {
-            throw new \Exception(Message::RESTRICTION_ROLES);
+            throw new Exception(Message::RESTRICTION_ROLES);
         }
 
         $this->userRepository->saveUser($user);
@@ -172,13 +171,10 @@ class UserService implements UserServiceInterface
     /**
      * @param User $user
      * @param array $data
-     * @return User
+     * @return UserInterface
      * @throws ORMException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws NonUniqueResultException
-     * @throws OptimisticLockException
      */
-    public function updateUser(User $user, array $data = [])
+    public function updateUser(User $user, array $data = []): UserInterface
     {
         if (isset($data['email']) && !is_null($data['email'])) {
             if ($this->exists($data['email'], $user->getUuid()->toString())) {
@@ -237,7 +233,7 @@ class UserService implements UserServiceInterface
             }
         }
         if (empty($user->getRoles())) {
-            throw new \Exception(Message::RESTRICTION_ROLES);
+            throw new Exception(Message::RESTRICTION_ROLES);
         }
 
         $this->userRepository->saveUser($user);
@@ -250,7 +246,7 @@ class UserService implements UserServiceInterface
      * @param UploadedFile $uploadedFile
      * @return UserAvatar
      */
-    protected function createAvatar(User $user, UploadedFile $uploadedFile)
+    protected function createAvatar(User $user, UploadedFile $uploadedFile): UserAvatar
     {
         $path = $this->config['uploads']['user']['path'] . DIRECTORY_SEPARATOR;
         $path .= $user->getUuid()->toString() . DIRECTORY_SEPARATOR;
@@ -286,7 +282,7 @@ class UserService implements UserServiceInterface
      * @param string $path
      * @return bool
      */
-    public function deleteAvatarFile(string $path)
+    public function deleteAvatarFile(string $path): bool
     {
         if (empty($path)) {
             return false;
@@ -303,10 +299,8 @@ class UserService implements UserServiceInterface
      * @param string $email
      * @param string|null $uuid
      * @return bool
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws NonUniqueResultException
      */
-    public function exists(string $email = '', ?string $uuid = '')
+    public function exists(string $email = '', ?string $uuid = ''): bool
     {
         return !is_null(
             $this->userRepository->exists($email, $uuid)
