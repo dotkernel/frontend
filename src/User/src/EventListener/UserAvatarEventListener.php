@@ -16,8 +16,7 @@ use Frontend\User\Entity\UserAvatar;
  */
 class UserAvatarEventListener
 {
-    /** @var array $config */
-    protected $config;
+    protected array $config;
 
     /**
      * UserAvatarEventListener constructor.

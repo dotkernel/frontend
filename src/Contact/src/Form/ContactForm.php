@@ -9,7 +9,7 @@ use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
-use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * Class ContactForm
@@ -17,8 +17,8 @@ use Laminas\InputFilter\InputFilter;
  */
 class ContactForm extends Form
 {
-    /** @var InputFilter $inputFilter */
-    protected $inputFilter;
+    /** @var InputFilterInterface $inputFilter */
+    protected InputFilterInterface $inputFilter;
 
     /**
      * ContactForm constructor.
@@ -84,21 +84,12 @@ class ContactForm extends Form
             ],
             'type' => Textarea::class,
         ]);
-
-//        $this->add([
-//            'name' => 'submit',
-//            'type' => 'submit',
-//            'attributes' => [
-//                'type' => 'submit',
-//                'value' => 'Send message'
-//            ]
-//        ], ['priority' => -105]);
     }
 
     /**
-     * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
+     * @return InputFilterInterface
      */
-    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
+    public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
     }

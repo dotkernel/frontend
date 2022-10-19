@@ -30,27 +30,23 @@ class UserResetPassword extends AbstractEntity
     /**
      * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "remove"}, inversedBy="resetPasswords")
      * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     * @var User $user
      */
-    protected $user;
+    protected User $user;
 
     /**
      * @ORM\Column(name="expires", type="datetime_immutable", nullable=false)
-     * @var DateTimeImmutable
      */
-    protected $expires;
+    protected DateTimeImmutable $expires;
 
     /**
      * @ORM\Column(name="hash", type="string", length=64, nullable=false, unique=true)
-     * @var $hash
      */
-    protected $hash;
+    protected string $hash;
 
     /**
      * @ORM\Column(name="status", type="string", length=20, nullable=false)
-     * @var string $status
      */
-    protected $status = self::STATUS_REQUESTED;
+    protected string $status = self::STATUS_REQUESTED;
 
     /**
      * UserResetPassword constructor.
@@ -74,9 +70,9 @@ class UserResetPassword extends AbstractEntity
 
     /**
      * @param User $user
-     * @return $this
+     * @return self
      */
-    public function setUser(User $user)
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -93,9 +89,9 @@ class UserResetPassword extends AbstractEntity
 
     /**
      * @param DateTimeImmutable $expires
-     * @return $this
+     * @return self
      */
-    public function setExpires(DateTimeImmutable $expires)
+    public function setExpires(DateTimeImmutable $expires): self
     {
         $this->expires = $expires;
 
@@ -103,18 +99,18 @@ class UserResetPassword extends AbstractEntity
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getHash()
+    public function getHash(): string
     {
         return $this->hash;
     }
 
     /**
      * @param $hash
-     * @return $this
+     * @return self
      */
-    public function setHash($hash)
+    public function setHash($hash): self
     {
         $this->hash = $hash;
 
@@ -131,9 +127,9 @@ class UserResetPassword extends AbstractEntity
 
     /**
      * @param string $status
-     * @return $this
+     * @return self
      */
-    public function setStatus(string $status)
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
@@ -147,7 +143,7 @@ class UserResetPassword extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCompleted()
+    public function isCompleted(): bool
     {
         return $this->getStatus() === self::STATUS_COMPLETED;
     }
@@ -166,9 +162,9 @@ class UserResetPassword extends AbstractEntity
     }
 
     /**
-     * @return $this
+     * @return self
      */
-    public function markAsCompleted()
+    public function markAsCompleted(): self
     {
         $this->status = self::STATUS_COMPLETED;
 

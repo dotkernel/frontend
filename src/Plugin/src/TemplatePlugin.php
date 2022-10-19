@@ -18,8 +18,8 @@ use Mezzio\Template\TemplateRendererInterface;
  */
 class TemplatePlugin implements PluginInterface
 {
-    /** @var TemplateRendererInterface */
-    protected $template;
+    /** @var TemplateRendererInterface $template */
+    protected TemplateRendererInterface $template;
 
     /**
      * TemplatePlugin constructor.
@@ -32,8 +32,8 @@ class TemplatePlugin implements PluginInterface
 
     /**
      * @param string|null $templateName
-     * @param array|null $params
-     * @return mixed
+     * @param array $params
+     * @return self|string
      */
     public function __invoke(string $templateName = null, array $params = [])
     {
