@@ -5,15 +5,11 @@ declare(strict_types=1);
 namespace Frontend\User\Form;
 
 use Frontend\User\Fieldset\UserDetailFieldset;
-use Frontend\User\InputFilter\RegisterInputFilter;
 use Frontend\User\InputFilter\UserDetailInputFilter;
-use Laminas\Form\Element\Collection;
-use Laminas\Form\Element\Email;
-use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
-use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * Class ProfileDetailsForm
@@ -21,8 +17,8 @@ use Laminas\InputFilter\InputFilter;
  */
 class ProfileDetailsForm extends Form
 {
-    /** @var InputFilter $inputFilter */
-    protected $inputFilter;
+    /** @var InputFilterInterface $inputFilter */
+    protected InputFilterInterface $inputFilter;
 
     /**
      * ProfileDetailsForm constructor.
@@ -60,9 +56,9 @@ class ProfileDetailsForm extends Form
     }
 
     /**
-     * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
+     * @return InputFilterInterface
      */
-    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
+    public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
     }

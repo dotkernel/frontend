@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Frontend\User\Entity;
 
+use Ramsey\Uuid\UuidInterface;
+
 /**
  * Interface UserInterface
  * @package Frontend\User\Entity
  */
 interface UserInterface
 {
+    /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface;
+
     /**
      * @return UserDetail|null
      */

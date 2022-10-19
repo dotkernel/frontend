@@ -7,8 +7,8 @@ namespace Frontend\User\Form;
 use Frontend\User\InputFilter\ProfilePasswordInputFilter;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
+use Laminas\InputFilter\InputFilterInterface;
 use Laminas\Form\Form;
-use Laminas\InputFilter\InputFilter;
 
 /**
  * Class ProfilePasswordForm
@@ -16,8 +16,8 @@ use Laminas\InputFilter\InputFilter;
  */
 class ProfilePasswordForm extends Form
 {
-    /** @var InputFilter $inputFilter */
-    protected $inputFilter;
+    /** @var InputFilterInterface $inputFilter */
+    protected InputFilterInterface $inputFilter;
 
     /**
      * ProfilePasswordForm constructor.
@@ -71,9 +71,9 @@ class ProfilePasswordForm extends Form
     }
 
     /**
-     * @return null|InputFilter|\Laminas\InputFilter\InputFilterInterface
+     * @return InputFilterInterface
      */
-    public function getInputFilter(): \Laminas\InputFilter\InputFilterInterface
+    public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
     }

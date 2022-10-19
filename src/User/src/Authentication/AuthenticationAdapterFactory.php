@@ -15,6 +15,7 @@ class AuthenticationAdapterFactory
      */
     public function __invoke(ContainerInterface $container): AuthenticationAdapter
     {
+        // TODO Refactor this to use the specific entity repository, not the entity manager
         if (! $container->has(EntityManager::class)) {
             throw new Exception('EntityManager not found.');
         }

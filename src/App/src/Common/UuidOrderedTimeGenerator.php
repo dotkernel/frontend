@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Frontend\App\Common;
 
-use Exception;
 use Ramsey\Uuid\Codec\OrderedTimeCodec;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactory;
+use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class UuidOrderedTimeGenerator
@@ -16,35 +16,19 @@ use Ramsey\Uuid\UuidInterface;
  */
 final class UuidOrderedTimeGenerator
 {
-    /** @var UuidFactory $factory */
-    private static $factory;
+    private static UuidFactoryInterface $factory;
 
-    /**
-     * @return UuidInterface
-     */
     public static function generateUuid(): UuidInterface
     {
-        try {
-            return self::getFactory()->uuid1();
-        } catch (Exception $exception) {
-            return null;
-        }
+        return self::getFactory()->uuid1();
     }
 
-    /**
-     * @return UuidFactory
-     */
-    private static function getFactory(): UuidFactory
+    /** @psalm-suppress UndefinedInterfaceMethod */
+    private static function getFactory(): UuidFactoryInterface
     {
-        if (!self::$factory) {
-            self::$factory = clone Uuid::getFactory();
-
-            $codec = new OrderedTimeCodec(
-                self::$factory->getUuidBuilder()
-            );
-
-            self::$factory->setCodec($codec);
-        }
+        self::$factory = clone Uuid::getFactory();
+        $codec = new OrderedTimeCodec(self::$factory->getUuidBuilder());
+        self::$factory->setCodec($codec);
 
         return self::$factory;
     }

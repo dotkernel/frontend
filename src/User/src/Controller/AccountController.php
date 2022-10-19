@@ -11,7 +11,6 @@ use Frontend\App\Common\Message;
 use Frontend\Plugin\FormsPlugin;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
-use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserResetPassword;
 use Frontend\User\Form\ProfileDeleteForm;
 use Frontend\User\Form\ProfileDetailsForm;
@@ -23,13 +22,11 @@ use Frontend\User\Service\UserService;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UploadedFileInterface;
 use Exception;
 
 class AccountController extends AbstractActionController
@@ -314,7 +311,6 @@ class AccountController extends AbstractActionController
             $this->template->render('user::profile', [
                 'action' => 'avatar',
                 'content' => $this->template->render('profile::avatar', [
-                    'userUploadsBaseUrl' => 'http://localhost:8080/uploads/user/',
                     'user' => $user,
                     'form' => $form
                 ]),

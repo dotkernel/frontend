@@ -13,16 +13,16 @@ use Mezzio\Authentication\UserInterface;
 class UserIdentity implements UserInterface
 {
     /** @var string $identity */
-    protected $identity;
+    protected string $identity;
 
     /** @var array $roles */
-    protected $roles;
+    protected array $roles;
 
     /** @var array $details */
-    protected $details;
+    protected array $details;
 
     /** @var string $uuid */
-    protected $uuid;
+    protected string $uuid;
 
     /**
      * UserIdentity constructor.
@@ -44,15 +44,25 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * Get the unique user identity (id, username, email address or ...)
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @return string
      */
     public function getIdentity(): string
     {
         return $this->identity;
     }
 
+
     /**
      * @return iterable
+     * @psalm-suppress LessSpecificImplementedReturnType
      */
     public function getRoles(): iterable
     {
@@ -61,8 +71,8 @@ class UserIdentity implements UserInterface
 
     /**
      * @param string $name
-     * @param null $default
-     * @return mixed|null
+     * @param null|mixed $default
+     * @return mixed
      */
     public function getDetail(string $name, $default = null)
     {
@@ -71,17 +81,10 @@ class UserIdentity implements UserInterface
 
     /**
      * @return array
+     * @psalm-return array<string, mixed>
      */
     public function getDetails(): array
     {
         return $this->details;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUuid(): string
-    {
-        return $this->uuid;
     }
 }

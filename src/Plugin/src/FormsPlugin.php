@@ -14,9 +14,11 @@ use Frontend\Plugin\Exception\RuntimeException;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Dot\Form\Factory\FormAbstractServiceFactory;
 use Dot\Form\FormElementManager;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class FormsPlugin
@@ -24,14 +26,14 @@ use Laminas\Form\FormInterface;
  */
 class FormsPlugin implements PluginInterface
 {
-    /** @var  FormElementManager */
-    protected $formElementManager;
+    /** @var FormElementManager $formElementManager */
+    protected FormElementManager $formElementManager;
 
-    /** @var  ContainerInterface */
-    protected $container;
+    /** @var ContainerInterface $container */
+    protected ContainerInterface $container;
 
-    /** @var  FlashMessengerInterface */
-    protected $flashMessenger;
+    /** @var FlashMessengerInterface|null  $flashMessenger*/
+    protected ?FlashMessengerInterface $flashMessenger;
 
     /**
      * FormsPlugin constructor.
@@ -50,8 +52,10 @@ class FormsPlugin implements PluginInterface
     }
 
     /**
-     * @param string $name
-     * @return object
+     * @param string|null $name
+     * @return mixed
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function __invoke(string $name = null)
     {
@@ -85,7 +89,7 @@ class FormsPlugin implements PluginInterface
     /**
      * @param Form $form
      */
-    public function restoreState(Form $form)
+    public function restoreState(Form $form): void
     {
         if ($this->flashMessenger) {
             $dataKey = $form->getName() . '_data';
@@ -159,6 +163,7 @@ class FormsPlugin implements PluginInterface
 
     /**
      * @param array $formMessages
+     * @psalm-suppress InvalidArrayOffset
      * @return array
      */
     protected function processFormErrors(array $formMessages): array
@@ -167,7 +172,7 @@ class FormsPlugin implements PluginInterface
         foreach ($formMessages as $key => $message) {
             if (is_array($message)) {
                 if (!isset($errors[$key])) {
-                    $errors[$key] = array();
+                    $errors[$key] = [];
                 }
 
                 foreach ($message as $k => $m) {

@@ -2,16 +2,19 @@
 
 namespace Frontend\User\Controller;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
 use Dot\FlashMessenger\FlashMessenger;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\Plugin\FormsPlugin;
+use Frontend\User\Authentication\AuthenticationAdapter;
 use Frontend\User\Entity\User;
 use Frontend\User\Form\LoginForm;
 use Frontend\User\Form\RegisterForm;
 use Frontend\User\Service\UserService;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
@@ -31,8 +34,8 @@ class UserController extends AbstractActionController
     /** @var UserService $userService */
     protected UserService $userService;
 
-    /** @var AuthenticationServiceInterface $authenticationService */
-    protected AuthenticationServiceInterface $authenticationService;
+    /** @var AuthenticationService $authenticationService */
+    protected AuthenticationService $authenticationService;
 
     /** @var FlashMessenger $messenger */
     protected FlashMessenger $messenger;
@@ -81,14 +84,17 @@ class UserController extends AbstractActionController
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return ResponseInterface
+     * @throws NonUniqueResultException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function loginAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
             return new RedirectResponse($this->router->generateUri("page"));
         }
-        /** @var LoginForm $form */
+
         $form = new LoginForm();
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
@@ -99,6 +105,7 @@ class UserController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
             $form->setData($this->getRequest()->getParsedBody());
             if ($form->isValid()) {
+                /** @var AuthenticationAdapter $adapter */
                 $adapter = $this->authenticationService->getAdapter();
                 $data = $form->getData();
                 $adapter->setIdentity($data['identity'])->setCredential($data['password']);

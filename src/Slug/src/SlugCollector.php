@@ -282,6 +282,7 @@ class SlugCollector implements SlugInterface
 
                     if ($part[0] !== self::REMOVABLE_PART) {
                         // Check substitute value with regex
+                        /** @psalm-suppress UndefinedVariable */
                         if (!empty($addOns)) {
                             $substitutions[$part[0]] = $addOns[$p];
                         }

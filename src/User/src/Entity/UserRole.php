@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dot\Authorization\Role\RoleInterface;
 use Frontend\App\Common\AbstractEntity;
 
 /**
@@ -14,7 +15,7 @@ use Frontend\App\Common\AbstractEntity;
  * @ORM\HasLifecycleCallbacks()
  * @package Frontend\User\Entity
  */
-class UserRole extends AbstractEntity
+class UserRole extends AbstractEntity implements RoleInterface
 {
     public const ROLE_ADMIN = 'admin';
     public const ROLE_USER = 'user';
@@ -27,9 +28,8 @@ class UserRole extends AbstractEntity
 
     /**
      * @ORM\Column(name="name", type="string", length=30, nullable=false, unique=true)
-     * @var string $name
      */
-    protected $name;
+    protected string $name;
 
     /**
      * UserRole constructor.

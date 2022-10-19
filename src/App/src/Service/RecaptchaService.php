@@ -46,7 +46,7 @@ class RecaptchaService
      */
     public function isValid(): bool
     {
-        if (! isset($this->response)) {
+        if (empty($this->response)) {
             throw new InvalidArgumentException('Recaptcha response not initialized.');
         }
 
@@ -64,6 +64,8 @@ class RecaptchaService
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
 
         $response = curl_exec($curl);
+
+        /** @psalm-suppress InvalidScalarArgument */
         $response = json_decode($response, true);
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
