@@ -30,7 +30,7 @@ class UserRememberMe extends AbstractEntity
     protected $rememberMeToken;
 
     /**
-     * @ORM\Column(name="userAgent", type="string", length=100)
+     * @ORM\Column(name="userAgent", type="text")
      * @var string|null $userAgent
      */
     protected $userAgent;
