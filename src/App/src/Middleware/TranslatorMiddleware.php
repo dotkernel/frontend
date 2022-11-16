@@ -55,9 +55,11 @@ class TranslatorMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $cookieKey = $this->translatorConfig['cookie']['name'];
+
         // add language key
-        if (!empty($_COOKIE[$this->translatorConfig['cookie']['name']])) {
-            $languageKey = $_COOKIE[$this->translatorConfig['cookie']['name']];
+        if (isset($_COOKIE[$cookieKey]) && array_key_exists($_COOKIE[$cookieKey], $this->translatorConfig['locale'])) {
+            $languageKey = $_COOKIE[$cookieKey];
         } else {
             $languageKey = $this->translatorConfig['default'];
 
