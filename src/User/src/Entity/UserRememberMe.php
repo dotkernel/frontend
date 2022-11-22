@@ -17,7 +17,7 @@ use Frontend\App\Common\AbstractEntity;
 class UserRememberMe extends AbstractEntity
 {
     /**
-     * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Frontend\User\Entity\User")
      * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
      * @var User $user
      */
