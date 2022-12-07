@@ -363,9 +363,16 @@ class AccountController extends AbstractActionController
                 return new RedirectResponse($this->request->getUri(), 303);
             }
         } else {
-            $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
-            $userDetails['detail']['lastName'] = $user->getDetail()->getLastName();
-            $form->setData($userDetails);
+            if (!is_null($user)) {
+                $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
+                $userDetails['detail']['lastName'] = $user->getDetail()->getLastName();
+                $form->setData($userDetails);
+            } else {
+                $this->authenticationService->clearIdentity();
+                return new RedirectResponse(
+                    $this->router->generateUri('page')
+                );
+            }
         }
 
         return new HtmlResponse(
