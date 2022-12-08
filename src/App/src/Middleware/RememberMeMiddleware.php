@@ -64,10 +64,6 @@ class RememberMeMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($this->authenticationService->hasIdentity()) {
-            return $handler->handle($request);
-        }
-
         if (!empty($_COOKIE['rememberMe'])) {
             $hash = $_COOKIE['rememberMe'];
             $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
@@ -76,9 +72,9 @@ class RememberMeMiddleware implements MiddlewareInterface
                 $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
                 if (
                     $hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType &&
-                    $rememberUser->getExpireDate() > new \DateTimeImmutable('now')
+                    $rememberUser->getExpireDate() > new \DateTimeImmutable('now') && $user->getIsDeleted() === false
                 ) {
-                    $identity = new UserIdentity(
+                    $userIdentity = new UserIdentity(
                         $user->getUuid()->toString(),
                         $user->getIdentity(),
                         $user->getRoles()->map(function (UserRole $userRole) {
@@ -88,7 +84,10 @@ class RememberMeMiddleware implements MiddlewareInterface
                     );
 
                     /** @psalm-suppress UndefinedInterfaceMethod */
-                    $this->authenticationService->getStorage()->write($identity);
+                    $this->authenticationService->getStorage()->write($userIdentity);
+                } else {
+                    /** @psalm-suppress UndefinedInterfaceMethod */
+                    $this->authenticationService->getStorage()->clear();
                 }
             }
         }

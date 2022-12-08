@@ -117,7 +117,7 @@ class UserRememberMe extends AbstractEntity
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getuser(),
+            'name' => $this->getUser(),
             'userHash' => $this->getRememberMeToken(),
             'userAgent' => $this->getUserAgent(),
             'expireDate' => $this->getExpireDate(),
