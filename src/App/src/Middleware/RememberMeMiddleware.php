@@ -86,6 +86,7 @@ class RememberMeMiddleware implements MiddlewareInterface
                     /** @psalm-suppress UndefinedInterfaceMethod */
                     $this->authenticationService->getStorage()->write($userIdentity);
                 } else {
+                    /** @psalm-suppress UndefinedInterfaceMethod */
                     $this->authenticationService->getStorage()->clear();
                 }
             }
