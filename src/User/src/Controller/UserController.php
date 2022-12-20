@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\User\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
+use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\Plugin\FormsPlugin;
@@ -43,8 +46,8 @@ class UserController extends AbstractActionController
     /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
 
-    /** @var array $config */
-    protected $config;
+    /** @var DebugBar $debugBar */
+    protected DebugBar $debugBar;
 
     /**
      * UserController constructor.
@@ -54,7 +57,7 @@ class UserController extends AbstractActionController
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
-     * @param array $config
+     * @param DebugBar $debugBar
      * @Inject({
      *     UserService::class,
      *     RouterInterface::class,
@@ -62,8 +65,8 @@ class UserController extends AbstractActionController
      *     AuthenticationService::class,
      *     FlashMessenger::class,
      *     FormsPlugin::class,
-     *     "config"
-     *     })
+     *     DebugBar::class
+     * })
      */
     public function __construct(
         UserService $userService,
@@ -72,7 +75,7 @@ class UserController extends AbstractActionController
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
         FormsPlugin $forms,
-        array $config = []
+        DebugBar $debugBar
     ) {
         $this->userService = $userService;
         $this->router = $router;
@@ -80,7 +83,7 @@ class UserController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
-        $this->config = $config;
+        $this->debugBar = $debugBar;
     }
 
     /**
@@ -171,7 +174,8 @@ class UserController extends AbstractActionController
                 try {
                     /** @var User $user */
                     $user = $this->userService->createUser($userData);
-                } catch (\Exception $e) {
+                    $this->debugBar->stackData();
+                } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
                     $this->messenger->addError($e->getMessage(), 'user-register');

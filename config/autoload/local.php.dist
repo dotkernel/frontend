@@ -20,8 +20,8 @@ $databases = [
         'port' => 3306,
         'driver' => 'pdo_mysql',
         'charset' => 'utf8mb4',
-        'collate' => 'utf8mb4_general_ci'
-    ]
+        'collate' => 'utf8mb4_general_ci',
+    ],
     // you can add more database connections into this array
 ];
 
@@ -29,33 +29,33 @@ return [
     'annotations_cache_dir' => getcwd() . '/data/cache/annotations',
     'application' => [
         'name' => 'DotKernel',
-        'url' => $baseUrl
+        'url' => $baseUrl,
     ],
     'databases' => $databases,
     'doctrine' => [
         'connection' => [
             'orm_default' => [
-                'params' => $databases['default']
-            ]
-        ]
+                'params' => $databases['default'],
+            ],
+        ],
     ],
     'uploads' => [
         'user' => [
             'url'  => $baseUrl . '/uploads/user',
             'path' => \realpath(__DIR__ . '/../../public/uploads/user'),
-        ]
+        ],
     ],
     'contact' => [
         'notification_receivers' => [
         ],
         'message_receivers' => [
             'to' => [
-                'tech@example.com'
+                'tech@example.com',
             ],
             'cc' => [
-                'tech@example.com'
-            ]
-        ]
+                'tech@example.com',
+            ],
+        ],
     ],
     'translator' => [
         'cookie' => [
@@ -63,7 +63,7 @@ return [
             'lifetime' => 3600 * 24 * 30,
             'samesite' => 'Lax',
             'secure' => true,
-            'httponly' => true
+            'httponly' => true,
         ],
 
         'default' => 'en',
@@ -76,19 +76,19 @@ return [
         'base_dir' => getcwd() . '/data/language',
     ],
     'recaptcha' => [
-        'scoreThreshold' => (float) 0.5,
+        'scoreThreshold' => 0.5,
         'siteKey' => '',
         'secretKey' => '',
-        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify'
+        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
     ],
 
     'rememberMe' => [
-            'cookie' => [
-                'name' => 'rememberMe',
-                'lifetime' => 3600 * 24 * 30,
-                'samesite' => 'Lax',
-                'secure' => false,
-                'httponly' => true
-            ]
+        'cookie' => [
+            'name' => 'rememberMe',
+            'lifetime' => 3600 * 24 * 30,
+            'samesite' => 'Lax',
+            'secure' => false,
+            'httponly' => true,
         ],
+    ],
 ];

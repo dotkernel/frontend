@@ -21,6 +21,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
         {% block stylesheets %}{% endblock %}
+        {{ debugBarCss()|raw }}
     </head>
     <body class="app {% block body_class %}{% endblock %} language-{{ language_key }}">
         <div id="wrapper">
@@ -124,5 +125,6 @@
 
         <script src="{{ asset('js/app.js') }}"></script>
         {% block javascript %}{% endblock %}
+        {{ debugBarJs()|raw }}
     </body>
 </html>

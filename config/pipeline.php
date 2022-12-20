@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Dot\DebugBar\Middleware\DebugBarMiddleware;
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
 use Frontend\App\Middleware\RememberMeMiddleware;
@@ -31,6 +32,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // all Exceptions.
     $app->pipe(ErrorHandlerInterface::class);
     $app->pipe(ServerUrlMiddleware::class);
+    $app->pipe(DebugBarMiddleware::class);
     $app->pipe(CorsMiddleware::class);
 
     // Pipe more middleware here that you want to execute on every request:
