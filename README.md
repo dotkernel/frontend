@@ -214,6 +214,14 @@ This will enable dev mode by turning debug flag to `true` and turning configurat
 
 > Charset recommendation: utf8mb4_general_ci
 
+## Using DebugBar
+
+DotKernel comes with its own DebugBar already installed and configured, but disabled by default.
+
+In order to enable it, you need to clone the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`.
+
+More about DebugBar [here](https://github.com/dotkernel/dot-debugbar).
+
 ## Email Templates
 
 These are the email templates provided on a fresh installation, all present in the User module
