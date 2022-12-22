@@ -6,6 +6,7 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
+use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
 use Dot\Mail\Exception\MailException;
 use Fig\Http\Message\RequestMethodInterface;
@@ -44,11 +45,14 @@ class ContactController extends AbstractActionController
     /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
 
+    /** @var DebugBar $debugBar */
+    protected DebugBar $debugBar;
+
     /** @var array $config */
     protected $config;
 
     /**
-     * UserController constructor.
+     * ContactController constructor.
      * @param MessageService $messageService
      * @param RecaptchaService $recaptchaService
      * @param RouterInterface $router
@@ -56,6 +60,7 @@ class ContactController extends AbstractActionController
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
+     * @param DebugBar $debugBar
      * @param array $config
      * @Inject({
      *     MessageService::class,
@@ -65,6 +70,7 @@ class ContactController extends AbstractActionController
      *     AuthenticationService::class,
      *     FlashMessenger::class,
      *     FormsPlugin::class,
+     *     DebugBar::class,
      *     "config"
      *     })
      */
@@ -76,6 +82,7 @@ class ContactController extends AbstractActionController
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
         FormsPlugin $forms,
+        DebugBar $debugBar,
         array $config = []
     ) {
         $this->messageService = $messageService;
@@ -85,6 +92,7 @@ class ContactController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
+        $this->debugBar = $debugBar;
         $this->config = $config;
     }
 
@@ -121,6 +129,7 @@ class ContactController extends AbstractActionController
                 $result = $this->messageService->processMessage($dataForm);
 
                 if ($result) {
+                    $this->debugBar->stackData();
                     return new HtmlResponse($this->template->render('contact::thank-you'));
                 } else {
                     $this->messenger->addError('Something went wrong. Please try again later!');

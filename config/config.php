@@ -31,6 +31,7 @@ $aggregator = new ConfigAggregator([
         : function(){ return[]; },
 
     // DotKernel packages
+    \Dot\DebugBar\ConfigProvider::class,
     \Dot\Mail\ConfigProvider::class,
     \Dot\Form\ConfigProvider::class,
     \Dot\Log\ConfigProvider::class,

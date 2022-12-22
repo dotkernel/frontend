@@ -1,5 +1,6 @@
 <?php
 
+use Dot\DebugBar\Extension\DebugBarExtension;
 use Frontend\Slug\Factory\RouteExtensionFactory;
 use Twig\Environment;
 use Mezzio\Twig\TwigEnvironmentFactory;
@@ -22,7 +23,7 @@ return [
     ],
     'debug' => false,
     'templates' => [
-        'extension' => 'html.twig'
+        'extension' => 'html.twig',
     ],
     'twig' => [
         'assets_url' => '/',
@@ -33,13 +34,14 @@ return [
         'extensions' => [
             DateExtension::class,
             TranslationExtension::class,
-            RouteExtension::class
+            RouteExtension::class,
+            DebugBarExtension::class,
         ],
         'optimizations' => -1,
         'runtime_loaders' => [],
         //'timezone' => '',
         'globals' => [
-            'appName' => $app['name']
+            'appName' => $app['name'],
         ],
     ]
 ];

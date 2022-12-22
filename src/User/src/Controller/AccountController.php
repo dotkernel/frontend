@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\User\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Dot\Controller\AbstractActionController;
+use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Common\Message;
@@ -49,21 +52,26 @@ class AccountController extends AbstractActionController
     /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
 
+    /** @var DebugBar $debugBar */
+    protected DebugBar $debugBar;
+
     /**
-     * UserController constructor.
+     * AccountController constructor.
      * @param UserService $userService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
+     * @param DebugBar $debugBar
      * @Inject({
      *     UserService::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
      *     FlashMessenger::class,
-     *     FormsPlugin::class
+     *     FormsPlugin::class,
+     *     DebugBar::class
      *     })
      */
     public function __construct(
@@ -72,7 +80,8 @@ class AccountController extends AbstractActionController
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
-        FormsPlugin $forms
+        FormsPlugin $forms,
+        DebugBar $debugBar
     ) {
         $this->userService = $userService;
         $this->router = $router;
@@ -80,6 +89,7 @@ class AccountController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
+        $this->debugBar = $debugBar;
     }
 
     /**
@@ -106,8 +116,9 @@ class AccountController extends AbstractActionController
         }
 
         try {
-            $user = $this->userService->activateUser($user);
-        } catch (\Exception $exception) {
+            $this->userService->activateUser($user);
+            $this->debugBar->stackData();
+        } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
@@ -144,8 +155,9 @@ class AccountController extends AbstractActionController
         }
 
         try {
-            $user = $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
-        } catch (\Exception $exception) {
+            $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
+            $this->debugBar->stackData();
+        } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
@@ -176,14 +188,15 @@ class AccountController extends AbstractActionController
 
             try {
                 $user = $this->userService->updateUser($user->createResetPassword());
-            } catch (\Exception $exception) {
+                $this->debugBar->stackData();
+            } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'request-reset');
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
             try {
                 $this->userService->sendResetPasswordRequestedMail($user);
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'request-reset');
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
@@ -244,7 +257,8 @@ class AccountController extends AbstractActionController
                     $resetPasswordRequest->markAsCompleted()->getUser(),
                     $form->getData()
                 );
-            } catch (\Exception $exception) {
+                $this->debugBar->stackData();
+            } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'reset-password');
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
@@ -252,7 +266,7 @@ class AccountController extends AbstractActionController
 
             try {
                 $this->userService->sendResetPasswordCompletedMail($user);
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'reset-password');
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
@@ -269,9 +283,9 @@ class AccountController extends AbstractActionController
         );
     }
 
-
     /**
      * @return ResponseInterface
+     * @throws NonUniqueResultException
      */
     public function avatarAction(): ResponseInterface
     {
@@ -293,6 +307,7 @@ class AccountController extends AbstractActionController
 
             try {
                 $this->userService->updateUser($user, ['avatar' => $file]);
+                $this->debugBar->stackData();
             } catch (Exception $e) {
                 $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
                 return new RedirectResponse($this->router->generateUri(
@@ -342,7 +357,8 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                } catch (\Exception $e) {
+                    $this->debugBar->stackData();
+                } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
                     $this->messenger->addError($e->getMessage(), 'profile-details');
@@ -387,6 +403,7 @@ class AccountController extends AbstractActionController
 
     /**
      * @return ResponseInterface
+     * @throws NonUniqueResultException
      */
     public function changePasswordAction(): ResponseInterface
     {
@@ -409,7 +426,8 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                } catch (\Exception $e) {
+                    $this->debugBar->stackData();
+                } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
                     $this->messenger->addError($e->getMessage(), 'profile-password');
@@ -443,6 +461,7 @@ class AccountController extends AbstractActionController
 
     /**
      * @return ResponseInterface
+     * @throws NonUniqueResultException
      */
     public function deleteAccountAction(): ResponseInterface
     {
@@ -465,7 +484,8 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                } catch (\Exception $e) {
+                    $this->debugBar->stackData();
+                } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
                     $this->messenger->addError($e->getMessage(), 'profile-delete');
