@@ -369,9 +369,9 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getResetPasswords(): ArrayCollection
+    public function getResetPasswords(): Collection
     {
         return $this->resetPasswords;
     }
