@@ -10,10 +10,17 @@ return [
         'enabled' => true,
 
         /**
-         * Enable DebugBar by whitelisting your IP address
+         * Enable DebugBar by whitelisting your IPV4 address
          */
-        'ipWhitelist' => [
+        'ipv4Whitelist' => [
             '127.0.0.1',
+        ],
+
+        /**
+         * Enable DebugBar by whitelisting your IPV6 address
+         */
+        'ipv6Whitelist' => [
+            '::1',
         ],
 
         /**
