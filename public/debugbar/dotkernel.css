@@ -1,0 +1,46 @@
+.phpdebugbar-header {
+    background-color: #C60B31 !important;
+}
+
+.phpdebugbar-tab, .phpdebugbar-indicator {
+    color: #FFFFFF !important;
+}
+
+.phpdebugbar-badge {
+    vertical-align: baseline !important;
+}
+
+.phpdebugbar-active {
+    color: #000000 !important;
+}
+
+.phpdebugbar-panel {
+    background-color: #F8F8F8 !important;
+}
+
+.phpdebugbar-widgets-kvlist {
+    font-size: .75rem !important;
+}
+
+.phpdebugbar-widgets-key {
+    text-align: right !important;
+}
+
+.phpdebugbar-widgets-value {
+    border-left: 1px solid #DDDDDD !important;
+    background-color: #FFFFFF !important;
+}
+
+.phpdebugbar-widgets-list-item {
+    background-color: #FFFFFF !important;
+    padding: .75rem .5rem !important;
+}
+
+.phpdebugbar-widgets-params tr > td:nth-child(1) {
+    background-color: #F8F8F8 !important;
+    text-align: right !important;
+}
+
+.phpdebugbar-widgets-params tr > td:nth-child(2) {
+    background-color: #FFFFFF !important;
+}

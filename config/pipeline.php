@@ -30,9 +30,9 @@ use Frontend\Slug\Middleware\SlugMiddleware;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
+    $app->pipe(DebugBarMiddleware::class);
     $app->pipe(ErrorHandlerInterface::class);
     $app->pipe(ServerUrlMiddleware::class);
-    $app->pipe(DebugBarMiddleware::class);
     $app->pipe(CorsMiddleware::class);
 
     // Pipe more middleware here that you want to execute on every request:

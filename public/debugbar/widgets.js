@@ -232,8 +232,8 @@ if (typeof(PhpDebugBar) == 'undefined') {
             $('<span />').attr('title', key).text(key).appendTo(dt);
 
             var v = value;
-            if (v && v.length > 100) {
-                v = v.substr(0, 100) + "...";
+            if (v && v.length > 500) {
+                v = v.substr(0, 500) + "...";
             }
             var prettyVal = null;
             dd.text(v).click(function() {
