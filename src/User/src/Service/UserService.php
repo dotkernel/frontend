@@ -436,17 +436,20 @@ class UserService implements UserServiceInterface
     /**
      * @param User $user
      * @param string $userAgent
+     * @param array $cookies
      * @return void
-     * @throws ORMException
      * @throws NonUniqueResultException
-     * @throws OptimisticLockException
      */
-    public function addRememberMeToken(User $user, string $userAgent)
+    public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void
     {
         $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
         $checkUser = $this->getRepository()->findRememberMeUser($user, $userAgent);
 
-        if (!is_null($checkUser) && $checkUser->getRememberMeToken() != $_COOKIE['rememberMe']) {
+        if (
+            !is_null($checkUser)
+            && array_key_exists('rememberMe', $cookies)
+            && $checkUser->getRememberMeToken() !== $cookies['rememberMe']
+        ) {
             $this->getRepository()->removeUserRememberMe($checkUser);
         }
 

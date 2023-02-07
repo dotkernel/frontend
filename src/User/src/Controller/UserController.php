@@ -118,8 +118,12 @@ class UserController extends AbstractActionController
                     $user = $this->userService->findByIdentity($identity->getIdentity());
                     $deviceType = $this->getRequest()->getServerParams();
                     $this->authenticationService->getStorage()->write($identity);
-                    if ($data['rememberMe']) {
-                        $this->userService->addRememberMeToken($user, $deviceType['HTTP_USER_AGENT']);
+                    if (!empty($data['rememberMe'])) {
+                        $this->userService->addRememberMeToken(
+                            $user,
+                            $deviceType['HTTP_USER_AGENT'],
+                            $this->request->getCookieParams()
+                        );
                     }
                     return new RedirectResponse($this->router->generateUri("page"));
                 } else {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Dot\DebugBar\Middleware\DebugBarMiddleware;
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
+use Dot\Session\SessionMiddleware;
 use Frontend\App\Middleware\RememberMeMiddleware;
 use Mezzio\Application;
 use Mezzio\Cors\Middleware\CorsMiddleware;
@@ -32,6 +33,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // all Exceptions.
     $app->pipe(DebugBarMiddleware::class);
     $app->pipe(ErrorHandlerInterface::class);
+    $app->pipe(SessionMiddleware::class);
     $app->pipe(ServerUrlMiddleware::class);
     $app->pipe(CorsMiddleware::class);
 
