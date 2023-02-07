@@ -6,6 +6,7 @@ namespace Frontend\Contact\Form;
 
 use Frontend\Contact\InputFilter\ContactInputFilter;
 use Laminas\Form\Element\Email;
+use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
@@ -69,7 +70,7 @@ class ContactForm extends Form
             'attributes' => [
                 'placeholder' => 'Subject...'
             ],
-            'type' => Text::class,
+            'type' => Hidden::class,
         ]);
 
         $this->add([

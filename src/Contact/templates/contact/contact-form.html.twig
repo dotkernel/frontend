@@ -50,6 +50,17 @@
                     </div>
 
                     <div class="row">
+                        {% set subject = form.get('subject') %}
+                        {% set dummy = subject.setAttribute('class', 'form-control') %}
+                        {% set dummy = subject.setAttribute('id', 'subject') %}
+                        {% set subjectTranslatePlaceholder = subject.getAttribute('placeholder')|trans|raw %}
+                        {% set dummy = subject.setAttribute('placeholder', subjectTranslatePlaceholder) %}
+                        <div class="col-md-12">
+                            {{ formElement(subject) }}
+                        </div>
+                    </div>
+
+                    <div class="row">
                         {% set message = form.get('message') %}
                         {% set dummy = message.setAttribute('class', 'form-control') %}
                         {% set dummy = message.setAttribute('id', 'message') %}

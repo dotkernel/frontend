@@ -12,7 +12,10 @@ namespace Frontend\User\InputFilter;
 
 use Frontend\App\Common\Message;
 use Frontend\User\Entity\User;
+use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Validator\InArray;
+use Laminas\Validator\NotEmpty;
 
 /**
  * Class ProfileDeleteInputFilter
@@ -24,25 +27,16 @@ class ProfileDeleteInputFilter extends InputFilter
     {
         parent::init();
 
-        $this->add([
-            'name' => 'isDeleted',
-            'required' => true,
-            'validators' => [
-                [
-                    'name' => 'InArray',
-                    'options' => [
-                        'haystack' => User::IS_DELETED,
-                        'message' => Message::DELETE_ACCOUNT,
-                    ],
-                ],
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => Message::DELETE_ACCOUNT
-                    ]
-                ],
-            ]
-        ]);
+        $isDeleted = new Input('isDeleted');
+        $isDeleted->setRequired(true);
+        $isDeleted->getValidatorChain()
+            ->attachByName(InArray::class, [
+                'haystack' => User::IS_DELETED,
+                'message' => Message::DELETE_ACCOUNT,
+            ], true)
+            ->attachByName(NotEmpty::class, [
+                'message' => Message::DELETE_ACCOUNT,
+            ], true);
+        $this->add($isDeleted);
     }
 }
