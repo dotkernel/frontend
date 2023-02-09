@@ -2,9 +2,11 @@
 
 namespace Frontend\User\Service;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Dot\Mail\Exception\MailException;
+use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Frontend\User\Repository\UserRepository;
@@ -19,7 +21,7 @@ interface UserServiceInterface
     /**
      * @param array $data
      * @return UserInterface
-     * @throws \Exception
+     * @throws Exception
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -60,19 +62,17 @@ interface UserServiceInterface
     /**
      * @param User $user
      * @param string $userAgent
+     * @param array $cookies
      * @return void
-     * @throws ORMException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws OptimisticLockException
+     * @throws NonUniqueResultException
+     * @throws Exception
      */
-    public function addRememberMeToken(User $user, string $userAgent);
+    public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void;
 
     /**
+     * @param array $cookies
      * @return void
-     * @throws ORMException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws OptimisticLockException
+     * @throws NonUniqueResultException
      */
-    public function deleteRememberMeCookie();
+    public function deleteRememberMeToken(array $cookies = []): void;
 }

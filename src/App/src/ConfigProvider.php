@@ -10,6 +10,8 @@ use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
 use Frontend\App\Resolver\EntityListenerResolver;
+use Frontend\App\Service\CookieService;
+use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
 use Frontend\App\Service\TranslateService;
 use Frontend\App\Service\TranslateServiceInterface;
@@ -58,11 +60,13 @@ class ConfigProvider
                 TranslateService::class => AnnotatedServiceFactory::class,
                 LanguageController::class => AnnotatedServiceFactory::class,
                 RecaptchaService::class => AnnotatedServiceFactory::class,
+                CookieService::class => AnnotatedServiceFactory::class,
             ],
             'aliases' => [
                 EntityManager::class => 'doctrine.entity_manager.orm_default',
                 EntityManagerInterface::class => 'doctrine.entity_manager.default',
                 TranslateServiceInterface::class => TranslateService::class,
+                CookieServiceInterface::class => CookieService::class,
             ]
         ];
     }

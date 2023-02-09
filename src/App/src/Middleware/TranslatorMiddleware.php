@@ -21,14 +21,9 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class TranslatorMiddleware implements MiddlewareInterface
 {
-    /** @var  TranslateServiceInterface */
-    protected $translateService;
-
-    /** @var TemplateRendererInterface */
-    protected $template;
-
-    /** @var array */
-    protected $translatorConfig;
+    protected TranslateServiceInterface $translateService;
+    protected TemplateRendererInterface $template;
+    protected array $translatorConfig = [];
 
     /**
      * TranslatorMiddleware constructor.
@@ -36,7 +31,11 @@ class TranslatorMiddleware implements MiddlewareInterface
      * @param TemplateRendererInterface $template
      * @param array $translatorConfig
      *
-     * @Inject({TranslateServiceInterface::class, TemplateRendererInterface::class, "config.translator"})
+     * @Inject({
+     *     TranslateServiceInterface::class,
+     *     TemplateRendererInterface::class,
+     *     "config.translator"
+     * })
      */
     public function __construct(
         TranslateServiceInterface $translateService,
@@ -55,11 +54,12 @@ class TranslatorMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $cookies = $request->getCookieParams();
         $cookieKey = $this->translatorConfig['cookie']['name'];
 
         // add language key
-        if (isset($_COOKIE[$cookieKey]) && array_key_exists($_COOKIE[$cookieKey], $this->translatorConfig['locale'])) {
-            $languageKey = $_COOKIE[$cookieKey];
+        if (isset($cookies[$cookieKey]) && array_key_exists($cookies[$cookieKey], $this->translatorConfig['locale'])) {
+            $languageKey = $cookies[$cookieKey];
         } else {
             $languageKey = $this->translatorConfig['default'];
 

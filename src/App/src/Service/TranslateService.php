@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Frontend\App\Service;
 
 use Dot\AnnotatedServices\Annotation\Inject;
-use Laminas\Session\Config\SessionConfig;
-use Laminas\Session\SessionManager;
 
 /**
  * Class TranslateService
@@ -14,25 +12,25 @@ use Laminas\Session\SessionManager;
  */
 class TranslateService implements TranslateServiceInterface
 {
-    /** @var  SessionManager */
-    protected $defaultSessionManager;
-
-    /** @var array */
-    protected $translatorConfig;
+    protected CookieServiceInterface $cookieService;
+    protected array $config = [];
 
     /**
      * TranslateService constructor.
-     * @param SessionManager $defaultSessionManager
-     * @param array $translatorConfig
+     * @param CookieServiceInterface $cookieService
+     * @param array $config
      *
-     * @Inject({SessionManager::class, "config.translator"})
+     * @Inject({
+     *     CookieServiceInterface::class,
+     *     "config"
+     * })
      */
     public function __construct(
-        SessionManager $defaultSessionManager,
-        array $translatorConfig = []
+        CookieServiceInterface $cookieService,
+        array $config = []
     ) {
-        $this->defaultSessionManager = $defaultSessionManager;
-        $this->translatorConfig = $translatorConfig;
+        $this->cookieService = $cookieService;
+        $this->config = $config;
     }
 
     /**
@@ -40,22 +38,11 @@ class TranslateService implements TranslateServiceInterface
      */
     public function addTranslatorCookie(string $languageKey)
     {
-        /** @var SessionConfig $config */
-        $config = $this->defaultSessionManager->getConfig();
+        $expires = time() +
+            ($this->config['translator']['cookie']['lifetime'] ?? $this->config['session_config']['cookie_lifetime']);
 
-        if ($config->getUseCookies()) {
-            setcookie(
-                $this->translatorConfig['cookie']['name'],
-                $languageKey,
-                [
-                    'expires' => time() + $this->translatorConfig['cookie']['lifetime'],
-                    'path' => $config->getCookiePath(),
-                    'domain' => $config->getCookieDomain(),
-                    'samesite' => $this->translatorConfig['cookie']['samesite'],
-                    'secure' => $this->translatorConfig['cookie']['secure'],
-                    'httponly' => $this->translatorConfig['cookie']['httponly']
-                ]
-            );
-        }
+        $this->cookieService->setCookie($this->config['translator']['cookie']['name'], $languageKey, [
+            'expires' => $expires,
+        ]);
     }
 }

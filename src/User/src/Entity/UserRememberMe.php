@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Entity;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
@@ -37,7 +38,7 @@ class UserRememberMe extends AbstractEntity
 
     /**
      * @ORM\Column(name="expireDate", type="datetime_immutable")
-     * @var \DateTimeImmutable $expireDate
+     * @var DateTimeImmutable $expireDate
      */
     protected $expireDate;
 
@@ -56,10 +57,13 @@ class UserRememberMe extends AbstractEntity
 
     /**
      * @param User $user
+     * @return $this
      */
-    public function setUser(User $user): void
+    public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
@@ -72,10 +76,13 @@ class UserRememberMe extends AbstractEntity
 
     /**
      * @param string $rememberMeToken
+     * @return $this
      */
-    public function setRememberMeToken(string $rememberMeToken): void
+    public function setRememberMeToken(string $rememberMeToken): self
     {
         $this->rememberMeToken = $rememberMeToken;
+
+        return $this;
     }
 
     /**
@@ -88,26 +95,32 @@ class UserRememberMe extends AbstractEntity
 
     /**
      * @param string|null $userAgent
+     * @return $this
      */
-    public function setUserAgent(?string $userAgent): void
+    public function setUserAgent(?string $userAgent): self
     {
         $this->userAgent = $userAgent;
+
+        return $this;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getExpireDate(): \DateTimeImmutable
+    public function getExpireDate(): DateTimeImmutable
     {
         return $this->expireDate;
     }
 
     /**
-     * @param \DateTimeImmutable $expireDate
+     * @param DateTimeImmutable $expireDate
+     * @return $this
      */
-    public function setExpireDate(\DateTimeImmutable $expireDate): void
+    public function setExpireDate(DateTimeImmutable $expireDate): self
     {
         $this->expireDate = $expireDate;
+
+        return $this;
     }
 
     /**

@@ -11,6 +11,7 @@ use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
 use Fig\Http\Message\RequestMethodInterface;
+use Frontend\App\Service\CookieService;
 use Frontend\Plugin\FormsPlugin;
 use Frontend\User\Authentication\AuthenticationAdapter;
 use Frontend\User\Entity\User;
@@ -28,29 +29,19 @@ use Exception;
 
 class UserController extends AbstractActionController
 {
-    /** @var RouterInterface $router */
+    protected CookieService $cookieService;
     protected RouterInterface $router;
-
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
-
-    /** @var UserService $userService */
     protected UserService $userService;
-
-    /** @var AuthenticationService $authenticationService */
     protected AuthenticationService $authenticationService;
-
-    /** @var FlashMessenger $messenger */
     protected FlashMessenger $messenger;
-
-    /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
-
-    /** @var DebugBar $debugBar */
     protected DebugBar $debugBar;
+    protected array $config = [];
 
     /**
      * UserController constructor.
+     * @param CookieService $cookieService
      * @param UserService $userService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
@@ -58,25 +49,32 @@ class UserController extends AbstractActionController
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
      * @param DebugBar $debugBar
+     * @param array $config
+     *
      * @Inject({
+     *     CookieService::class,
      *     UserService::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
      *     FlashMessenger::class,
      *     FormsPlugin::class,
-     *     DebugBar::class
+     *     DebugBar::class,
+     *     "config"
      * })
      */
     public function __construct(
+        CookieService $cookieService,
         UserService $userService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
         FlashMessenger $messenger,
         FormsPlugin $forms,
-        DebugBar $debugBar
+        DebugBar $debugBar,
+        array $config = []
     ) {
+        $this->cookieService = $cookieService;
         $this->userService = $userService;
         $this->router = $router;
         $this->template = $template;
@@ -84,6 +82,7 @@ class UserController extends AbstractActionController
         $this->messenger = $messenger;
         $this->forms = $forms;
         $this->debugBar = $debugBar;
+        $this->config = $config;
     }
 
     /**
@@ -147,18 +146,31 @@ class UserController extends AbstractActionController
         );
     }
 
+    /**
+     * @return ResponseInterface
+     * @throws NonUniqueResultException
+     */
     public function logoutAction(): ResponseInterface
     {
-        if (!empty($_COOKIE['rememberMe'])) {
-            $this->userService->deleteRememberMeCookie();
-        }
+        $this->userService->deleteExpiredRememberMeTokens();
+
+        $this->userService->deleteRememberMeToken(
+            $this->request->getCookieParams()
+        );
+
+        $this->cookieService->expireCookie($this->config['rememberMe']['cookie']['name']);
+
         $this->authenticationService->clearIdentity();
+
         return new RedirectResponse(
             $this->router->generateUri('page')
         );
     }
 
-    public function registerAction()
+    /**
+     * @return ResponseInterface
+     */
+    public function registerAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
             return new RedirectResponse($this->router->generateUri("page"));

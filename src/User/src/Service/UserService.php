@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Service;
 
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -15,6 +16,7 @@ use Dot\Mail\Service\MailService;
 use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
+use Frontend\App\Service\CookieServiceInterface;
 use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
@@ -24,8 +26,6 @@ use Frontend\User\Entity\UserRole;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
-use Laminas\Session\Config\SessionConfig;
-use Laminas\Session\SessionManager;
 use Mezzio\Template\TemplateRendererInterface;
 
 /**
@@ -42,60 +42,47 @@ class UserService implements UserServiceInterface
         'image/png' => 'png'
     ];
 
-    /** @var EntityManager $em */
-    protected $em;
-
-    /** @var UserRepository $userRepository */
-    protected $userRepository;
-
-    /** @var UserRoleRepository $userRoleRepository */
-    protected $userRoleRepository;
-
-    /** @var UserRoleServiceInterface $userRoleService */
-    protected $userRoleService;
-
-    /** @var MailService $mailService */
-    protected $mailService;
-
-    /** @var TemplateRendererInterface $templateRenderer */
-    protected $templateRenderer;
-
-    /** @var array $config */
-    protected $config;
-
-    /** @var  SessionManager */
-    protected $defaultSessionManager;
-
-    /** @var UserRepository $repository */
-    protected $repository;
+    protected CookieServiceInterface $cookieService;
+    protected EntityManager $em;
+    protected MailService $mailService;
+    protected UserRepository $userRepository;
+    protected UserRoleRepository $userRoleRepository;
+    protected UserRoleServiceInterface $userRoleService;
+    protected TemplateRendererInterface $templateRenderer;
+    protected array $config = [];
 
     /**
      * UserService constructor.
+     * @param CookieServiceInterface $cookieService
      * @param EntityManager $em
-     * @param UserRoleServiceInterface $userRoleService
      * @param MailService $mailService
+     * @param UserRoleServiceInterface $userRoleService
      * @param TemplateRendererInterface $templateRenderer
-     * @param SessionManager $defaultSessionManager
      * @param array $config
      *
-     * @Inject({EntityManager::class, UserRoleServiceInterface::class, MailService::class,
-     *     TemplateRendererInterface::class, SessionManager::class, "config"})
+     * @Inject({
+     *     CookieServiceInterface::class,
+     *     EntityManager::class,
+     *     MailService::class,
+     *     UserRoleServiceInterface::class,
+     *     TemplateRendererInterface::class,
+     *     "config"
+     * })
      */
     public function __construct(
+        CookieServiceInterface $cookieService,
         EntityManager $em,
-        UserRoleServiceInterface $userRoleService,
         MailService $mailService,
+        UserRoleServiceInterface $userRoleService,
         TemplateRendererInterface $templateRenderer,
-        SessionManager $defaultSessionManager,
         array $config = []
     ) {
-        $this->em = $em;
+        $this->cookieService = $cookieService;
+        $this->mailService = $mailService;
         $this->userRepository = $em->getRepository(User::class);
         $this->userRoleRepository = $em->getRepository(UserRole::class);
         $this->userRoleService = $userRoleService;
-        $this->mailService = $mailService;
         $this->templateRenderer = $templateRenderer;
-        $this->defaultSessionManager = $defaultSessionManager;
         $this->config = $config;
     }
 
@@ -439,76 +426,62 @@ class UserService implements UserServiceInterface
      * @param array $cookies
      * @return void
      * @throws NonUniqueResultException
+     * @throws Exception
      */
     public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void
     {
-        $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
-        $checkUser = $this->getRepository()->findRememberMeUser($user, $userAgent);
+        $this->deleteExpiredRememberMeTokens();
 
-        if (
-            !is_null($checkUser)
-            && array_key_exists('rememberMe', $cookies)
-            && $checkUser->getRememberMeToken() !== $cookies['rememberMe']
-        ) {
-            $this->getRepository()->removeUserRememberMe($checkUser);
+        $token = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
+        $userRememberMe = $this->getRepository()->findRememberMeUser($user, $userAgent);
+        if ($userRememberMe instanceof UserRememberMe && $userRememberMe->getRememberMeToken() !== $token) {
+            $this->getRepository()->removeUserRememberMe($userRememberMe);
         }
 
-        $rememberUser = new UserRememberMe();
-        $rememberUser->setRememberMeToken(User::generateHash());
-        $rememberUser->setUser($user);
-        $rememberUser->setUserAgent($userAgent);
-        $rememberUser->setExpireDate(new \DateTimeImmutable('@' .
-            (time() + $this->config['rememberMe']['cookie']['lifetime'] )));
+        $expires = time() +
+            ($this->config['rememberMe']['cookie']['lifetime'] ?? $this->config['session_config']['cookie_lifetime']);
 
-        $this->userRepository->saveRememberUser($rememberUser);
-
-        $rememberToken = $rememberUser->getRememberMeToken();
-        /** @var SessionConfig $config */
-        $rememberConfig = $this->defaultSessionManager->getConfig();
-        if ($rememberConfig->getUseCookies()) {
-            setcookie(
-                $this->config['rememberMe']['cookie']['name'],
-                $rememberToken,
-                [
-                    'expires' => time() + $this->config['rememberMe']['cookie']['lifetime'],
-                    'path' => $rememberConfig->getCookiePath(),
-                    'domain' => $rememberConfig->getCookieDomain(),
-                    'samesite' => $this->config['rememberMe']['cookie']['samesite'],
-                    'secure' => $this->config['rememberMe']['cookie']['secure'],
-                    'httponly' => $this->config['rememberMe']['cookie']['httponly']
-                ],
+        $userRememberMe = (new UserRememberMe())
+            ->setRememberMeToken(User::generateHash())
+            ->setUser($user)
+            ->setUserAgent($userAgent)
+            ->setExpireDate(
+                new DateTimeImmutable('@' . $expires)
             );
+        $this->userRepository->saveUserRememberMe($userRememberMe);
+
+        $this->cookieService->setCookie(
+            $this->config['rememberMe']['cookie']['name'],
+            $userRememberMe->getRememberMeToken(),
+            [
+                'expires' => $expires,
+            ]
+        );
+    }
+
+    /**
+     * @param array $cookies
+     * @return void
+     * @throws NonUniqueResultException
+     */
+    public function deleteRememberMeToken(array $cookies = []): void
+    {
+        $token = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
+        if (!empty($token)) {
+            $userRememberMe = $this->getRepository()->getRememberUser($token);
+            if ($userRememberMe instanceof UserRememberMe) {
+                $this->getRepository()->removeUserRememberMe($userRememberMe);
+            }
         }
     }
 
     /**
      * @return void
-     * @throws ORMException
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws NonUniqueResultException
-     * @throws OptimisticLockException
      */
-    public function deleteRememberMeCookie()
+    public function deleteExpiredRememberMeTokens(): void
     {
-        $cookie = $_COOKIE['rememberMe'];
-        $rememberUser = $this->getRepository()->getRememberUser($cookie);
-        $this->getRepository()->deleteExpiredCookies(new \DateTimeImmutable('now'));
-        if (!empty($rememberUser)) {
-            $this->getRepository()->removeUserRememberMe($rememberUser);
-        }
-
-        $rememberConfig = $this->defaultSessionManager->getConfig();
-        setcookie(
-            $this->config['rememberMe']['cookie']['name'],
-            '',
-            [
-                'expires' => time() - 1,
-                'path' => $rememberConfig->getCookiePath(),
-                'domain' => $rememberConfig->getCookieDomain(),
-                'samesite' => $this->config['rememberMe']['cookie']['samesite'],
-                'secure' => $this->config['rememberMe']['cookie']['secure'],
-                'httponly' => $this->config['rememberMe']['cookie']['httponly']
-            ],
+        $this->getRepository()->deleteExpiredCookies(
+            new DateTimeImmutable('now')
         );
     }
 }
