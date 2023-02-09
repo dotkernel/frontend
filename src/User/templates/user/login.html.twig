@@ -30,8 +30,11 @@
 
                     <div class="checkbox remember-me-checkbox">
                         {% set rememberMe = form.get('rememberMe') %}
-                        {{ formElement(rememberMe) }}
-                        <p>Remember me</p>
+                        {% set dummy = rememberMe.setAttribute('id', 'rememberMe') %}
+                        <label>
+                            {{ formElement(rememberMe) }}
+                            Remember me
+                        </label>
                     </div>
 
                     {% set submit = form.get('submit') %}

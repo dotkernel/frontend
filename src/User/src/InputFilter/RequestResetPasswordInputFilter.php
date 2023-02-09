@@ -10,7 +10,11 @@ declare(strict_types=1);
 
 namespace Frontend\User\InputFilter;
 
+use Laminas\Filter\StringTrim;
+use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\NotEmpty;
 
 /**
  * Class RequestResetPasswordInputFilter
@@ -22,28 +26,17 @@ class RequestResetPasswordInputFilter extends InputFilter
     {
         parent::init();
 
-        $this->add([
-            'name' => 'identity',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim']
-            ],
-            'validators' => [
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>E-mail address</b> is required and cannot be empty'
-                    ]
-                ],
-                [
-                    'name' => 'EmailAddress',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>E-mail address</b> is not valid'
-                    ]
-                ]
-            ]
-        ]);
+        $identity = new Input('identity');
+        $identity->setRequired(true);
+        $identity->getFilterChain()
+            ->attachByName(StringTrim::class);
+        $identity->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>E-mail address</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(EmailAddress::class, [
+                'message' => '<b>E-mail address</b> is not valid',
+            ], true);
+        $this->add($identity);
     }
 }

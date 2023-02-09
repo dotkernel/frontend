@@ -10,7 +10,12 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\InputFilter;
 
+use Laminas\Filter\StringTrim;
+use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Validator\EmailAddress;
+use Laminas\Validator\NotEmpty;
+use Laminas\Validator\StringLength;
 
 /**
  * Class ContactInputFilter
@@ -22,96 +27,56 @@ class ContactInputFilter extends InputFilter
     {
         parent::init();
 
-        $this->add([
-            'name' => 'email',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim']
-            ],
-            'validators' => [
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>E-mail address</b> is required and cannot be empty',
-                    ]
-                ],
-                [
-                    'name' => 'EmailAddress',
-                    'options' => [
-                        'message' => '<b>E-mail address</b> is invalid',
-                    ]
-                ],
-            ]
-        ]);
+        $email = new Input('email');
+        $email->setRequired(true);
+        $email->getFilterChain()
+            ->attachByName(StringTrim::class);
+        $email->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>E-mail address</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(EmailAddress::class, [
+                'message' => '<b>E-mail address</b> is invalid',
+            ], true);
+        $this->add($email);
 
-        $this->add([
-            'name' => 'name',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim']
-            ],
-            'validators' => [
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>Name</b> is required and cannot be empty',
-                    ]
-                ],
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'max' => 255
-                    ]
-                ]
-            ]
-        ]);
+        $name = new Input('name');
+        $name->setRequired(true);
+        $name->getFilterChain()
+            ->attachByName(StringTrim::class);
+        $name->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>Name</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(StringLength::class, [
+                'max' => 255,
+            ], true);
+        $this->add($name);
 
-        $this->add([
-            'name' => 'subject',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim']
-            ],
-            'validators' => [
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>Subject</b> is required and cannot be empty',
-                    ]
-                ],
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'max' => 500
-                    ]
-                ]
-            ]
-        ]);
+        $subject = new Input('subject');
+        $subject->setRequired(false);
+        $subject->getFilterChain()
+            ->attachByName(StringTrim::class);
+        $subject->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>Subject</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(StringLength::class, [
+                'max' => 500,
+            ], true);
+        $this->add($subject);
 
-        $this->add([
-            'name' => 'message',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim']
-            ],
-            'validators' => [
-                [
-                    'name' => 'NotEmpty',
-                    'break_chain_on_failure' => true,
-                    'options' => [
-                        'message' => '<b>Message</b> is required and cannot be empty',
-                    ]
-                ],
-                [
-                    'name' => 'StringLength',
-                    'options' => [
-                        'max' => 1000
-                    ]
-                ]
-            ]
-        ]);
+        $message = new Input('message');
+        $message->setRequired(true);
+        $message->getFilterChain()
+            ->attachByName(StringTrim::class);
+        $message->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>Message</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(StringLength::class, [
+                'max' => 1000,
+            ], true);
+        $this->add($message);
     }
 }
