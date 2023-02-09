@@ -4,7 +4,7 @@ namespace Frontend\App\Service;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
-use Laminas\Session\Config\ConfigInterface;
+use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 
 /**
@@ -15,7 +15,7 @@ use Laminas\Session\SessionManager;
  */
 class CookieService implements CookieServiceInterface
 {
-    private ConfigInterface $sessionConfig;
+    private StandardConfig $sessionConfig;
 
     /**
      * @param SessionManager $sessionManager
