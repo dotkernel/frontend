@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Frontend\App\Middleware;
 
+use DateTimeImmutable;
+use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Frontend\User\Entity\UserIdentity;
@@ -59,20 +61,20 @@ class RememberMeMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (!empty($_COOKIE['rememberMe'])) {
-            $hash = $_COOKIE['rememberMe'];
+        $cookies = $request->getCookieParams();
+        if (!empty($cookies['rememberMe'])) {
+            $hash = $cookies['rememberMe'];
             $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
             if (!empty($rememberUser)) {
                 $user = $rememberUser->getUser();
                 $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
                 if (
                     $hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType &&
-                    $rememberUser->getExpireDate() > new \DateTimeImmutable('now') && $user->getIsDeleted() === false
+                    $rememberUser->getExpireDate() > new DateTimeImmutable('now') && $user->getIsDeleted() === false
                 ) {
                     $userIdentity = new UserIdentity(
                         $user->getUuid()->toString(),

@@ -108,15 +108,15 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param UserRememberMe $rememberUser
+     * @param UserRememberMe $userRememberMe
      * @return void
      */
-    public function saveRememberUser(UserRememberMe $rememberUser): void
+    public function saveUserRememberMe(UserRememberMe $userRememberMe): void
     {
-        $em = $this->getEntityManager();
-        $rememberUser->touch();
+        $userRememberMe->touch();
 
-        $em->persist($rememberUser);
+        $em = $this->getEntityManager();
+        $em->persist($userRememberMe);
         $em->flush();
     }
 

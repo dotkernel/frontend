@@ -61,9 +61,6 @@ return [
         'cookie' => [
             'name' => 'dk30Translator',
             'lifetime' => 3600 * 24 * 30,
-            'samesite' => 'Lax',
-            'secure' => true,
-            'httponly' => true,
         ],
 
         'default' => 'en',
@@ -86,9 +83,6 @@ return [
         'cookie' => [
             'name' => 'rememberMe',
             'lifetime' => 3600 * 24 * 30,
-            'samesite' => 'Lax',
-            'secure' => false,
-            'httponly' => true,
         ],
     ],
 ];
