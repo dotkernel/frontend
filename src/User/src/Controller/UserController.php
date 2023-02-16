@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Frontend\User\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\CookieService;
 use Frontend\Plugin\FormsPlugin;
-use Frontend\User\Authentication\AuthenticationAdapter;
+use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Entity\User;
 use Frontend\User\Form\LoginForm;
 use Frontend\User\Form\RegisterForm;
@@ -27,6 +25,10 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Exception;
 
+/**
+ * Class UserController
+ * @package Frontend\User\Controller
+ */
 class UserController extends AbstractActionController
 {
     protected CookieService $cookieService;
@@ -88,8 +90,7 @@ class UserController extends AbstractActionController
     /**
      * @return ResponseInterface
      * @throws NonUniqueResultException
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws Exception
      */
     public function loginAction(): ResponseInterface
     {

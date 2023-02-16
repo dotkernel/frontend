@@ -17,8 +17,7 @@ use Laminas\InputFilter\InputFilterInterface;
  */
 class LoginForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
-    protected $inputFilter;
+    protected InputFilterInterface $inputFilter;
 
     /**
      * LoginForm constructor.

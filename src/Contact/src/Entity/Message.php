@@ -1,27 +1,19 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/frontend/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\Contact\Entity;
 
-use Frontend\App\Common\AbstractEntity;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Frontend\App\Common\AbstractEntity;
 
 /**
  * Class Message
- * @package Frontend\Frontend\Contact\Entity
+ * @package Frontend\Contact\Entity
  *
  * @ORM\Entity(repositoryClass="Frontend\Contact\Repository\MessageRepository")
  * @ORM\Table(name="contact_message")
  * @ORM\HasLifecycleCallbacks
- * @package Frontend\Contact\Entity
  */
 class Message extends AbstractEntity
 {
@@ -30,33 +22,28 @@ class Message extends AbstractEntity
 
     /**
      * @ORM\Column(name="email", type="string", length=150)
-     * @var string
      */
-    protected $email;
+    protected string $email = '';
 
     /**
      * @ORM\Column(name="name", type="string", length=150)
-     * @var string
      */
-    protected $name;
+    protected string $name = '';
 
     /**
      * @ORM\Column(name="subject", type="text")
-     * @var string
      */
-    protected $subject;
+    protected string $subject = '';
 
     /**
      * @ORM\Column(name="message", type="text")
-     * @var string
      */
-    protected $message;
+    protected string $message = '';
 
     /**
      * @ORM\Column(name="platform", type="text")
-     * @var string
      */
-    protected $platform;
+    protected string $platform = '';
 
     /**
      * Message constructor.

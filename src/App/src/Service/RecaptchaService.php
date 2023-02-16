@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Frontend\App\Service;
 
@@ -14,14 +15,15 @@ use InvalidArgumentException;
 class RecaptchaService
 {
     private array $config;
-
     private string $response;
 
     /**
      * RecaptchaService constructor.
      * @param array $config
      *
-     * @Inject({"config.recaptcha"})
+     * @Inject({
+     *     "config.recaptcha"
+     * })
      */
     public function __construct(array $config)
     {
@@ -79,6 +81,10 @@ class RecaptchaService
         return $success && $score > $this->config['scoreThreshold'];
     }
 
+    /**
+     * @param array $config
+     * @return void
+     */
     private function validateConfig(array $config): void
     {
         $keysToValidate = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];

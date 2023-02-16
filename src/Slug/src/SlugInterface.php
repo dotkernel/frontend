@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Frontend\Slug;
 
+use Doctrine\DBAL\Driver\Exception;
+use Frontend\Slug\Exception\MissingConfigurationException;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
@@ -13,9 +16,10 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 interface SlugInterface
 {
     /**
-     *
-     * @param Request $request
+     * @param ServerRequestInterface $request
      * @return SlugResult
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function matchRequest(Request $request): SlugResult;
 
@@ -26,6 +30,8 @@ interface SlugInterface
      * @param $fragmentIdentifier
      * @param $options
      * @return SlugResult
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function match(
         $routeName,
@@ -36,7 +42,7 @@ interface SlugInterface
     ): SlugResult;
 
     /**
-     * @return array
+     * @return Slug[]
      */
     public function getSlugs(): array;
 }

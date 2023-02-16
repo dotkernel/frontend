@@ -14,22 +14,17 @@ use Exception;
  */
 trait TimestampAwareTrait
 {
-    /**
-     * @var string $dateFormat
-     */
-    private $dateFormat = 'Y-m-d H:i:s';
+    private string $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * @ORM\Column(name="created", type="datetime_immutable")
-     * @var DateTimeImmutable
      */
-    protected $created;
+    protected DateTimeImmutable $created;
 
     /**
      * @ORM\Column(name="updated", type="datetime_immutable", nullable=true)
-     * @var DateTimeImmutable
      */
-    protected $updated;
+    protected ?DateTimeImmutable $updated = null;
 
     /**
      * @ORM\PrePersist()
@@ -42,9 +37,9 @@ trait TimestampAwareTrait
     }
 
     /**
-     * @return DateTimeImmutable|null
+     * @return DateTimeImmutable
      */
-    public function getCreated(): ?DateTimeImmutable
+    public function getCreated(): DateTimeImmutable
     {
         return $this->created;
     }
@@ -54,11 +49,7 @@ trait TimestampAwareTrait
      */
     public function getCreatedFormatted(): ?string
     {
-        if ($this->created instanceof DateTimeImmutable) {
-            return $this->created->format($this->dateFormat);
-        }
-
-        return null;
+        return $this->created->format($this->dateFormat);
     }
 
     /**
@@ -74,11 +65,7 @@ trait TimestampAwareTrait
      */
     public function getUpdatedFormatted(): ?string
     {
-        if ($this->updated instanceof DateTimeImmutable) {
-            return $this->updated->format($this->dateFormat);
-        }
-
-        return null;
+        return $this->updated?->format($this->dateFormat);
     }
 
     /**
@@ -95,10 +82,6 @@ trait TimestampAwareTrait
     public function touch(): void
     {
         try {
-            if (!($this->created instanceof DateTimeImmutable)) {
-                $this->created = new DateTimeImmutable();
-            }
-
             $this->updated = new DateTimeImmutable();
         } catch (Exception $exception) {
             #TODO save the error message

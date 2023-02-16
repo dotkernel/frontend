@@ -10,5 +10,4 @@ namespace Frontend\Page\Service;
  */
 class PageService
 {
-
 }

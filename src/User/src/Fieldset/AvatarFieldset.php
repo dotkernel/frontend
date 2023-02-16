@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/frontend/ for the canonical source repository
- * @copyright Copyright (c) 2020 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\User\Fieldset;
@@ -15,12 +9,12 @@ use Laminas\Form\Fieldset;
 
 /**
  * Class AvatarFieldset
- * @package Frontend\App\Form
+ * @package Frontend\User\Fieldset
  */
 class AvatarFieldset extends Fieldset
 {
     /**
-     * ResponseFieldset constructor.
+     * AvatarFieldset constructor.
      * @param null $name
      * @param array $options
      */

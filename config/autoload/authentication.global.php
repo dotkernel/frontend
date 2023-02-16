@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Frontend\User\Entity\User;
 use Frontend\App\Common\Message;
 

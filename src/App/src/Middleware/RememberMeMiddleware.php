@@ -27,25 +27,22 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class RememberMeMiddleware implements MiddlewareInterface
 {
-    /** @var  UserServiceInterface */
-    protected $userService;
-
-    /** @var AuthenticationServiceInterface $authenticationService */
+    protected UserServiceInterface $userService;
     protected AuthenticationServiceInterface $authenticationService;
-
-    /** @var UserRepository $repository */
-    protected $repository;
-
-    /** @var array */
-    protected $rememberConfig;
+    protected UserRepository $repository;
+    protected array $rememberConfig = [];
 
     /**
-     * TranslatorMiddleware constructor.
+     * RememberMeMiddleware constructor.
      * @param UserServiceInterface $userService
      * @param AuthenticationService $authenticationService
      * @param array $rememberConfig
      *
-     * @Inject({UserServiceInterface::class, AuthenticationService::class, "config.rememberMe"})
+     * @Inject({
+     *     UserServiceInterface::class,
+     *     AuthenticationService::class,
+     *     "config.rememberMe"
+     * })
      */
     public function __construct(
         UserServiceInterface $userService,

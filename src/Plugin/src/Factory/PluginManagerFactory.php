@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/dot-controller/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/dot-controller/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\Plugin\Factory;
@@ -14,21 +8,25 @@ use Frontend\Plugin\PluginManager;
 use Frontend\Plugin\TemplatePlugin;
 use Frontend\Plugin\UrlHelperPlugin;
 use Frontend\Slug\SlugInterface;
-use Psr\Container\ContainerInterface;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Template\TemplateRendererInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class PluginManagerFactory
- * @package Dot\Controller\Factory
+ * @package Frontend\Plugin\Factory
  */
 class PluginManagerFactory
 {
     /**
      * @param ContainerInterface $container
      * @return PluginManager
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): PluginManager
     {
         $pluginManager = new PluginManager($container, $container->get('config')['dot_controller']['plugin_manager']);
 

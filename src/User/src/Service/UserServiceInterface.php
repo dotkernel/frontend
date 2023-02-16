@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\User\Service;
 
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Dot\Mail\Exception\MailException;
 use Exception;
 use Frontend\User\Entity\User;
@@ -22,8 +22,6 @@ interface UserServiceInterface
      * @param array $data
      * @return UserInterface
      * @throws Exception
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function createUser(array $data): UserInterface;
 
@@ -43,16 +41,14 @@ interface UserServiceInterface
     /**
      * @param User $user
      * @return User
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
-    public function activateUser(User $user);
+    public function activateUser(User $user): User;
 
     /**
      * @param string $uuid
      * @return User|null
      */
-    public function findByUuid(string $uuid);
+    public function findByUuid(string $uuid): ?User;
 
     /**
      * @return UserRepository

@@ -1,25 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\Page\Controller;
 
+use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Frontend\Page\Service\PageService;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class PageController
+ * @package Frontend\Page\Controller
+ */
 class PageController extends AbstractActionController
 {
-
-    /** @var RouterInterface $router */
     protected RouterInterface $router;
-
-    /** @var PageService $pageService */
     protected PageService $pageService;
-
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
 
     /**
@@ -28,7 +28,11 @@ class PageController extends AbstractActionController
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      *
-     * @Inject({PageService::class, RouterInterface::class, TemplateRendererInterface::class})
+     * @Inject({
+     *     PageService::class,
+     *     RouterInterface::class,
+     *     TemplateRendererInterface::class
+     * })
      */
     public function __construct(PageService $pageService, RouterInterface $router, TemplateRendererInterface $template)
     {
@@ -43,9 +47,7 @@ class PageController extends AbstractActionController
     public function indexAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::home', [
-
-            ])
+            $this->template->render('page::home')
         );
     }
 
@@ -55,9 +57,7 @@ class PageController extends AbstractActionController
     public function homeAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::home', [
-
-            ])
+            $this->template->render('page::home')
         );
     }
 
@@ -67,9 +67,7 @@ class PageController extends AbstractActionController
     public function aboutUsAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::about', [
-
-            ])
+            $this->template->render('page::about')
         );
     }
 
@@ -79,9 +77,7 @@ class PageController extends AbstractActionController
     public function premiumContentAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::premium-content', [
-
-            ])
+            $this->template->render('page::premium-content')
         );
     }
 
@@ -91,9 +87,7 @@ class PageController extends AbstractActionController
     public function whoWeAreAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::who-we-are', [
-
-            ])
+            $this->template->render('page::who-we-are')
         );
     }
 }

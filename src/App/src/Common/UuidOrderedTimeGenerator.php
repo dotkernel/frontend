@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Frontend\App\Common;
 
 use Ramsey\Uuid\Codec\OrderedTimeCodec;
-use Ramsey\Uuid\UuidFactory;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Class UuidOrderedTimeGenerator

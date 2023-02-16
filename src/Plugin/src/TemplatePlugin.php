@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/dot-controller/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/dot-controller/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\Plugin;
@@ -18,7 +12,6 @@ use Mezzio\Template\TemplateRendererInterface;
  */
 class TemplatePlugin implements PluginInterface
 {
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
 
     /**
@@ -33,7 +26,7 @@ class TemplatePlugin implements PluginInterface
     /**
      * @param string|null $templateName
      * @param array $params
-     * @return self|string
+     * @return TemplatePlugin|string
      */
     public function __invoke(string $templateName = null, array $params = [])
     {

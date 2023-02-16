@@ -22,7 +22,6 @@ class UserRoleRepository extends EntityRepository
     public function findByName(string $name): ?UserRole
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-
         $qb
             ->select('role')
             ->from(UserRole::class, 'role')

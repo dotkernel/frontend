@@ -10,22 +10,12 @@ namespace Frontend\Slug;
  */
 class SlugResult
 {
-    /**
-     * @var ?Slug $slug
-     */
-    private Slug $slug;
-
-    /** @var string $url*/
+    private ?Slug $slug = null;
     private string $url;
-
-    /** @var array $matchedParams */
     private array $matchedParams;
-
-    /** @var bool $success Success state of slug. */
     private bool $success;
 
     /**
-     *
      * Create an instance representing a slug success from the matching slug.
      *
      * @param $slug
@@ -33,13 +23,13 @@ class SlugResult
      * @param array $matchedParams
      * @return SlugResult
      */
-    public static function fromSlug($slug, $url, $matchedParams = []): self
+    public static function fromSlug($slug, $url, array $matchedParams = []): self
     {
-        $result                  = new self();
-        $result->success         = true;
-        $result->slug            = $slug;
-        $result->url             = $url;
-        $result->matchedParams   = $matchedParams;
+        $result = new self();
+        $result->success = true;
+        $result->slug = $slug;
+        $result->url = $url;
+        $result->matchedParams = $matchedParams;
 
         return $result;
     }
@@ -51,8 +41,8 @@ class SlugResult
      */
     public static function fromSlugFailure(): self
     {
-        $result                 = new self();
-        $result->success        = false;
+        $result = new self();
+        $result->success = false;
 
         return $result;
     }
@@ -68,9 +58,9 @@ class SlugResult
     /**
      * Retrieve the slug that resulted in the slug match.
      *
-     * @return false|null|Slug
+     * @return bool|Slug|null
      */
-    public function getMatchedSlug()
+    public function getMatchedSlug(): bool|Slug|null
     {
         return $this->isFailure() ? false : $this->slug;
     }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\User\Service;
 
 use Frontend\User\Entity\UserRole;
 
 /**
- * Class UserRoleService
+ * Interface UserRoleService
  * @package Frontend\User\Service
  */
 interface UserRoleServiceInterface

@@ -32,27 +32,18 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Exception;
 
+/**
+ * Class AccountController
+ * @package Frontend\User\Controller
+ */
 class AccountController extends AbstractActionController
 {
-    /** @var RouterInterface $router */
     protected RouterInterface $router;
-
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
-
-    /** @var UserService $userService */
     protected UserService $userService;
-
-    /** @var AuthenticationServiceInterface $authenticationService */
     protected AuthenticationServiceInterface $authenticationService;
-
-    /** @var FlashMessenger $messenger */
     protected FlashMessenger $messenger;
-
-    /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
-
-    /** @var DebugBar $debugBar */
     protected DebugBar $debugBar;
 
     /**
@@ -64,6 +55,7 @@ class AccountController extends AbstractActionController
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
      * @param DebugBar $debugBar
+     *
      * @Inject({
      *     UserService::class,
      *     RouterInterface::class,
@@ -72,7 +64,7 @@ class AccountController extends AbstractActionController
      *     FlashMessenger::class,
      *     FormsPlugin::class,
      *     DebugBar::class
-     *     })
+     * })
      */
     public function __construct(
         UserService $userService,
@@ -103,7 +95,6 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
-        /** @var User $user */
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (!($user instanceof User)) {
             $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
@@ -292,7 +283,6 @@ class AccountController extends AbstractActionController
         /** @var UserIdentity $identity */
         $identity = $this->authenticationService->getIdentity();
 
-        /** @var User $user */
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new UploadAvatarForm();
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
@@ -342,7 +332,6 @@ class AccountController extends AbstractActionController
         /** @var UserIdentity $identity */
         $identity = $this->authenticationService->getIdentity();
 
-        /** @var User $user */
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new ProfileDetailsForm();
 
@@ -410,7 +399,6 @@ class AccountController extends AbstractActionController
         /** @var UserIdentity $identity */
         $identity = $this->authenticationService->getIdentity();
 
-        /** @var User $user */
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfilePasswordForm();
@@ -468,7 +456,6 @@ class AccountController extends AbstractActionController
         /** @var UserIdentity $identity */
         $identity = $this->authenticationService->getIdentity();
 
-        /** @var User $user */
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfileDeleteForm();

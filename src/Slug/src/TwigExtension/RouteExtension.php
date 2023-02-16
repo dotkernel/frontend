@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Frontend\Slug\TwigExtension;
 
+use Doctrine\DBAL\Driver\Exception;
+use Frontend\Slug\Exception\MissingConfigurationException;
 use Frontend\Slug\SlugInterface;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
@@ -12,17 +14,12 @@ use Twig\TwigFunction;
 
 /**
  * Class RouteExtension
- * @package Frontend\App\Twig
+ * @package Frontend\Slug\TwigExtension
  */
 class RouteExtension extends AbstractExtension
 {
-    /** @var UrlHelper $urlHelper */
     private UrlHelper $urlHelper;
-
-    /** @var SlugInterface $slugAdapter */
     private SlugInterface $slugAdapter;
-
-    /** @var ServerUrlHelper $serverUrlHelper*/
     private ServerUrlHelper $serverUrlHelper;
 
     /**
@@ -59,6 +56,8 @@ class RouteExtension extends AbstractExtension
      * @param string|null $fragmentIdentifier
      * @param array $options
      * @return string
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function renderUri(
         ?string $route = null,
@@ -67,7 +66,6 @@ class RouteExtension extends AbstractExtension
         ?string $fragmentIdentifier = null,
         array $options = []
     ): string {
-
         $response = $this->slugAdapter->match($route, $routeParams, $queryParams, $fragmentIdentifier, $options);
 
         if ($response->isSuccess()) {
@@ -84,6 +82,8 @@ class RouteExtension extends AbstractExtension
      * @param string|null $fragmentIdentifier
      * @param array $options
      * @return string
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function renderUrl(
         ?string $route = null,
@@ -92,7 +92,6 @@ class RouteExtension extends AbstractExtension
         ?string $fragmentIdentifier = null,
         array $options = []
     ): string {
-
         return $this->serverUrlHelper->generate(
             $this->renderUri($route, $routeParams, $queryParams, $fragmentIdentifier, $options)
         );

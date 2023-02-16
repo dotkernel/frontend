@@ -18,7 +18,6 @@ use Laminas\InputFilter\InputFilterInterface;
  */
 class ContactForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
     protected InputFilterInterface $inputFilter;
 
     /**
@@ -36,7 +35,10 @@ class ContactForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    /**
+     * @return void
+     */
+    public function init(): void
     {
         parent::init();
 

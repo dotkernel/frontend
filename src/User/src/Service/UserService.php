@@ -7,8 +7,6 @@ namespace Frontend\User\Service;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Exception\MailException;
@@ -91,7 +89,7 @@ class UserService implements UserServiceInterface
      * @return User|null
      * @throws NonUniqueResultException
      */
-    public function findByUuid(string $uuid)
+    public function findByUuid(string $uuid): ?User
     {
         return $this->userRepository->findByUuid($uuid);
     }
@@ -110,12 +108,11 @@ class UserService implements UserServiceInterface
      * @param array $data
      * @return UserInterface
      * @throws Exception
-     * @throws ORMException
      */
     public function createUser(array $data): UserInterface
     {
         if ($this->exists($data['email'])) {
-            throw new ORMException(Message::DUPLICATE_EMAIL);
+            throw new Exception(Message::DUPLICATE_EMAIL);
         }
 
         $user = new User();
@@ -159,13 +156,13 @@ class UserService implements UserServiceInterface
      * @param User $user
      * @param array $data
      * @return UserInterface
-     * @throws ORMException
+     * @throws Exception
      */
     public function updateUser(User $user, array $data = []): UserInterface
     {
         if (isset($data['email']) && !is_null($data['email'])) {
             if ($this->exists($data['email'], $user->getUuid()->toString())) {
-                throw new ORMException(Message::DUPLICATE_EMAIL);
+                throw new Exception(Message::DUPLICATE_EMAIL);
             }
             $user->setIdentity($data['email']);
         }
@@ -235,8 +232,7 @@ class UserService implements UserServiceInterface
      */
     protected function createAvatar(User $user, UploadedFile $uploadedFile): UserAvatar
     {
-        $path = $this->config['uploads']['user']['path'] . DIRECTORY_SEPARATOR;
-        $path .= $user->getUuid()->toString() . DIRECTORY_SEPARATOR;
+        $path = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
         if (!file_exists($path)) {
             mkdir($path, 0755);
         }
@@ -336,23 +332,16 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        /** @var User $user */
-        $user = $this->userRepository->findOneBy($params);
-
-        return $user;
+        return $this->userRepository->findOneBy($params);
     }
 
     /**
      * @param User $user
      * @return User
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function activateUser(User $user): User
     {
-        $this->userRepository->saveUser($user->activate());
-
-        return $user;
+        return $this->userRepository->saveUser($user->activate());
     }
 
     /**
@@ -379,8 +368,6 @@ class UserService implements UserServiceInterface
     /**
      * @param string|null $hash
      * @return User|null
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws NonUniqueResultException
      */
     public function findByResetPasswordHash(?string $hash): ?User
     {
@@ -396,7 +383,7 @@ class UserService implements UserServiceInterface
      * @return bool
      * @throws MailException
      */
-    public function sendResetPasswordCompletedMail(User $user)
+    public function sendResetPasswordCompletedMail(User $user): bool
     {
         $this->mailService->setBody(
             $this->templateRenderer->render('user::reset-password-completed', [

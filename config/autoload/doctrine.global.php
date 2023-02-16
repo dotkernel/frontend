@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+use Doctrine\Common\Cache\PhpFileCache;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
 use Ramsey\Uuid\Doctrine\UuidType;
@@ -25,9 +28,9 @@ return [
         'configuration' => [
             'orm_default' => [
                 'entity_listener_resolver' => EntityListenerResolver::class,
-                'query_cache' => \Doctrine\Common\Cache\PhpFileCache::class,
-                'metadata_cache' => \Doctrine\Common\Cache\PhpFileCache::class,
-                'result_cache' => \Doctrine\Common\Cache\PhpFileCache::class
+                'query_cache' => PhpFileCache::class,
+                'metadata_cache' => PhpFileCache::class,
+                'result_cache' => PhpFileCache::class
             ]
         ],
         'connection' => [
@@ -52,8 +55,8 @@ return [
             UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
         ],
         'cache' => [
-            \Doctrine\Common\Cache\PhpFileCache::class => [
-                'class' => \Doctrine\Common\Cache\PhpFileCache::class,
+            PhpFileCache::class => [
+                'class' => PhpFileCache::class,
                 'directory' => getcwd() . '/data/cache/doctrine'
             ]
         ],

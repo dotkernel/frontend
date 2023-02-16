@@ -10,23 +10,12 @@ namespace Frontend\Slug;
  */
 class Slug
 {
-    public const  REQUEST_TYPE = 'request';
-
+    public const REQUEST_TYPE = 'request';
     public const URL_TYPE = 'url';
-
-    /** @var string */
     private string $alias;
-
-    /** @var string */
     private string $routeName;
-
-    /** @var array */
     private array $params;
-
-    /** @var array */
     private array $exchange;
-
-    /** @var string */
     private string $type;
 
     /**
@@ -35,17 +24,13 @@ class Slug
      * @param array $params
      * @param array $exchange
      */
-    public function __construct(
-        string $alias,
-        string $routeName,
-        array $params = [],
-        array $exchange = []
-    ) {
-        $this->alias        = $alias;
-        $this->routeName    = $routeName;
-        $this->params       = $params;
-        $this->exchange     = $exchange;
-        $this->type         = self::URL_TYPE;
+    public function __construct(string $alias, string $routeName, array $params = [], array $exchange = [])
+    {
+        $this->alias = $alias;
+        $this->routeName = $routeName;
+        $this->params = $params;
+        $this->exchange = $exchange;
+        $this->type = self::URL_TYPE;
     }
 
     /**

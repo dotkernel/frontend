@@ -22,6 +22,10 @@
     font-size: .75rem !important;
 }
 
+.phpdebugbar-widgets-sql {
+    font-size: .75rem !important;
+}
+
 .phpdebugbar-widgets-key {
     text-align: right !important;
 }

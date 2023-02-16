@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Dot\DebugBar\Extension\DebugBarExtension;
 use Frontend\Slug\Factory\RouteExtensionFactory;
 use Twig\Environment;

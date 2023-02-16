@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\User;
 
 use Fig\Http\Message\RequestMethodInterface;
@@ -7,7 +9,6 @@ use Frontend\User\Controller\AccountController;
 use Frontend\User\Controller\UserController;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
-use Twig\Profiler\Profile;
 
 /**
  * Class RoutesDelegator
@@ -21,7 +22,7 @@ class RoutesDelegator
      * @param callable $callback
      * @return Application
      */
-    public function __invoke(ContainerInterface $container, $serviceName, callable $callback)
+    public function __invoke(ContainerInterface $container, $serviceName, callable $callback): Application
     {
         /** @var Application $app */
         $app = $callback();

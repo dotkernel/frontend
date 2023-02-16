@@ -20,28 +20,27 @@ class UserRememberMe extends AbstractEntity
     /**
      * @ORM\ManyToOne(targetEntity="Frontend\User\Entity\User")
      * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     * @var User $user
      */
-    protected $user;
+    protected User $user;
 
     /**
      * @ORM\Column(name="rememberMeToken", type="string", length=100, nullable=false, unique=true)
-     * @var string $rememberMeToken
      */
-    protected $rememberMeToken;
+    protected string $rememberMeToken = '';
 
     /**
      * @ORM\Column(name="userAgent", type="text")
-     * @var string|null $userAgent
      */
-    protected $userAgent;
+    protected ?string $userAgent = null;
 
     /**
      * @ORM\Column(name="expireDate", type="datetime_immutable")
-     * @var DateTimeImmutable $expireDate
      */
-    protected $expireDate;
+    protected DateTimeImmutable $expireDate;
 
+    /**
+     * UserRememberMe constructor.
+     */
     public function __construct()
     {
         parent::__construct();

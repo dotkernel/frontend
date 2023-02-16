@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;

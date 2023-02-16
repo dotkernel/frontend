@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/frontend/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\User\InputFilter;
@@ -18,7 +12,7 @@ use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
 
 /**
- * Class RegisterInputFilter
+ * Class ResetPasswordInputFilter
  * @package Frontend\User\InputFilter
  */
 class ResetPasswordInputFilter extends InputFilter
