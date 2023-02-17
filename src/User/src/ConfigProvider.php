@@ -6,15 +6,14 @@ namespace Frontend\User;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
-use Frontend\User\Authentication\AuthenticationAdapter;
-use Frontend\User\Authentication\AuthenticationAdapterFactory;
-use Frontend\User\Authentication\AuthenticationServiceFactory;
-use Frontend\User\Authentication\AuthenticationServiceInterface;
-use Frontend\User\Entity\User;
-use Frontend\User\Entity\UserInterface;
-use Frontend\User\Form\LoginForm;
+use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Controller\AccountController;
 use Frontend\User\Controller\UserController;
+use Frontend\User\Entity\User;
+use Frontend\User\Entity\UserInterface;
+use Frontend\User\Factory\AuthenticationAdapterFactory;
+use Frontend\User\Factory\AuthenticationServiceFactory;
+use Frontend\User\Form\LoginForm;
 use Frontend\User\Service\UserRoleService;
 use Frontend\User\Service\UserRoleServiceInterface;
 use Frontend\User\Service\UserService;
@@ -35,7 +34,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'templates' => $this->getTemplates(),
             'dot_form' => $this->getForms(),
             'doctrine' => $this->getDoctrineConfig(),
         ];
@@ -47,7 +46,7 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories'  => [
+            'factories' => [
                 UserController::class => AnnotatedServiceFactory::class,
                 AccountController::class => AnnotatedServiceFactory::class,
                 UserService::class => AnnotatedServiceFactory::class,

@@ -6,14 +6,11 @@ namespace Frontend\User\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Dot\Authorization\Role\RoleInterface;
+use Exception;
 use Frontend\App\Common\AbstractEntity;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
-use Doctrine\ORM\Mapping as ORM;
-use Exception;
-
-use function bin2hex;
-use function random_bytes;
 
 /**
  * Class User
@@ -416,8 +413,8 @@ class User extends AbstractEntity implements UserInterface
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'detail' => ($this->getDetail() instanceof UserDetail) ? $this->getDetail()->getArrayCopy() : null,
-            'avatar' => ($this->getAvatar() instanceof UserAvatar) ? $this->getAvatar()->getArrayCopy() : null,
+            'detail' => $this->getDetail()?->getArrayCopy(),
+            'avatar' => $this->getAvatar()?->getArrayCopy(),
             'identity' => $this->getIdentity(),
             'status' => $this->getStatus(),
             'roles' => $this->getRoles()->map(function (UserRole $userRole) {

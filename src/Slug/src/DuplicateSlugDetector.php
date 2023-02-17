@@ -6,8 +6,6 @@ namespace Frontend\Slug;
 
 use Frontend\Slug\Exception\DuplicateSlugException;
 
-use function sprintf;
-
 /**
  * Class DuplicateSlugDetector
  * @package Frontend\Slug

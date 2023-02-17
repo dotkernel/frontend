@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Frontend\App\Controller;
 
-
+use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\TranslateServiceInterface;
@@ -12,22 +13,17 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
-use Dot\AnnotatedServices\Annotation\Inject;
 
-
+/**
+ * Class LanguageController
+ * @package Frontend\App\Controller
+ */
 class LanguageController extends AbstractActionController
 {
-    /** @var TranslateServiceInterface $translateService */
     protected TranslateServiceInterface $translateService;
-
-    /** @var RouterInterface $router */
     protected RouterInterface $router;
-
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
-
-    /** @var array $translatorConfig */
-    protected array $translatorConfig;
+    protected array $translatorConfig = [];
 
     /**
      * LanguageController constructor.
@@ -36,8 +32,12 @@ class LanguageController extends AbstractActionController
      * @param TemplateRendererInterface $template
      * @param array $translatorConfig
      *
-     * @Inject({TranslateServiceInterface::class, RouterInterface::class, TemplateRendererInterface::class,
-     *     "config.translator"})
+     * @Inject({
+     *     TranslateServiceInterface::class,
+     *     RouterInterface::class,
+     *     TemplateRendererInterface::class,
+     *     "config.translator"
+     * })
      */
     public function __construct(
         TranslateServiceInterface $translateService,
@@ -60,13 +60,13 @@ class LanguageController extends AbstractActionController
         $languageKey = (!empty($data['languageKey'])) ? $data['languageKey'] : $this->translatorConfig['default'];
         $this->translateService->addTranslatorCookie($languageKey);
 
-        return new HtmlResponse('', 200);
+        return new HtmlResponse('');
     }
 
     /**
-     * @return JsonResponse
+     * @return ResponseInterface
      */
-    public function translateTextAction()
+    public function translateTextAction(): ResponseInterface
     {
         $translation = '';
         $request = $this->getRequest();
@@ -94,6 +94,6 @@ class LanguageController extends AbstractActionController
 
         return new JsonResponse([
             'translation' => $translation
-        ], 200);
+        ]);
     }
 }

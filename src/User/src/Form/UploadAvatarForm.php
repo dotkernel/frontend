@@ -7,7 +7,7 @@ namespace Frontend\User\Form;
 use Frontend\User\Fieldset\AvatarFieldset;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
-use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * Class UploadAvatarForm
@@ -15,11 +15,10 @@ use Laminas\InputFilter\InputFilter;
  */
 class UploadAvatarForm extends Form
 {
-    /** @var InputFilter $inputFilter */
-    protected InputFilter $inputFilter;
+    protected InputFilterInterface $inputFilter;
 
     /**
-     * ProfileDetailsForm constructor.
+     * UploadAvatarForm constructor.
      * @param null $name
      * @param array $options
      */

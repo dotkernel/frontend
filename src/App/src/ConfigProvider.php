@@ -36,8 +36,8 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'doctrine'     => $this->getDoctrineConfig(),
-            'templates'    => $this->getTemplates(),
+            'doctrine' => $this->getDoctrineConfig(),
+            'templates' => $this->getTemplates(),
         ];
     }
 
@@ -54,7 +54,7 @@ class ConfigProvider
                     \Frontend\User\RoutesDelegator::class
                 ]
             ],
-            'factories'  => [
+            'factories' => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class => EntityListenerResolverFactory::class,
                 TranslateService::class => AnnotatedServiceFactory::class,
@@ -92,8 +92,8 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'app'    => [__DIR__ . '/../templates/app'],
-                'error'  => [__DIR__ . '/../templates/error'],
+                'app' => [__DIR__ . '/../templates/app'],
+                'error' => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
                 'partial' => [__DIR__ . '/../templates/partial'],
                 'language' => [__DIR__ . '/../templates/language'],

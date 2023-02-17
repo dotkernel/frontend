@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\App\Service;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
+use Laminas\Session\Config\ConfigInterface;
 use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 
@@ -15,7 +18,7 @@ use Laminas\Session\SessionManager;
  */
 class CookieService implements CookieServiceInterface
 {
-    private StandardConfig $sessionConfig;
+    private ConfigInterface|StandardConfig $sessionConfig;
 
     /**
      * @param SessionManager $sessionManager
@@ -62,12 +65,12 @@ class CookieService implements CookieServiceInterface
     private function getMergedOptions(?array $options = []): array
     {
         return [
-            'expires'  => $options['expires']  ?? $this->getCookieLifetime(),
-            'domain'   => $options['domain']   ?? $this->sessionConfig->getCookieDomain(),
+            'expires' => $options['expires'] ?? $this->getCookieLifetime(),
+            'domain' => $options['domain'] ?? $this->sessionConfig->getCookieDomain(),
             'httponly' => $options['httponly'] ?? $this->sessionConfig->getCookieHttpOnly(),
-            'path'     => $options['path']     ?? $this->sessionConfig->getCookiePath(),
+            'path' => $options['path'] ?? $this->sessionConfig->getCookiePath(),
             'samesite' => $options['samesite'] ?? $this->sessionConfig->getCookieSameSite(),
-            'secure'   => $options['secure']   ?? $this->sessionConfig->getCookieSecure(),
+            'secure' => $options['secure'] ?? $this->sessionConfig->getCookieSecure(),
         ];
     }
 

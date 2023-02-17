@@ -15,10 +15,8 @@ use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidFactory;
 
-
 /**
  * Class SlugService
- *
  * @package Frontend\Slug\Service
  */
 class SlugService implements SlugServiceInterface
@@ -29,13 +27,13 @@ class SlugService implements SlugServiceInterface
         'exchangeColumn',
         'slugColumn'
     ];
-
-    /** @var EntityManager $em */
     protected EntityManager $em;
 
     /**
      * SlugService constructor.
-     * @Inject({EntityManager::class})
+     * @Inject({
+     *     EntityManager::class
+     * })
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
@@ -48,11 +46,10 @@ class SlugService implements SlugServiceInterface
      * @param string $value
      * @param Slug $slug
      * @return bool|string
-     * @throws \Doctrine\DBAL\Driver\Exception|MissingConfigurationException
+     * @throws MissingConfigurationException
      */
-    public function slugManipulation(Slug $slug, string $attribute, string $value)
+    public function slugManipulation(Slug $slug, string $attribute, string $value): bool|string
     {
-
         $exchange = $slug->getExchange();
         $exchange = array_reduce(
             $exchange,
@@ -83,7 +80,6 @@ class SlugService implements SlugServiceInterface
                 } else {
                     return $value;
                 }
-
             }
         }
         return false;
@@ -93,7 +89,6 @@ class SlugService implements SlugServiceInterface
      * @param array $param
      * @param array  $exchange
      * @return string
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
     protected function generateSlug(array $param, array $exchange): string
     {
@@ -156,7 +151,6 @@ class SlugService implements SlugServiceInterface
      * @param string $slug
      * @param array $exchange
      * @return int
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
     protected function checkDuplicateSlug(string $slug, array $exchange): int
     {
@@ -173,13 +167,12 @@ class SlugService implements SlugServiceInterface
     }
 
     /**
+     * @param Slug $slug
      * @param string $param
      * @param array $db
-     * @param Slug $slug
-     * @return false|array
-     * @throws \Doctrine\DBAL\Driver\Exception
+     * @return bool|array
      */
-    protected function proceedSlug(Slug $slug, string $param, array $db)
+    protected function proceedSlug(Slug $slug, string $param, array $db): bool|array
     {
         $searchParam = $db['identifier'];
         if ($slug->getType() === Slug::REQUEST_TYPE) {
@@ -209,7 +202,7 @@ class SlugService implements SlugServiceInterface
      * @param $input
      * @return string|string[]
      */
-    public function escapeCharacter($input)
+    public function escapeCharacter($input): array|string
     {
         return str_replace(
             ['\\', "\0", "\n", "\r", "'", '"', "\x1a"],

@@ -11,11 +11,10 @@ use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class EntityListenerResolver
- * @package Frontend\App\Doctrine\Resolver
+ * @package Frontend\App\Resolver
  */
 class EntityListenerResolver extends DefaultEntityListenerResolver
 {
-    /** @var ContainerInterface $container */
     protected ContainerInterface $container;
 
     /**

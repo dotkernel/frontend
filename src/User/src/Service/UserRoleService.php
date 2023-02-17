@@ -15,14 +15,15 @@ use Dot\AnnotatedServices\Annotation\Inject;
  */
 class UserRoleService implements UserRoleServiceInterface
 {
-    /** @var UserRoleRepository $roleRepository */
-    protected $roleRepository;
+    protected UserRoleRepository $roleRepository;
 
     /**
-     * RoleService constructor.
+     * UserRoleService constructor.
      * @param EntityManager $entityManager
      *
-     * @Inject({EntityManager::class})
+     * @Inject({
+     *     EntityManager::class
+     * })
      */
     public function __construct(EntityManager $entityManager)
     {
@@ -39,9 +40,6 @@ class UserRoleService implements UserRoleServiceInterface
             return null;
         }
 
-        /** @var UserRole $role */
-        $role = $this->roleRepository->findOneBy($params);
-
-        return $role;
+        return $this->roleRepository->findOneBy($params);
     }
 }

@@ -20,7 +20,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'templates' => $this->getTemplates(),
         ];
     }
 
@@ -30,7 +30,7 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories'  => [
+            'factories' => [
                 PageController::class => AnnotatedServiceFactory::class,
             ],
         ];

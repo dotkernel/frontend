@@ -26,7 +26,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'templates' => $this->getTemplates(),
             'dot_form' => $this->getForms(),
             'doctrine' => $this->getDoctrineConfig()
         ];
@@ -43,7 +43,7 @@ class ConfigProvider
                     RoutesDelegator::class,
                 ],
             ],
-            'factories'  => [
+            'factories' => [
                 ContactController::class => AnnotatedServiceFactory::class,
                 MessageService::class => AnnotatedServiceFactory::class,
             ],

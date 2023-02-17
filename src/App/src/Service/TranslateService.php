@@ -35,8 +35,9 @@ class TranslateService implements TranslateServiceInterface
 
     /**
      * @param string $languageKey
+     * @return void
      */
-    public function addTranslatorCookie(string $languageKey)
+    public function addTranslatorCookie(string $languageKey): void
     {
         $expires = time() +
             ($this->config['translator']['cookie']['lifetime'] ?? $this->config['session_config']['cookie_lifetime']);

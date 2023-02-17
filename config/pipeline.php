@@ -28,7 +28,7 @@ use Frontend\Slug\Middleware\SlugMiddleware;
 /**
  * Setup middleware pipeline:
  */
-return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
     $app->pipe(DebugBarMiddleware::class);

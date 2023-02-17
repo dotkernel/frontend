@@ -8,7 +8,7 @@ use DateTimeImmutable;
 
 /**
  * Class AbstractEntity
- * @package Core\Common
+ * @package Frontend\App\Common
  */
 abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInterface
 {
@@ -31,7 +31,7 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
      * @param array $data
      * @return void
      */
-    public function exchangeArray(array $data)
+    public function exchangeArray(array $data): void
     {
         foreach ($data as $property => $values) {
             if (is_array($values)) {

@@ -11,7 +11,6 @@ use Mezzio\Exception\ExceptionInterface;
  * Class MissingConfigurationException
  * @package Frontend\Slug\Exception
  */
-class MissingConfigurationException extends Exception implements
-    ExceptionInterface
+class MissingConfigurationException extends Exception implements ExceptionInterface
 {
 }

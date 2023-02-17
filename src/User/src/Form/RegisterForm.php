@@ -19,7 +19,6 @@ use Laminas\Form\Form;
  */
 class RegisterForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
     protected InputFilterInterface $inputFilter;
 
     /**

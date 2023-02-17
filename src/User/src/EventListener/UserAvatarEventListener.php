@@ -22,7 +22,9 @@ class UserAvatarEventListener
      * UserAvatarEventListener constructor.
      * @param array $config
      *
-     * @Inject({"config"})
+     * @Inject({
+     *     "config"
+     * })
      */
     public function __construct(array $config = [])
     {
@@ -31,32 +33,36 @@ class UserAvatarEventListener
 
     /**
      * @param UserAvatar $avatar
+     * @return void
      */
-    public function postLoad(UserAvatar $avatar)
+    public function postLoad(UserAvatar $avatar): void
     {
         $this->setAvatarUrl($avatar);
     }
 
     /**
      * @param UserAvatar $avatar
+     * @return void
      */
-    public function postPersist(UserAvatar $avatar)
+    public function postPersist(UserAvatar $avatar): void
     {
         $this->setAvatarUrl($avatar);
     }
 
     /**
      * @param UserAvatar $avatar
+     * @return void
      */
-    public function postUpdate(UserAvatar $avatar)
+    public function postUpdate(UserAvatar $avatar): void
     {
         $this->setAvatarUrl($avatar);
     }
 
     /**
      * @param UserAvatar $avatar
+     * @return void
      */
-    private function setAvatarUrl(UserAvatar $avatar)
+    private function setAvatarUrl(UserAvatar $avatar): void
     {
         $avatar->setUrl(
             sprintf(

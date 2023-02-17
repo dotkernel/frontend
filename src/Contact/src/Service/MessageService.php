@@ -18,17 +18,10 @@ use Mezzio\Template\TemplateRendererInterface;
  */
 class MessageService implements MessageServiceInterface
 {
-    /** @var MessageRepository $repository */
-    protected $repository;
-
-    /** @var MailService $mailService */
-    protected $mailService;
-
-    /** @var TemplateRendererInterface $templateRenderer */
-    protected $templateRenderer;
-
-    /** @var array $config */
-    protected $config;
+    protected MessageRepository $repository;
+    protected MailService $mailService;
+    protected TemplateRendererInterface $templateRenderer;
+    protected array $config = [];
 
     /**
      * MessageService constructor.
@@ -37,7 +30,12 @@ class MessageService implements MessageServiceInterface
      * @param TemplateRendererInterface $templateRenderer
      * @param array $config
      *
-     * @Inject({EntityManager::class, MailService::class, TemplateRendererInterface::class, "config"})
+     * @Inject({
+     *     EntityManager::class,
+     *     MailService::class,
+     *     TemplateRendererInterface::class,
+     *     "config"
+     * })
      */
     public function __construct(
         EntityManager $entityManager,
@@ -63,12 +61,9 @@ class MessageService implements MessageServiceInterface
      * @param array $data
      * @return bool
      * @throws MailException
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function processMessage(array $data)
+    public function processMessage(array $data): bool
     {
-        /** @var Message $message */
         $message = new Message(
             $data['email'],
             $data['name'],
@@ -87,7 +82,7 @@ class MessageService implements MessageServiceInterface
      * @return bool
      * @throws MailException
      */
-    public function sendContactMail(Message $message)
+    public function sendContactMail(Message $message): bool
     {
         $this->mailService->setBody(
             $this->templateRenderer->render('contact::email', [
@@ -112,7 +107,7 @@ class MessageService implements MessageServiceInterface
      * @param $response
      * @return bool
      */
-    public function recaptchaIsValid($response)
+    public function recaptchaIsValid($response): bool
     {
         $requestJson = [
             'response' => $response,

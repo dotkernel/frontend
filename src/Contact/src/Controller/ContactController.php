@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\Contact\Controller;
 
 use Dot\AnnotatedServices\Annotation\Inject;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
@@ -22,34 +22,21 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class ContactController
+ * @package Frontend\Contact\Controller
+ */
 class ContactController extends AbstractActionController
 {
-    /** @var RouterInterface $router */
     protected RouterInterface $router;
-
-    /** @var TemplateRendererInterface $template */
     protected TemplateRendererInterface $template;
-
-    /** @var MessageService $messageService */
     protected MessageService $messageService;
-
-    /** @var RecaptchaService $recaptchaService */
     protected RecaptchaService $recaptchaService;
-
-    /** @var AuthenticationServiceInterface $authenticationService */
     protected AuthenticationServiceInterface $authenticationService;
-
-    /** @var FlashMessenger $messenger */
     protected FlashMessenger $messenger;
-
-    /** @var FormsPlugin $forms */
     protected FormsPlugin $forms;
-
-    /** @var DebugBar $debugBar */
     protected DebugBar $debugBar;
-
-    /** @var array $config */
-    protected $config;
+    protected array $config;
 
     /**
      * ContactController constructor.
@@ -99,8 +86,6 @@ class ContactController extends AbstractActionController
     /**
      * @return ResponseInterface
      * @throws MailException
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function formAction(): ResponseInterface
     {

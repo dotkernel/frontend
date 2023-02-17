@@ -10,7 +10,7 @@ use Frontend\Plugin\Factory\PluginManagerFactory;
 
 /**
  * Class ConfigProvider
- * @package Frontend\User
+ * @package Frontend\Plugin
  */
 class ConfigProvider
 {

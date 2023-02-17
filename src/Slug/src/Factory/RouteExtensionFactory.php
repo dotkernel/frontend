@@ -8,7 +8,9 @@ use Frontend\Slug\SlugInterface;
 use Frontend\Slug\TwigExtension\RouteExtension;
 use Mezzio\Helper\ServerUrlHelper;
 use Mezzio\Helper\UrlHelper;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class SlugExtensionFactory
@@ -16,22 +18,19 @@ use Psr\Container\ContainerInterface;
  */
 class RouteExtensionFactory
 {
-
     /**
      * @param ContainerInterface $container
      * @param $requestedName
      * @return RouteExtension
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName): RouteExtension
     {
-        $url            = $container->get(UrlHelper::class);
-        $slugAdapter    = $container->get(SlugInterface::class);
-        $serverUrl      = $container->get(ServerUrlHelper::class);
-
         return new $requestedName(
-            $url,
-            $slugAdapter,
-            $serverUrl
+            $container->get(UrlHelper::class),
+            $container->get(SlugInterface::class),
+            $container->get(ServerUrlHelper::class)
         );
     }
 }

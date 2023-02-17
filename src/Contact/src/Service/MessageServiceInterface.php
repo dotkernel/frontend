@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Frontend\Contact\Service;
 
-use Frontend\Contact\Entity\Message;
+use Dot\Mail\Exception\MailException;
 use Frontend\Contact\Repository\MessageRepository;
-use Doctrine\ORM\EntityNotFoundException;
 
 /**
- * Class MessageService
+ * Interface MessageService
  * @package Frontend\Contact\Service
  */
 interface MessageServiceInterface
@@ -19,8 +20,8 @@ interface MessageServiceInterface
 
     /**
      * @param array $data
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return bool
+     * @throws MailException
      */
-    public function processMessage(array $data);
+    public function processMessage(array $data): bool;
 }

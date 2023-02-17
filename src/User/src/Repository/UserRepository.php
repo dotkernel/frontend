@@ -10,8 +10,6 @@ use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\OptimisticLockException;
 use DateTimeImmutable;
 use Exception;
 
@@ -21,7 +19,6 @@ use Exception;
  */
 class UserRepository extends EntityRepository
 {
-
     /**
      * @param string $uuid
      * @return User|null
@@ -58,19 +55,22 @@ class UserRepository extends EntityRepository
 
     /**
      * @param User $user
+     * @return User
      */
-    public function saveUser(User $user)
+    public function saveUser(User $user): User
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+
+        return $user;
     }
 
     /**
      * @param string $email
      * @param string|null $uuid
-     * @return mixed|null
+     * @return User|null
      */
-    public function exists(string $email = '', ?string $uuid = '')
+    public function exists(string $email = '', ?string $uuid = ''): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -113,11 +113,8 @@ class UserRepository extends EntityRepository
      */
     public function saveUserRememberMe(UserRememberMe $userRememberMe): void
     {
-        $userRememberMe->touch();
-
-        $em = $this->getEntityManager();
-        $em->persist($userRememberMe);
-        $em->flush();
+        $this->getEntityManager()->persist($userRememberMe);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -139,10 +136,10 @@ class UserRepository extends EntityRepository
     /**
      * @param User $user
      * @param string $userAgent
-     * @return mixed
+     * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
-    public function findRememberMeUser(User $user, string $userAgent)
+    public function findRememberMeUser(User $user, string $userAgent): ?UserRememberMe
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')
@@ -160,7 +157,7 @@ class UserRepository extends EntityRepository
      * @param DateTimeImmutable $currentDate
      * @return mixed
      */
-    public function deleteExpiredCookies(DateTimeImmutable $currentDate)
+    public function deleteExpiredCookies(DateTimeImmutable $currentDate): mixed
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->delete(UserRememberMe::class, 'user_remember_me')

@@ -16,11 +16,10 @@ use Laminas\InputFilter\InputFilterInterface;
  */
 class ResetPasswordForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
-    protected $inputFilter;
+    protected InputFilterInterface $inputFilter;
 
     /**
-     * RegisterForm constructor.
+     * ResetPasswordForm constructor.
      * @param null $name
      * @param array $options
      */

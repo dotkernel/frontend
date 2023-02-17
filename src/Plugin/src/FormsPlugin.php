@@ -1,38 +1,27 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/dot-controller-plugin-forms/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/dot-controller-plugin-forms/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\Plugin;
 
-use Frontend\Plugin\Exception\RuntimeException;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Dot\Form\Factory\FormAbstractServiceFactory;
 use Dot\Form\FormElementManager;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
+use Frontend\Plugin\Exception\RuntimeException;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Class FormsPlugin
- * @package Dot\Controller\Plugin\Forms
+ * @package Frontend\Plugin
  */
 class FormsPlugin implements PluginInterface
 {
-    /** @var FormElementManager $formElementManager */
     protected FormElementManager $formElementManager;
-
-    /** @var ContainerInterface $container */
     protected ContainerInterface $container;
-
-    /** @var FlashMessengerInterface|null  $flashMessenger*/
     protected ?FlashMessengerInterface $flashMessenger;
 
     /**
@@ -57,7 +46,7 @@ class FormsPlugin implements PluginInterface
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(string $name = null)
+    public function __invoke(string $name = null): mixed
     {
         if (is_null($name)) {
             return $this;

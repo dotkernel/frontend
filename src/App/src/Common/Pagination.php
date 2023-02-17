@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Frontend\App\Common;
 
-use function array_key_exists;
-
 /**
  * Class Pagination
  * @package Frontend\App\Common
@@ -18,7 +16,7 @@ class Pagination
      * @param array $filters
      * @return array
      */
-    public static function getOffsetAndLimit(array $filters = [])
+    public static function getOffsetAndLimit(array $filters = []): array
     {
         $page = (int)($filters['page'] ?? 1);
 

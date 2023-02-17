@@ -16,7 +16,6 @@ use Laminas\Form\Form;
  */
 class ProfilePasswordForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
     protected InputFilterInterface $inputFilter;
 
     /**

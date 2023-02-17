@@ -17,7 +17,6 @@ use Laminas\InputFilter\InputFilterInterface;
  */
 class ProfileDetailsForm extends Form
 {
-    /** @var InputFilterInterface $inputFilter */
     protected InputFilterInterface $inputFilter;
 
     /**

@@ -1,22 +1,15 @@
 <?php
 
-/**
- * @see https://github.com/dotkernel/frontend/ for the canonical source repository
- * @copyright Copyright (c) 2017 Apidemia (https://www.apidemia.com)
- * @license https://github.com/dotkernel/frontend/blob/master/LICENSE.md MIT License
- */
-
 declare(strict_types=1);
 
 namespace Frontend\User\Fieldset;
 
-use Frontend\User\Entity\UserDetail;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Fieldset;
 
 /**
  * Class ResponseFieldset
- * @package Frontend\App\Form
+ * @package Frontend\User\Fieldset
  */
 class UserDetailFieldset extends Fieldset
 {
