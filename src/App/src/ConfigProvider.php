@@ -49,7 +49,7 @@ class ConfigProvider
         return [
             'delegators' => [
                 Application::class => [
-                    \Frontend\App\RoutesDelegator::class,
+                    RoutesDelegator::class,
                     \Frontend\Page\RoutesDelegator::class,
                     \Frontend\User\RoutesDelegator::class
                 ]

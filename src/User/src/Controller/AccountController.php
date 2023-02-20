@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Frontend\User\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
-use Dot\FlashMessenger\FlashMessenger;
+use Dot\FlashMessenger\FlashMessengerInterface;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Common\Message;
 use Frontend\Plugin\FormsPlugin;
@@ -21,7 +20,7 @@ use Frontend\User\Form\ProfilePasswordForm;
 use Frontend\User\Form\RequestResetPasswordForm;
 use Frontend\User\Form\ResetPasswordForm;
 use Frontend\User\Form\UploadAvatarForm;
-use Frontend\User\Service\UserService;
+use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
@@ -40,38 +39,38 @@ class AccountController extends AbstractActionController
 {
     protected RouterInterface $router;
     protected TemplateRendererInterface $template;
-    protected UserService $userService;
+    protected UserServiceInterface $userService;
     protected AuthenticationServiceInterface $authenticationService;
-    protected FlashMessenger $messenger;
+    protected FlashMessengerInterface $messenger;
     protected FormsPlugin $forms;
     protected DebugBar $debugBar;
 
     /**
      * AccountController constructor.
-     * @param UserService $userService
+     * @param UserServiceInterface $userService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      * @param AuthenticationService $authenticationService
-     * @param FlashMessenger $messenger
+     * @param FlashMessengerInterface $messenger
      * @param FormsPlugin $forms
      * @param DebugBar $debugBar
      *
      * @Inject({
-     *     UserService::class,
+     *     UserServiceInterface::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
-     *     FlashMessenger::class,
+     *     FlashMessengerInterface::class,
      *     FormsPlugin::class,
      *     DebugBar::class
      * })
      */
     public function __construct(
-        UserService $userService,
+        UserServiceInterface $userService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
-        FlashMessenger $messenger,
+        FlashMessengerInterface $messenger,
         FormsPlugin $forms,
         DebugBar $debugBar
     ) {
@@ -205,8 +204,6 @@ class AccountController extends AbstractActionController
 
     /**
      * @return ResponseInterface
-     * @throws NoResultException
-     * @throws NonUniqueResultException
      */
     public function resetPasswordAction(): ResponseInterface
     {
@@ -298,7 +295,7 @@ class AccountController extends AbstractActionController
             try {
                 $this->userService->updateUser($user, ['avatar' => $file]);
                 $this->debugBar->stackData();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
                 return new RedirectResponse($this->router->generateUri(
                     "account",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ language_key }}">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -54,7 +54,7 @@
                                     <a class="nav-link" href="https://github.com/dotkernel" target="_blank">{% trans 'Contribute' %}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('contact', {'action': 'form'}) }}">{% trans 'Contact Us' %}</a></li>
+                                    <a class="nav-link" href="{{ url('contact', {'action': 'form'}) }}">{% trans 'Contact Us' %}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" href="{{ url('page', {'action': 'index'}) }}">{% trans 'Disabled' %}</a>
@@ -109,15 +109,15 @@
         <div class="language-container">
             <div class="languages">
                 <div class="language-active clearfix">
-                    <img src="{{ asset('images/app/flags/' ~ language_key ~ '.png') }}" alt="" />
+                    <img src="{{ asset('images/app/flags/' ~ language_key ~ '.png') }}" alt="Language selector" />
                     <div class="language-selector"></div>
                 </div>
                 <ul class="language-list">
                     <li class="language language-en clearfix" data-language-key="en">
-                        <img src="{{ asset('images/app/flags/en.png') }}" alt="" /><span>EN</span>
+                        <img src="{{ asset('images/app/flags/en.png') }}" alt="English" /><span>EN</span>
                     </li>
                     <li class="language language-dk clearfix" data-language-key="dk">
-                        <img src="{{ asset('images/app/flags/dk.png') }}" alt="" /><span>DK</span>
+                        <img src="{{ asset('images/app/flags/dk.png') }}" alt="Dansk" /><span>DK</span>
                     </li>
                 </ul>
             </div>

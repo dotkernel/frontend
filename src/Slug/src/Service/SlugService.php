@@ -42,13 +42,13 @@ class SlugService implements SlugServiceInterface
     }
 
     /**
+     * @param Slug $slug
      * @param string $attribute
      * @param string $value
-     * @param Slug $slug
-     * @return bool|string
+     * @return mixed
      * @throws MissingConfigurationException
      */
-    public function slugManipulation(Slug $slug, string $attribute, string $value): bool|string
+    public function slugManipulation(Slug $slug, string $attribute, string $value): mixed
     {
         $exchange = $slug->getExchange();
         $exchange = array_reduce(
@@ -87,7 +87,7 @@ class SlugService implements SlugServiceInterface
 
     /**
      * @param array $param
-     * @param array  $exchange
+     * @param array $exchange
      * @return string
      */
     protected function generateSlug(array $param, array $exchange): string
@@ -133,7 +133,7 @@ class SlugService implements SlugServiceInterface
             );
             $stmt->bindValue('exchangeColumn', $param[$exchange['exchangeColumn']]);
             return $stmt->executeQuery()->rowCount();
-        } catch (Exception | \Doctrine\DBAL\Driver\Exception $exception) {
+        } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
         }
     }
@@ -142,7 +142,7 @@ class SlugService implements SlugServiceInterface
      * @param $input
      * @return string
      */
-    public function clean($input): string
+    protected function clean($input): string
     {
         return preg_replace('/[^A-Za-z0-9. -]/', '', $input);
     }
@@ -178,20 +178,22 @@ class SlugService implements SlugServiceInterface
         if ($slug->getType() === Slug::REQUEST_TYPE) {
             $searchParam = $db['slugColumn'];
         }
+
         try {
             $table = $db['table'];
             unset($db['table']);
-            $collum = array_values($db);
-            $collum = implode(',', $collum);
+            $column = array_values($db);
+            $column = implode(',', $column);
 
             $stmt = $this->em->getConnection()->prepare(
-                'SELECT ' . $collum . ' FROM `' . $table . '` WHERE `' . $searchParam . '` = :searchParam'
+                'SELECT ' . $column . ' FROM `' . $table . '` WHERE `' . $searchParam . '` = :searchParam'
             );
             if ($slug->getType() === Slug::REQUEST_TYPE) {
                 $stmt->bindValue('searchParam', $this->escapeCharacter($param));
             } else {
                 $stmt->bindValue('searchParam', $param, UuidBinaryOrderedTimeType::NAME);
             }
+
             return $stmt->executeQuery()->fetchAssociative();
         } catch (Exception $exception) {
             throw new RuntimeException($exception->getMessage());
@@ -202,7 +204,7 @@ class SlugService implements SlugServiceInterface
      * @param $input
      * @return string|string[]
      */
-    public function escapeCharacter($input): array|string
+    protected function escapeCharacter($input): array|string
     {
         return str_replace(
             ['\\', "\0", "\n", "\r", "'", '"', "\x1a"],
@@ -215,7 +217,7 @@ class SlugService implements SlugServiceInterface
      * @param string $attributeUuid
      * @return string
      */
-    public function processUuidToString(string $attributeUuid): string
+    protected function processUuidToString(string $attributeUuid): string
     {
         return $this->getUuidGenerator()->fromBytes($attributeUuid)->toString();
     }

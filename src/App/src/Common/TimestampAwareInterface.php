@@ -18,9 +18,24 @@ interface TimestampAwareInterface
     public function getCreated(): ?DateTimeImmutable;
 
     /**
+     * @return string|null
+     */
+    public function getCreatedFormatted(): ?string;
+
+    /**
      * @return DateTimeImmutable|null
      */
     public function getUpdated(): ?DateTimeImmutable;
+
+    /**
+     * @return string|null
+     */
+    public function getUpdatedFormatted(): ?string;
+
+    /**
+     * @param string $dateFormat
+     */
+    public function setDateFormat(string $dateFormat): void;
 
     /**
      * Update internal timestamps

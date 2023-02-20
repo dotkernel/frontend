@@ -7,15 +7,15 @@ namespace Frontend\User\Controller;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
-use Dot\FlashMessenger\FlashMessenger;
+use Dot\FlashMessenger\FlashMessengerInterface;
 use Fig\Http\Message\RequestMethodInterface;
-use Frontend\App\Service\CookieService;
+use Frontend\App\Service\CookieServiceInterface;
 use Frontend\Plugin\FormsPlugin;
 use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Entity\User;
 use Frontend\User\Form\LoginForm;
 use Frontend\User\Form\RegisterForm;
-use Frontend\User\Service\UserService;
+use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
@@ -31,47 +31,47 @@ use Exception;
  */
 class UserController extends AbstractActionController
 {
-    protected CookieService $cookieService;
+    protected CookieServiceInterface $cookieService;
     protected RouterInterface $router;
     protected TemplateRendererInterface $template;
-    protected UserService $userService;
+    protected UserServiceInterface $userService;
     protected AuthenticationService $authenticationService;
-    protected FlashMessenger $messenger;
+    protected FlashMessengerInterface $messenger;
     protected FormsPlugin $forms;
     protected DebugBar $debugBar;
     protected array $config = [];
 
     /**
      * UserController constructor.
-     * @param CookieService $cookieService
-     * @param UserService $userService
+     * @param CookieServiceInterface $cookieService
+     * @param UserServiceInterface $userService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      * @param AuthenticationService $authenticationService
-     * @param FlashMessenger $messenger
+     * @param FlashMessengerInterface $messenger
      * @param FormsPlugin $forms
      * @param DebugBar $debugBar
      * @param array $config
      *
      * @Inject({
-     *     CookieService::class,
-     *     UserService::class,
+     *     CookieServiceInterface::class,
+     *     UserServiceInterface::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
      *     AuthenticationService::class,
-     *     FlashMessenger::class,
+     *     FlashMessengerInterface::class,
      *     FormsPlugin::class,
      *     DebugBar::class,
      *     "config"
      * })
      */
     public function __construct(
-        CookieService $cookieService,
-        UserService $userService,
+        CookieServiceInterface $cookieService,
+        UserServiceInterface $userService,
         RouterInterface $router,
         TemplateRendererInterface $template,
         AuthenticationService $authenticationService,
-        FlashMessenger $messenger,
+        FlashMessengerInterface $messenger,
         FormsPlugin $forms,
         DebugBar $debugBar,
         array $config = []

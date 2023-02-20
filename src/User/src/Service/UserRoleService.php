@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Service;
 
+use Doctrine\ORM\EntityRepository;
 use Frontend\User\Entity\UserRole;
 use Frontend\User\Repository\UserRoleRepository;
 use Doctrine\ORM\EntityManager;
@@ -15,7 +16,7 @@ use Dot\AnnotatedServices\Annotation\Inject;
  */
 class UserRoleService implements UserRoleServiceInterface
 {
-    protected UserRoleRepository $roleRepository;
+    protected UserRoleRepository|EntityRepository $roleRepository;
 
     /**
      * UserRoleService constructor.

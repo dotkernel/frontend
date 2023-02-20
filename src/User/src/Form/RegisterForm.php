@@ -44,6 +44,7 @@ class RegisterForm extends Form
         parent::init();
 
         $this->add([
+            'name' => 'detail',
             'type' => UserDetailFieldset::class
         ]);
 

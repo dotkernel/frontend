@@ -84,7 +84,7 @@ class UserRepository extends EntityRepository
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -102,7 +102,7 @@ class UserRepository extends EntityRepository
                 ->andWhere('resetPasswords.hash = :hash')->setParameter('hash', $hash);
 
             return $qb->getQuery()->useQueryCache(true)->getSingleResult();
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return null;
         }
     }

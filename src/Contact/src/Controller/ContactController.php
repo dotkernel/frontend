@@ -8,11 +8,10 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
 use Dot\FlashMessenger\FlashMessenger;
-use Dot\Mail\Exception\MailException;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\RecaptchaService;
 use Frontend\Contact\Form\ContactForm;
-use Frontend\Contact\Service\MessageService;
+use Frontend\Contact\Service\MessageServiceInterface;
 use Frontend\Plugin\FormsPlugin;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
@@ -30,7 +29,7 @@ class ContactController extends AbstractActionController
 {
     protected RouterInterface $router;
     protected TemplateRendererInterface $template;
-    protected MessageService $messageService;
+    protected MessageServiceInterface $messageService;
     protected RecaptchaService $recaptchaService;
     protected AuthenticationServiceInterface $authenticationService;
     protected FlashMessenger $messenger;
@@ -40,7 +39,7 @@ class ContactController extends AbstractActionController
 
     /**
      * ContactController constructor.
-     * @param MessageService $messageService
+     * @param MessageServiceInterface $messageService
      * @param RecaptchaService $recaptchaService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
@@ -50,7 +49,7 @@ class ContactController extends AbstractActionController
      * @param DebugBar $debugBar
      * @param array $config
      * @Inject({
-     *     MessageService::class,
+     *     MessageServiceInterface::class,
      *     RecaptchaService::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class,
@@ -62,7 +61,7 @@ class ContactController extends AbstractActionController
      *     })
      */
     public function __construct(
-        MessageService $messageService,
+        MessageServiceInterface $messageService,
         RecaptchaService $recaptchaService,
         RouterInterface $router,
         TemplateRendererInterface $template,
@@ -85,7 +84,6 @@ class ContactController extends AbstractActionController
 
     /**
      * @return ResponseInterface
-     * @throws MailException
      */
     public function formAction(): ResponseInterface
     {

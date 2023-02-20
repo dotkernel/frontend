@@ -6,7 +6,7 @@ namespace Frontend\Page\Controller;
 
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
-use Frontend\Page\Service\PageService;
+use Frontend\Page\Service\PageServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
@@ -19,23 +19,26 @@ use Psr\Http\Message\ResponseInterface;
 class PageController extends AbstractActionController
 {
     protected RouterInterface $router;
-    protected PageService $pageService;
+    protected PageServiceInterface $pageService;
     protected TemplateRendererInterface $template;
 
     /**
      * PageController constructor.
-     * @param PageService $pageService
+     * @param PageServiceInterface $pageService
      * @param RouterInterface $router
      * @param TemplateRendererInterface $template
      *
      * @Inject({
-     *     PageService::class,
+     *     PageServiceInterface::class,
      *     RouterInterface::class,
      *     TemplateRendererInterface::class
      * })
      */
-    public function __construct(PageService $pageService, RouterInterface $router, TemplateRendererInterface $template)
-    {
+    public function __construct(
+        PageServiceInterface $pageService,
+        RouterInterface $router,
+        TemplateRendererInterface $template
+    ) {
         $this->pageService = $pageService;
         $this->router = $router;
         $this->template = $template;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
 /**
@@ -73,9 +74,9 @@ interface UserInterface
     public function setStatus(string $status): UserInterface;
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getRoles();
+    public function getRoles(): Collection;
 
     /**
      * @param UserRole $role
@@ -102,5 +103,5 @@ interface UserInterface
     /**
      * @return UserInterface
      */
-    public function activate();
+    public function activate(): UserInterface;
 }

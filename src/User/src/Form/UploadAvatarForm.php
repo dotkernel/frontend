@@ -34,6 +34,7 @@ class UploadAvatarForm extends Form
         parent::init();
 
         $this->add([
+            'name' => 'avatar',
             'type' => AvatarFieldset::class
         ]);
 

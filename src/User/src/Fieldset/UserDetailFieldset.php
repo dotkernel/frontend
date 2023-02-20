@@ -20,7 +20,7 @@ class UserDetailFieldset extends Fieldset
      */
     public function __construct($name = null, array $options = [])
     {
-        parent::__construct($name = 'detail', $options);
+        parent::__construct($name, $options);
     }
 
     public function init()

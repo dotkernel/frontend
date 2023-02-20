@@ -155,7 +155,7 @@ class UserResetPassword extends AbstractEntity
     {
         try {
             return $this->getExpires() > (new DateTimeImmutable());
-        } catch (Exception $exception) {
+        } catch (Exception) {
         }
 
         return false;
