@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Frontend\Plugin;
 
+use Doctrine\DBAL\Driver\Exception;
+use Frontend\Slug\Exception\MissingConfigurationException;
 use Frontend\Slug\SlugInterface;
 use Mezzio\Helper\UrlHelper;
 
@@ -31,17 +33,19 @@ class UrlHelperPlugin implements PluginInterface
      * @param string|null $routeName
      * @param array $routeParams
      * @param array $queryParams
-     * @param null $fragmentIdentifier
+     * @param $fragmentIdentifier
      * @param array $options
-     * @return UrlHelperPlugin|string
+     * @return string|$this
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function __invoke(
         string $routeName = null,
         array $routeParams = [],
-        $queryParams = [],
+        array $queryParams = [],
         $fragmentIdentifier = null,
         array $options = []
-    ) {
+    ): UrlHelperPlugin|string {
         $args = func_get_args();
         if (empty($args)) {
             return $this;
@@ -57,11 +61,13 @@ class UrlHelperPlugin implements PluginInterface
      * @param null $fragmentIdentifier
      * @param array $options
      * @return string
+     * @throws Exception
+     * @throws MissingConfigurationException
      */
     public function generate(
         string $routeName = null,
         array $routeParams = [],
-        $queryParams = [],
+        array $queryParams = [],
         $fragmentIdentifier = null,
         array $options = []
     ): string {

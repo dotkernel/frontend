@@ -235,9 +235,9 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function getRoles()
+    public function getRoles(): Collection
     {
         return $this->roles;
     }
@@ -285,7 +285,7 @@ class User extends AbstractEntity implements UserInterface
     {
         try {
             $bytes = random_bytes(32);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $bytes = UuidOrderedTimeGenerator::generateUuid()->getBytes();
         }
 

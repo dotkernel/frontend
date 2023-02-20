@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\App\Middleware;
 
-use Dot\FlashMessenger\FlashMessenger;
+use Dot\FlashMessenger\FlashMessengerInterface;
 use Dot\Rbac\Guard\Exception\RuntimeException;
 use Dot\Rbac\Guard\Guard\GuardInterface;
 use Dot\Rbac\Guard\Options\RbacGuardOptions;
@@ -23,20 +23,20 @@ use Psr\Http\Server\RequestHandlerInterface;
 class AuthMiddleware implements MiddlewareInterface
 {
     protected RouterInterface $router;
-    protected FlashMessenger $messenger;
+    protected FlashMessengerInterface $messenger;
     protected GuardsProviderInterface $guardProvider;
     protected RbacGuardOptions $options;
 
     /**
      * AuthMiddleware constructor.
      * @param RouterInterface $router
-     * @param FlashMessenger $messenger
+     * @param FlashMessengerInterface $messenger
      * @param GuardsProviderInterface $guardProvider
      * @param RbacGuardOptions $options
      */
     public function __construct(
         RouterInterface $router,
-        FlashMessenger $messenger,
+        FlashMessengerInterface $messenger,
         GuardsProviderInterface $guardProvider,
         RbacGuardOptions $options
     ) {
@@ -56,7 +56,7 @@ class AuthMiddleware implements MiddlewareInterface
         $guards = $this->guardProvider->getGuards();
 
         //iterate over guards, which are sorted by priority
-        //break on the first one that does not grants access
+        //break on the first one that does not grant access
 
         $isGranted = $this->options->getProtectionPolicy() === GuardInterface::POLICY_ALLOW;
 

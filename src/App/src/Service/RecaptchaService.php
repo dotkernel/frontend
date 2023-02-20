@@ -90,13 +90,15 @@ class RecaptchaService
         $keysToValidate = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];
         foreach ($keysToValidate as $key) {
             if (empty($config[$key])) {
-                throw new InvalidArgumentException("Invalid `{$key}` provided.");
+                throw new InvalidArgumentException(
+                    sprintf('Invalid `%s` provided.', $key)
+                );
             }
         }
 
         if (! is_float($config['scoreThreshold']) || $config['scoreThreshold'] < 0 || $config['scoreThreshold'] > 1) {
             throw new InvalidArgumentException(
-                "Invalid `{$key}` provided. The value must be a float between 0.0 and 1.0"
+                sprintf('Invalid `%s` provided. The value must be a float between 0.0 and 1.0', $key)
             );
         }
     }

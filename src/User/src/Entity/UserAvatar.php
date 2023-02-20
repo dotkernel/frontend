@@ -6,13 +6,14 @@ namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
+use Frontend\User\EventListener\UserAvatarEventListener;
 
 /**
  * Class UserAvatar
  * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserAvatarRepository")
  * @ORM\Table(name="user_avatar")
  * @ORM\HasLifecycleCallbacks()
- * @ORM\EntityListeners({Frontend\User\EventListener\UserAvatarEventListener::class})
+ * @ORM\EntityListeners({UserAvatarEventListener::class})
  * @package Frontend\User\Entity
  */
 class UserAvatar extends AbstractEntity

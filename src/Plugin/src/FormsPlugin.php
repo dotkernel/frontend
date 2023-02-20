@@ -94,8 +94,9 @@ class FormsPlugin implements PluginInterface
 
     /**
      * @param Form $form
+     * @return void
      */
-    public function saveState(Form $form)
+    public function saveState(Form $form): void
     {
         if ($this->flashMessenger) {
             $dataKey = $form->getName() . '_data';
@@ -112,8 +113,9 @@ class FormsPlugin implements PluginInterface
      */
     public function getMessages(Form $form): array
     {
-        $formMessages = $form->getMessages();
-        return $this->processFormMessages($formMessages);
+        return $this->processFormMessages(
+            $form->getMessages()
+        );
     }
 
     /**
@@ -146,8 +148,9 @@ class FormsPlugin implements PluginInterface
      */
     public function getErrors(Form $form): array
     {
-        $formMessages = $form->getMessages();
-        return $this->processFormErrors($formMessages);
+        return $this->processFormErrors(
+            $form->getMessages()
+        );
     }
 
     /**

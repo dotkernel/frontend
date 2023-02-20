@@ -83,7 +83,7 @@ trait TimestampAwareTrait
     {
         try {
             $this->updated = new DateTimeImmutable();
-        } catch (Exception $exception) {
+        } catch (Exception) {
             #TODO save the error message
         }
     }

@@ -20,7 +20,7 @@ class AvatarFieldset extends Fieldset
      */
     public function __construct($name = null, array $options = [])
     {
-        parent::__construct($name = 'avatar', $options);
+        parent::__construct($name, $options);
     }
 
     public function init()

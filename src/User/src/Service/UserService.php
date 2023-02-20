@@ -6,6 +6,7 @@ namespace Frontend\User\Service;
 
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
@@ -43,8 +44,8 @@ class UserService implements UserServiceInterface
     protected CookieServiceInterface $cookieService;
     protected EntityManager $em;
     protected MailService $mailService;
-    protected UserRepository $userRepository;
-    protected UserRoleRepository $userRoleRepository;
+    protected UserRepository|EntityRepository $userRepository;
+    protected UserRoleRepository|EntityRepository $userRoleRepository;
     protected UserRoleServiceInterface $userRoleService;
     protected TemplateRendererInterface $templateRenderer;
     protected array $config = [];
@@ -150,7 +151,6 @@ class UserService implements UserServiceInterface
 
         return $user;
     }
-
 
     /**
      * @param User $user
@@ -291,14 +291,6 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @return array
-     */
-    public function getUsers(): array
-    {
-        return $this->userRepository->findAll();
-    }
-
-    /**
      * @param User $user
      * @return bool
      * @throws MailException
@@ -345,11 +337,11 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param User $user
+     * @param UserInterface|User $user
      * @return bool
      * @throws MailException
      */
-    public function sendResetPasswordRequestedMail(User $user): bool
+    public function sendResetPasswordRequestedMail(UserInterface|User $user): bool
     {
         $this->mailService->setBody(
             $this->templateRenderer->render('user::reset-password-requested', [
@@ -408,14 +400,14 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * @param User $user
+     * @param UserInterface|User $user
      * @param string $userAgent
      * @param array $cookies
      * @return void
      * @throws NonUniqueResultException
      * @throws Exception
      */
-    public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void
+    public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void
     {
         $this->deleteExpiredRememberMeTokens();
 

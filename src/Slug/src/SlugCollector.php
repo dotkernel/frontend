@@ -9,7 +9,7 @@ use FastRoute\RouteParser\Std;
 use Frontend\Slug\Exception\DuplicateSlugException;
 use Frontend\Slug\Exception\RuntimeException;
 use Frontend\Slug\Exception\MissingConfigurationException;
-use Frontend\Slug\Service\SlugService;
+use Frontend\Slug\Service\SlugServiceInterface;
 use InvalidArgumentException;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Uri;
@@ -41,15 +41,15 @@ class SlugCollector implements SlugInterface
     private RouterInterface $router;
     private ?DuplicateSlugDetector $duplicateSlugDetector;
     private UrlHelper $url;
-    private SlugService $slugService;
-    private bool $detectDuplicates = true;
-    private array $config = [];
+    private SlugServiceInterface $slugService;
+    private bool $detectDuplicates;
+    private array $config;
 
     /**
      * SlugCollector constructor.
      * @param RouterInterface $router
      * @param UrlHelper $url
-     * @param SlugService $slugService
+     * @param SlugServiceInterface $slugService
      * @param array $config
      * @param bool $detectDuplicates
      * @throws DuplicateSlugException
@@ -57,7 +57,7 @@ class SlugCollector implements SlugInterface
     public function __construct(
         RouterInterface $router,
         UrlHelper $url,
-        SlugService $slugService,
+        SlugServiceInterface $slugService,
         array $config = [],
         bool $detectDuplicates = true
     ) {
@@ -231,10 +231,9 @@ class SlugCollector implements SlugInterface
      * @param RouteResult $routeResult
      * @param array $matchParams
      * @return string
-     * @throws Exception
      * @throws MissingConfigurationException
      */
-    public function generateUri(Slug $slug, RouteResult $routeResult, $matchParams = []): string
+    public function generateUri(Slug $slug, RouteResult $routeResult, array $matchParams = []): string
     {
         $route = $routeResult->getMatchedRoute();
         $substitutions = $routeResult->getMatchedParams();
@@ -324,7 +323,7 @@ class SlugCollector implements SlugInterface
                             );
                         }
                         if ($attribute) {
-                            $path .= '/' . (string)$attribute;
+                            $path .= '/' . $attribute;
                         }
                     } else {
                         $path .= $attribute;
@@ -418,7 +417,7 @@ class SlugCollector implements SlugInterface
             // Generate the path
             $validParams = [];
 
-            foreach ($parts as $p => $part) {
+            foreach ($parts as $part) {
                 if ($part[0] !== '/' && $part[0] !== 'action') {
                     $validParams[] = $part[0];
                 }

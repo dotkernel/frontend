@@ -6,6 +6,8 @@ namespace Frontend\Page;
 
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\Page\Controller\PageController;
+use Frontend\Page\Service\PageService;
+use Frontend\Page\Service\PageServiceInterface;
 
 /**
  * Class ConfigProvider
@@ -32,6 +34,10 @@ class ConfigProvider
         return [
             'factories' => [
                 PageController::class => AnnotatedServiceFactory::class,
+                PageService::class => AnnotatedServiceFactory::class,
+            ],
+            'aliases' => [
+                PageServiceInterface::class => PageService::class,
             ],
         ];
     }

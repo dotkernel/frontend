@@ -75,7 +75,10 @@ class ConfigProvider
         ];
     }
 
-    public function getForms()
+    /**
+     * @return array
+     */
+    public function getForms(): array
     {
         return [
             'form_manager' => [
@@ -90,7 +93,10 @@ class ConfigProvider
         ];
     }
 
-    public function getDoctrineConfig()
+    /**
+     * @return array
+     */
+    public function getDoctrineConfig(): array
     {
         return [
             'driver' => [

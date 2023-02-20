@@ -30,7 +30,7 @@ class PluginManagerFactory
     {
         $pluginManager = new PluginManager($container, $container->get('config')['dot_controller']['plugin_manager']);
 
-        //register the built in plugins, if the required component is present
+        //register the built-in plugins, if the required component is present
         if ($container->has(UrlHelper::class) && $container->has(SlugInterface::class)) {
             $pluginManager->setFactory('url', function (ContainerInterface $container) {
                 return new UrlHelperPlugin(

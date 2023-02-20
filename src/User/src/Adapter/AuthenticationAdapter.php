@@ -131,7 +131,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         if (!isset($this->config['identity_property'])) {
-            throw new Exception("Missing or invalid param 'identity_class' provided.");
+            throw new Exception("Missing or invalid param 'identity_property' provided.");
         }
 
         if (!isset($this->config['credential_property'])) {

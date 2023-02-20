@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\Slug\Service;
 
-use Doctrine\DBAL\Driver\Exception;
+use Frontend\Slug\Exception\MissingConfigurationException;
 use Frontend\Slug\Slug;
 
 /**
@@ -14,11 +14,11 @@ use Frontend\Slug\Slug;
 interface SlugServiceInterface
 {
     /**
+     * @param Slug $slug
      * @param string $attribute
      * @param string $value
-     * @param Slug $slug
-     * @return bool|string
-     * @throws Exception
+     * @return mixed
+     * @throws MissingConfigurationException
      */
-    public function slugManipulation(Slug $slug, string $attribute, string $value): bool|string;
+    public function slugManipulation(Slug $slug, string $attribute, string $value): mixed;
 }

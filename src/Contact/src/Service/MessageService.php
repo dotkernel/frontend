@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Service;
 
+use Doctrine\ORM\EntityRepository;
+use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
 use Doctrine\ORM\EntityManager;
 use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\Mail\Exception\MailException;
-use Dot\Mail\Service\MailService;
 use Mezzio\Template\TemplateRendererInterface;
 
 /**
@@ -18,28 +18,28 @@ use Mezzio\Template\TemplateRendererInterface;
  */
 class MessageService implements MessageServiceInterface
 {
-    protected MessageRepository $repository;
-    protected MailService $mailService;
+    protected MessageRepository|EntityRepository $repository;
+    protected MailServiceInterface $mailService;
     protected TemplateRendererInterface $templateRenderer;
     protected array $config = [];
 
     /**
      * MessageService constructor.
      * @param EntityManager $entityManager
-     * @param MailService $mailService
+     * @param MailServiceInterface $mailService
      * @param TemplateRendererInterface $templateRenderer
      * @param array $config
      *
      * @Inject({
      *     EntityManager::class,
-     *     MailService::class,
+     *     MailServiceInterface::class,
      *     TemplateRendererInterface::class,
      *     "config"
      * })
      */
     public function __construct(
         EntityManager $entityManager,
-        MailService $mailService,
+        MailServiceInterface $mailService,
         TemplateRendererInterface $templateRenderer,
         array $config = []
     ) {
@@ -60,7 +60,6 @@ class MessageService implements MessageServiceInterface
     /**
      * @param array $data
      * @return bool
-     * @throws MailException
      */
     public function processMessage(array $data): bool
     {
@@ -80,7 +79,6 @@ class MessageService implements MessageServiceInterface
     /**
      * @param Message $message
      * @return bool
-     * @throws MailException
      */
     public function sendContactMail(Message $message): bool
     {
@@ -123,7 +121,7 @@ class MessageService implements MessageServiceInterface
 
         $checkRecaptchaResponse = curl_exec($curl);
         $checkRecaptchaResponse = json_decode($checkRecaptchaResponse, true);
-        if ($checkRecaptchaResponse['success'] == true) {
+        if ($checkRecaptchaResponse['success']) {
             return true;
         }
         return false;

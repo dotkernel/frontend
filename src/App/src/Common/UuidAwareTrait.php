@@ -30,7 +30,7 @@ trait UuidAwareTrait
         if (!$this->uuid) {
             try {
                 $this->uuid = UuidOrderedTimeGenerator::generateUuid();
-            } catch (Throwable $exception) {
+            } catch (Throwable) {
                 #TODO save the error message
             }
         }
