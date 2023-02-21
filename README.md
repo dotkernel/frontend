@@ -67,9 +67,7 @@ To enable an extension, remove the semicolon (;) in front of it.
 
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
-```bash
-$ composer create-project dotkernel/frontend -s dev dk
-```
+    composer create-project dotkernel/frontend -s dev dk
 
 The above command downloads the `frontend` package, then downloads and installs the `dependencies`.
 
@@ -95,14 +93,11 @@ Type `y` here, and hit `enter`
 
 This method requires more manual input, but it ensures that the default branch is installed, even if it is not released. Run the following command:
 
-```bash
-$ git clone https://github.com/dotkernel/frontend.git .
-```
+    git clone https://github.com/dotkernel/frontend.git .
 
-The dependencies have to be installed separately, by running this command
-```bash
-$ composer install
-```
+The dependencies have to be installed separately, by running this command:
+
+    composer install
 
 Just like for `II Installing DotKernel frontend using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
 
@@ -204,9 +199,9 @@ https://www.doctrine-project.org/projects/doctrine-data-fixtures/en/latest/how-t
 - If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
 
 ```bash
-$ composer development-status
-$ composer development-enable
-$ composer development-disable
+composer development-status
+composer development-enable
+composer development-disable
 ```
 
 - If not already done on installation, remove the `.dist` extension from `config/autoload/development.global.php.dist`.
@@ -397,31 +392,20 @@ To apply the translations
 - then the js file needs `translateText("translateText")`
 
 
-## Testing (Running)
-
-Note: **Do not enable dev mode in production**
-
-- Run the following command in your project's directory to start PHPs built-in server:
-
-```bash
-$ php -S 0.0.0.0:8080 -t public
-```
-
-> Running command `composer serve` will do the exact same, but the above is faster.
-
-`0.0.0.0` means that the server is open to all incoming connections
-`127.0.0.1` means that the server can only be accessed locally (localhost only)
-`8080` the port on which the server is started (the listening port for the server)
-
-**NOTE:**
-If you are still getting exceptions or errors regarding some missing services, try running the following command
-
-```php
-php bin/clear-config-cache.php
-```
-
-> If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
-
-- Open a web browser and visit `http://localhost:8080/`
+## Running the application
+We recommend running your applications in WSL:
+* make sure you have [WSL](https://github.com/dotkernel/development/blob/main/wsl/README.md) installed on your system
+* currently we provide 2 distro implementations: [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md) and [Ubuntu20](https://github.com/dotkernel/development/blob/main/wsl/os/ubuntu20/README.md)
+* install the application in a virtualhost as recommended by the chosen distro
+* set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
+* run the application by opening the address in your browser
 
 You should see the `DotKernel Frontend` welcome page.
+
+
+**NOTE:**
+If you are getting exceptions or errors regarding some missing services, try running the following command:
+
+    php bin/clear-config-cache.php
+
+> If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
