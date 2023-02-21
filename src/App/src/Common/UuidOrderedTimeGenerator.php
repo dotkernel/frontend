@@ -17,12 +17,18 @@ final class UuidOrderedTimeGenerator
 {
     private static UuidFactoryInterface $factory;
 
+    /**
+     * @return UuidInterface
+     */
     public static function generateUuid(): UuidInterface
     {
         return self::getFactory()->uuid1();
     }
 
-    /** @psalm-suppress UndefinedInterfaceMethod */
+    /**
+     * @return UuidFactoryInterface
+     * @psalm-suppress UndefinedInterfaceMethod
+     */
     private static function getFactory(): UuidFactoryInterface
     {
         self::$factory = clone Uuid::getFactory();

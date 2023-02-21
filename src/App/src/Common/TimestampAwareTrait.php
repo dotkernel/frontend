@@ -45,11 +45,12 @@ trait TimestampAwareTrait
     }
 
     /**
-     * @return string|null
+     * @param string|null $dateFormat
+     * @return string
      */
-    public function getCreatedFormatted(): ?string
+    public function getCreatedFormatted(?string $dateFormat = null): string
     {
-        return $this->created->format($this->dateFormat);
+        return $this->created->format($dateFormat ?? $this->dateFormat);
     }
 
     /**
@@ -61,15 +62,17 @@ trait TimestampAwareTrait
     }
 
     /**
+     * @param string|null $dateFormat
      * @return string|null
      */
-    public function getUpdatedFormatted(): ?string
+    public function getUpdatedFormatted(?string $dateFormat = null): ?string
     {
-        return $this->updated?->format($this->dateFormat);
+        return $this->updated?->format($dateFormat ?? $this->dateFormat);
     }
 
     /**
      * @param string $dateFormat
+     * @return void
      */
     public function setDateFormat(string $dateFormat): void
     {

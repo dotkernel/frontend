@@ -80,7 +80,7 @@ class FormsPlugin implements PluginInterface
      */
     public function restoreState(Form $form): void
     {
-        if ($this->flashMessenger) {
+        if ($this->flashMessenger instanceof FlashMessengerInterface) {
             $dataKey = $form->getName() . '_data';
             $messagesKey = $form->getName() . '_messages';
 
@@ -98,7 +98,7 @@ class FormsPlugin implements PluginInterface
      */
     public function saveState(Form $form): void
     {
-        if ($this->flashMessenger) {
+        if ($this->flashMessenger instanceof FlashMessengerInterface) {
             $dataKey = $form->getName() . '_data';
             $messagesKey = $form->getName() . '_messages';
 
