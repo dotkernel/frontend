@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-$baseUrl = 'http://' . $_SERVER['HTTP_HOST'];
+$baseUrl = 'http://dotkernel.local';
 
 $databases = [
     'default' => [
