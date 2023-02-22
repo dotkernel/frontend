@@ -185,11 +185,17 @@ Seeding the database is done with the help of our custom package ``dotkernel/dot
 
 An example of a fixtures class is ``data/doctrine/fixtures/RoleLoader.php``
 
-Running ``php bin/doctrine fixtures:list`` will list all the available fixtures, by order of execution.
+To list all the available fixtures, by order of execution, run:
 
-To execute all fixtures run : ``php bin/doctrine fixtures:execute``.
+    php bin/doctrine fixtures:list
 
-To execute a specific fixtures run : ``php bin/doctrine fixtures:execute --class=RoleLoader``
+To execute all fixtures, run:
+
+    php bin/doctrine fixtures:execute
+
+To execute a specific fixtures, run:
+
+    php bin/doctrine fixtures:execute --class=RoleLoader
 
 Fixtures can and should be ordered to ensure database consistency, more on ordering fixtures can be found here :
 https://www.doctrine-project.org/projects/doctrine-data-fixtures/en/latest/how-to/fixture-ordering.html#fixture-ordering
@@ -397,15 +403,26 @@ We recommend running your applications in WSL:
 * make sure you have [WSL](https://github.com/dotkernel/development/blob/main/wsl/README.md) installed on your system
 * currently we provide 2 distro implementations: [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md) and [Ubuntu20](https://github.com/dotkernel/development/blob/main/wsl/os/ubuntu20/README.md)
 * install the application in a virtualhost as recommended by the chosen distro
-* set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
-* run the application by opening the address in your browser
+* run the application by opening the virtualhost address in your browser
 
 You should see the `DotKernel Frontend` welcome page.
 
 
 **NOTE:**
-If you are getting exceptions or errors regarding some missing services, try running the following command:
+- If you are getting exceptions or errors regarding some missing services, try running the following command:
 
     php bin/clear-config-cache.php
 
 > If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
+- **Development only**: `session.cookie_secure` does not work locally so make sure you modify your `local.php`, as per the following:
+```php
+# other code
+
+return [
+    # other configurations...
+    'session_config' => [
+        'cookie_secure' => false,
+    ],
+];
+```
+Do not change this in `local.php.dist` as well because this value should remain `true` on production.
