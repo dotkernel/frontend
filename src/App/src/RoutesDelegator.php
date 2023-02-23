@@ -13,13 +13,10 @@ use Psr\Container\ContainerInterface;
  * Class RoutesDelegator
  * @package Frontend\App
  */
-class RoutesDelegator
+final class RoutesDelegator
 {
     /**
-     * @param ContainerInterface $container
      * @param $serviceName
-     * @param callable $callback
-     * @return Application
      */
     public function __invoke(ContainerInterface $container, $serviceName, callable $callback): Application
     {

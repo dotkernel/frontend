@@ -10,6 +10,6 @@ use Doctrine\ORM\EntityRepository;
  * Class UserDetailRepository
  * @package Frontend\User\Repository
  */
-class UserDetailRepository extends EntityRepository
+final class UserDetailRepository extends EntityRepository
 {
 }

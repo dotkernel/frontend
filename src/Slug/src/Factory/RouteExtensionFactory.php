@@ -16,12 +16,10 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class SlugExtensionFactory
  * @package Frontend\Slug\Factory
  */
-class RouteExtensionFactory
+final class RouteExtensionFactory
 {
     /**
-     * @param ContainerInterface $container
      * @param $requestedName
-     * @return RouteExtension
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

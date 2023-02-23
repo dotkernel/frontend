@@ -12,8 +12,5 @@ use Ramsey\Uuid\UuidInterface;
  */
 interface UuidAwareInterface
 {
-    /**
-     * @return UuidInterface|null
-     */
     public function getUuid(): ?UuidInterface;
 }

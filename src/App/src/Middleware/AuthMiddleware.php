@@ -20,53 +20,45 @@ use Psr\Http\Server\RequestHandlerInterface;
  * Class AuthMiddleware
  * @package Frontend\App\Middleware
  */
-class AuthMiddleware implements MiddlewareInterface
+final class AuthMiddleware implements MiddlewareInterface
 {
-    protected RouterInterface $router;
-    protected FlashMessengerInterface $messenger;
-    protected GuardsProviderInterface $guardProvider;
-    protected RbacGuardOptions $options;
+    private readonly RouterInterface $router;
+    private readonly FlashMessengerInterface $flashMessenger;
+    private readonly GuardsProviderInterface $guardsProvider;
+    private readonly RbacGuardOptions $rbacGuardOptions;
 
     /**
      * AuthMiddleware constructor.
-     * @param RouterInterface $router
-     * @param FlashMessengerInterface $messenger
-     * @param GuardsProviderInterface $guardProvider
-     * @param RbacGuardOptions $options
      */
     public function __construct(
         RouterInterface $router,
-        FlashMessengerInterface $messenger,
-        GuardsProviderInterface $guardProvider,
-        RbacGuardOptions $options
+        FlashMessengerInterface $flashMessenger,
+        GuardsProviderInterface $guardsProvider,
+        RbacGuardOptions $rbacGuardOptions
     ) {
         $this->router = $router;
-        $this->messenger = $messenger;
-        $this->guardProvider = $guardProvider;
-        $this->options = $options;
+        $this->flashMessenger = $flashMessenger;
+        $this->guardsProvider = $guardsProvider;
+        $this->rbacGuardOptions = $rbacGuardOptions;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
     {
-        $guards = $this->guardProvider->getGuards();
+        $guards = $this->guardsProvider->getGuards();
 
         //iterate over guards, which are sorted by priority
         //break on the first one that does not grant access
 
-        $isGranted = $this->options->getProtectionPolicy() === GuardInterface::POLICY_ALLOW;
+        $isGranted = $this->rbacGuardOptions->getProtectionPolicy() === GuardInterface::POLICY_ALLOW;
 
         foreach ($guards as $guard) {
             if (!$guard instanceof GuardInterface) {
                 throw new RuntimeException("Guard is not an instance of " . GuardInterface::class);
             }
+
             //according to the policy, we whitelist or blacklist matched routes
 
-            $r = $guard->isGranted($request);
+            $r = $guard->isGranted($serverRequest);
             if ($r !== $isGranted) {
                 $isGranted = $r;
                 break;
@@ -74,7 +66,7 @@ class AuthMiddleware implements MiddlewareInterface
         }
 
         if (!$isGranted) {
-            $this->messenger->addWarning(
+            $this->flashMessenger->addWarning(
                 'You must sign in first in order to access the requested content',
                 'user-login'
             );
@@ -82,6 +74,6 @@ class AuthMiddleware implements MiddlewareInterface
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }
 
-        return $handler->handle($request);
+        return $requestHandler->handle($serverRequest);
     }
 }

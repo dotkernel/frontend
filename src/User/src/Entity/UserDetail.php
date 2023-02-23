@@ -32,26 +32,11 @@ class UserDetail extends AbstractEntity
      */
     protected string $lastName;
 
-    /**
-     * UserDetail constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     * @return self
-     */
     public function setUser(User $user): self
     {
         $this->user = $user;
@@ -59,9 +44,6 @@ class UserDetail extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -69,18 +51,14 @@ class UserDetail extends AbstractEntity
 
     /**
      * @param $firstName
-     * @return self
      */
-    public function setFirstName($firstName): self
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLastName(): ?string
     {
         return $this->lastName;
@@ -88,9 +66,8 @@ class UserDetail extends AbstractEntity
 
     /**
      * @param $lastName
-     * @return self
      */
-    public function setLastName($lastName): self
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -98,14 +75,14 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return array{uuid: string, firstName: string|null, lastName: string|null, created: \DateTimeImmutable, updated: \DateTimeImmutable|null}
      */
     public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'firstName' => $this->getFirstName(),
-            'lastName' => $this->getLastName(),
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

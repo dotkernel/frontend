@@ -10,7 +10,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
  * Class PluginManager
  * @package Frontend\Plugin
  */
-class PluginManager extends AbstractPluginManager
+final class PluginManager extends AbstractPluginManager
 {
     protected $instanceOf = PluginInterface::class;
 }

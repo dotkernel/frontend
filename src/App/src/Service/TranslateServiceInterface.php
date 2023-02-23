@@ -10,8 +10,5 @@ namespace Frontend\App\Service;
  */
 interface TranslateServiceInterface
 {
-    /**
-     * @param string $languageKey
-     */
     public function addTranslatorCookie(string $languageKey);
 }

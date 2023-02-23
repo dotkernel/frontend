@@ -14,12 +14,10 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class PluginManagerAwareInitializer
  * @package Frontend\Plugin\Factory
  */
-class PluginManagerAwareInitializer
+final class PluginManagerAwareInitializer
 {
     /**
-     * @param ContainerInterface $container
      * @param $instance
-     * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

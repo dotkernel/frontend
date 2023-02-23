@@ -14,11 +14,9 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class FormsPluginFactory
  * @package Frontend\Plugin\Factory
  */
-class FormsPluginFactory
+final class FormsPluginFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return FormsPlugin
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

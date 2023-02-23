@@ -13,28 +13,23 @@ use Mezzio\Helper\UrlHelper;
  * Class UrlHelperPlugin
  * @package Frontend\Plugin
  */
-class UrlHelperPlugin implements PluginInterface
+final class UrlHelperPlugin implements PluginInterface
 {
-    protected UrlHelper $urlHelper;
-    private SlugInterface $slugAdapter;
+    private readonly UrlHelper $urlHelper;
+    private readonly SlugInterface $slug;
 
     /**
      * UrlHelperPlugin constructor.
-     * @param UrlHelper $helper
-     * @param SlugInterface $slugAdapter
      */
-    public function __construct(UrlHelper $helper, SlugInterface $slugAdapter)
+    public function __construct(UrlHelper $urlHelper, SlugInterface $slug)
     {
-        $this->urlHelper = $helper;
-        $this->slugAdapter = $slugAdapter;
+        $this->urlHelper = $urlHelper;
+        $this->slug = $slug;
     }
 
     /**
      * @param string|null $routeName
-     * @param array $routeParams
-     * @param array $queryParams
      * @param $fragmentIdentifier
-     * @param array $options
      * @return string|$this
      * @throws Exception
      * @throws MissingConfigurationException
@@ -47,7 +42,7 @@ class UrlHelperPlugin implements PluginInterface
         array $options = []
     ): UrlHelperPlugin|string {
         $args = func_get_args();
-        if (empty($args)) {
+        if ($args === []) {
             return $this;
         }
 
@@ -56,11 +51,7 @@ class UrlHelperPlugin implements PluginInterface
 
     /**
      * @param string|null $routeName
-     * @param array $routeParams
-     * @param array $queryParams
      * @param null $fragmentIdentifier
-     * @param array $options
-     * @return string
      * @throws Exception
      * @throws MissingConfigurationException
      */
@@ -68,11 +59,11 @@ class UrlHelperPlugin implements PluginInterface
         string $routeName = null,
         array $routeParams = [],
         array $queryParams = [],
-        $fragmentIdentifier = null,
+        ?string $fragmentIdentifier = null,
         array $options = []
     ): string {
 
-        $response = $this->slugAdapter->match($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
+        $response = $this->slug->match($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
 
         if ($response->isSuccess()) {
             return $response->getUrl();

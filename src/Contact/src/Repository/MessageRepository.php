@@ -11,12 +11,8 @@ use Doctrine\ORM\EntityRepository;
  * Class MessageRepository
  * @package Frontend\Contact\Repository
  */
-class MessageRepository extends EntityRepository
+final class MessageRepository extends EntityRepository
 {
-    /**
-     * @param Message $message
-     * @return void
-     */
     public function saveMessage(Message $message): void
     {
         $this->getEntityManager()->persist($message);

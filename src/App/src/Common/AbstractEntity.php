@@ -28,8 +28,6 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
     /**
      * Exchange internal values from provided array
      *
-     * @param array $data
-     * @return void
      */
     public function exchangeArray(array $data): void
     {
@@ -39,6 +37,7 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
                 if (!method_exists($this, $method)) {
                     continue;
                 }
+
                 foreach ($values as $value) {
                     $this->$method($value);
                 }
@@ -47,6 +46,7 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
                 if (!method_exists($this, $method)) {
                     continue;
                 }
+
                 $this->$method($values);
             }
         }

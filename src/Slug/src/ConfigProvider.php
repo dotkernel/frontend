@@ -16,10 +16,10 @@ use Frontend\Slug\TwigExtension\RouteExtension;
  * Class ConfigProvider
  * @package Frontend\Slug
  */
-class ConfigProvider
+final class ConfigProvider
 {
     /**
-     * @return array
+     * @return array{dependencies: mixed[]}
      */
     public function __invoke(): array
     {
@@ -29,7 +29,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{factories: array<string, class-string<\Frontend\Slug\Factory\SlugCollectorFactory>|class-string<\Dot\AnnotatedServices\Factory\AnnotatedServiceFactory>|class-string<\Frontend\Slug\Factory\RouteExtensionFactory>>, aliases: array<string, class-string<\Frontend\Slug\SlugCollector>|class-string<\Frontend\Slug\Service\SlugService>>}
      */
     public function getDependencies(): array
     {

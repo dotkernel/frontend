@@ -21,9 +21,6 @@ trait UuidAwareTrait
     */
     protected ?UuidInterface $uuid = null;
 
-    /**
-     * @return UuidInterface|null
-     */
     public function getUuid(): ?UuidInterface
     {
         if (!$this->uuid) {

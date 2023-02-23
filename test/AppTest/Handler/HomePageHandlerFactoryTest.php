@@ -12,12 +12,12 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
-class HomePageHandlerFactoryTest extends TestCase
+final class HomePageHandlerFactoryTest extends TestCase
 {
     /** @var ContainerInterface|ObjectProphecy */
-    protected $container;
+    private $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
         $router = $this->prophesize(RouterInterface::class);
@@ -25,29 +25,29 @@ class HomePageHandlerFactoryTest extends TestCase
         $this->container->get(RouterInterface::class)->willReturn($router);
     }
 
-    public function testFactoryWithoutTemplate()
+    public function testFactoryWithoutTemplate(): void
     {
-        $factory = new HomePageHandlerFactory();
+        $homePageHandlerFactory = new HomePageHandlerFactory();
         $this->container->has(TemplateRendererInterface::class)->willReturn(false);
         $this->container->has(\Mezzio\Template\TemplateRendererInterface::class)->willReturn(false);
 
-        $this->assertInstanceOf(HomePageHandlerFactory::class, $factory);
+        $this->assertInstanceOf(HomePageHandlerFactory::class, $homePageHandlerFactory);
 
-        $homePage = $factory($this->container->reveal());
+        $homePage = $homePageHandlerFactory($this->container->reveal());
 
         $this->assertInstanceOf(HomePageHandler::class, $homePage);
     }
 
-    public function testFactoryWithTemplate()
+    public function testFactoryWithTemplate(): void
     {
         $this->container->has(TemplateRendererInterface::class)->willReturn(true);
         $this->container
             ->get(TemplateRendererInterface::class)
             ->willReturn($this->prophesize(TemplateRendererInterface::class));
 
-        $factory = new HomePageHandlerFactory();
+        $homePageHandlerFactory = new HomePageHandlerFactory();
 
-        $homePage = $factory($this->container->reveal());
+        $homePage = $homePageHandlerFactory($this->container->reveal());
 
         $this->assertInstanceOf(HomePageHandler::class, $homePage);
     }

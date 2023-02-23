@@ -14,14 +14,13 @@ use Laminas\InputFilter\InputFilterInterface;
  * Class ResetPasswordForm
  * @package Frontend\User\Form
  */
-class ResetPasswordForm extends Form
+final class ResetPasswordForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
+    private readonly InputFilterInterface $inputFilter;
 
     /**
      * ResetPasswordForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -33,7 +32,7 @@ class ResetPasswordForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -69,9 +68,6 @@ class ResetPasswordForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

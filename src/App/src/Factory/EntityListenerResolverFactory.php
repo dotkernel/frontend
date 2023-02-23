@@ -11,12 +11,8 @@ use Psr\Container\ContainerInterface;
  * Class EntityListenerResolverFactory
  * @package Frontend\App\Factory
  */
-class EntityListenerResolverFactory
+final class EntityListenerResolverFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return EntityListenerResolver
-     */
     public function __invoke(ContainerInterface $container): EntityListenerResolver
     {
         return new EntityListenerResolver($container);

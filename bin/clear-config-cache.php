@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 chdir(__DIR__ . '/../');
 
-require 'vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $config = include 'config/config.php';
 
@@ -22,7 +22,7 @@ if (! file_exists($config['config_cache_path'])) {
     exit(0);
 }
 
-if (false === unlink($config['config_cache_path'])) {
+if (!unlink($config['config_cache_path'])) {
     printf(
         "Error removing config cache file '%s'%s",
         $config['config_cache_path'],

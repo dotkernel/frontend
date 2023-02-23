@@ -18,31 +18,28 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class FormsPlugin
  * @package Frontend\Plugin
  */
-class FormsPlugin implements PluginInterface
+final class FormsPlugin implements PluginInterface
 {
-    protected FormElementManager $formElementManager;
-    protected ContainerInterface $container;
-    protected ?FlashMessengerInterface $flashMessenger;
+    private readonly FormElementManager $formElementManager;
+    private readonly ContainerInterface $container;
+    private readonly ?FlashMessengerInterface $flashMessenger;
 
     /**
      * FormsPlugin constructor.
-     * @param FormElementManager $formManager
-     * @param ContainerInterface $container
      * @param FlashMessengerInterface|null $flashMessenger
      */
     public function __construct(
-        FormElementManager $formManager,
+        FormElementManager $formElementManager,
         ContainerInterface $container,
         FlashMessengerInterface $flashMessenger = null
     ) {
-        $this->formElementManager = $formManager;
+        $this->formElementManager = $formElementManager;
         $this->container = $container;
         $this->flashMessenger = $flashMessenger;
     }
 
     /**
      * @param string|null $name
-     * @return mixed
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -63,7 +60,7 @@ class FormsPlugin implements PluginInterface
 
         if (!$result) {
             throw new RuntimeException(
-                "Form, fieldset or element with name $result could not be created. ' .
+                "Form, fieldset or element with name {$result} could not be created. ' .
                 'Are you sure you registered it in the form manager?"
             );
         }
@@ -75,9 +72,6 @@ class FormsPlugin implements PluginInterface
         return $result;
     }
 
-    /**
-     * @param Form $form
-     */
     public function restoreState(Form $form): void
     {
         if ($this->flashMessenger instanceof FlashMessengerInterface) {
@@ -92,10 +86,6 @@ class FormsPlugin implements PluginInterface
         }
     }
 
-    /**
-     * @param Form $form
-     * @return void
-     */
     public function saveState(Form $form): void
     {
         if ($this->flashMessenger instanceof FlashMessengerInterface) {
@@ -107,10 +97,6 @@ class FormsPlugin implements PluginInterface
         }
     }
 
-    /**
-     * @param Form $form
-     * @return array
-     */
     public function getMessages(Form $form): array
     {
         return $this->processFormMessages(
@@ -118,34 +104,26 @@ class FormsPlugin implements PluginInterface
         );
     }
 
-    /**
-     * @param array $formMessages
-     * @return array
-     */
-    protected function processFormMessages(array $formMessages): array
+    private function processFormMessages(array $formMessages): array
     {
         $messages = [];
-        foreach ($formMessages as $message) {
-            if (is_array($message)) {
-                foreach ($message as $m) {
+        foreach ($formMessages as $formMessage) {
+            if (is_array($formMessage)) {
+                foreach ($formMessage as $m) {
                     if (is_string($m)) {
                         $messages[] = $m;
                     } elseif (is_array($m)) {
                         $messages = array_merge($messages, $this->processFormMessages($m));
                     }
                 }
-            } elseif (is_string($message)) {
-                $messages[] = $message;
+            } elseif (is_string($formMessage)) {
+                $messages[] = $formMessage;
             }
         }
 
         return $messages;
     }
 
-    /**
-     * @param Form $form
-     * @return array
-     */
     public function getErrors(Form $form): array
     {
         return $this->processFormErrors(
@@ -154,11 +132,9 @@ class FormsPlugin implements PluginInterface
     }
 
     /**
-     * @param array $formMessages
      * @psalm-suppress InvalidArrayOffset
-     * @return array
      */
-    protected function processFormErrors(array $formMessages): array
+    private function processFormErrors(array $formMessages): array
     {
         $errors = [];
         foreach ($formMessages as $key => $message) {

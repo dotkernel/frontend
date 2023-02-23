@@ -14,13 +14,12 @@ use Dot\AnnotatedServices\Annotation\Inject;
  * Class UserRoleService
  * @package Frontend\User\Service
  */
-class UserRoleService implements UserRoleServiceInterface
+final class UserRoleService implements UserRoleServiceInterface
 {
-    protected UserRoleRepository|EntityRepository $roleRepository;
+    private readonly UserRoleRepository|EntityRepository $roleRepository;
 
     /**
      * UserRoleService constructor.
-     * @param EntityManager $entityManager
      *
      * @Inject({
      *     EntityManager::class
@@ -31,13 +30,9 @@ class UserRoleService implements UserRoleServiceInterface
         $this->roleRepository = $entityManager->getRepository(UserRole::class);
     }
 
-    /**
-     * @param array $params
-     * @return UserRole|null
-     */
     public function findOneBy(array $params = []): ?UserRole
     {
-        if (empty($params)) {
+        if ($params === []) {
             return null;
         }
 

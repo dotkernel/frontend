@@ -8,6 +8,6 @@ namespace Frontend\Page\Service;
  * Class PageService
  * @package Frontend\Page\Service
  */
-class PageService implements PageServiceInterface
+final class PageService implements PageServiceInterface
 {
 }

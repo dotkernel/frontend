@@ -16,11 +16,9 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class AuthenticationAdapter
  * @package Frontend\User\Factory
  */
-class AuthenticationAdapterFactory
+final class AuthenticationAdapterFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return AuthenticationAdapter
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
@@ -38,10 +36,10 @@ class AuthenticationAdapterFactory
 
         /** @var EntityManager $entityManager */
         $entityManager = $container->get(EntityManager::class);
-        $repository = $entityManager->getRepository(
+        $entityRepository = $entityManager->getRepository(
             $config['doctrine']['authentication']['orm_default']['identity_class']
         );
-        if (!($repository instanceof EntityRepository)) {
+        if (!($entityRepository instanceof EntityRepository)) {
             throw new Exception(
                 sprintf(
                     'Could not find repository for identity class: %s',
@@ -51,7 +49,7 @@ class AuthenticationAdapterFactory
         }
 
         return new AuthenticationAdapter(
-            $repository,
+            $entityRepository,
             $config['doctrine']['authentication']['orm_default']
         );
     }

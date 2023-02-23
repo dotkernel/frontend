@@ -14,11 +14,9 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class AuthenticationAdapter
  * @package Frontend\User\Factory
  */
-class AuthenticationServiceFactory
+final class AuthenticationServiceFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return AuthenticationService
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

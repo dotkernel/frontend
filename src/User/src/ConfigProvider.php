@@ -25,10 +25,10 @@ use Laminas\Form\ElementFactory;
  * Class ConfigProvider
  * @package Frontend\User
  */
-class ConfigProvider
+final class ConfigProvider
 {
     /**
-     * @return array
+     * @return array{dependencies: mixed[], templates: mixed[], dot_form: mixed[], doctrine: mixed[]}
      */
     public function __invoke(): array
     {
@@ -41,7 +41,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{factories: array<string, class-string<\Dot\AnnotatedServices\Factory\AnnotatedServiceFactory>|class-string<\Frontend\User\Factory\AuthenticationServiceFactory>|class-string<\Frontend\User\Factory\AuthenticationAdapterFactory>>, aliases: array<string, class-string<\Frontend\User\Entity\User>|class-string<\Frontend\User\Service\UserService>|class-string<\Frontend\User\Service\UserRoleService>>}
      */
     public function getDependencies(): array
     {
@@ -63,7 +63,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{paths: array{user: string[], profile: string[]}}
      */
     public function getTemplates(): array
     {
@@ -76,7 +76,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{form_manager: array{factories: array<string, class-string<\Laminas\Form\ElementFactory>>, aliases: never[], delegators: never[]}}
      */
     public function getForms(): array
     {
@@ -94,7 +94,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{driver: array{orm_default: array{drivers: array{Frontend\User\Entity: string}}, UserEntities: array{class: class-string<\Doctrine\ORM\Mapping\Driver\AnnotationDriver>, cache: string, paths: string[]}}}
      */
     public function getDoctrineConfig(): array
     {

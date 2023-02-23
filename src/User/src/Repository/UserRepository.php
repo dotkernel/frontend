@@ -17,11 +17,9 @@ use Exception;
  * Class UserRepository
  * @package Frontend\User\Repository
  */
-class UserRepository extends EntityRepository
+final class UserRepository extends EntityRepository
 {
     /**
-     * @param string $uuid
-     * @return User|null
      * @throws NonUniqueResultException
      */
     public function findByUuid(string $uuid): ?User
@@ -37,8 +35,6 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param string $identity
-     * @return UserInterface
      * @throws NonUniqueResultException
      */
     public function findByIdentity(string $identity): UserInterface
@@ -53,10 +49,6 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
-    /**
-     * @param User $user
-     * @return User
-     */
     public function saveUser(User $user): User
     {
         $this->getEntityManager()->persist($user);
@@ -65,11 +57,6 @@ class UserRepository extends EntityRepository
         return $user;
     }
 
-    /**
-     * @param string $email
-     * @param string|null $uuid
-     * @return User|null
-     */
     public function exists(string $email = '', ?string $uuid = ''): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -89,10 +76,6 @@ class UserRepository extends EntityRepository
         }
     }
 
-    /**
-     * @param string $hash
-     * @return User|null
-     */
     public function findByResetPasswordHash(string $hash): ?User
     {
         try {
@@ -107,10 +90,6 @@ class UserRepository extends EntityRepository
         }
     }
 
-    /**
-     * @param UserRememberMe $userRememberMe
-     * @return void
-     */
     public function saveUserRememberMe(UserRememberMe $userRememberMe): void
     {
         $this->getEntityManager()->persist($userRememberMe);
@@ -119,7 +98,6 @@ class UserRepository extends EntityRepository
 
     /**
      * @param $token
-     * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
     public function getRememberUser($token): ?UserRememberMe
@@ -134,9 +112,6 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param User $user
-     * @param string $userAgent
-     * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
     public function findRememberMeUser(User $user, string $userAgent): ?UserRememberMe
@@ -153,10 +128,6 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
-    /**
-     * @param DateTimeImmutable $currentDate
-     * @return mixed
-     */
     public function deleteExpiredCookies(DateTimeImmutable $currentDate): mixed
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -167,10 +138,6 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->useQueryCache(true)->execute();
     }
 
-    /**
-     * @param UserRememberMe $userRememberMe
-     * @return void
-     */
     public function removeUserRememberMe(UserRememberMe $userRememberMe): void
     {
         $this->getEntityManager()->remove($userRememberMe);

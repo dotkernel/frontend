@@ -8,6 +8,6 @@ namespace Frontend\Plugin\Exception;
  * Class RuntimeException
  * @package Frontend\Plugin\Exception
  */
-class RuntimeException extends \RuntimeException implements ExceptionInterface
+final class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
 }

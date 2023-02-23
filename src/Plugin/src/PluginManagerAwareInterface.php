@@ -10,14 +10,7 @@ namespace Frontend\Plugin;
  */
 interface PluginManagerAwareInterface
 {
-    /**
-     * @param PluginManager $plugins
-     * @return void
-     */
-    public function setPluginManager(PluginManager $plugins): void;
+    public function setPluginManager(PluginManager $pluginManager): void;
 
-    /**
-     * @return PluginManager
-     */
     public function getPluginManager(): PluginManager;
 }

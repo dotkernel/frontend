@@ -25,18 +25,13 @@ use Psr\Http\Server\RequestHandlerInterface;
  *
  * @Service()
  */
-class RememberMeMiddleware implements MiddlewareInterface
+final class RememberMeMiddleware implements MiddlewareInterface
 {
-    protected UserServiceInterface $userService;
-    protected AuthenticationServiceInterface $authenticationService;
-    protected UserRepository $repository;
-    protected array $rememberConfig = [];
+    private readonly UserServiceInterface $userService;
+    private readonly AuthenticationServiceInterface $authenticationService;
 
     /**
      * RememberMeMiddleware constructor.
-     * @param UserServiceInterface $userService
-     * @param AuthenticationService $authenticationService
-     * @param array $rememberConfig
      *
      * @Inject({
      *     UserServiceInterface::class,
@@ -46,37 +41,32 @@ class RememberMeMiddleware implements MiddlewareInterface
      */
     public function __construct(
         UserServiceInterface $userService,
-        AuthenticationService $authenticationService,
-        array $rememberConfig
+        AuthenticationService $authenticationService
     ) {
         $this->userService = $userService;
         $this->authenticationService = $authenticationService;
-        $this->rememberConfig = $rememberConfig;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
      * @throws NonUniqueResultException
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
     {
-        $cookies = $request->getCookieParams();
+        $cookies = $serverRequest->getCookieParams();
         if (!empty($cookies['rememberMe'])) {
             $hash = $cookies['rememberMe'];
-            $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
-            if (!empty($rememberUser)) {
-                $user = $rememberUser->getUser();
-                $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
+            $userRememberMe = $this->userService->getRepository()->getRememberUser($hash);
+            if (!empty($userRememberMe)) {
+                $user = $userRememberMe->getUser();
+                $deviceType = $serverRequest->getServerParams()['HTTP_USER_AGENT'];
                 if (
-                    $hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType &&
-                    $rememberUser->getExpireDate() > new DateTimeImmutable('now') && $user->getIsDeleted() === false
+                    $hash == $userRememberMe->getRememberMeToken() && $userRememberMe->getUserAgent() == $deviceType &&
+                    $userRememberMe->getExpireDate() > new DateTimeImmutable('now') && !$user->getIsDeleted()
                 ) {
                     $userIdentity = new UserIdentity(
                         $user->getUuid()->toString(),
                         $user->getIdentity(),
-                        $user->getRoles()->map(function (UserRole $userRole) {
+                        $user->getRoles()->map(static function (UserRole $userRole) : string {
                             return $userRole->getName();
                         })->toArray(),
                         $user->getDetail()->getArrayCopy(),
@@ -91,6 +81,6 @@ class RememberMeMiddleware implements MiddlewareInterface
             }
         }
 
-        return $handler->handle($request);
+        return $requestHandler->handle($serverRequest);
     }
 }

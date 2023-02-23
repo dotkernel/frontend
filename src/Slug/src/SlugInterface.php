@@ -16,8 +16,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 interface SlugInterface
 {
     /**
-     * @param ServerRequestInterface $request
-     * @return SlugResult
      * @throws Exception
      * @throws MissingConfigurationException
      */
@@ -29,7 +27,6 @@ interface SlugInterface
      * @param $queryParams
      * @param $fragmentIdentifier
      * @param $options
-     * @return SlugResult
      * @throws Exception
      * @throws MissingConfigurationException
      */

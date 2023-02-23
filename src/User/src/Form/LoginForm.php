@@ -15,14 +15,13 @@ use Laminas\InputFilter\InputFilterInterface;
  * Class LoginForm
  * @package Frontend\User\Form
  */
-class LoginForm extends Form
+final class LoginForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
+    private readonly InputFilterInterface $inputFilter;
 
     /**
      * LoginForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -34,7 +33,7 @@ class LoginForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -80,9 +79,6 @@ class LoginForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

@@ -29,29 +29,20 @@ use Exception;
  * Class UserController
  * @package Frontend\User\Controller
  */
-class UserController extends AbstractActionController
+final class UserController extends AbstractActionController
 {
-    protected CookieServiceInterface $cookieService;
-    protected RouterInterface $router;
-    protected TemplateRendererInterface $template;
-    protected UserServiceInterface $userService;
-    protected AuthenticationService $authenticationService;
-    protected FlashMessengerInterface $messenger;
-    protected FormsPlugin $forms;
-    protected DebugBar $debugBar;
-    protected array $config = [];
+    private readonly CookieServiceInterface $cookieService;
+    private readonly RouterInterface $router;
+    private readonly TemplateRendererInterface $templateRenderer;
+    private readonly UserServiceInterface $userService;
+    private readonly AuthenticationService $authenticationService;
+    private readonly FlashMessengerInterface $flashMessenger;
+    private readonly FormsPlugin $formsPlugin;
+    private readonly DebugBar $debugBar;
+    private array $config = [];
 
     /**
      * UserController constructor.
-     * @param CookieServiceInterface $cookieService
-     * @param UserServiceInterface $userService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
-     * @param AuthenticationService $authenticationService
-     * @param FlashMessengerInterface $messenger
-     * @param FormsPlugin $forms
-     * @param DebugBar $debugBar
-     * @param array $config
      *
      * @Inject({
      *     CookieServiceInterface::class,
@@ -69,26 +60,25 @@ class UserController extends AbstractActionController
         CookieServiceInterface $cookieService,
         UserServiceInterface $userService,
         RouterInterface $router,
-        TemplateRendererInterface $template,
+        TemplateRendererInterface $templateRenderer,
         AuthenticationService $authenticationService,
-        FlashMessengerInterface $messenger,
-        FormsPlugin $forms,
+        FlashMessengerInterface $flashMessenger,
+        FormsPlugin $formsPlugin,
         DebugBar $debugBar,
         array $config = []
     ) {
         $this->cookieService = $cookieService;
         $this->userService = $userService;
         $this->router = $router;
-        $this->template = $template;
+        $this->templateRenderer = $templateRenderer;
         $this->authenticationService = $authenticationService;
-        $this->messenger = $messenger;
-        $this->forms = $forms;
+        $this->flashMessenger = $flashMessenger;
+        $this->formsPlugin = $formsPlugin;
         $this->debugBar = $debugBar;
         $this->config = $config;
     }
 
     /**
-     * @return ResponseInterface
      * @throws NonUniqueResultException
      * @throws Exception
      */
@@ -98,19 +88,19 @@ class UserController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri("page"));
         }
 
-        $form = new LoginForm();
+        $loginForm = new LoginForm();
 
-        $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
+        $shouldRebind = $this->flashMessenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
-            $this->forms->restoreState($form);
+            $this->formsPlugin->restoreState($loginForm);
         }
 
         if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
-            $form->setData($this->getRequest()->getParsedBody());
-            if ($form->isValid()) {
+            $loginForm->setData($this->getRequest()->getParsedBody());
+            if ($loginForm->isValid()) {
                 /** @var AuthenticationAdapter $adapter */
                 $adapter = $this->authenticationService->getAdapter();
-                $data = $form->getData();
+                $data = $loginForm->getData();
                 $adapter->setIdentity($data['identity'])->setCredential($data['password']);
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
@@ -125,30 +115,28 @@ class UserController extends AbstractActionController
                             $this->request->getCookieParams()
                         );
                     }
+
                     return new RedirectResponse($this->router->generateUri("page"));
-                } else {
-                    $this->messenger->addData('shouldRebind', true);
-                    $this->forms->saveState($form);
-                    $this->messenger->addError($authResult->getMessages(), 'user-login');
-                    return new RedirectResponse($this->getRequest()->getUri(), 303);
                 }
-            } else {
-                $this->messenger->addData('shouldRebind', true);
-                $this->forms->saveState($form);
-                $this->messenger->addError($this->forms->getMessages($form), 'user-login');
+                $this->flashMessenger->addData('shouldRebind', true);
+                $this->formsPlugin->saveState($loginForm);
+                $this->flashMessenger->addError($authResult->getMessages(), 'user-login');
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
+            $this->flashMessenger->addData('shouldRebind', true);
+            $this->formsPlugin->saveState($loginForm);
+            $this->flashMessenger->addError($this->formsPlugin->getMessages($loginForm), 'user-login');
+            return new RedirectResponse($this->getRequest()->getUri(), 303);
         }
 
         return new HtmlResponse(
-            $this->template->render('user::login', [
-                'form' => $form
+            $this->templateRenderer->render('user::login', [
+                'form' => $loginForm
             ])
         );
     }
 
     /**
-     * @return ResponseInterface
      * @throws NonUniqueResultException
      */
     public function logoutAction(): ResponseInterface
@@ -168,59 +156,56 @@ class UserController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function registerAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
             return new RedirectResponse($this->router->generateUri("page"));
         }
 
-        $form = new RegisterForm();
+        $registerForm = new RegisterForm();
 
-        $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
+        $shouldRebind = $this->flashMessenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
-            $this->forms->restoreState($form);
+            $this->formsPlugin->restoreState($registerForm);
         }
 
         if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
-            $form->setData($this->getRequest()->getParsedBody());
-            if ($form->isValid()) {
-                $userData = $form->getData();
+            $registerForm->setData($this->getRequest()->getParsedBody());
+            if ($registerForm->isValid()) {
+                $userData = $registerForm->getData();
                 try {
                     /** @var User $user */
                     $user = $this->userService->createUser($userData);
                     $this->debugBar->stackData();
-                } catch (Exception $e) {
-                    $this->messenger->addData('shouldRebind', true);
-                    $this->forms->saveState($form);
-                    $this->messenger->addError($e->getMessage(), 'user-register');
+                } catch (Exception $exception) {
+                    $this->flashMessenger->addData('shouldRebind', true);
+                    $this->formsPlugin->saveState($registerForm);
+                    $this->flashMessenger->addError($exception->getMessage(), 'user-register');
 
                     return new RedirectResponse($this->getRequest()->getUri(), 303);
                 }
 
                 try {
                     $this->userService->sendActivationMail($user);
-                    $this->messenger->addSuccess('Check the email to activate your account.', 'user-login');
+                    $this->flashMessenger->addSuccess('Check the email to activate your account.', 'user-login');
 
                     return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
                 } catch (Exception $exception) {
-                    $this->messenger->addError($exception->getMessage(), 'user-login');
+                    $this->flashMessenger->addError($exception->getMessage(), 'user-login');
                     return new RedirectResponse($this->getRequest()->getUri(), 303);
                 }
             } else {
-                $this->messenger->addData('shouldRebind', true);
-                $this->forms->saveState($form);
-                $this->messenger->addError($this->forms->getMessages($form), 'user-register');
+                $this->flashMessenger->addData('shouldRebind', true);
+                $this->formsPlugin->saveState($registerForm);
+                $this->flashMessenger->addError($this->formsPlugin->getMessages($registerForm), 'user-register');
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
         }
 
         return new HtmlResponse(
-            $this->template->render('user::register', [
-                'form' => $form
+            $this->templateRenderer->render('user::register', [
+                'form' => $registerForm
             ])
         );
     }

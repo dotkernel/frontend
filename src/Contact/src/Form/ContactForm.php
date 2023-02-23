@@ -16,14 +16,13 @@ use Laminas\InputFilter\InputFilterInterface;
  * Class ContactForm
  * @package Frontend\Contact\Form
  */
-class ContactForm extends Form
+final class ContactForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
+    private readonly InputFilterInterface $inputFilter;
 
     /**
      * ContactForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -35,9 +34,6 @@ class ContactForm extends Form
         $this->inputFilter->init();
     }
 
-    /**
-     * @return void
-     */
     public function init(): void
     {
         parent::init();
@@ -89,9 +85,6 @@ class ContactForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

@@ -31,26 +31,11 @@ class UserAvatar extends AbstractEntity
 
     protected string $url;
 
-    /**
-     * UserAvatar constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param UserInterface $user
-     * @return self
-     */
     public function setUser(UserInterface $user): self
     {
         $this->user = $user;
@@ -58,9 +43,6 @@ class UserAvatar extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
@@ -68,41 +50,33 @@ class UserAvatar extends AbstractEntity
 
     /**
      * @param $name
-     * @return self
      */
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
-    /**
-     * @param string $url
-     * @return void
-     */
     public function setUrl(string $url): void
     {
         $this->url = $url;
     }
 
     /**
-     * @return array
+     * @return array{uuid: string, name: string, url: string, created: \DateTimeImmutable, updated: \DateTimeImmutable|null}
      */
     public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getName(),
-            'url' => $this->getUrl(),
+            'name' => $this->name,
+            'url' => $this->url,
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

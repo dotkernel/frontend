@@ -28,7 +28,9 @@ $aggregator = new ConfigAggregator([
     // Swoole config to overwrite some services (if installed)
     class_exists(\Mezzio\Swoole\ConfigProvider::class)
         ? \Mezzio\Swoole\ConfigProvider::class
-        : function(){ return[]; },
+        : static function () {
+            return[];
+        },
 
     // DotKernel packages
     \Dot\Session\ConfigProvider::class,

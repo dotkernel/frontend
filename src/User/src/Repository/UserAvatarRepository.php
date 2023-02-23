@@ -10,6 +10,6 @@ use Doctrine\ORM\EntityRepository;
  * Class UserAvatarRepository
  * @package Frontend\User\Repository
  */
-class UserAvatarRepository extends EntityRepository
+final class UserAvatarRepository extends EntityRepository
 {
 }

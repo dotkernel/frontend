@@ -17,8 +17,14 @@ use Frontend\App\Common\AbstractEntity;
  */
 class Message extends AbstractEntity
 {
-    public const PLATFORM_WEBSITE = 'website';
-    public const PLATFORM_ADMIN = 'admin';
+    /**
+     * @var string
+     */
+    final public const PLATFORM_WEBSITE = 'website';
+    /**
+     * @var string
+     */
+    final public const PLATFORM_ADMIN = 'admin';
 
     /**
      * @ORM\Column(name="email", type="string", length=150)
@@ -47,11 +53,6 @@ class Message extends AbstractEntity
 
     /**
      * Message constructor.
-     * @param string $email
-     * @param string $name
-     * @param string $subject
-     * @param string $message
-     * @param string $platform
      */
     public function __construct(
         string $email,
@@ -69,49 +70,31 @@ class Message extends AbstractEntity
         $this->platform = $platform;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return string
-     */
     public function getPlatform(): string
     {
         return $this->platform;
     }
 
-    /**
-     * @param string $platform
-     */
     public function setPlatform(string $platform): void
     {
         $this->platform = $platform;

@@ -14,23 +14,23 @@ use Laminas\Validator\NotEmpty;
  * Class RequestResetPasswordInputFilter
  * @package Frontend\User\InputFilter
  */
-class RequestResetPasswordInputFilter extends InputFilter
+final class RequestResetPasswordInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 
-        $identity = new Input('identity');
-        $identity->setRequired(true);
-        $identity->getFilterChain()
+        $input = new Input('identity');
+        $input->setRequired(true);
+        $input->getFilterChain()
             ->attachByName(StringTrim::class);
-        $identity->getValidatorChain()
+        $input->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>E-mail address</b> is required and cannot be empty',
             ], true)
             ->attachByName(EmailAddress::class, [
                 'message' => '<b>E-mail address</b> is not valid',
             ], true);
-        $this->add($identity);
+        $this->add($input);
     }
 }

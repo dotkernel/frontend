@@ -16,17 +16,12 @@ use Psr\Http\Message\ResponseInterface;
  * Class PageController
  * @package Frontend\Page\Controller
  */
-class PageController extends AbstractActionController
+final class PageController extends AbstractActionController
 {
-    protected RouterInterface $router;
-    protected PageServiceInterface $pageService;
-    protected TemplateRendererInterface $template;
+    private readonly TemplateRendererInterface $templateRenderer;
 
     /**
      * PageController constructor.
-     * @param PageServiceInterface $pageService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
      *
      * @Inject({
      *     PageServiceInterface::class,
@@ -37,60 +32,43 @@ class PageController extends AbstractActionController
     public function __construct(
         PageServiceInterface $pageService,
         RouterInterface $router,
-        TemplateRendererInterface $template
+        TemplateRendererInterface $templateRenderer
     ) {
-        $this->pageService = $pageService;
-        $this->router = $router;
-        $this->template = $template;
+        $this->templateRenderer = $templateRenderer;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function indexAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::home')
+            $this->templateRenderer->render('page::home')
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function homeAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::home')
+            $this->templateRenderer->render('page::home')
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function aboutUsAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::about')
+            $this->templateRenderer->render('page::about')
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function premiumContentAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::premium-content')
+            $this->templateRenderer->render('page::premium-content')
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function whoWeAreAction(): ResponseInterface
     {
         return new HtmlResponse(
-            $this->template->render('page::who-we-are')
+            $this->templateRenderer->render('page::who-we-are')
         );
     }
 }

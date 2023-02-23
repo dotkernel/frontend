@@ -11,6 +11,6 @@ use RuntimeException as PhpRuntimeException;
  * Class RuntimeException
  * @package Frontend\Slug\Exception
  */
-class RuntimeException extends PhpRuntimeException implements ExceptionInterface
+final class RuntimeException extends PhpRuntimeException implements ExceptionInterface
 {
 }

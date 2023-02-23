@@ -13,14 +13,11 @@ use Laminas\InputFilter\InputFilterInterface;
  * Class UploadAvatarForm
  * @package Frontend\User\Form
  */
-class UploadAvatarForm extends Form
+final class UploadAvatarForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
-
     /**
      * UploadAvatarForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -29,7 +26,7 @@ class UploadAvatarForm extends Form
         $this->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

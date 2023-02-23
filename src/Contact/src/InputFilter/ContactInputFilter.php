@@ -15,11 +15,8 @@ use Laminas\Validator\StringLength;
  * Class ContactInputFilter
  * @package Frontend\Contact\InputFilter
  */
-class ContactInputFilter extends InputFilter
+final class ContactInputFilter extends InputFilter
 {
-    /**
-     * @return void
-     */
     public function init(): void
     {
         parent::init();

@@ -11,19 +11,18 @@ use Laminas\Form\Fieldset;
  * Class AvatarFieldset
  * @package Frontend\User\Fieldset
  */
-class AvatarFieldset extends Fieldset
+final class AvatarFieldset extends Fieldset
 {
     /**
      * AvatarFieldset constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

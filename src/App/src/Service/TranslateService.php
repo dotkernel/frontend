@@ -10,15 +10,13 @@ use Dot\AnnotatedServices\Annotation\Inject;
  * Class TranslateService
  * @package Frontend\App\Service
  */
-class TranslateService implements TranslateServiceInterface
+final class TranslateService implements TranslateServiceInterface
 {
-    protected CookieServiceInterface $cookieService;
-    protected array $config = [];
+    private readonly CookieServiceInterface $cookieService;
+    private array $config = [];
 
     /**
      * TranslateService constructor.
-     * @param CookieServiceInterface $cookieService
-     * @param array $config
      *
      * @Inject({
      *     CookieServiceInterface::class,
@@ -33,10 +31,6 @@ class TranslateService implements TranslateServiceInterface
         $this->config = $config;
     }
 
-    /**
-     * @param string $languageKey
-     * @return void
-     */
     public function addTranslatorCookie(string $languageKey): void
     {
         $expires = time() +

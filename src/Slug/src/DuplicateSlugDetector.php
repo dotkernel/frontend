@@ -33,16 +33,12 @@ final class DuplicateSlugDetector
         $this->remember($slug);
     }
 
-    /**
-     * @param Slug $slug
-     */
     private function remember(Slug $slug): void
     {
         $this->slugs[$slug->getAlias()] = $slug;
     }
 
     /**
-     * @param Slug $slug
      * @throws DuplicateSlugException
      */
     private function throwOnDuplicate(Slug $slug): void
@@ -53,10 +49,9 @@ final class DuplicateSlugDetector
     }
 
     /**
-     * @param Slug $slug
      * @throws DuplicateSlugException
      */
-    private function duplicateRouteDetected(Slug $slug): void
+    private function duplicateRouteDetected(Slug $slug): never
     {
         throw new DuplicateSlugException(
             sprintf(

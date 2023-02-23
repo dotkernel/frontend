@@ -13,9 +13,9 @@ use Laminas\Validator\NotEmpty;
  * Class UserDetailInputFilter
  * @package Frontend\User\InputFilter
  */
-class UserDetailInputFilter extends InputFilter
+final class UserDetailInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

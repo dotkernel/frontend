@@ -18,19 +18,14 @@ use Psr\Http\Message\ResponseInterface;
  * Class LanguageController
  * @package Frontend\App\Controller
  */
-class LanguageController extends AbstractActionController
+final class LanguageController extends AbstractActionController
 {
-    protected TranslateServiceInterface $translateService;
-    protected RouterInterface $router;
-    protected TemplateRendererInterface $template;
-    protected array $translatorConfig = [];
+    private readonly TranslateServiceInterface $translateService;
+    private readonly TemplateRendererInterface $templateRenderer;
+    private array $translatorConfig = [];
 
     /**
      * LanguageController constructor.
-     * @param TranslateServiceInterface $translateService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
-     * @param array $translatorConfig
      *
      * @Inject({
      *     TranslateServiceInterface::class,
@@ -42,50 +37,43 @@ class LanguageController extends AbstractActionController
     public function __construct(
         TranslateServiceInterface $translateService,
         RouterInterface $router,
-        TemplateRendererInterface $template,
+        TemplateRendererInterface $templateRenderer,
         array $translatorConfig
     ) {
         $this->translateService = $translateService;
-        $this->router = $router;
-        $this->template = $template;
+        $this->templateRenderer = $templateRenderer;
         $this->translatorConfig = $translatorConfig;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function changeAction(): ResponseInterface
     {
-        $data = $this->getRequest()->getParsedBody();
-        $languageKey = (!empty($data['languageKey'])) ? $data['languageKey'] : $this->translatorConfig['default'];
+        $parsedBody = $this->getRequest()->getParsedBody();
+        $languageKey = (empty($parsedBody['languageKey'])) ? $this->translatorConfig['default'] : $parsedBody['languageKey'];
         $this->translateService->addTranslatorCookie($languageKey);
 
         return new HtmlResponse('');
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function translateTextAction(): ResponseInterface
     {
         $translation = '';
         $request = $this->getRequest();
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
-            $data = $request->getParsedBody();
+            $parsedBody = $request->getParsedBody();
 
-            $text = (!empty($data['text'])) ? $data['text'] : '';
+            $text = (empty($parsedBody['text'])) ? '' : $parsedBody['text'];
 
             if (is_array($text)) {
                 foreach ($text as $textItem) {
                     $translation = $translation .
-                        $this->template->render(
+                        $this->templateRenderer->render(
                             'language::translate-text.html.twig',
                             ['translateThis' => $textItem]
                         ) . '<br/>';
                 }
             } else {
-                $translation = $this->template->render(
+                $translation = $this->templateRenderer->render(
                     'language::translate-text.html.twig',
                     ['translateThis' => $text]
                 );

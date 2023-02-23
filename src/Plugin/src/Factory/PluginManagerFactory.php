@@ -18,11 +18,9 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class PluginManagerFactory
  * @package Frontend\Plugin\Factory
  */
-class PluginManagerFactory
+final class PluginManagerFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return PluginManager
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -32,7 +30,7 @@ class PluginManagerFactory
 
         //register the built-in plugins, if the required component is present
         if ($container->has(UrlHelper::class) && $container->has(SlugInterface::class)) {
-            $pluginManager->setFactory('url', function (ContainerInterface $container) {
+            $pluginManager->setFactory('url', static function (ContainerInterface $container) : \Frontend\Plugin\UrlHelperPlugin {
                 return new UrlHelperPlugin(
                     $container->get(UrlHelper::class),
                     $container->get(SlugInterface::class)
@@ -41,7 +39,7 @@ class PluginManagerFactory
         }
 
         if ($container->has(TemplateRendererInterface::class)) {
-            $pluginManager->setFactory('template', function (ContainerInterface $container) {
+            $pluginManager->setFactory('template', static function (ContainerInterface $container) : \Frontend\Plugin\TemplatePlugin {
                 return new TemplatePlugin($container->get(TemplateRendererInterface::class));
             });
         }

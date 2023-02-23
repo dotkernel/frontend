@@ -17,14 +17,13 @@ use Laminas\Form\Form;
  * Class RegisterForm
  * @package Frontend\User\Form
  */
-class RegisterForm extends Form
+final class RegisterForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
+    private readonly InputFilterInterface $inputFilter;
 
     /**
      * RegisterForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -34,12 +33,14 @@ class RegisterForm extends Form
 
         $this->inputFilter = new RegisterInputFilter();
         $this->inputFilter->init();
-        $detailsInputFilter = new UserDetailInputFilter();
-        $detailsInputFilter->init();
-        $this->inputFilter->add($detailsInputFilter, 'detail');
+
+        $userDetailInputFilter = new UserDetailInputFilter();
+        $userDetailInputFilter->init();
+
+        $this->inputFilter->add($userDetailInputFilter, 'detail');
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -91,9 +92,6 @@ class RegisterForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

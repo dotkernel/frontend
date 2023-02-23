@@ -15,9 +15,9 @@ use Laminas\Validator\StringLength;
  * Class ResetPasswordInputFilter
  * @package Frontend\User\InputFilter
  */
-class ResetPasswordInputFilter extends InputFilter
+final class ResetPasswordInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

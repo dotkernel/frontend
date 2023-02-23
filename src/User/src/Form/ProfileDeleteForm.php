@@ -14,14 +14,13 @@ use Laminas\InputFilter\InputFilterInterface;
  * Class ProfileDeleteForm
  * @package Frontend\User\Form
  */
-class ProfileDeleteForm extends Form
+final class ProfileDeleteForm extends Form
 {
-    protected InputFilterInterface $inputFilter;
+    private readonly InputFilterInterface $inputFilter;
 
     /**
      * ProfileDeleteForm constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
@@ -33,7 +32,7 @@ class ProfileDeleteForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -63,9 +62,6 @@ class ProfileDeleteForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

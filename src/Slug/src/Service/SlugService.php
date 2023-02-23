@@ -19,33 +19,32 @@ use Ramsey\Uuid\UuidFactory;
  * Class SlugService
  * @package Frontend\Slug\Service
  */
-class SlugService implements SlugServiceInterface
+final class SlugService implements SlugServiceInterface
 {
+    /**
+     * @var string[]
+     */
     protected const CONFIGURATION = [
         'table',
         'identifier',
         'exchangeColumn',
         'slugColumn'
     ];
-    protected EntityManager $em;
+
+    private readonly EntityManager $entityManager;
 
     /**
      * SlugService constructor.
      * @Inject({
      *     EntityManager::class
      * })
-     * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
     }
 
     /**
-     * @param Slug $slug
-     * @param string $attribute
-     * @param string $value
-     * @return mixed
      * @throws MissingConfigurationException
      */
     public function slugManipulation(Slug $slug, string $attribute, string $value): mixed
@@ -53,11 +52,10 @@ class SlugService implements SlugServiceInterface
         $exchange = $slug->getExchange();
         $exchange = array_reduce(
             $exchange,
-            function ($matched, $exchange) use ($attribute) {
+            static function ($matched, $exchange) use ($attribute) {
                 if (isset($exchange[$attribute])) {
                     return $matched;
                 }
-
                 return $exchange;
             },
             false
@@ -71,41 +69,36 @@ class SlugService implements SlugServiceInterface
                 if ($slug->getType() === Slug::REQUEST_TYPE) {
                     return $this->processUuidToString($result[$exchange['identifier']]);
                 }
-                if ($result[$exchange['exchangeColumn']]) {
-                    if (isset($result[$exchange['slugColumn']]) && !is_null($result[$exchange['slugColumn']])) {
-                        return $result[$exchange['slugColumn']];
-                    } else {
-                        return $this->generateSlug($result, $exchange);
-                    }
-                } else {
+
+                if (!$result[$exchange['exchangeColumn']]) {
                     return $value;
                 }
+                if (isset($result[$exchange['slugColumn']]) && !is_null($result[$exchange['slugColumn']])) {
+                    return $result[$exchange['slugColumn']];
+                }
+                return $this->generateSlug($result, $exchange);
             }
         }
+
         return false;
     }
 
-    /**
-     * @param array $param
-     * @param array $exchange
-     * @return string
-     */
-    protected function generateSlug(array $param, array $exchange): string
+    private function generateSlug(array $param, array $exchange): string
     {
         $exchangeValue = $param[$exchange['exchangeColumn']];
-        $exchangeValue = strtolower($exchangeValue);
+        $exchangeValue = strtolower((string) $exchangeValue);
         $exchangeValue = str_replace(' ', '-', $exchangeValue);
-        $exchangeValue = preg_replace('/[^A-Za-z0-9\-]/', '', $exchangeValue);
+        $exchangeValue = preg_replace('#[^A-Za-z0-9\-]#', '', $exchangeValue);
         $exchangeValue = str_replace('.com', '', $exchangeValue);
 
         $response = $this->checkDuplicateSlug($exchangeValue, $exchange);
 
-        if ($response) {
+        if ($response !== 0) {
             $exchangeValue .= '-' . $this->getSlugSuffix($param, $exchange);
         }
 
         try {
-            $stmt = $this->em->getConnection()->prepare(
+            $stmt = $this->entityManager->getConnection()->prepare(
                 'UPDATE `' . $exchange['table'] . '` SET `' . $exchange['slugColumn'] .
                 '` = :slug WHERE `' . $exchange['identifier'] . '` = :identifier'
             );
@@ -120,13 +113,11 @@ class SlugService implements SlugServiceInterface
 
     /**
      * @param       $param
-     * @param array $exchange
-     * @return int
      */
-    protected function getSlugSuffix($param, array $exchange): int
+    private function getSlugSuffix(array $param, array $exchange): int
     {
         try {
-            $stmt = $this->em->getConnection()->prepare(
+            $stmt = $this->entityManager->getConnection()->prepare(
                 'SELECT ' . $exchange['exchangeColumn'] . ' FROM `' . $exchange['table'] . '` WHERE `' .
                 $exchange['exchangeColumn'] . '` = :exchangeColumn AND `' .
                 $exchange['slugColumn'] . '` IS NOT NULL'
@@ -140,22 +131,16 @@ class SlugService implements SlugServiceInterface
 
     /**
      * @param $input
-     * @return string
      */
-    protected function clean($input): string
+    private function clean($input): string
     {
-        return preg_replace('/[^A-Za-z0-9. -]/', '', $input);
+        return preg_replace('#[^A-Za-z0-9. -]#', '', (string) $input);
     }
 
-    /**
-     * @param string $slug
-     * @param array $exchange
-     * @return int
-     */
-    protected function checkDuplicateSlug(string $slug, array $exchange): int
+    private function checkDuplicateSlug(string $slug, array $exchange): int
     {
         try {
-            $stmt = $this->em->getConnection()->prepare(
+            $stmt = $this->entityManager->getConnection()->prepare(
                 'SELECT ' . $exchange['slugColumn'] . ' FROM `' . $exchange['table'] . '` WHERE `' .
                 $exchange['slugColumn'] . '` = :slug'
             );
@@ -166,13 +151,7 @@ class SlugService implements SlugServiceInterface
         }
     }
 
-    /**
-     * @param Slug $slug
-     * @param string $param
-     * @param array $db
-     * @return bool|array
-     */
-    protected function proceedSlug(Slug $slug, string $param, array $db): bool|array
+    private function proceedSlug(Slug $slug, string $param, array $db): bool|array
     {
         $searchParam = $db['identifier'];
         if ($slug->getType() === Slug::REQUEST_TYPE) {
@@ -185,7 +164,7 @@ class SlugService implements SlugServiceInterface
             $column = array_values($db);
             $column = implode(',', $column);
 
-            $stmt = $this->em->getConnection()->prepare(
+            $stmt = $this->entityManager->getConnection()->prepare(
                 'SELECT ' . $column . ' FROM `' . $table . '` WHERE `' . $searchParam . '` = :searchParam'
             );
             if ($slug->getType() === Slug::REQUEST_TYPE) {
@@ -204,7 +183,7 @@ class SlugService implements SlugServiceInterface
      * @param $input
      * @return string|string[]
      */
-    protected function escapeCharacter($input): array|string
+    private function escapeCharacter(string $input): array|string
     {
         return str_replace(
             ['\\', "\0", "\n", "\r", "'", '"', "\x1a"],
@@ -213,32 +192,22 @@ class SlugService implements SlugServiceInterface
         );
     }
 
-    /**
-     * @param string $attributeUuid
-     * @return string
-     */
-    protected function processUuidToString(string $attributeUuid): string
+    private function processUuidToString(string $attributeUuid): string
     {
         return $this->getUuidGenerator()->fromBytes($attributeUuid)->toString();
     }
 
-    /**
-     * @return UuidFactory
-     */
     private function getUuidGenerator(): UuidFactory
     {
         /** @var UuidFactory $factory */
         $factory = clone Uuid::getFactory();
-        $codec = new OrderedTimeCodec($factory->getUuidBuilder());
-        $factory->setCodec($codec);
+        $orderedTimeCodec = new OrderedTimeCodec($factory->getUuidBuilder());
+        $factory->setCodec($orderedTimeCodec);
 
         return $factory;
     }
 
     /**
-     * @param Slug $slug
-     * @param array $exchange
-     * @param string $attribute
      * @throws MissingConfigurationException
      */
     private function checkExchange(Slug $slug, array $exchange, string $attribute)

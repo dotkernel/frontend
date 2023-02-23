@@ -15,48 +15,48 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class HomePageHandlerTest extends TestCase
+final class HomePageHandlerTest extends TestCase
 {
     /** @var ContainerInterface|ObjectProphecy */
-    protected $container;
+    private $container;
 
     /** @var RouterInterface|ObjectProphecy */
-    protected $router;
+    private $router;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
         $this->router    = $this->prophesize(RouterInterface::class);
     }
 
-    public function testReturnsJsonResponseWhenNoTemplateRendererProvided()
+    public function testReturnsJsonResponseWhenNoTemplateRendererProvided(): void
     {
-        $homePage = new HomePageHandler(
+        $homePageHandler = new HomePageHandler(
             get_class($this->container->reveal()),
             $this->router->reveal(),
             null
         );
-        $response = $homePage->handle(
+        $response = $homePageHandler->handle(
             $this->prophesize(ServerRequestInterface::class)->reveal()
         );
 
         $this->assertInstanceOf(JsonResponse::class, $response);
     }
 
-    public function testReturnsHtmlResponseWhenTemplateRendererProvided()
+    public function testReturnsHtmlResponseWhenTemplateRendererProvided(): void
     {
         $renderer = $this->prophesize(TemplateRendererInterface::class);
         $renderer
             ->render('app::home-page', Argument::type('array'))
             ->willReturn('');
 
-        $homePage = new HomePageHandler(
+        $homePageHandler = new HomePageHandler(
             get_class($this->container->reveal()),
             $this->router->reveal(),
             $renderer->reveal()
         );
 
-        $response = $homePage->handle(
+        $response = $homePageHandler->handle(
             $this->prophesize(ServerRequestInterface::class)->reveal()
         );
 

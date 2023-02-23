@@ -11,6 +11,6 @@ use Mezzio\Exception\ExceptionInterface;
  * Class DuplicateSlugException
  * @package Frontend\Slug\Exception
  */
-class DuplicateSlugException extends Exception implements ExceptionInterface
+final class DuplicateSlugException extends Exception implements ExceptionInterface
 {
 }

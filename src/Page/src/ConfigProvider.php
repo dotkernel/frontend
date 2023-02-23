@@ -13,10 +13,10 @@ use Frontend\Page\Service\PageServiceInterface;
  * Class ConfigProvider
  * @package Frontend\Page
  */
-class ConfigProvider
+final class ConfigProvider
 {
     /**
-     * @return array
+     * @return array{dependencies: mixed[], templates: mixed[]}
      */
     public function __invoke(): array
     {
@@ -27,7 +27,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{factories: array<string, class-string<\Dot\AnnotatedServices\Factory\AnnotatedServiceFactory>>, aliases: array<string, class-string<\Frontend\Page\Service\PageService>>}
      */
     public function getDependencies(): array
     {
@@ -43,7 +43,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{paths: array{page: string[]}}
      */
     public function getTemplates(): array
     {

@@ -20,9 +20,18 @@ use Frontend\App\Common\AbstractEntity;
  */
 class UserResetPassword extends AbstractEntity
 {
-    public const STATUS_COMPLETED = 'completed';
-    public const STATUS_REQUESTED = 'requested';
-    public const STATUSES = [
+    /**
+     * @var string
+     */
+    final public const STATUS_COMPLETED = 'completed';
+    /**
+     * @var string
+     */
+    final public const STATUS_REQUESTED = 'requested';
+    /**
+     * @var string[]
+     */
+    final public const STATUSES = [
         self::STATUS_COMPLETED,
         self::STATUS_REQUESTED
     ];
@@ -60,18 +69,11 @@ class UserResetPassword extends AbstractEntity
         );
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     * @return self
-     */
     public function setUser(User $user): self
     {
         $this->user = $user;
@@ -79,18 +81,11 @@ class UserResetPassword extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getExpires(): DateTimeImmutable
     {
         return $this->expires;
     }
 
-    /**
-     * @param DateTimeImmutable $expires
-     * @return self
-     */
     public function setExpires(DateTimeImmutable $expires): self
     {
         $this->expires = $expires;
@@ -98,9 +93,6 @@ class UserResetPassword extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHash(): string
     {
         return $this->hash;
@@ -108,27 +100,19 @@ class UserResetPassword extends AbstractEntity
 
     /**
      * @param $hash
-     * @return self
      */
-    public function setHash($hash): self
+    public function setHash(string $hash): self
     {
         $this->hash = $hash;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     * @return self
-     */
     public function setStatus(string $status): self
     {
         $this->status = $status;
@@ -139,31 +123,21 @@ class UserResetPassword extends AbstractEntity
     /**
      * Helper methods
      */
-
-    /**
-     * @return bool
-     */
     public function isCompleted(): bool
     {
-        return $this->getStatus() === self::STATUS_COMPLETED;
+        return $this->status === self::STATUS_COMPLETED;
     }
 
-    /**
-     * @return bool
-     */
     public function isValid(): bool
     {
         try {
-            return $this->getExpires() > (new DateTimeImmutable());
+            return $this->expires > (new DateTimeImmutable());
         } catch (Exception) {
         }
 
         return false;
     }
 
-    /**
-     * @return self
-     */
     public function markAsCompleted(): self
     {
         $this->status = self::STATUS_COMPLETED;

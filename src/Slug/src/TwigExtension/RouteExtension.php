@@ -16,25 +16,22 @@ use Twig\TwigFunction;
  * Class RouteExtension
  * @package Frontend\Slug\TwigExtension
  */
-class RouteExtension extends AbstractExtension
+final class RouteExtension extends AbstractExtension
 {
-    private UrlHelper $urlHelper;
-    private SlugInterface $slugAdapter;
-    private ServerUrlHelper $serverUrlHelper;
+    private readonly UrlHelper $urlHelper;
+    private readonly SlugInterface $slug;
+    private readonly ServerUrlHelper $serverUrlHelper;
 
     /**
      * RouteExtension constructor.
-     * @param UrlHelper $urlHelper
-     * @param SlugInterface $slugAdapter
-     * @param ServerUrlHelper $serverUrlHelper
      */
     public function __construct(
         UrlHelper $urlHelper,
-        SlugInterface $slugAdapter,
+        SlugInterface $slug,
         ServerUrlHelper $serverUrlHelper
     ) {
         $this->urlHelper = $urlHelper;
-        $this->slugAdapter = $slugAdapter;
+        $this->slug = $slug;
         $this->serverUrlHelper = $serverUrlHelper;
     }
 
@@ -44,18 +41,12 @@ class RouteExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('path', [$this, 'renderUri']),
-            new TwigFunction('url', [$this, 'renderUrl']),
+            new TwigFunction('path', $this->renderUri(...)),
+            new TwigFunction('url', $this->renderUrl(...)),
         ];
     }
 
     /**
-     * @param string|null $route
-     * @param array $routeParams
-     * @param array $queryParams
-     * @param string|null $fragmentIdentifier
-     * @param array $options
-     * @return string
      * @throws Exception
      * @throws MissingConfigurationException
      */
@@ -66,7 +57,7 @@ class RouteExtension extends AbstractExtension
         ?string $fragmentIdentifier = null,
         array $options = []
     ): string {
-        $response = $this->slugAdapter->match($route, $routeParams, $queryParams, $fragmentIdentifier, $options);
+        $response = $this->slug->match($route, $routeParams, $queryParams, $fragmentIdentifier, $options);
 
         if ($response->isSuccess()) {
             return $response->getUrl();
@@ -76,12 +67,6 @@ class RouteExtension extends AbstractExtension
     }
 
     /**
-     * @param string|null $route
-     * @param array $routeParams
-     * @param array $queryParams
-     * @param string|null $fragmentIdentifier
-     * @param array $options
-     * @return string
      * @throws Exception
      * @throws MissingConfigurationException
      */

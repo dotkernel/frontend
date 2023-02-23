@@ -21,17 +21,35 @@ use Frontend\App\Common\UuidOrderedTimeGenerator;
  */
 class User extends AbstractEntity implements UserInterface
 {
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_ACTIVE = 'active';
-    public const STATUSES = [
+    /**
+     * @var string
+     */
+    final public const STATUS_PENDING = 'pending';
+    /**
+     * @var string
+     */
+    final public const STATUS_ACTIVE = 'active';
+    /**
+     * @var string[]
+     */
+    final public const STATUSES = [
         self::STATUS_PENDING,
         self::STATUS_ACTIVE
     ];
 
-    public const IS_DELETED_YES = true;
-    public const IS_DELETED_NO = false;
+    /**
+     * @var bool
+     */
+    final public const IS_DELETED_YES = true;
+    /**
+     * @var bool
+     */
+    final public const IS_DELETED_NO = false;
 
-    public const IS_DELETED = [
+    /**
+     * @var bool[]
+     */
+    final public const IS_DELETED = [
         self::IS_DELETED_YES,
         self::IS_DELETED_NO
     ];
@@ -99,58 +117,37 @@ class User extends AbstractEntity implements UserInterface
         $this->renewHash();
     }
 
-    /**
-     * @return UserDetail|null
-     */
     public function getDetail(): ?UserDetail
     {
         return $this->detail;
     }
 
-    /**
-     * @param UserDetail $detail
-     * @return self
-     */
-    public function setDetail(UserDetail $detail): self
+    public function setDetail(UserDetail $userDetail): self
     {
-        $this->detail = $detail;
+        $this->detail = $userDetail;
 
         return $this;
     }
 
-    /**
-     * @return UserAvatar|null
-     */
     public function getAvatar(): ?UserAvatar
     {
         return $this->avatar;
     }
 
-    /**
-     * @param UserAvatar $avatar
-     * @return self
-     */
-    public function setAvatar(UserAvatar $avatar): self
+    public function setAvatar(UserAvatar $userAvatar): self
     {
-        $this->avatar = $avatar;
+        $this->avatar = $userAvatar;
 
-        $avatar->setUser($this);
+        $userAvatar->setUser($this);
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentity(): string
     {
         return $this->identity;
     }
 
-    /**
-     * @param string $identity
-     * @return self
-     */
     public function setIdentity(string $identity): self
     {
         $this->identity = $identity;
@@ -158,18 +155,11 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     * @return self
-     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -177,18 +167,11 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     * @return self
-     */
     public function setStatus(string $status): self
     {
         $this->status = $status;
@@ -196,18 +179,11 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function getIsDeleted(): bool
     {
         return $this->isDeleted;
     }
 
-    /**
-     * @param bool $isDeleted
-     * @return self
-     */
     public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
@@ -215,18 +191,11 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getHash(): string
     {
         return $this->hash;
     }
 
-    /**
-     * @param string $hash
-     * @return self
-     */
     public function setHash(string $hash): self
     {
         $this->hash = $hash;
@@ -234,18 +203,11 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getRoles(): Collection
     {
         return $this->roles;
     }
 
-    /**
-     * @param RoleInterface $role
-     * @return self
-     */
     public function addRole(RoleInterface $role): self
     {
         if (!$this->roles->contains($role)) {
@@ -255,10 +217,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @param RoleInterface $role
-     * @return self
-     */
     public function removeRole(RoleInterface $role): self
     {
         if (!$this->roles->contains($role)) {
@@ -268,9 +226,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return self
-     */
     public function renewHash(): self
     {
         $this->hash = self::generateHash();
@@ -278,9 +233,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public static function generateHash(): string
     {
         try {
@@ -292,17 +244,11 @@ class User extends AbstractEntity implements UserInterface
         return bin2hex($bytes);
     }
 
-    /**
-     * @return bool
-     */
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    /**
-     * @return self
-     */
     public function markAsDeleted(): self
     {
         $this->isDeleted = self::IS_DELETED_YES;
@@ -310,28 +256,19 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
-        return $this->getDetail()->getFirstName() . ' ' . $this->getDetail()->getLastName();
+        return $this->detail->getFirstName() . ' ' . $this->detail->getLastName();
     }
 
-    /**
-     * @return self
-     */
     public function activate(): self
     {
         return $this->setStatus(self::STATUS_ACTIVE);
     }
 
-    /**
-     * @return self
-     */
     public function resetRoles(): self
     {
-        $this->roles->map(function (RoleInterface $role) {
+        $this->roles->map(function (RoleInterface $role): void {
             $this->removeRole($role);
         });
 
@@ -340,63 +277,41 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return self
-     */
     public function createResetPassword(): self
     {
-        $resetPassword = new UserResetPassword();
-        $resetPassword->setHash(self::generateHash());
-        $resetPassword->setUser($this);
+        $userResetPassword = new UserResetPassword();
+        $userResetPassword->setHash(self::generateHash());
+        $userResetPassword->setUser($this);
 
-        $this->resetPasswords->add($resetPassword);
+        $this->resetPasswords->add($userResetPassword);
 
         return $this;
     }
 
-    /**
-     * @param UserResetPassword $resetPassword
-     * @return self
-     */
-    public function addResetPassword(UserResetPassword $resetPassword): self
+    public function addResetPassword(UserResetPassword $userResetPassword): self
     {
-        $this->resetPasswords->add($resetPassword);
+        $this->resetPasswords->add($userResetPassword);
 
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getResetPasswords(): Collection
     {
         return $this->resetPasswords;
     }
 
-    /**
-     * @param UserResetPassword $resetPassword
-     * @return bool
-     */
-    public function hasResetPassword(UserResetPassword $resetPassword): bool
+    public function hasResetPassword(UserResetPassword $userResetPassword): bool
     {
-        return $this->resetPasswords->contains($resetPassword);
+        return $this->resetPasswords->contains($userResetPassword);
     }
 
-    /**
-     * @param UserResetPassword $resetPassword
-     * @return self
-     */
-    public function removeResetPassword(UserResetPassword $resetPassword): self
+    public function removeResetPassword(UserResetPassword $userResetPassword): self
     {
-        $this->resetPasswords->removeElement($resetPassword);
+        $this->resetPasswords->removeElement($userResetPassword);
 
         return $this;
     }
 
-    /**
-     * @param array $resetPasswords
-     * @return self
-     */
     public function setResetPasswords(array $resetPasswords): self
     {
         foreach ($resetPasswords as $resetPassword) {
@@ -407,17 +322,17 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return array
+     * @return array{uuid: string, detail: mixed[]|null, avatar: mixed[]|null, identity: string, status: string, roles: mixed[][], created: \DateTimeImmutable, updated: \DateTimeImmutable|null}
      */
     public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'detail' => $this->getDetail()?->getArrayCopy(),
-            'avatar' => $this->getAvatar()?->getArrayCopy(),
-            'identity' => $this->getIdentity(),
-            'status' => $this->getStatus(),
-            'roles' => $this->getRoles()->map(function (UserRole $userRole) {
+            'detail' => $this->detail?->getArrayCopy(),
+            'avatar' => $this->avatar?->getArrayCopy(),
+            'identity' => $this->identity,
+            'status' => $this->status,
+            'roles' => $this->roles->map(static function (UserRole $userRole) : array {
                 return $userRole->getArrayCopy();
             })->toArray(),
             'created' => $this->getCreated(),

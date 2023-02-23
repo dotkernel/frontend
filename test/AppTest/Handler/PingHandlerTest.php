@@ -9,9 +9,9 @@ use Laminas\Diactoros\Response\JsonResponse;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 
-class PingHandlerTest extends TestCase
+final class PingHandlerTest extends TestCase
 {
-    public function testResponse()
+    public function testResponse(): void
     {
         $pingHandler = new PingHandler();
         $response = $pingHandler->handle(

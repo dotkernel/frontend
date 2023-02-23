@@ -15,26 +15,22 @@ use Ramsey\Uuid\UuidInterface;
  */
 final class UuidOrderedTimeGenerator
 {
-    private static UuidFactoryInterface $factory;
+    private static UuidFactoryInterface $uuidFactory;
 
-    /**
-     * @return UuidInterface
-     */
     public static function generateUuid(): UuidInterface
     {
         return self::getFactory()->uuid1();
     }
 
     /**
-     * @return UuidFactoryInterface
      * @psalm-suppress UndefinedInterfaceMethod
      */
     private static function getFactory(): UuidFactoryInterface
     {
-        self::$factory = clone Uuid::getFactory();
-        $codec = new OrderedTimeCodec(self::$factory->getUuidBuilder());
-        self::$factory->setCodec($codec);
+        self::$uuidFactory = clone Uuid::getFactory();
+        $orderedTimeCodec = new OrderedTimeCodec(self::$uuidFactory->getUuidBuilder());
+        self::$uuidFactory->setCodec($orderedTimeCodec);
 
-        return self::$factory;
+        return self::$uuidFactory;
     }
 }

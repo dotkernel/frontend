@@ -38,24 +38,12 @@ class UserRememberMe extends AbstractEntity
      */
     protected DateTimeImmutable $expireDate;
 
-    /**
-     * UserRememberMe constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
     /**
-     * @param User $user
      * @return $this
      */
     public function setUser(User $user): self
@@ -65,16 +53,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRememberMeToken(): string
     {
         return $this->rememberMeToken;
     }
 
     /**
-     * @param string $rememberMeToken
      * @return $this
      */
     public function setRememberMeToken(string $rememberMeToken): self
@@ -84,16 +68,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUserAgent(): ?string
     {
         return $this->userAgent;
     }
 
     /**
-     * @param string|null $userAgent
      * @return $this
      */
     public function setUserAgent(?string $userAgent): self
@@ -103,16 +83,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getExpireDate(): DateTimeImmutable
     {
         return $this->expireDate;
     }
 
     /**
-     * @param DateTimeImmutable $expireDate
      * @return $this
      */
     public function setExpireDate(DateTimeImmutable $expireDate): self
@@ -123,16 +99,16 @@ class UserRememberMe extends AbstractEntity
     }
 
     /**
-     * @return array
+     * @return array{uuid: string, name: \Frontend\User\Entity\User, userHash: string, userAgent: string|null, expireDate: \DateTimeImmutable, created: \DateTimeImmutable, updated: \DateTimeImmutable|null}
      */
     public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getUser(),
-            'userHash' => $this->getRememberMeToken(),
-            'userAgent' => $this->getUserAgent(),
-            'expireDate' => $this->getExpireDate(),
+            'name' => $this->user,
+            'userHash' => $this->rememberMeToken,
+            'userAgent' => $this->userAgent,
+            'expireDate' => $this->expireDate,
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

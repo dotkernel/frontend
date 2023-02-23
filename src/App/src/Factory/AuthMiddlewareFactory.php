@@ -19,14 +19,12 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class AuthMiddlewareFactory
  * @package Frontend\App\Factory
  */
-class AuthMiddlewareFactory
+final class AuthMiddlewareFactory
 {
     use AttachAuthorizationEventListenersTrait;
 
     /**
-     * @param ContainerInterface $container
      * @param $requestedName
-     * @return AuthMiddleware
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

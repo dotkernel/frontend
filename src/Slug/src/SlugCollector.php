@@ -22,12 +22,16 @@ use Psr\Http\Message\ServerRequestInterface;
  * Class SlugCollector
  * @package Frontend\Slug
  */
-class SlugCollector implements SlugInterface
+final class SlugCollector implements SlugInterface
 {
+    /**
+     * @var string
+     */
     private const REMOVABLE_PART = 'action';
 
     /**
      * Regular expression used to validate fragment identifiers.
+     * @var string
      */
     private const FRAGMENT_IDENTIFIER_REGEX = '/^([!$&\'()*+,;=._~:@\/?-]|%[0-9a-fA-F]{2}|[a-zA-Z0-9])+$/';
 
@@ -38,31 +42,26 @@ class SlugCollector implements SlugInterface
      */
     private array $slugs = [];
 
-    private RouterInterface $router;
-    private ?DuplicateSlugDetector $duplicateSlugDetector;
-    private UrlHelper $url;
-    private SlugServiceInterface $slugService;
-    private bool $detectDuplicates;
+    private readonly RouterInterface $router;
+    private readonly ?DuplicateSlugDetector $duplicateSlugDetector;
+    private readonly UrlHelper $urlHelper;
+    private readonly SlugServiceInterface $slugService;
+    private readonly bool $detectDuplicates;
     private array $config;
 
     /**
      * SlugCollector constructor.
-     * @param RouterInterface $router
-     * @param UrlHelper $url
-     * @param SlugServiceInterface $slugService
-     * @param array $config
-     * @param bool $detectDuplicates
      * @throws DuplicateSlugException
      */
     public function __construct(
         RouterInterface $router,
-        UrlHelper $url,
+        UrlHelper $urlHelper,
         SlugServiceInterface $slugService,
         array $config = [],
         bool $detectDuplicates = true
     ) {
         $this->router = $router;
-        $this->url = $url;
+        $this->urlHelper = $urlHelper;
         $this->slugService = $slugService;
         $this->config = $config;
         $this->detectDuplicates = $detectDuplicates;
@@ -71,8 +70,8 @@ class SlugCollector implements SlugInterface
 
         try {
             $this->loadConfig($config);
-        } catch (DuplicateSlugException $e) {
-            throw new DuplicateSlugException($e->getMessage(), $e->getCode());
+        } catch (DuplicateSlugException $duplicateSlugException) {
+            throw new DuplicateSlugException($duplicateSlugException->getMessage(), $duplicateSlugException->getCode());
         }
     }
 
@@ -82,9 +81,9 @@ class SlugCollector implements SlugInterface
      * @param array $config Array of custom configuration options.
      * @throws DuplicateSlugException
      */
-    public function loadConfig(array $config)
+    public function loadConfig(array $config): void
     {
-        if (empty($config)) {
+        if ($config === []) {
             return;
         }
 
@@ -99,11 +98,6 @@ class SlugCollector implements SlugInterface
 
     /**
      * Add a slug for the slug middleware to match.
-     * @param string $alias
-     * @param string $routeName
-     * @param array $params
-     * @param array $exchange
-     * @return Slug
      * @throws DuplicateSlugException
      */
     public function slug(
@@ -116,6 +110,7 @@ class SlugCollector implements SlugInterface
         if ($this->detectDuplicates) {
             $this->detectDuplicate($slug);
         }
+
         $this->slugs[] = $slug;
         return $slug;
     }
@@ -136,7 +131,6 @@ class SlugCollector implements SlugInterface
      * @param $queryParams
      * @param $fragmentIdentifier
      * @param $options
-     * @return SlugResult
      * @throws Exception
      * @throws MissingConfigurationException
      */
@@ -148,26 +142,24 @@ class SlugCollector implements SlugInterface
         $options
     ): SlugResult {
         /** @var Slug $slug */
-        $slug = array_reduce($this->slugs, function ($matched, $slug) use ($routeName, $routeParams, $queryParams) {
+        $slug = array_reduce($this->slugs, static function ($matched, $slug) use ($routeName, $routeParams, $queryParams) {
             if ($routeName !== $slug->getRouteName()) {
                 return $matched;
             }
+
             if ($routeParams['action'] !== $slug->getParams()['action']) {
                 return $matched;
             }
+
             return $slug;
         }, false);
-
-
-        if (!($slug instanceof Slug)) {
-            return SlugResult::fromSlugFailure();
-        }
 
         $routerOptions = $options['router'] ?? [];
         $path = $this->router->generateUri($routeName, $routeParams, $routerOptions);
 
         $request = new ServerRequest();
         $request = $request->withUri(new Uri($path));
+
         $match = $this->router->match($request);
         $slug->setType(Slug::URL_TYPE);
 
@@ -176,15 +168,13 @@ class SlugCollector implements SlugInterface
             $path = $this->appendQueryStringArguments($path, $queryParams);
             $path = $this->appendFragment($path, $fragmentIdentifier);
         } else {
-            $path = $this->url->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
+            $path = $this->urlHelper->generate($routeName, $routeParams, $queryParams, $fragmentIdentifier, $options);
         }
 
         return SlugResult::fromSlug($slug, $path);
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @return SlugResult
      * @throws Exception
      * @throws MissingConfigurationException
      */
@@ -195,16 +185,13 @@ class SlugCollector implements SlugInterface
         $path = '/' . $fragments[1];
 
         /** @var Slug $slug */
-        $slug = array_reduce($this->slugs, function ($matched, $slug) use ($path) {
+        $slug = array_reduce($this->slugs, static function ($matched, $slug) use ($path) {
             if ($path !== $slug->getAlias()) {
                 return $matched;
             }
+            
             return $slug;
         }, false);
-
-        if (!($slug instanceof Slug)) {
-            return SlugResult::fromSlugFailure();
-        }
 
         $path = $this->router->generateUri($slug->getRouteName(), $slug->getParams(), $fragments);
 
@@ -227,10 +214,6 @@ class SlugCollector implements SlugInterface
     }
 
     /**
-     * @param Slug $slug
-     * @param RouteResult $routeResult
-     * @param array $matchParams
-     * @return string
      * @throws MissingConfigurationException
      */
     public function generateUri(Slug $slug, RouteResult $routeResult, array $matchParams = []): string
@@ -242,22 +225,23 @@ class SlugCollector implements SlugInterface
             $substitutions = array_merge($routeResult->getMatchedParams(), $matchParams);
         }
 
-        $routeParser = new Std();
-        $routes = array_reverse($routeParser->parse($route->getPath()));
+        $std = new Std();
+        $routes = array_reverse($std->parse($route->getPath()));
         $missingParameters = [];
-        foreach ($routes as $parts) {
+        foreach ($routes as $route) {
             // Check if all parameters can be substituted
-            $missingParameters = $this->missingParameters($parts, $substitutions);
+            $missingParameters = $this->missingParameters($route, $substitutions);
             // If not all parameters can be substituted, try the next route
-            if (! empty($missingParameters)) {
+            if ($missingParameters !== []) {
                 continue;
             }
+
             $path = $slug->getAlias();
             if ($slug->getType() === Slug::REQUEST_TYPE) {
                 $path = '';
             }
 
-            foreach ($parts as $p => $part) {
+            foreach ($route as $p => $part) {
                 if ($slug->getType() === Slug::URL_TYPE) {
                     if (is_string($part)) {
                         // Append the string
@@ -300,6 +284,7 @@ class SlugCollector implements SlugInterface
                         if ($part !== '/') {
                             $path .= $part;
                         }
+
                         continue;
                     }
 
@@ -322,6 +307,7 @@ class SlugCollector implements SlugInterface
                                 $attribute
                             );
                         }
+
                         if ($attribute) {
                             $path .= '/' . $attribute;
                         }
@@ -330,6 +316,7 @@ class SlugCollector implements SlugInterface
                     }
                 }
             }
+
             // Return generated path
             return $path;
         }
@@ -345,9 +332,6 @@ class SlugCollector implements SlugInterface
 
     /**
      * Checks for any missing route parameters
-     * @param array $parts
-     * @param array $substitutions
-     * @return array
      */
     private function missingParameters(array $parts, array $substitutions): array
     {
@@ -361,32 +345,24 @@ class SlugCollector implements SlugInterface
             $missingParameters[] = $part[0];
         }
 
-        foreach ($missingParameters as $param) {
-            if (! isset($substitutions[$param])) {
+        foreach ($missingParameters as $missingParameter) {
+            if (! isset($substitutions[$missingParameter])) {
                 return $missingParameters;
             }
         }
+
         return [];
     }
 
-    /**
-     * @param string $uriString
-     * @param array $queryParams
-     * @return string
-     */
     private function appendQueryStringArguments(string $uriString, array $queryParams): string
     {
-        if (count($queryParams) > 0) {
+        if ($queryParams !== []) {
             return sprintf('%s?%s', $uriString, http_build_query($queryParams));
         }
+
         return $uriString;
     }
 
-    /**
-     * @param string $uriString
-     * @param string|null $fragmentIdentifier
-     * @return string
-     */
     private function appendFragment(string $uriString, ?string $fragmentIdentifier): string
     {
         if ($fragmentIdentifier !== null) {
@@ -396,44 +372,42 @@ class SlugCollector implements SlugInterface
 
             return sprintf('%s#%s', $uriString, $fragmentIdentifier);
         }
+
         return $uriString;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param RouteResult $routeResult
-     * @return array
-     */
-    public function matchParams(ServerRequestInterface $request, RouteResult $routeResult): array
+    public function matchParams(ServerRequestInterface $serverRequest, RouteResult $routeResult): array
     {
         $route = $routeResult->getMatchedRoute();
-        $routeParser = new Std();
-        $routes = array_reverse($routeParser->parse($route->getPath()));
+        $std = new Std();
+        $routes = array_reverse($std->parse($route->getPath()));
 
-        $fragments = explode('/', $request->getUri()->getPath());
+        $fragments = explode('/', $serverRequest->getUri()->getPath());
 
         $mParams = [];
-        foreach ($routes as $parts) {
+        foreach ($routes as $route) {
             // Generate the path
             $validParams = [];
 
-            foreach ($parts as $part) {
+            foreach ($route as $part) {
                 if ($part[0] !== '/' && $part[0] !== 'action') {
                     $validParams[] = $part[0];
                 }
             }
+
             foreach ($validParams as $p => $part) {
                 if (isset($fragments[$p + 2])) {
                     $mParams[$part] = $fragments[$p + 2];
                 }
             }
+
             return $mParams;
         }
+
         return [];
     }
 
     /**
-     * @param Slug $slug
      * @throws DuplicateSlugException
      */
     private function detectDuplicate(Slug $slug): void

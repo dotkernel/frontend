@@ -16,13 +16,11 @@ use Laminas\Session\SessionManager;
  *
  * @Service()
  */
-class CookieService implements CookieServiceInterface
+final class CookieService implements CookieServiceInterface
 {
-    private ConfigInterface|StandardConfig $sessionConfig;
+    private readonly ConfigInterface|StandardConfig $sessionConfig;
 
     /**
-     * @param SessionManager $sessionManager
-     *
      * @Inject({
      *     SessionManager::class
      * })
@@ -33,10 +31,7 @@ class CookieService implements CookieServiceInterface
     }
 
     /**
-     * @param string $name
      * @param $value
-     * @param array|null $options
-     * @return bool
      */
     public function setCookie(string $name, $value, ?array $options = []): bool
     {
@@ -44,13 +39,9 @@ class CookieService implements CookieServiceInterface
             return false;
         }
 
-        return setcookie($name, $value, $this->getMergedOptions($options));
+        return setcookie($name, (string) $value, $this->getMergedOptions($options));
     }
 
-    /**
-     * @param string $name
-     * @return bool
-     */
     public function expireCookie(string $name): bool
     {
         return setcookie($name, '', $this->getMergedOptions([
@@ -59,8 +50,7 @@ class CookieService implements CookieServiceInterface
     }
 
     /**
-     * @param array|null $options
-     * @return array
+     * @return array{expires: mixed, domain: mixed, httponly: mixed, path: mixed, samesite: mixed, secure: mixed}
      */
     private function getMergedOptions(?array $options = []): array
     {
@@ -74,9 +64,6 @@ class CookieService implements CookieServiceInterface
         ];
     }
 
-    /**
-     * @return int
-     */
     private function getCookieLifetime(): int
     {
         return time() + $this->sessionConfig->getCookieLifetime();

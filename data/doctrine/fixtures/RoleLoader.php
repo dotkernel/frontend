@@ -10,9 +10,9 @@ use Frontend\User\Entity\UserRole;
  * Class RoleLoader
  * @package Frontend\Fixtures
  */
-class RoleLoader implements FixtureInterface
+final class RoleLoader implements FixtureInterface
 {
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $objectManager): void
     {
         $adminRole = new UserRole();
         $adminRole->setName('admin');
@@ -23,11 +23,11 @@ class RoleLoader implements FixtureInterface
         $guestRole = new UserRole();
         $guestRole->setName('guest');
 
-        $manager->persist($adminRole);
-        $manager->persist($userRole);
-        $manager->persist($guestRole);
+        $objectManager->persist($adminRole);
+        $objectManager->persist($userRole);
+        $objectManager->persist($guestRole);
 
-        $manager->flush();
+        $objectManager->flush();
     }
 }
 

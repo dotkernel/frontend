@@ -12,22 +12,20 @@ use Frontend\User\Entity\UserRole;
  * Class UserRoleRepository
  * @package Frontend\User\Repository
  */
-class UserRoleRepository extends EntityRepository
+final class UserRoleRepository extends EntityRepository
 {
     /**
-     * @param string $name
-     * @return UserRole|null
      * @throws NonUniqueResultException
      */
     public function findByName(string $name): ?UserRole
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
             ->select('role')
             ->from(UserRole::class, 'role')
             ->andWhere('role.name = :name')
             ->setParameter('name', $name);
 
-        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
+        return $queryBuilder->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 }

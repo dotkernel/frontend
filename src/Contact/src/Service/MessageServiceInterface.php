@@ -14,27 +14,17 @@ use Frontend\Contact\Repository\MessageRepository;
  */
 interface MessageServiceInterface
 {
-    /**
-     * @return MessageRepository
-     */
     public function getRepository(): MessageRepository;
 
-    /**
-     * @param array $data
-     * @return bool
-     */
     public function processMessage(array $data): bool;
 
     /**
-     * @param Message $message
-     * @return bool
      * @throws MailException
      */
     public function sendContactMail(Message $message): bool;
 
     /**
      * @param $response
-     * @return bool
      */
     public function recaptchaIsValid($response): bool;
 }

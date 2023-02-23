@@ -11,19 +11,18 @@ use Laminas\Form\Fieldset;
  * Class ResponseFieldset
  * @package Frontend\User\Fieldset
  */
-class UserDetailFieldset extends Fieldset
+final class UserDetailFieldset extends Fieldset
 {
     /**
      * ResponseFieldset constructor.
      * @param null $name
-     * @param array $options
      */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

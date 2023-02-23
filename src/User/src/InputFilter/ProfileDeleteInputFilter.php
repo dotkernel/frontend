@@ -15,15 +15,15 @@ use Laminas\Validator\NotEmpty;
  * Class ProfileDeleteInputFilter
  * @package Frontend\User\InputFilter
  */
-class ProfileDeleteInputFilter extends InputFilter
+final class ProfileDeleteInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 
-        $isDeleted = new Input('isDeleted');
-        $isDeleted->setRequired(true);
-        $isDeleted->getValidatorChain()
+        $input = new Input('isDeleted');
+        $input->setRequired(true);
+        $input->getValidatorChain()
             ->attachByName(InArray::class, [
                 'haystack' => User::IS_DELETED,
                 'message' => Message::DELETE_ACCOUNT,
@@ -31,6 +31,6 @@ class ProfileDeleteInputFilter extends InputFilter
             ->attachByName(NotEmpty::class, [
                 'message' => Message::DELETE_ACCOUNT,
             ], true);
-        $this->add($isDeleted);
+        $this->add($input);
     }
 }

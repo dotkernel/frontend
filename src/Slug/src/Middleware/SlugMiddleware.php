@@ -18,37 +18,33 @@ use Psr\Http\Server\RequestHandlerInterface;
  * Class SlugMiddleware
  * @package Frontend\Slug\Middleware
  */
-class SlugMiddleware implements MiddlewareInterface
+final class SlugMiddleware implements MiddlewareInterface
 {
-    private SlugInterface $slugAdapter;
+    private readonly SlugInterface $slug;
 
     /**
      * SlugMiddleware constructor.
-     * @param SlugInterface $slugAdapter
      * @Inject({
      *     SlugInterface::class
      * })
      */
-    public function __construct(SlugInterface $slugAdapter)
+    public function __construct(SlugInterface $slug)
     {
-        $this->slugAdapter = $slugAdapter;
+        $this->slug = $slug;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
      * @throws Exception
      * @throws MissingConfigurationException
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
     {
-        $result = $this->slugAdapter->matchRequest($request);
+        $result = $this->slug->matchRequest($serverRequest);
 
         if ($result->isSuccess()) {
-            $request = $request->withUri(new Uri($result->getUrl()));
+            $serverRequest = $serverRequest->withUri(new Uri($result->getUrl()));
         }
 
-        return $handler->handle($request);
+        return $requestHandler->handle($serverRequest);
     }
 }

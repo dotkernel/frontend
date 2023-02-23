@@ -17,18 +17,23 @@ use Laminas\Authentication\Result;
  * Class AuthenticationAdapter
  * @package Frontend\User\Adapter
  */
-class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
+final class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 {
+    /**
+     * @var string
+     */
     private const METHOD_NOT_EXISTS = "Method %s not found in %s .";
+
+    /**
+     * @var string
+     */
     private const OPTION_VALUE_NOT_PROVIDED = "Option '%s' not provided for '%s' option.";
 
-    private EntityRepository $entityRepository;
+    private readonly EntityRepository $entityRepository;
     private array $config;
 
     /**
      * AuthenticationAdapter constructor.
-     * @param EntityRepository $entityRepository
-     * @param array $config
      */
     public function __construct(EntityRepository $entityRepository, array $config)
     {
@@ -37,7 +42,6 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @return Result
      * @throws Exception
      */
     public function authenticate(): Result
@@ -57,13 +61,13 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
             );
         }
 
-        $getCredential = 'get' . ucfirst($this->config['credential_property']);
+        $getCredential = 'get' . ucfirst((string) $this->config['credential_property']);
 
         /** Check if $getCredential method exist in the provided identity class */
         $this->checkMethod($identityClass, $getCredential);
 
         /** If passwords don't match, return failure response */
-        if (false === password_verify($this->getCredential(), $identityClass->$getCredential())) {
+        if (!password_verify((string) $this->getCredential(), (string) $identityClass->$getCredential())) {
             return new Result(
                 Result::FAILURE_CREDENTIAL_INVALID,
                 null,
@@ -74,7 +78,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
         /** Check for extra validation options */
         if (! empty($this->config['options'])) {
             foreach ($this->config['options'] as $property => $option) {
-                $methodName = 'get' . ucfirst($property);
+                $methodName = 'get' . ucfirst((string) $property);
 
                 /** Check if $methodName exists in the provided identity class */
                 $this->checkMethod($identityClass, $methodName);
@@ -112,7 +116,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
             new UserIdentity(
                 $identityClass->getUuid()->toString(),
                 $identityClass->getIdentity(),
-                $identityClass->getRoles()->map(function (UserRole $userRole) {
+                $identityClass->getRoles()->map(static function (UserRole $userRole) : string {
                     return $userRole->getName();
                 })->toArray(),
                 $identityClass->getDetail()->getArrayCopy(),
@@ -145,7 +149,6 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 
     /**
      * @param $identityClass
-     * @param string $methodName
      * @throws Exception
      */
     private function checkMethod($identityClass, string $methodName): void

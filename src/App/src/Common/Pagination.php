@@ -8,13 +8,15 @@ namespace Frontend\App\Common;
  * Class Pagination
  * @package Frontend\App\Common
  */
-class Pagination
+final class Pagination
 {
+    /**
+     * @var int
+     */
     public const LIMIT = 10;
 
     /**
-     * @param array $filters
-     * @return array
+     * @return array{offset: int, limit: int}
      */
     public static function getOffsetAndLimit(array $filters = []): array
     {

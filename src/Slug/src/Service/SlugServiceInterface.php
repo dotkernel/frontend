@@ -14,10 +14,6 @@ use Frontend\Slug\Slug;
 interface SlugServiceInterface
 {
     /**
-     * @param Slug $slug
-     * @param string $attribute
-     * @param string $value
-     * @return mixed
      * @throws MissingConfigurationException
      */
     public function slugManipulation(Slug $slug, string $attribute, string $value): mixed;

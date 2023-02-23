@@ -10,19 +10,15 @@ use Mezzio\Authentication\UserInterface;
  * Class UserIdentity
  * @package Frontend\User\Entity
  */
-class UserIdentity implements UserInterface
+final class UserIdentity implements UserInterface
 {
-    protected string $identity;
-    protected array $roles;
-    protected array $details;
-    protected string $uuid;
+    private readonly string $identity;
+    private readonly array $roles;
+    private readonly array $details;
+    private readonly string $uuid;
 
     /**
      * UserIdentity constructor.
-     * @param string $uuid
-     * @param string $identity
-     * @param array $roles
-     * @param array $details
      */
     public function __construct(
         string $uuid,
@@ -36,24 +32,17 @@ class UserIdentity implements UserInterface
         $this->details = $details;
     }
 
-    /**
-     * @return string
-     */
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentity(): string
     {
         return $this->identity;
     }
 
     /**
-     * @return iterable
      * @psalm-suppress LessSpecificImplementedReturnType
      */
     public function getRoles(): iterable
@@ -62,9 +51,7 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @param string $name
      * @param null|mixed $default
-     * @return mixed
      */
     public function getDetail(string $name, $default = null): mixed
     {
@@ -72,7 +59,6 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @return array
      * @psalm-return array<string, mixed>
      */
     public function getDetails(): array

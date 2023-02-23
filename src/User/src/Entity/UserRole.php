@@ -17,10 +17,22 @@ use Frontend\App\Common\AbstractEntity;
  */
 class UserRole extends AbstractEntity implements RoleInterface
 {
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_USER = 'user';
-    public const ROLE_GUEST = 'guest';
-    public const ROLES = [
+    /**
+     * @var string
+     */
+    final public const ROLE_ADMIN = 'admin';
+    /**
+     * @var string
+     */
+    final public const ROLE_USER = 'user';
+    /**
+     * @var string
+     */
+    final public const ROLE_GUEST = 'guest';
+    /**
+     * @var string[]
+     */
+    final public const ROLES = [
         self::ROLE_ADMIN,
         self::ROLE_USER,
         self::ROLE_GUEST
@@ -31,26 +43,11 @@ class UserRole extends AbstractEntity implements RoleInterface
      */
     protected string $name;
 
-    /**
-     * UserRole constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return UserRole
-     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -59,13 +56,13 @@ class UserRole extends AbstractEntity implements RoleInterface
     }
 
     /**
-     * @return array
+     * @return array{uuid: string, name: string, created: \DateTimeImmutable, updated: \DateTimeImmutable|null}
      */
     public function getArrayCopy(): array
     {
         return [
             'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getName(),
+            'name' => $this->name,
             'created' => $this->getCreated(),
             'updated' => $this->getUpdated()
         ];

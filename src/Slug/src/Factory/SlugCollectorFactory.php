@@ -16,12 +16,10 @@ use Psr\Container\NotFoundExceptionInterface;
  * Class SlugCollectorFactory
  * @package Frontend\Slug\Factory
  */
-class SlugCollectorFactory
+final class SlugCollectorFactory
 {
     /**
-     * @param ContainerInterface $container
      * @param $requestedName
-     * @return SlugCollector
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */

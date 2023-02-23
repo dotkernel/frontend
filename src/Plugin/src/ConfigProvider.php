@@ -12,10 +12,10 @@ use Frontend\Plugin\Factory\PluginManagerFactory;
  * Class ConfigProvider
  * @package Frontend\Plugin
  */
-class ConfigProvider
+final class ConfigProvider
 {
     /**
-     * @return array
+     * @return array{dependencies: mixed[], dot_controller: array{plugin_manager: array{factories: array{forms: class-string<\Frontend\Plugin\Factory\FormsPluginFactory>}}}}
      */
     public function __invoke(): array
     {
@@ -33,7 +33,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array{factories: array<string, class-string<\Frontend\Plugin\Factory\PluginManagerFactory>|class-string<\Frontend\Plugin\Factory\FormsPluginFactory>>, initializers: array<class-string<\Frontend\Plugin\Factory\PluginManagerAwareInitializer>>}
      */
     public function getDependencies(): array
     {

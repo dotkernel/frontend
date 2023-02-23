@@ -19,17 +19,14 @@ use Psr\Http\Server\RequestHandlerInterface;
  *
  * @Service()
  */
-class TranslatorMiddleware implements MiddlewareInterface
+final class TranslatorMiddleware implements MiddlewareInterface
 {
-    protected TranslateServiceInterface $translateService;
-    protected TemplateRendererInterface $template;
-    protected array $translatorConfig = [];
+    private readonly TranslateServiceInterface $translateService;
+    private readonly TemplateRendererInterface $templateRenderer;
+    private array $translatorConfig = [];
 
     /**
      * TranslatorMiddleware constructor.
-     * @param TranslateServiceInterface $translateService
-     * @param TemplateRendererInterface $template
-     * @param array $translatorConfig
      *
      * @Inject({
      *     TranslateServiceInterface::class,
@@ -39,22 +36,17 @@ class TranslatorMiddleware implements MiddlewareInterface
      */
     public function __construct(
         TranslateServiceInterface $translateService,
-        TemplateRendererInterface $template,
+        TemplateRendererInterface $templateRenderer,
         array $translatorConfig
     ) {
         $this->translateService = $translateService;
-        $this->template = $template;
+        $this->templateRenderer = $templateRenderer;
         $this->translatorConfig = $translatorConfig;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $serverRequest, RequestHandlerInterface $requestHandler): ResponseInterface
     {
-        $cookies = $request->getCookieParams();
+        $cookies = $serverRequest->getCookieParams();
         $cookieKey = $this->translatorConfig['cookie']['name'];
 
         // add language key
@@ -67,10 +59,10 @@ class TranslatorMiddleware implements MiddlewareInterface
             $this->translateService->addTranslatorCookie($languageKey);
         }
 
-        $this->template->addDefaultParam(
+        $this->templateRenderer->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
             'language_key',
-            rtrim($languageKey, '/')
+            rtrim((string) $languageKey, '/')
         );
 
         $language = $this->translatorConfig['locale'][$languageKey];
@@ -88,6 +80,6 @@ class TranslatorMiddleware implements MiddlewareInterface
         //Choose domain
         textdomain($domain);
 
-        return $handler->handle($request);
+        return $requestHandler->handle($serverRequest);
     }
 }

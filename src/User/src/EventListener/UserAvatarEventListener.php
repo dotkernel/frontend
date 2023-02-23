@@ -14,13 +14,12 @@ use Frontend\User\Entity\UserAvatar;
  *
  * @Service
  */
-class UserAvatarEventListener
+final class UserAvatarEventListener
 {
-    protected array $config;
+    private readonly array $config;
 
     /**
      * UserAvatarEventListener constructor.
-     * @param array $config
      *
      * @Inject({
      *     "config"
@@ -31,45 +30,29 @@ class UserAvatarEventListener
         $this->config = $config;
     }
 
-    /**
-     * @param UserAvatar $avatar
-     * @return void
-     */
-    public function postLoad(UserAvatar $avatar): void
+    public function postLoad(UserAvatar $userAvatar): void
     {
-        $this->setAvatarUrl($avatar);
+        $this->setAvatarUrl($userAvatar);
     }
 
-    /**
-     * @param UserAvatar $avatar
-     * @return void
-     */
-    public function postPersist(UserAvatar $avatar): void
+    public function postPersist(UserAvatar $userAvatar): void
     {
-        $this->setAvatarUrl($avatar);
+        $this->setAvatarUrl($userAvatar);
     }
 
-    /**
-     * @param UserAvatar $avatar
-     * @return void
-     */
-    public function postUpdate(UserAvatar $avatar): void
+    public function postUpdate(UserAvatar $userAvatar): void
     {
-        $this->setAvatarUrl($avatar);
+        $this->setAvatarUrl($userAvatar);
     }
 
-    /**
-     * @param UserAvatar $avatar
-     * @return void
-     */
-    private function setAvatarUrl(UserAvatar $avatar): void
+    private function setAvatarUrl(UserAvatar $userAvatar): void
     {
-        $avatar->setUrl(
+        $userAvatar->setUrl(
             sprintf(
                 '%s/%s/%s',
                 $this->config['uploads']['user']['url'],
-                $avatar->getUser()->getUuid()->toString(),
-                $avatar->getName()
+                $userAvatar->getUser()->getUuid()->toString(),
+                $userAvatar->getName()
             )
         );
     }

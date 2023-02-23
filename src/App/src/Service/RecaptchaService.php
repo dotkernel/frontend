@@ -12,14 +12,18 @@ use InvalidArgumentException;
  * Class RecaptchaService
  * @package Frontend\App\Service
  */
-class RecaptchaService
+final class RecaptchaService
 {
     private array $config;
+
     private string $response;
+    /**
+     * @var string[]
+     */
+    private const KEYS_TO_VALIDATE = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];
 
     /**
      * RecaptchaService constructor.
-     * @param array $config
      *
      * @Inject({
      *     "config.recaptcha"
@@ -33,7 +37,6 @@ class RecaptchaService
     }
 
     /**
-     * @param string $response
      * @return $this
      */
     public function setResponse(string $response): self
@@ -43,9 +46,6 @@ class RecaptchaService
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isValid(): bool
     {
         if (empty($this->response)) {
@@ -57,19 +57,20 @@ class RecaptchaService
             'response' => $this->response,
         ];
 
-        $curl = curl_init();
+        $curlHandle = curl_init();
 
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $this->config['verifyUrl']);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curlHandle, CURLOPT_POST, true);
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_URL, $this->config['verifyUrl']);
+        curl_setopt($curlHandle, CURLOPT_POSTFIELDS, http_build_query($data));
 
-        $response = curl_exec($curl);
+        $response = curl_exec($curlHandle);
 
         /** @psalm-suppress InvalidScalarArgument */
         $response = json_decode($response, true);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        $statusCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
 
         if ($statusCode !== StatusCodeInterface::STATUS_OK) {
             return false;
@@ -81,14 +82,9 @@ class RecaptchaService
         return $success && $score > $this->config['scoreThreshold'];
     }
 
-    /**
-     * @param array $config
-     * @return void
-     */
     private function validateConfig(array $config): void
     {
-        $keysToValidate = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];
-        foreach ($keysToValidate as $key) {
+        foreach (self::KEYS_TO_VALIDATE as $key) {
             if (empty($config[$key])) {
                 throw new InvalidArgumentException(
                     sprintf('Invalid `%s` provided.', $key)
