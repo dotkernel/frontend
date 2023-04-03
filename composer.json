@@ -46,7 +46,7 @@
         "ext-curl": "*",
         "ext-gettext": "*",
         "ext-json": "*",
-        "dotkernel/dot-annotated-services": "^3.2",
+        "dotkernel/dot-annotated-services": "^4.0",
         "dotkernel/dot-authorization": "^3.2",
         "dotkernel/dot-controller": "^3.2",
         "dotkernel/dot-data-fixtures": "^1.0",
