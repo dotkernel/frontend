@@ -397,6 +397,13 @@ To apply the translations
 - the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
 - then the js file needs `translateText("translateText")`
 
+**NOTE:**
+In order to have a proper behaviour of language selector , you need the language pack installed at Operating System level.
+
+`dnf install glibc-all-langpacks`
+
+Then restart PHP-FPM. 
+
 
 ## Running the application
 We recommend running your applications in WSL:
