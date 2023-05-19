@@ -3,9 +3,7 @@
 declare(strict_types=1);
 
 use Doctrine\Common\Cache\PhpFileCache;
-use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
-use Ramsey\Uuid\Doctrine\UuidBinaryType;
-use Ramsey\Uuid\Doctrine\UuidType;
+use Frontend\App\Common\UuidType;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Roave\PsrContainerDoctrine\EntityManagerFactory;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
@@ -36,8 +34,6 @@ return [
         'connection' => [
             'orm_default' => [
                 'doctrine_mapping_types' => [
-                    UuidBinaryType::NAME => 'binary',
-                    UuidBinaryOrderedTimeType::NAME => 'binary',
                 ]
             ]
         ],
@@ -51,8 +47,6 @@ return [
         ],
         'types' => [
             UuidType::NAME => UuidType::class,
-            UuidBinaryType::NAME => UuidBinaryType::class,
-            UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
         ],
         'cache' => [
             PhpFileCache::class => [

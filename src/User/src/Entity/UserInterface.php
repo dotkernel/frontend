@@ -14,11 +14,6 @@ use Ramsey\Uuid\UuidInterface;
 interface UserInterface
 {
     /**
-     * @return UuidInterface|null
-     */
-    public function getUuid(): ?UuidInterface;
-
-    /**
      * @return UserDetail|null
      */
     public function getDetail(): ?UserDetail;
