@@ -9,6 +9,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 /**
  * Class PluginManager
  * @package Frontend\Plugin
+ * @extends AbstractPluginManager<mixed>
  */
 class PluginManager extends AbstractPluginManager
 {

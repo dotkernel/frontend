@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class MessageRepository
  * @package Frontend\Contact\Repository
+ * @extends EntityRepository<object>
  */
 class MessageRepository extends EntityRepository
 {

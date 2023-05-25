@@ -16,6 +16,7 @@ use Exception;
 /**
  * Class UserRepository
  * @package Frontend\User\Repository
+ * @extends EntityRepository<object>
  */
 class UserRepository extends EntityRepository
 {

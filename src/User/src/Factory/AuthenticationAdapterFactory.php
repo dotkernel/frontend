@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Frontend\User\Factory;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Exception;
 use Frontend\User\Adapter\AuthenticationAdapter;
+use Frontend\User\Repository\UserRepository;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -41,7 +41,7 @@ class AuthenticationAdapterFactory
         $repository = $entityManager->getRepository(
             $config['doctrine']['authentication']['orm_default']['identity_class']
         );
-        if (!($repository instanceof EntityRepository)) {
+        if (!$repository instanceof UserRepository) {
             throw new Exception(
                 sprintf(
                     'Could not find repository for identity class: %s',
