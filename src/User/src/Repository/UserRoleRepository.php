@@ -11,6 +11,7 @@ use Frontend\User\Entity\UserRole;
 /**
  * Class UserRoleRepository
  * @package Frontend\User\Repository
+ * @extends EntityRepository<object>
  */
 class UserRoleRepository extends EntityRepository
 {

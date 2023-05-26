@@ -104,4 +104,9 @@ interface UserInterface
      * @return UserInterface
      */
     public function activate(): UserInterface;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
 }

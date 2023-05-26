@@ -7,7 +7,6 @@ namespace Frontend\App\Service;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Laminas\Session\Config\ConfigInterface;
-use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 
 /**
@@ -18,7 +17,7 @@ use Laminas\Session\SessionManager;
  */
 class CookieService implements CookieServiceInterface
 {
-    private ConfigInterface|StandardConfig $sessionConfig;
+    private ConfigInterface $sessionConfig;
 
     /**
      * @param SessionManager $sessionManager
@@ -61,6 +60,7 @@ class CookieService implements CookieServiceInterface
     /**
      * @param array|null $options
      * @return array
+     * @psalm-suppress UndefinedInterfaceMethod
      */
     private function getMergedOptions(?array $options = []): array
     {
