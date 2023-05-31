@@ -16,6 +16,8 @@ Dotkernel web starter package suitable for frontend applications.
 
 [![Build Static](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml)
 
+[![SymfonyInsight](https://insight.symfony.com/projects/a28dac55-3366-4020-9a49-53f6fcbeda4e/big.svg)](https://insight.symfony.com/projects/a28dac55-3366-4020-9a49-53f6fcbeda4e)
+
 # Installing DotKernel `frontend`
 
 - [Installing DotKernel `frontend`](#installing-dotkernel-frontend)
