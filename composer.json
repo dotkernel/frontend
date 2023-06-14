@@ -22,7 +22,8 @@
         "allow-plugins": {
             "dotkernel/*": true,
             "laminas/laminas-component-installer": true,
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
@@ -73,6 +74,7 @@
     },
     "require-dev": {
         "filp/whoops": "^2.14",
+        "laminas/laminas-coding-standard": "^2.5",
         "laminas/laminas-development-mode": "^3.10",
         "mezzio/mezzio-tooling": "^2.6",
         "phpunit/phpunit": "^9.5",
