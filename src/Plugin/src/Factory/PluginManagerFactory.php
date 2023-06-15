@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Frontend\Plugin\Factory;
 
+use Dot\Controller\Plugin\UrlHelperPlugin;
 use Frontend\Plugin\PluginManager;
 use Frontend\Plugin\TemplatePlugin;
-use Frontend\Plugin\UrlHelperPlugin;
-use Frontend\Slug\SlugInterface;
 use Mezzio\Helper\UrlHelper;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -31,12 +30,9 @@ class PluginManagerFactory
         $pluginManager = new PluginManager($container, $container->get('config')['dot_controller']['plugin_manager']);
 
         //register the built-in plugins, if the required component is present
-        if ($container->has(UrlHelper::class) && $container->has(SlugInterface::class)) {
+        if ($container->has(UrlHelper::class)) {
             $pluginManager->setFactory('url', function (ContainerInterface $container) {
-                return new UrlHelperPlugin(
-                    $container->get(UrlHelper::class),
-                    $container->get(SlugInterface::class)
-                );
+                return new UrlHelperPlugin($container->get(UrlHelper::class));
             });
         }
 
