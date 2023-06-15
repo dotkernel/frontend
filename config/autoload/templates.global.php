@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Dot\DebugBar\Extension\DebugBarExtension;
-use Frontend\Slug\Factory\RouteExtensionFactory;
 use Twig\Environment;
 use Mezzio\Twig\TwigEnvironmentFactory;
 use Mezzio\Twig\TwigRendererFactory;
@@ -11,7 +10,6 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 use Mezzio\Template\TemplateRendererInterface;
 use Dot\Twig\Extension\DateExtension;
 use Dot\Twig\Extension\TranslationExtension;
-use Frontend\Slug\TwigExtension\RouteExtension;
 
 return [
     'dependencies' => [
@@ -20,7 +18,6 @@ return [
             TemplateRendererInterface::class => TwigRendererFactory::class,
             DateExtension::class => InvokableFactory::class,
             TranslationExtension::class => InvokableFactory::class,
-            RouteExtension::class => RouteExtensionFactory::class,
         ],
     ],
     'debug' => false,
@@ -36,7 +33,6 @@ return [
         'extensions' => [
             DateExtension::class,
             TranslationExtension::class,
-            RouteExtension::class,
             DebugBarExtension::class,
         ],
         'optimizations' => -1,

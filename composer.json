@@ -87,8 +87,7 @@
             "Frontend\\Contact\\": "src/Contact/src/",
             "Frontend\\Page\\": "src/Page/src/",
             "Frontend\\Plugin\\": "src/Plugin/src/",
-            "Frontend\\User\\": "src/User/src/",
-            "Frontend\\Slug\\": "src/Slug/src/"
+            "Frontend\\User\\": "src/User/src/"
         }
     },
     "autoload-dev": {
