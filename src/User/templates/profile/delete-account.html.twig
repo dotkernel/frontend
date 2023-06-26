@@ -12,6 +12,8 @@
     <p>I accept the <a href="#" target="_blank">Terms and Conditions</a> and I want to delete my account with all additional data.</p>
 </div>
 
+{{ formElement(form.get('profile_delete_csrf')) }}
+
 {% set submit = form.get('submit') %}
 {% set submitValue = submit.getValue|trans|raw %}
 {% set dummy = submit.setAttribute('value', submitValue) %}

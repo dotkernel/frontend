@@ -44,6 +44,8 @@
                     {% set dummy = passwordConfirm.setAttribute('placeholder', elementTranslatePlaceholder) %}
                     {{ formElement(passwordConfirm) }}
 
+                    {{ formElement(form.get('register_csrf')) }}
+
                     {% set submit = form.get('submit') %}
                     {% set submitValue = submit.getValue|trans|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}

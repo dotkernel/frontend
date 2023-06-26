@@ -19,6 +19,8 @@
 {% set dummy = image.setAttribute('data-url', path('account', {'action': 'avatar'})) %}
 {{ formElement(image) }}
 
+{{ formElement(form.get('upload_avatar_csrf')) }}
+
 {% set submit = form.get('submit') %}
 {% set submitValue = submit.getValue|trans|raw %}
 {% set dummy = submit.setAttribute('value', submitValue) %}

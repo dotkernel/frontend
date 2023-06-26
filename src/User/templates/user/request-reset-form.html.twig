@@ -22,6 +22,8 @@
                     {% set dummy = identity.setAttribute('placeholder', elementTranslatePlaceholder) %}
                     {{ formElement(identity) }}
 
+                    {{ formElement(form.get('request_reset_password_csrf')) }}
+
                     {% set submit = form.get('submit') %}
                     {% set submitValue = submit.getValue|trans|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}
