@@ -49,10 +49,7 @@ class MessageService implements MessageServiceInterface
         $this->config = $config;
     }
 
-    /**
-     * @return MessageRepository
-     */
-    public function getRepository(): MessageRepository
+    public function getRepository(): MessageRepository|EntityRepository
     {
         return $this->repository;
     }
@@ -99,31 +96,5 @@ class MessageService implements MessageServiceInterface
         $this->mailService->getMessage()->setReplyTo($message->getEmail(), $message->getName());
 
         return $this->mailService->send()->isValid();
-    }
-
-    /**
-     * @param $response
-     * @return bool
-     */
-    public function recaptchaIsValid($response): bool
-    {
-        $requestJson = [
-            'response' => $response,
-            'secret' => $this->config['recaptcha']['secretKey']
-        ];
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $requestJson);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $checkRecaptchaResponse = curl_exec($curl);
-        $checkRecaptchaResponse = json_decode($checkRecaptchaResponse, true);
-        if ($checkRecaptchaResponse['success']) {
-            return true;
-        }
-        return false;
     }
 }

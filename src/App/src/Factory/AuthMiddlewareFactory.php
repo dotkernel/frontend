@@ -24,13 +24,10 @@ class AuthMiddlewareFactory
     use AttachAuthorizationEventListenersTrait;
 
     /**
-     * @param ContainerInterface $container
-     * @param $requestedName
-     * @return AuthMiddleware
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName): AuthMiddleware
+    public function __invoke(ContainerInterface $container, string $requestedName): AuthMiddleware
     {
         /** @var RbacGuardOptions $options */
         $options = $container->get(RbacGuardOptions::class);

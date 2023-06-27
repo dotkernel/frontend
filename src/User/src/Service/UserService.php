@@ -391,10 +391,7 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    /**
-     * @return UserRepository
-     */
-    public function getRepository(): UserRepository
+    public function getRepository(): UserRepository|EntityRepository
     {
         return $this->userRepository;
     }
