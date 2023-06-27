@@ -125,7 +125,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * @throws Exception
      */
-    private function validateConfig()
+    private function validateConfig(): void
     {
         if (!isset($this->config['identity_class']) || !class_exists($this->config['identity_class'])) {
             throw new Exception("Missing or invalid param 'identity_class' provided.");

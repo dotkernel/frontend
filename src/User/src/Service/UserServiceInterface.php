@@ -18,7 +18,6 @@ use Frontend\User\Repository\UserRepository;
  */
 interface UserServiceInterface
 {
-    // TODO refactor this interface, it should only have CRUD methods.
     /**
      * @param array $data
      * @return UserInterface

@@ -13,5 +13,5 @@ interface TranslateServiceInterface
     /**
      * @param string $languageKey
      */
-    public function addTranslatorCookie(string $languageKey);
+    public function addTranslatorCookie(string $languageKey): void;
 }

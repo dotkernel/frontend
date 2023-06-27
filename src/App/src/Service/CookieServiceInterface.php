@@ -10,7 +10,7 @@ namespace Frontend\App\Service;
  */
 interface CookieServiceInterface
 {
-    public function setCookie(string $name, $value, ?array $options = []): bool;
+    public function setCookie(string $name, mixed $value, ?array $options = []): bool;
 
     public function expireCookie(string $name): bool;
 }
