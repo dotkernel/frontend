@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserIdentity;
+use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserRole;
 use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\AdapterInterface;
@@ -124,7 +125,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * @throws Exception
      */
-    private function validateConfig()
+    private function validateConfig(): void
     {
         if (!isset($this->config['identity_class']) || !class_exists($this->config['identity_class'])) {
             throw new Exception("Missing or invalid param 'identity_class' provided.");
@@ -144,11 +145,9 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @param $identityClass
-     * @param string $methodName
      * @throws Exception
      */
-    private function checkMethod($identityClass, string $methodName): void
+    private function checkMethod(UserInterface $identityClass, string $methodName): void
     {
         if (!method_exists($identityClass, $methodName)) {
             throw new Exception(sprintf(

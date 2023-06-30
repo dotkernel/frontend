@@ -119,11 +119,11 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param $token
+     * @param string $token
      * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
-    public function getRememberUser($token): ?UserRememberMe
+    public function getRememberUser(string $token): ?UserRememberMe
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')

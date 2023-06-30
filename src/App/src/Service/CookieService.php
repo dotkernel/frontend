@@ -20,8 +20,6 @@ class CookieService implements CookieServiceInterface
     private ConfigInterface $sessionConfig;
 
     /**
-     * @param SessionManager $sessionManager
-     *
      * @Inject({
      *     SessionManager::class
      * })
@@ -31,13 +29,7 @@ class CookieService implements CookieServiceInterface
         $this->sessionConfig = $sessionManager->getConfig();
     }
 
-    /**
-     * @param string $name
-     * @param $value
-     * @param array|null $options
-     * @return bool
-     */
-    public function setCookie(string $name, $value, ?array $options = []): bool
+    public function setCookie(string $name, mixed $value, ?array $options = []): bool
     {
         if (!$this->sessionConfig->getUseCookies()) {
             return false;
@@ -46,10 +38,6 @@ class CookieService implements CookieServiceInterface
         return setcookie($name, $value, $this->getMergedOptions($options));
     }
 
-    /**
-     * @param string $name
-     * @return bool
-     */
     public function expireCookie(string $name): bool
     {
         return setcookie($name, '', $this->getMergedOptions([
@@ -58,8 +46,6 @@ class CookieService implements CookieServiceInterface
     }
 
     /**
-     * @param array|null $options
-     * @return array
      * @psalm-suppress UndefinedInterfaceMethod
      */
     private function getMergedOptions(?array $options = []): array
@@ -74,9 +60,6 @@ class CookieService implements CookieServiceInterface
         ];
     }
 
-    /**
-     * @return int
-     */
     private function getCookieLifetime(): int
     {
         return time() + $this->sessionConfig->getCookieLifetime();

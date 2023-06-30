@@ -53,7 +53,7 @@ class TemplatePlugin implements PluginInterface
      * @param string $param
      * @param mixed $value
      */
-    public function addDefaultParam(string $templateName, string $param, mixed $value)
+    public function addDefaultParam(string $templateName, string $param, mixed $value): void
     {
         $this->template->addDefaultParam($templateName, $param, $value);
     }

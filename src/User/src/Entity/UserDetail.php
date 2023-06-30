@@ -68,10 +68,10 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @param $firstName
+     * @param string $firstName
      * @return self
      */
-    public function setFirstName($firstName): self
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -87,10 +87,10 @@ class UserDetail extends AbstractEntity
     }
 
     /**
-     * @param $lastName
+     * @param string $lastName
      * @return self
      */
-    public function setLastName($lastName): self
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
 

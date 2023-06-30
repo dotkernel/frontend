@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Service;
 
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\Mail\Exception\MailException;
 use Exception;
@@ -17,7 +18,6 @@ use Frontend\User\Repository\UserRepository;
  */
 interface UserServiceInterface
 {
-    // TODO refactor this interface, it should only have CRUD methods.
     /**
      * @param array $data
      * @return UserInterface
@@ -51,10 +51,7 @@ interface UserServiceInterface
      */
     public function findByUuid(string $uuid): ?User;
 
-    /**
-     * @return UserRepository
-     */
-    public function getRepository(): UserRepository;
+    public function getRepository(): UserRepository|EntityRepository;
 
     /**
      * @param UserInterface|User $user

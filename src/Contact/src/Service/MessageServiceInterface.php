@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Service;
 
+use Doctrine\ORM\EntityRepository;
 use Dot\Mail\Exception\MailException;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
@@ -14,10 +15,7 @@ use Frontend\Contact\Repository\MessageRepository;
  */
 interface MessageServiceInterface
 {
-    /**
-     * @return MessageRepository
-     */
-    public function getRepository(): MessageRepository;
+    public function getRepository(): MessageRepository|EntityRepository;
 
     /**
      * @param array $data
@@ -31,10 +29,4 @@ interface MessageServiceInterface
      * @throws MailException
      */
     public function sendContactMail(Message $message): bool;
-
-    /**
-     * @param $response
-     * @return bool
-     */
-    public function recaptchaIsValid($response): bool;
 }

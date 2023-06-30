@@ -10,24 +10,18 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
-/**
- * Class PluginManagerAwareInitializer
- * @package Frontend\Plugin\Factory
- */
 class PluginManagerAwareInitializer
 {
     /**
-     * @param ContainerInterface $container
-     * @param $instance
-     * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container, $instance): void
+    public function __invoke(ContainerInterface $container, ?object $instance): void
     {
         if ($instance instanceof PluginManagerAwareInterface) {
-            $pluginManager = $container->get(PluginManager::class);
-            $instance->setPluginManager($pluginManager);
+            $instance->setPluginManager(
+                $container->get(PluginManager::class)
+            );
         }
     }
 }

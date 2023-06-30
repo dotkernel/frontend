@@ -107,10 +107,10 @@ class UserResetPassword extends AbstractEntity
     }
 
     /**
-     * @param $hash
+     * @param string $hash
      * @return self
      */
-    public function setHash($hash): self
+    public function setHash(string $hash): self
     {
         $this->hash = $hash;
 
