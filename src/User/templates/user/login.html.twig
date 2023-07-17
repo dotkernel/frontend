@@ -46,8 +46,8 @@
 
                     <hr>
 
-                    <p class="forgot-password"><a href="{{ path('account', {'action' : 'request-reset-password' } )}}">{% trans 'Forgot password' %}</a></p>
-                    <p>{% trans "You don't have an account?" %} <a href="{{ path('user', {'action' : 'register'}) }}">{% trans 'Register' %}</a>!</p>
+                    <p class="forgot-password"><a href="{{ path('account', {'action' : 'request-reset-password' } )}}" class="text-decoration-none">{% trans 'Forgot password' %}</a></p>
+                    <p>{% trans "You don't have an account?" %} <a href="{{ path('user', {'action' : 'register'}) }}" class="text-decoration-none">{% trans 'Register' %}</a>!</p>
                 </div>
             </div>
         </div>
