@@ -104,7 +104,7 @@ class ContactController extends AbstractActionController
                 return new RedirectResponse($request->getUri(), 303);
             }
 
-            $data['subject'] = $data['subject'] ?: 'DotKernel Message ' . date('Y-m-d H:i:s');
+            $data['subject'] = $data['subject'] ?: $this->config['application']['name'] . ' Contact';
             $form->setData($data);
             if ($form->isValid()) {
                 $dataForm = $form->getData();
