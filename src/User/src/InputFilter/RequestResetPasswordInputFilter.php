@@ -11,8 +11,8 @@ use Laminas\Validator\EmailAddress;
 use Laminas\Validator\NotEmpty;
 
 /**
- * Class RequestResetPasswordInputFilter
- * @package Frontend\User\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class RequestResetPasswordInputFilter extends InputFilter
 {

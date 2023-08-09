@@ -12,8 +12,8 @@ use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
 
 /**
- * Class ContactInputFilter
- * @package Frontend\Contact\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class ContactInputFilter extends InputFilter
 {

@@ -12,8 +12,8 @@ use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
 
 /**
- * Class ResetPasswordInputFilter
- * @package Frontend\User\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class ResetPasswordInputFilter extends InputFilter
 {

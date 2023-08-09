@@ -13,8 +13,8 @@ use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
 
 /**
- * Class RegisterInputFilter
- * @package Frontend\User\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class RegisterInputFilter extends InputFilter
 {
