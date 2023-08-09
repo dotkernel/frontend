@@ -12,8 +12,8 @@ use Laminas\Validator\InArray;
 use Laminas\Validator\NotEmpty;
 
 /**
- * Class ProfileDeleteInputFilter
- * @package Frontend\User\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class ProfileDeleteInputFilter extends InputFilter
 {

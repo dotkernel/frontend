@@ -10,8 +10,8 @@ use Laminas\InputFilter\InputFilter;
 use Laminas\Validator\NotEmpty;
 
 /**
- * Class UserDetailInputFilter
- * @package Frontend\User\InputFilter
+ * @template TFilteredValues
+ * @extends InputFilter<TFilteredValues>
  */
 class UserDetailInputFilter extends InputFilter
 {
