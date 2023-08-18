@@ -44,7 +44,7 @@ class LoginInputFilter extends InputFilter
         $this->add($password);
 
         $rememberMe = new Input('rememberMe');
-        $password->setRequired(false);
+        $rememberMe->setRequired(false);
         $rememberMe->getFilterChain()
             ->attachByName(StringTrim::class);
         $rememberMe->getValidatorChain()
