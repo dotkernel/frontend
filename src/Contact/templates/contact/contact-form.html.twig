@@ -60,6 +60,17 @@
                         </div>
                     </div>
 
+                    <div class="row mb-2">
+                        {% set department = form.get('department') %}
+                        {% set dummy = department.setAttribute('class', 'form-control') %}
+                        {% set dummy = department.setAttribute('id', 'subject') %}
+                        {% set departmentTranslatePlaceholder = department.getAttribute('placeholder')|trans|raw %}
+                        {% set dummy = department.setAttribute('placeholder', departmentTranslatePlaceholder) %}
+                        <div class="col-md-12">
+                            {{ formElement(department) }}
+                        </div>
+                    </div>
+
                     <div class="row">
                         {% set message = form.get('message') %}
                         {% set dummy = message.setAttribute('class', 'form-control') %}

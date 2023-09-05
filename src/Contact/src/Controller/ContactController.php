@@ -34,6 +34,7 @@ class ContactController extends AbstractActionController
     protected AuthenticationServiceInterface $authenticationService;
     protected FlashMessenger $messenger;
     protected FormsPlugin $forms;
+    protected ContactForm $contactForm;
     protected DebugBar $debugBar;
     protected array $config;
 
@@ -46,6 +47,7 @@ class ContactController extends AbstractActionController
      * @param AuthenticationService $authenticationService
      * @param FlashMessenger $messenger
      * @param FormsPlugin $forms
+     * @param ContactForm $contactForm
      * @param DebugBar $debugBar
      * @param array $config
      * @Inject({
@@ -57,6 +59,7 @@ class ContactController extends AbstractActionController
      *     FlashMessenger::class,
      *     FormsPlugin::class,
      *     DebugBar::class,
+     *     ContactForm::class,
      *     "config"
      *     })
      */
@@ -69,6 +72,7 @@ class ContactController extends AbstractActionController
         FlashMessenger $messenger,
         FormsPlugin $forms,
         DebugBar $debugBar,
+        ContactForm $contactForm,
         array $config = []
     ) {
         $this->messageService = $messageService;
@@ -78,8 +82,10 @@ class ContactController extends AbstractActionController
         $this->authenticationService = $authenticationService;
         $this->messenger = $messenger;
         $this->forms = $forms;
+        $this->contactForm = $contactForm;
         $this->debugBar = $debugBar;
         $this->config = $config;
+
     }
 
     /**
@@ -87,7 +93,8 @@ class ContactController extends AbstractActionController
      */
     public function formAction(): ResponseInterface
     {
-        $form = new ContactForm();
+//        $form = new ContactForm();
+//        $form = $this->forms(ContactForm::class);
         $request = $this->getRequest();
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
@@ -105,9 +112,9 @@ class ContactController extends AbstractActionController
             }
 
             $data['subject'] = $data['subject'] ?: $this->config['application']['name'] . ' Contact';
-            $form->setData($data);
-            if ($form->isValid()) {
-                $dataForm = $form->getData();
+            $this->contactForm->setData($data);
+            if ($this->contactForm->isValid()) {
+                $dataForm = $this->contactForm->getData();
                 $result = $this->messageService->processMessage($dataForm);
 
                 if ($result) {
@@ -118,13 +125,13 @@ class ContactController extends AbstractActionController
                     return new RedirectResponse($request->getUri(), 303);
                 }
             } else {
-                $this->messenger->addError($this->forms->getMessages($form));
+                $this->messenger->addError($this->forms->getMessages($this->contactForm));
                 return new RedirectResponse($request->getUri(), 303);
             }
         }
 
         return new HtmlResponse($this->template->render('contact::contact-form', [
-            'form' => $form,
+            'form' => $this->contactForm,
             'recaptchaSiteKey' => $this->config['recaptcha']['siteKey']
         ]));
     }
