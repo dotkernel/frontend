@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Frontend\Plugin\Factory;
 
 use Dot\FlashMessenger\FlashMessengerInterface;
-use Dot\Form\FormElementManager;
 use Frontend\Plugin\FormsPlugin;
+use Laminas\Form\FormElementManager;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;

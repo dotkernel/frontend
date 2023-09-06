@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Frontend\Plugin;
 
 use Dot\FlashMessenger\FlashMessengerInterface;
-use Dot\Form\FormElementManager;
 use Laminas\Form\Form;
+use Laminas\Form\FormElementManager;
 use Laminas\Form\FormInterface;
 
 class FormsPlugin implements PluginInterface

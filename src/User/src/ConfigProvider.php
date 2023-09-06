@@ -35,7 +35,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates' => $this->getTemplates(),
-            'dot_form' => $this->getForms(),
+            'forms' => $this->getForms(),
             'doctrine' => $this->getDoctrineConfig(),
         ];
     }
