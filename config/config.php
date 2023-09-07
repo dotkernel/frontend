@@ -34,7 +34,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Session\ConfigProvider::class,
     \Dot\DebugBar\ConfigProvider::class,
     \Dot\Mail\ConfigProvider::class,
-    \Dot\Form\ConfigProvider::class,
+    \Laminas\Form\ConfigProvider::class,
     \Dot\Log\ConfigProvider::class,
     \Dot\ErrorHandler\ConfigProvider::class,
     \Dot\AnnotatedServices\ConfigProvider::class,
