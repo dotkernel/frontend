@@ -27,14 +27,14 @@
         <div id="wrapper">
             <header class="app-header">
 
-                <nav class="navbar navbar-expand-md navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container">
                         <a href="/" class="navbar-brand">
                             <img src="{{ asset('images/app/logo.svg') }}"
                                  onerror="this.onerror=null; this.src='{{ asset('images/app/logo.png') }}';"
                                  alt="DotKernel" />
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
                                 aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -42,7 +42,7 @@
                         <div class="collapse navbar-collapse" id="navbarHeader">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
                                     <div class="dropdown-menu" aria-labelledby="pageDropdown">
                                         <a class="dropdown-item" href="{{ url('page', {'action': 'home'}) }}">{% trans 'Home' %}</a>
                                         <a class="dropdown-item" href="{{ url('page', {'action': 'about-us'}) }}">{% trans 'About Us' %}</a>
@@ -60,7 +60,7 @@
                                     <a class="nav-link disabled" href="{{ url('page', {'action': 'index'}) }}">{% trans 'Disabled' %}</a>
                                 </li>
                             </ul>
-                            <ul class="navbar-nav ml-auto">
+                            <ul class="navbar-nav ms-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ url('account', {'action': 'details'}) }}">{% trans 'Profile' %}</a>
