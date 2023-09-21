@@ -41,6 +41,9 @@ $(document).ready(function () {
         '</div>\n';
 
     $imageInput.fileinput(fileInputCommonConfig);
+    let captionInput = document.querySelector('.kv-fileinput-caption');
+    captionInput.style.height = '86px';
+    captionInput.style.marginTop = '33px';
 
     $imageInput.on('fileuploaded', function (event, data, previewId, index) {
         $(this).fileinput('reset');
