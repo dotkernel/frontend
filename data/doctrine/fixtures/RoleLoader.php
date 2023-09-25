@@ -30,4 +30,3 @@ class RoleLoader implements FixtureInterface
         $manager->flush();
     }
 }
-

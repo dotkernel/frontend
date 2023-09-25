@@ -7,6 +7,7 @@ namespace Frontend\Contact\Form;
 use Frontend\Contact\InputFilter\ContactInputFilter;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Hidden;
+use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
@@ -19,6 +20,8 @@ use Laminas\InputFilter\InputFilterInterface;
 class ContactForm extends Form
 {
     protected InputFilterInterface $inputFilter;
+
+    private $roles = [];
 
     /**
      * ContactForm constructor.
@@ -33,6 +36,18 @@ class ContactForm extends Form
 
         $this->inputFilter = new ContactInputFilter();
         $this->inputFilter->init();
+    }
+
+    public function setDepartment(array $countries)
+    {
+        $this->add([
+            'name' => 'department',
+            'options' => [
+                'label' => 'department',
+                'value_options' => $countries
+            ],
+            'type' => Select::class,
+        ]);
     }
 
     /**
