@@ -37,6 +37,9 @@
                         </label>
                     </div>
 
+                    {{ formElement(form.get('login_csrf')) }}
+
+
                     {% set submit = form.get('submit') %}
                     {% set submitValue = submit.getValue|trans|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}

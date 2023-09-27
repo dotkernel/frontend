@@ -71,6 +71,8 @@
                         </div>
                     </div>
 
+                    {{ formElement(form.get('contact_csrf')) }}
+
                     <div class="g-recaptcha" data-sitekey="{{ recaptchaSiteKey }}"
                          data-callback="submitContactUsForm"
                          data-size="invisible">

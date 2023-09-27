@@ -54,6 +54,15 @@ class ProfileDeleteForm extends Form
         ]);
 
         $this->add([
+            'name' => 'profile_delete_csrf',
+            'type' => 'csrf',
+            'options' => [
+                'timeout' => 3600,
+                'message' => 'The form CSRF has expired and was refreshed. Please resend the form',
+            ],
+        ]);
+
+        $this->add([
             'name' => 'submit',
             'attributes' => [
                 'type' => 'submit',
