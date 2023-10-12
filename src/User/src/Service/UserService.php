@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Frontend\User\Service;
 
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
-use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
-use Exception;
+use Dot\Mail\Service\MailServiceInterface;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
 use Frontend\App\Service\CookieServiceInterface;
@@ -26,6 +24,7 @@ use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
 use Mezzio\Template\TemplateRendererInterface;
+use Exception;
 
 /**
  * Class UserService
@@ -42,52 +41,58 @@ class UserService implements UserServiceInterface
     ];
 
     protected CookieServiceInterface $cookieService;
-    protected EntityManager $em;
-    protected MailService $mailService;
-    protected UserRepository|EntityRepository $userRepository;
-    protected UserRoleRepository|EntityRepository $userRoleRepository;
-    protected UserRoleServiceInterface $userRoleService;
+
+    protected MailServiceInterface $mailService;
+
     protected TemplateRendererInterface $templateRenderer;
+
+    protected UserRoleServiceInterface $userRoleService;
+
+    protected UserRepository $userRepository;
+
+    protected UserRoleRepository $userRoleRepository;
+
+
     protected array $config = [];
 
     /**
-     * UserService constructor.
      * @param CookieServiceInterface $cookieService
-     * @param EntityManager $em
      * @param MailService $mailService
      * @param UserRoleServiceInterface $userRoleService
      * @param TemplateRendererInterface $templateRenderer
+     * @param UserRepository $userRepository
+     * @param UserRoleRepository $userRoleRepository
      * @param array $config
      *
      * @Inject({
      *     CookieServiceInterface::class,
-     *     EntityManager::class,
      *     MailService::class,
      *     UserRoleServiceInterface::class,
      *     TemplateRendererInterface::class,
+     *     UserRepository::class,
+     *     UserRoleRepository::class,
      *     "config"
      * })
      */
     public function __construct(
         CookieServiceInterface $cookieService,
-        EntityManager $em,
         MailService $mailService,
         UserRoleServiceInterface $userRoleService,
         TemplateRendererInterface $templateRenderer,
+        UserRepository $userRepository,
+        UserRoleRepository $userRoleRepository,
         array $config = []
     ) {
         $this->cookieService = $cookieService;
         $this->mailService = $mailService;
-        $this->userRepository = $em->getRepository(User::class);
-        $this->userRoleRepository = $em->getRepository(UserRole::class);
         $this->userRoleService = $userRoleService;
         $this->templateRenderer = $templateRenderer;
+        $this->userRepository = $userRepository;
+        $this->userRoleRepository = $userRoleRepository;
         $this->config = $config;
     }
 
     /**
-     * @param string $uuid
-     * @return User|null
      * @throws NonUniqueResultException
      */
     public function findByUuid(string $uuid): ?User
@@ -95,46 +100,30 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findByUuid($uuid);
     }
 
-    /**
-     * @param string $identity
-     * @return UserInterface
-     * @throws NonUniqueResultException
-     */
-    public function findByIdentity(string $identity): UserInterface
-    {
-        return $this->userRepository->findByIdentity($identity);
-    }
-
-    /**
-     * @param array $data
-     * @return UserInterface
-     * @throws Exception
-     */
-    public function createUser(array $data): UserInterface
+    public function createUser(array $data = []): UserInterface
     {
         if ($this->exists($data['email'])) {
             throw new Exception(Message::DUPLICATE_EMAIL);
         }
 
-        $user = new User();
-        $user->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))->setIdentity($data['email']);
+        $detail = (new UserDetail())
+            ->setFirstName($data['detail']['firstName'] ?? null)
+            ->setLastName($data['detail']['lastName'] ?? null);
 
-        $detail = new UserDetail();
-        $detail->setUser($user)->setFirstName($data['detail']['firstName'])->setLastName($data['detail']['lastName']);
+        $user = (new User())
+            ->setDetail($detail)
+            ->setIdentity($data['identity'])
+            ->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))
+            ->setStatus($data['status'] ?? User::STATUS_PENDING);
 
-        $user->setDetail($detail);
+        $detail->setUser($user);
 
-        if (!empty($data['status'])) {
-            $user->setStatus($data['status']);
-        }
-
-        if (!empty($data['roles'])) {
-            foreach ($data['roles'] as $roleName) {
-                $role = $this->userRoleRepository->findByName($roleName);
-                if (!$role instanceof UserRole) {
-                    throw new Exception('Role not found: ' . $roleName);
+        if (! empty($data['roles'])) {
+            foreach ($data['roles'] as $roleData) {
+                $role = $this->userRoleService->findOneBy(['uuid' => $roleData['uuid']]);
+                if ($role instanceof UserRole) {
+                    $user->addRole($role);
                 }
-                $user->addRole($role);
             }
         } else {
             $role = $this->userRoleService->findOneBy(['name' => UserRole::ROLE_USER]);
@@ -143,71 +132,47 @@ class UserService implements UserServiceInterface
             }
         }
 
+        // TODO TEST IF WE NEED THIS
         if (empty($user->getRoles())) {
             throw new Exception(Message::RESTRICTION_ROLES);
         }
 
-        $this->userRepository->saveUser($user);
-
-        return $user;
+        return $this->userRepository->saveUser($user);
     }
 
-    /**
-     * @param User $user
-     * @param array $data
-     * @return UserInterface
-     * @throws Exception
-     */
-    public function updateUser(User $user, array $data = []): UserInterface
+    public function updateUser(User $user, array $data = []): User
     {
-        if (isset($data['email']) && !is_null($data['email'])) {
-            if ($this->exists($data['email'], $user->getUuid()->toString())) {
+        if (isset($data['identity'])) {
+            if ($this->exists($data['identity'], $user->getUuid()->toString())) {
                 throw new Exception(Message::DUPLICATE_EMAIL);
             }
-            $user->setIdentity($data['email']);
         }
 
-        if (isset($data['password']) && !is_null($data['password'])) {
-            $user->setPassword(
-                password_hash($data['password'], PASSWORD_DEFAULT)
-            );
+        if (isset($data['password'])) {
+            $user->setPassword(password_hash($data['password'], PASSWORD_DEFAULT));
         }
 
-        if (isset($data['status']) && !empty($data['status'])) {
+        if (isset($data['status'])) {
             $user->setStatus($data['status']);
         }
 
-        if (isset($data['isDeleted']) && !is_null($data['isDeleted'])) {
-            $user->setIsDeleted((bool)$data['isDeleted']);
-
-            // make user anonymous
-            $user->setIdentity('anonymous' . date('dmYHis') . '@dotkernel.com');
-            $userDetails = $user->getDetail();
-            $userDetails->setFirstName('anonymous' . date('dmYHis'));
-            $userDetails->setLastName('anonymous' . date('dmYHis'));
-
-            $user->setDetail($userDetails);
+        if (isset($data['isDeleted'])) {
+            $user->setIsDeleted($data['isDeleted']);
         }
 
-        if (isset($data['hash']) && !empty($data['hash'])) {
+        if (isset($data['hash'])) {
             $user->setHash($data['hash']);
         }
 
-        if (isset($data['detail']['firstName']) && !is_null($data['detail']['firstName'])) {
-            $user->getDetail()->setFirstName($data['detail']['firstName']);
+        if (isset($data['detail']['firstName'])) {
+            $user->getDetail()->setFirstname($data['detail']['firstName']);
         }
 
-        if (isset($data['detail']['lastName']) && !is_null($data['detail']['lastName'])) {
+        if (isset($data['detail']['lastName'])) {
             $user->getDetail()->setLastName($data['detail']['lastName']);
         }
 
-        if (!empty($data['avatar'])) {
-            $user->setAvatar(
-                $this->createAvatar($user, $data['avatar'])
-            );
-        }
-
-        if (!empty($data['roles'])) {
+        if (! empty($data['roles'])) {
             $user->resetRoles();
             foreach ($data['roles'] as $roleData) {
                 $role = $this->userRoleService->findOneBy(['uuid' => $roleData['uuid']]);
@@ -216,13 +181,8 @@ class UserService implements UserServiceInterface
                 }
             }
         }
-        if (empty($user->getRoles())) {
-            throw new Exception(Message::RESTRICTION_ROLES);
-        }
 
-        $this->userRepository->saveUser($user);
-
-        return $user;
+        return $this->userRepository->saveUser($user);
     }
 
     /**
@@ -290,11 +250,6 @@ class UserService implements UserServiceInterface
         );
     }
 
-    /**
-     * @param User $user
-     * @return bool
-     * @throws MailException
-     */
     public function sendActivationMail(User $user): bool
     {
         if ($user->isActive()) {
@@ -314,11 +269,7 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    /**
-     * @param array $params
-     * @return User|null
-     */
-    public function findOneBy(array $params = []): ?User
+    public function findOneBy(array $params = []): ?UserInterface
     {
         if (empty($params)) {
             return null;
@@ -327,20 +278,11 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findOneBy($params);
     }
 
-    /**
-     * @param User $user
-     * @return User
-     */
     public function activateUser(User $user): User
     {
         return $this->userRepository->saveUser($user->activate());
     }
 
-    /**
-     * @param UserInterface|User $user
-     * @return bool
-     * @throws MailException
-     */
     public function sendResetPasswordRequestedMail(UserInterface|User $user): bool
     {
         $this->mailService->setBody(
@@ -357,10 +299,6 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    /**
-     * @param string|null $hash
-     * @return User|null
-     */
     public function findByResetPasswordHash(?string $hash): ?User
     {
         if (empty($hash)) {
@@ -370,11 +308,6 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findByResetPasswordHash($hash);
     }
 
-    /**
-     * @param User $user
-     * @return bool
-     * @throws MailException
-     */
     public function sendResetPasswordCompletedMail(User $user): bool
     {
         $this->mailService->setBody(
@@ -391,19 +324,11 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    public function getRepository(): UserRepository|EntityRepository
+    public function getRepository(): EntityRepository
     {
         return $this->userRepository;
     }
 
-    /**
-     * @param UserInterface|User $user
-     * @param string $userAgent
-     * @param array $cookies
-     * @return void
-     * @throws NonUniqueResultException
-     * @throws Exception
-     */
     public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void
     {
         $this->deleteExpiredRememberMeTokens();
@@ -435,11 +360,6 @@ class UserService implements UserServiceInterface
         );
     }
 
-    /**
-     * @param array $cookies
-     * @return void
-     * @throws NonUniqueResultException
-     */
     public function deleteRememberMeToken(array $cookies = []): void
     {
         $token = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
@@ -451,9 +371,6 @@ class UserService implements UserServiceInterface
         }
     }
 
-    /**
-     * @return void
-     */
     public function deleteExpiredRememberMeTokens(): void
     {
         $this->getRepository()->deleteExpiredCookies(

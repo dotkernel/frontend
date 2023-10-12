@@ -5,45 +5,44 @@ declare(strict_types=1);
 namespace Frontend\Contact\Service;
 
 use Doctrine\ORM\EntityRepository;
+use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
-use Doctrine\ORM\EntityManager;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Mezzio\Template\TemplateRendererInterface;
 
-/**
- * Class MessageService
- * @package Frontend\Contact\Service
- */
 class MessageService implements MessageServiceInterface
 {
     protected MessageRepository|EntityRepository $repository;
+
     protected MailServiceInterface $mailService;
+
     protected TemplateRendererInterface $templateRenderer;
+
     protected array $config = [];
 
     /**
      * MessageService constructor.
-     * @param EntityManager $entityManager
+     * @param MessageRepository $repository
      * @param MailServiceInterface $mailService
      * @param TemplateRendererInterface $templateRenderer
      * @param array $config
      *
      * @Inject({
-     *     EntityManager::class,
+     *     MessageRepository::class,
      *     MailServiceInterface::class,
      *     TemplateRendererInterface::class,
      *     "config"
      * })
      */
     public function __construct(
-        EntityManager $entityManager,
+        MessageRepository $repository,
         MailServiceInterface $mailService,
         TemplateRendererInterface $templateRenderer,
         array $config = []
     ) {
-        $this->repository = $entityManager->getRepository(Message::class);
+        $this->repository = $repository;
         $this->mailService = $mailService;
         $this->templateRenderer = $templateRenderer;
         $this->config = $config;
@@ -55,8 +54,7 @@ class MessageService implements MessageServiceInterface
     }
 
     /**
-     * @param array $data
-     * @return bool
+     * @throws MailException
      */
     public function processMessage(array $data): bool
     {
@@ -73,10 +71,6 @@ class MessageService implements MessageServiceInterface
         return $this->sendContactMail($message);
     }
 
-    /**
-     * @param Message $message
-     * @return bool
-     */
     public function sendContactMail(Message $message): bool
     {
         $this->mailService->setBody(
@@ -91,8 +85,14 @@ class MessageService implements MessageServiceInterface
             $this->config['dot_mail']['default']['message_options']['from'],
             $this->config['dot_mail']['default']['message_options']['from_name']
         );
-        $this->mailService->getMessage()->addTo($this->config['contact']['message_receivers']['to'], 'DotKernel Team');
-        $this->mailService->getMessage()->addCC($this->config['contact']['message_receivers']['cc'], 'DotKernel Team');
+        $this->mailService->getMessage()->addTo(
+            $this->config['contact']['message_receivers']['to'],
+            'DotKernel Team'
+        );
+        $this->mailService->getMessage()->addCC(
+            $this->config['contact']['message_receivers']['cc'],
+            'DotKernel Team'
+        );
         $this->mailService->getMessage()->setReplyTo($message->getEmail(), $message->getName());
 
         return $this->mailService->send()->isValid();

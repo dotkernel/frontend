@@ -14,6 +14,7 @@ use Frontend\User\Repository\UserRepository;
 use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\Authentication\Exception\ExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -29,15 +30,11 @@ class RememberMeMiddleware implements MiddlewareInterface
 {
     protected UserServiceInterface $userService;
     protected AuthenticationServiceInterface $authenticationService;
+
     protected UserRepository $repository;
     protected array $rememberConfig = [];
 
     /**
-     * RememberMeMiddleware constructor.
-     * @param UserServiceInterface $userService
-     * @param AuthenticationService $authenticationService
-     * @param array $rememberConfig
-     *
      * @Inject({
      *     UserServiceInterface::class,
      *     AuthenticationService::class,
@@ -46,7 +43,7 @@ class RememberMeMiddleware implements MiddlewareInterface
      */
     public function __construct(
         UserServiceInterface $userService,
-        AuthenticationService $authenticationService,
+        AuthenticationServiceInterface $authenticationService,
         array $rememberConfig
     ) {
         $this->userService = $userService;
@@ -58,20 +55,22 @@ class RememberMeMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
-     * @throws NonUniqueResultException
+     * @throws NonUniqueResultException|ExceptionInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $cookies = $request->getCookieParams();
-        if (!empty($cookies['rememberMe'])) {
+        if (! empty($cookies['rememberMe'])) {
             $hash = $cookies['rememberMe'];
             $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
-            if (!empty($rememberUser)) {
+            if ($rememberUser) {
                 $user = $rememberUser->getUser();
                 $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
                 if (
-                    $hash == $rememberUser->getRememberMeToken() && $rememberUser->getUserAgent() == $deviceType &&
-                    $rememberUser->getExpireDate() > new DateTimeImmutable('now') && $user->getIsDeleted() === false
+                    $hash == $rememberUser->getRememberMeToken() &&
+                    $rememberUser->getUserAgent() == $deviceType &&
+                    $rememberUser->getExpireDate() > new DateTimeImmutable('now') &&
+                    $user->getIsDeleted() === false
                 ) {
                     $userIdentity = new UserIdentity(
                         $user->getUuid()->toString(),

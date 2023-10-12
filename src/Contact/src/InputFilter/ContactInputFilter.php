@@ -17,9 +17,6 @@ use Laminas\Validator\StringLength;
  */
 class ContactInputFilter extends InputFilter
 {
-    /**
-     * @return void
-     */
     public function init(): void
     {
         parent::init();
@@ -47,6 +44,7 @@ class ContactInputFilter extends InputFilter
             ], true)
             ->attachByName(StringLength::class, [
                 'max' => 255,
+                'message' => '<b>Name</b> must not be greater than 255 characters long.',
             ], true);
         $this->add($name);
 
@@ -73,6 +71,7 @@ class ContactInputFilter extends InputFilter
             ], true)
             ->attachByName(StringLength::class, [
                 'max' => 1000,
+                'message' => '<b>Message</b> must not be greater than 1000 characters long.',
             ], true);
         $this->add($message);
     }

@@ -115,7 +115,7 @@ class UserController extends AbstractActionController
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
                     $identity = $authResult->getIdentity();
-                    $user = $this->userService->findByIdentity($identity->getIdentity());
+                    $user = $this->userService->findOneBy(['identity' => $identity->getIdentity()]);
                     $deviceType = $this->getRequest()->getServerParams();
                     $this->authenticationService->getStorage()->write($identity);
                     if (!empty($data['rememberMe'])) {

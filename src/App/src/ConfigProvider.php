@@ -50,8 +50,6 @@ class ConfigProvider
             'delegators' => [
                 Application::class => [
                     RoutesDelegator::class,
-                    \Frontend\Page\RoutesDelegator::class,
-                    \Frontend\User\RoutesDelegator::class
                 ]
             ],
             'factories' => [
@@ -64,7 +62,7 @@ class ConfigProvider
             ],
             'aliases' => [
                 EntityManager::class => 'doctrine.entity_manager.orm_default',
-                EntityManagerInterface::class => 'doctrine.entity_manager.default',
+                EntityManagerInterface::class => 'doctrine.entity_manager.orm_default',
                 TranslateServiceInterface::class => TranslateService::class,
                 CookieServiceInterface::class => CookieService::class,
             ]

@@ -89,7 +89,7 @@ class AccountController extends AbstractActionController
     public function activateAction(): ResponseInterface
     {
         $hash = $this->getRequest()->getAttribute('hash', false);
-        if (!$hash) {
+        if (! $hash) {
             $this->messenger->addError(sprintf(Message::MISSING_PARAMETER, 'hash'), 'user-login');
             return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
         }

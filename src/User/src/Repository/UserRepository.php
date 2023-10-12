@@ -7,24 +7,18 @@ namespace Frontend\User\Repository;
 use Doctrine\ORM\EntityRepository;
 use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
-use Frontend\User\Entity\UserInterface;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Doctrine\ORM\NonUniqueResultException;
+use Dot\AnnotatedServices\Annotation\Entity;
 use DateTimeImmutable;
 use Exception;
 
 /**
- * Class UserRepository
- * @package Frontend\User\Repository
+ * @Entity(name="Frontend\User\Entity\User")
  * @extends EntityRepository<object>
  */
 class UserRepository extends EntityRepository
 {
-    /**
-     * @param string $uuid
-     * @return User|null
-     * @throws NonUniqueResultException
-     */
     public function findByUuid(string $uuid): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -37,27 +31,6 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
-    /**
-     * @param string $identity
-     * @return UserInterface
-     * @throws NonUniqueResultException
-     */
-    public function findByIdentity(string $identity): UserInterface
-    {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb
-            ->select('user')
-            ->from(User::class, 'user')
-            ->andWhere("user.identity = :identity")
-            ->setParameter('identity', $identity)
-            ->setMaxResults(1);
-        return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
-    }
-
-    /**
-     * @param User $user
-     * @return User
-     */
     public function saveUser(User $user): User
     {
         $this->getEntityManager()->persist($user);
@@ -119,8 +92,6 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param string $token
-     * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
     public function getRememberUser(string $token): ?UserRememberMe

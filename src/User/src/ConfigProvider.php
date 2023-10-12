@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Controller\AccountController;
@@ -14,12 +15,15 @@ use Frontend\User\Entity\UserInterface;
 use Frontend\User\Factory\AuthenticationAdapterFactory;
 use Frontend\User\Factory\AuthenticationServiceFactory;
 use Frontend\User\Form\LoginForm;
+use Frontend\User\Repository\UserRepository;
+use Frontend\User\Repository\UserRoleRepository;
 use Frontend\User\Service\UserRoleService;
 use Frontend\User\Service\UserRoleServiceInterface;
 use Frontend\User\Service\UserService;
 use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Form\ElementFactory;
+use Mezzio\Application;
 
 /**
  * Class ConfigProvider
@@ -46,13 +50,20 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'delegators' => [
+                Application::class => [
+                    RoutesDelegator::class
+                ]
+            ],
             'factories' => [
+                AuthenticationService::class => AuthenticationServiceFactory::class,
+                AuthenticationAdapter::class => AuthenticationAdapterFactory::class,
                 UserController::class => AnnotatedServiceFactory::class,
                 AccountController::class => AnnotatedServiceFactory::class,
                 UserService::class => AnnotatedServiceFactory::class,
                 UserRoleService::class => AnnotatedServiceFactory::class,
-                AuthenticationService::class => AuthenticationServiceFactory::class,
-                AuthenticationAdapter::class => AuthenticationAdapterFactory::class,
+                UserRepository::class => AnnotatedRepositoryFactory::class,
+                UserRoleRepository::class => AnnotatedRepositoryFactory::class,
             ],
             'aliases' => [
                 UserInterface::class => User::class,

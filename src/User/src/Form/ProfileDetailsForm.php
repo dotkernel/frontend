@@ -11,19 +11,10 @@ use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilter;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class ProfileDetailsForm
- * @package Frontend\User\Form
- */
 class ProfileDetailsForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * ProfileDetailsForm constructor.
-     * @param null $name
-     * @param array $options
-     */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
@@ -32,11 +23,12 @@ class ProfileDetailsForm extends Form
 
         $this->inputFilter = new InputFilter();
         $detailsInputFilter = new UserDetailInputFilter();
+
         $detailsInputFilter->init();
         $this->inputFilter->add($detailsInputFilter, 'detail');
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -55,9 +47,6 @@ class ProfileDetailsForm extends Form
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

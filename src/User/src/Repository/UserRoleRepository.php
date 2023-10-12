@@ -7,10 +7,10 @@ namespace Frontend\User\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Frontend\User\Entity\UserRole;
+use Dot\AnnotatedServices\Annotation\Entity;
 
 /**
- * Class UserRoleRepository
- * @package Frontend\User\Repository
+ * @Entity(name="Frontend\User\Entity\UserRole")
  * @extends EntityRepository<object>
  */
 class UserRoleRepository extends EntityRepository

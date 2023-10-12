@@ -13,15 +13,9 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
-/**
- * Class PluginManagerFactory
- * @package Frontend\Plugin\Factory
- */
 class PluginManagerFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return PluginManager
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
