@@ -30,9 +30,9 @@ return [
              **/
 
             'transport' => Laminas\Mail\Transport\Sendmail::class,
-
+            
              // Uncomment the below line if you want to save a copy of all sent emails to a certain IMAP folder
-            // Valid only if the Transport is SMTP
+            // Valid only if the Transport is SMTP 
             // 'save_sent_message_folder' => ['INBOX.Sent'],
 
             //message configuration
