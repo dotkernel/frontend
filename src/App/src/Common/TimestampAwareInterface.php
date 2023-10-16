@@ -8,7 +8,6 @@ use DateTimeImmutable;
 
 /**
  * Interface TimestampAwareInterface
- * @package Frontend\App\Common
  */
 interface TimestampAwareInterface
 {

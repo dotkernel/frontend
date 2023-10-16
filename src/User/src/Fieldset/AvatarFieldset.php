@@ -9,6 +9,10 @@ use Laminas\Form\Fieldset;
 
 class AvatarFieldset extends Fieldset
 {
+    /**
+     * @param mixed $name
+     * @param array $options
+     */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
@@ -19,12 +23,12 @@ class AvatarFieldset extends Fieldset
         parent::init();
 
         $this->add([
-            'name' => 'image',
+            'name'       => 'image',
             'attributes' => [
                 'class' => 'img-input',
-                'name' => 'image',
+                'name'  => 'image',
             ],
-            'type' => File::class
+            'type'       => File::class,
         ]);
     }
 }

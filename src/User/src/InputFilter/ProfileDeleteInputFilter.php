@@ -26,7 +26,8 @@ class ProfileDeleteInputFilter extends InputFilter
         $isDeleted->getValidatorChain()
             ->attachByName(InArray::class, [
                 'haystack' => User::IS_DELETED,
-                'message' => Message::DELETE_ACCOUNT,
+                'message'  => Message::DELETE_ACCOUNT,
+                'strict'   => InArray::COMPARE_STRICT,
             ], true)
             ->attachByName(NotEmpty::class, [
                 'message' => Message::DELETE_ACCOUNT,

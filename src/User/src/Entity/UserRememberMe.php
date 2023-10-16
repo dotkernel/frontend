@@ -9,11 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
 /**
- * Class UserRememberMe
  * @ORM\Entity()
  * @ORM\Table(name="user_remember_me")
  * @ORM\HasLifecycleCallbacks()
- * @package Frontend\User\Entity
  */
 class UserRememberMe extends AbstractEntity
 {
@@ -23,39 +21,26 @@ class UserRememberMe extends AbstractEntity
      */
     protected User $user;
 
-    /**
-     * @ORM\Column(name="rememberMeToken", type="string", length=100, nullable=false, unique=true)
-     */
+    /** @ORM\Column(name="rememberMeToken", type="string", length=100, nullable=false, unique=true) */
     protected string $rememberMeToken = '';
 
-    /**
-     * @ORM\Column(name="userAgent", type="text")
-     */
+    /** @ORM\Column(name="userAgent", type="text") */
     protected ?string $userAgent = null;
 
-    /**
-     * @ORM\Column(name="expireDate", type="datetime_immutable")
-     */
+    /** @ORM\Column(name="expireDate", type="datetime_immutable") */
     protected DateTimeImmutable $expireDate;
 
-    /**
-     * UserRememberMe constructor.
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
     /**
-     * @param User $user
      * @return $this
      */
     public function setUser(User $user): self
@@ -65,16 +50,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRememberMeToken(): string
     {
         return $this->rememberMeToken;
     }
 
     /**
-     * @param string $rememberMeToken
      * @return $this
      */
     public function setRememberMeToken(string $rememberMeToken): self
@@ -84,16 +65,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getUserAgent(): ?string
     {
         return $this->userAgent;
     }
 
     /**
-     * @param string|null $userAgent
      * @return $this
      */
     public function setUserAgent(?string $userAgent): self
@@ -103,16 +80,12 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return DateTimeImmutable
-     */
     public function getExpireDate(): DateTimeImmutable
     {
         return $this->expireDate;
     }
 
     /**
-     * @param DateTimeImmutable $expireDate
      * @return $this
      */
     public function setExpireDate(DateTimeImmutable $expireDate): self
@@ -128,13 +101,13 @@ class UserRememberMe extends AbstractEntity
     public function getArrayCopy(): array
     {
         return [
-            'uuid' => $this->getUuid()->toString(),
-            'name' => $this->getUser(),
-            'userHash' => $this->getRememberMeToken(),
-            'userAgent' => $this->getUserAgent(),
+            'uuid'       => $this->getUuid()->toString(),
+            'name'       => $this->getUser(),
+            'userHash'   => $this->getRememberMeToken(),
+            'userAgent'  => $this->getUserAgent(),
             'expireDate' => $this->getExpireDate(),
-            'created' => $this->getCreated(),
-            'updated' => $this->getUpdated()
+            'created'    => $this->getCreated(),
+            'updated'    => $this->getUpdated(),
         ];
     }
 }

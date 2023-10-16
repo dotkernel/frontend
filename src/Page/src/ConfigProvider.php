@@ -10,10 +10,6 @@ use Frontend\Page\Service\PageService;
 use Frontend\Page\Service\PageServiceInterface;
 use Mezzio\Application;
 
-/**
- * Class ConfigProvider
- * @package Frontend\Page
- */
 class ConfigProvider
 {
     /**
@@ -23,7 +19,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates' => $this->getTemplates(),
+            'templates'    => $this->getTemplates(),
         ];
     }
 
@@ -36,13 +32,13 @@ class ConfigProvider
             'delegators' => [
                 Application::class => [
                     RoutesDelegator::class,
-                ]
+                ],
             ],
-            'factories' => [
+            'factories'  => [
                 PageController::class => AnnotatedServiceFactory::class,
-                PageService::class => AnnotatedServiceFactory::class,
+                PageService::class    => AnnotatedServiceFactory::class,
             ],
-            'aliases' => [
+            'aliases'    => [
                 PageServiceInterface::class => PageService::class,
             ],
         ];
@@ -55,7 +51,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'page' => [__DIR__ . '/../templates/page']
+                'page' => [__DIR__ . '/../templates/page'],
             ],
         ];
     }

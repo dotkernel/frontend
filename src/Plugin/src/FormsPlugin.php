@@ -9,6 +9,10 @@ use Laminas\Form\Form;
 use Laminas\Form\FormElementManager;
 use Laminas\Form\FormInterface;
 
+use function array_merge;
+use function is_array;
+use function is_string;
+
 class FormsPlugin implements PluginInterface
 {
     protected FormElementManager $formElementManager;
@@ -16,19 +20,19 @@ class FormsPlugin implements PluginInterface
 
     public function __construct(
         FormElementManager $formManager,
-        FlashMessengerInterface $flashMessenger = null
+        ?FlashMessengerInterface $flashMessenger = null
     ) {
         $this->formElementManager = $formManager;
-        $this->flashMessenger = $flashMessenger;
+        $this->flashMessenger     = $flashMessenger;
     }
 
     public function restoreState(Form $form): void
     {
         if ($this->flashMessenger instanceof FlashMessengerInterface) {
-            $dataKey = $form->getName() . '_data';
+            $dataKey     = $form->getName() . '_data';
             $messagesKey = $form->getName() . '_messages';
 
-            $data = $this->flashMessenger->getData($dataKey) ?: [];
+            $data     = $this->flashMessenger->getData($dataKey) ?: [];
             $messages = $this->flashMessenger->getData($messagesKey) ?: [];
 
             $form->setData($data);
@@ -39,7 +43,7 @@ class FormsPlugin implements PluginInterface
     public function saveState(Form $form): void
     {
         if ($this->flashMessenger instanceof FlashMessengerInterface) {
-            $dataKey = $form->getName() . '_data';
+            $dataKey     = $form->getName() . '_data';
             $messagesKey = $form->getName() . '_messages';
 
             $this->flashMessenger->addData($dataKey, $form->getData(FormInterface::VALUES_AS_ARRAY));

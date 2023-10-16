@@ -21,9 +21,6 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
- * Class RememberMeMiddleware
- * @package Frontend\App\Middleware
- *
  * @Service()
  */
 class RememberMeMiddleware implements MiddlewareInterface
@@ -46,29 +43,26 @@ class RememberMeMiddleware implements MiddlewareInterface
         AuthenticationServiceInterface $authenticationService,
         array $rememberConfig
     ) {
-        $this->userService = $userService;
+        $this->userService           = $userService;
         $this->authenticationService = $authenticationService;
-        $this->rememberConfig = $rememberConfig;
+        $this->rememberConfig        = $rememberConfig;
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
      * @throws NonUniqueResultException|ExceptionInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $cookies = $request->getCookieParams();
         if (! empty($cookies['rememberMe'])) {
-            $hash = $cookies['rememberMe'];
+            $hash         = $cookies['rememberMe'];
             $rememberUser = $this->userService->getRepository()->getRememberUser($hash);
             if ($rememberUser) {
-                $user = $rememberUser->getUser();
+                $user       = $rememberUser->getUser();
                 $deviceType = $request->getServerParams()['HTTP_USER_AGENT'];
                 if (
-                    $hash == $rememberUser->getRememberMeToken() &&
-                    $rememberUser->getUserAgent() == $deviceType &&
+                    $hash === $rememberUser->getRememberMeToken() &&
+                    $rememberUser->getUserAgent() === $deviceType &&
                     $rememberUser->getExpireDate() > new DateTimeImmutable('now') &&
                     $user->getIsDeleted() === false
                 ) {

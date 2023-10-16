@@ -15,10 +15,6 @@ use Frontend\Contact\Service\MessageServiceInterface;
 use Laminas\Form\ElementFactory;
 use Mezzio\Application;
 
-/**
- * Class ConfigProvider
- * @package Frontend\Contact
- */
 class ConfigProvider
 {
     /**
@@ -28,9 +24,9 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates' => $this->getTemplates(),
-            'forms' => $this->getForms(),
-            'doctrine' => $this->getDoctrineConfig(),
+            'templates'    => $this->getTemplates(),
+            'forms'        => $this->getForms(),
+            'doctrine'     => $this->getDoctrineConfig(),
         ];
     }
 
@@ -45,14 +41,14 @@ class ConfigProvider
                     RoutesDelegator::class,
                 ],
             ],
-            'factories' => [
+            'factories'  => [
                 ContactController::class => AnnotatedServiceFactory::class,
-                MessageService::class => AnnotatedServiceFactory::class,
+                MessageService::class    => AnnotatedServiceFactory::class,
                 MessageRepository::class => AnnotatedRepositoryFactory::class,
             ],
-            'aliases' => [
+            'aliases'    => [
                 MessageServiceInterface::class => MessageService::class,
-            ]
+            ],
         ];
     }
 
@@ -63,7 +59,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'contact' => [__DIR__ . '/../templates/contact']
+                'contact' => [__DIR__ . '/../templates/contact'],
             ],
         ];
     }
@@ -78,8 +74,7 @@ class ConfigProvider
                 'factories' => [
                     ContactForm::class => ElementFactory::class,
                 ],
-                'aliases' => [
-                ],
+                'aliases'   => [],
             ],
         ];
     }
@@ -91,17 +86,17 @@ class ConfigProvider
     {
         return [
             'driver' => [
-                'orm_default' => [
+                'orm_default'     => [
                     'drivers' => [
                         'Frontend\Contact\Entity' => 'ContactEntities',
-                    ]
+                    ],
                 ],
                 'ContactEntities' => [
                     'class' => AnnotationDriver::class,
                     'cache' => 'array',
                     'paths' => [__DIR__ . '/Entity'],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 }

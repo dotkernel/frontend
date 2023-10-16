@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Repository;
 
+use Doctrine\ORM\EntityRepository;
 use Dot\AnnotatedServices\Annotation\Entity;
 use Frontend\Contact\Entity\Message;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * @Entity(name="Frontend\Contact\Entity\Message")

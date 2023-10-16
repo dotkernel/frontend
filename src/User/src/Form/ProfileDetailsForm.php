@@ -15,13 +15,17 @@ class ProfileDetailsForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
+    /**
+     * @param mixed $name
+     * @param array $options
+     */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
 
         $this->init();
 
-        $this->inputFilter = new InputFilter();
+        $this->inputFilter  = new InputFilter();
         $detailsInputFilter = new UserDetailInputFilter();
 
         $detailsInputFilter->init();
@@ -34,16 +38,16 @@ class ProfileDetailsForm extends Form
 
         $this->add([
             'name' => 'detail',
-            'type' => UserDetailFieldset::class
+            'type' => UserDetailFieldset::class,
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Update'
+                'type'  => 'submit',
+                'value' => 'Update',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 

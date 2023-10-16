@@ -12,6 +12,11 @@ use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Laminas\Authentication\Result;
 
+use function class_exists;
+use function method_exists;
+use function password_verify;
+use function ucfirst;
+
 class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 {
     private EntityRepository $entityRepository;
@@ -21,7 +26,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     public function __construct(EntityRepository $entityRepository, array $config)
     {
         $this->entityRepository = $entityRepository;
-        $this->config = $config;
+        $this->config           = $config;
     }
 
     public function authenticate(): Result
@@ -29,7 +34,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
         $this->validateConfig();
 
         $identityClass = $this->entityRepository->findOneBy([
-            $this->config['identity_property'] => $this->getIdentity()
+            $this->config['identity_property'] => $this->getIdentity(),
         ]);
 
         if (null === $identityClass) {
@@ -109,7 +114,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
     private function checkMethod(object $identityClass, string $methodName): void
     {
         if (! method_exists($identityClass, $methodName)) {
-            throw AuthenticationAdapterException::methodNotExists($methodName, get_class($identityClass));
+            throw AuthenticationAdapterException::methodNotExists($methodName, $identityClass::class);
         }
     }
 }

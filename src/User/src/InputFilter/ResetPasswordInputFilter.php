@@ -30,8 +30,8 @@ class ResetPasswordInputFilter extends InputFilter
                 'message' => '<b>Password</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min' => 8,
-                'max' => 150,
+                'min'     => 8,
+                'max'     => 150,
                 'message' => '<b>Password</b> must have between 8 and 150 characters',
             ], true);
         $this->add($password);
@@ -45,12 +45,12 @@ class ResetPasswordInputFilter extends InputFilter
                 'message' => '<b>Confirm Password</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min' => 8,
-                'max' => 150,
+                'min'     => 8,
+                'max'     => 150,
                 'message' => '<b>Confirm Password</b> must have between 8 and 150 characters',
             ])
             ->attachByName(Identical::class, [
-                'token' => 'password',
+                'token'   => 'password',
                 'message' => '<b>Password confirm</b> does not match',
             ]);
         $this->add($passwordConfirm);

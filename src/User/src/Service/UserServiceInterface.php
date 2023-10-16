@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace Frontend\User\Service;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Dot\Mail\Exception\MailException;
-use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
-use Frontend\User\Repository\UserRepository;
 
 /**
  * Interface UserServiceInterface
- * @package Frontend\User\Service
  */
 interface UserServiceInterface
 {

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Frontend\User\Repository;
 
+use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;
-use Frontend\User\Entity\UserRememberMe;
-use Frontend\User\Entity\User;
-use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Entity;
-use DateTimeImmutable;
 use Exception;
+use Frontend\User\Entity\User;
+use Frontend\User\Entity\UserRememberMe;
+use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 
 /**
  * @Entity(name="Frontend\User\Entity\User")
@@ -19,6 +19,9 @@ use Exception;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findByUuid(string $uuid): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -39,11 +42,6 @@ class UserRepository extends EntityRepository
         return $user;
     }
 
-    /**
-     * @param string $email
-     * @param string|null $uuid
-     * @return User|null
-     */
     public function exists(string $email = '', ?string $uuid = ''): ?User
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -52,7 +50,7 @@ class UserRepository extends EntityRepository
             ->from(User::class, 'user')
             ->where('user.identity = :email')->setParameter('email', $email)
             ->andWhere('user.isDeleted = :isDeleted')->setParameter('isDeleted', User::IS_DELETED_NO);
-        if (!empty($uuid)) {
+        if (! empty($uuid)) {
             $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME);
         }
 
@@ -63,10 +61,6 @@ class UserRepository extends EntityRepository
         }
     }
 
-    /**
-     * @param string $hash
-     * @return User|null
-     */
     public function findByResetPasswordHash(string $hash): ?User
     {
         try {
@@ -81,10 +75,6 @@ class UserRepository extends EntityRepository
         }
     }
 
-    /**
-     * @param UserRememberMe $userRememberMe
-     * @return void
-     */
     public function saveUserRememberMe(UserRememberMe $userRememberMe): void
     {
         $this->getEntityManager()->persist($userRememberMe);
@@ -106,9 +96,6 @@ class UserRepository extends EntityRepository
     }
 
     /**
-     * @param User $user
-     * @param string $userAgent
-     * @return UserRememberMe|null
      * @throws NonUniqueResultException
      */
     public function findRememberMeUser(User $user, string $userAgent): ?UserRememberMe
@@ -121,14 +108,9 @@ class UserRepository extends EntityRepository
             ->andWhere('user_remember_me.userAgent = :userAgent')
             ->setParameter('userAgent', $userAgent);
 
-
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
-    /**
-     * @param DateTimeImmutable $currentDate
-     * @return mixed
-     */
     public function deleteExpiredCookies(DateTimeImmutable $currentDate): mixed
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -139,10 +121,6 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->useQueryCache(true)->execute();
     }
 
-    /**
-     * @param UserRememberMe $userRememberMe
-     * @return void
-     */
     public function removeUserRememberMe(UserRememberMe $userRememberMe): void
     {
         $this->getEntityManager()->remove($userRememberMe);

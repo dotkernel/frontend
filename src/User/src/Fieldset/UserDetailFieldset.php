@@ -9,6 +9,10 @@ use Laminas\Form\Fieldset;
 
 class UserDetailFieldset extends Fieldset
 {
+    /**
+     * @param mixed $name
+     * @param array $options
+     */
     public function __construct($name = null, array $options = [])
     {
         parent::__construct($name, $options);
@@ -19,25 +23,25 @@ class UserDetailFieldset extends Fieldset
         parent::init();
 
         $this->add([
-            'name' => 'firstName',
-            'options' => [
-                'label' => 'First Name'
+            'name'       => 'firstName',
+            'options'    => [
+                'label' => 'First Name',
             ],
             'attributes' => [
                 'placeholder' => 'First Name...',
             ],
-            'type' => Text::class
+            'type'       => Text::class,
         ]);
 
         $this->add([
-            'name' => 'lastName',
-            'options' => [
-                'label' => 'Last Name'
+            'name'       => 'lastName',
+            'options'    => [
+                'label' => 'Last Name',
             ],
             'attributes' => [
                 'placeholder' => 'Last Name...',
             ],
-            'type' => Text::class
+            'type'       => Text::class,
         ]);
     }
 }

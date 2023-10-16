@@ -21,10 +21,6 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class ContactController
- * @package Frontend\Contact\Controller
- */
 class ContactController extends AbstractActionController
 {
     protected RouterInterface $router;
@@ -38,15 +34,6 @@ class ContactController extends AbstractActionController
     protected array $config;
 
     /**
-     * ContactController constructor.
-     * @param MessageServiceInterface $messageService
-     * @param RecaptchaService $recaptchaService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
-     * @param AuthenticationService $authenticationService
-     * @param FlashMessenger $messenger
-     * @param FormsPlugin $forms
-     * @param DebugBar $debugBar
      * @param array $config
      * @Inject({
      *     MessageServiceInterface::class,
@@ -71,23 +58,20 @@ class ContactController extends AbstractActionController
         DebugBar $debugBar,
         array $config = []
     ) {
-        $this->messageService = $messageService;
-        $this->recaptchaService = $recaptchaService;
-        $this->router = $router;
-        $this->template = $template;
+        $this->messageService        = $messageService;
+        $this->recaptchaService      = $recaptchaService;
+        $this->router                = $router;
+        $this->template              = $template;
         $this->authenticationService = $authenticationService;
-        $this->messenger = $messenger;
-        $this->forms = $forms;
-        $this->debugBar = $debugBar;
-        $this->config = $config;
+        $this->messenger             = $messenger;
+        $this->forms                 = $forms;
+        $this->debugBar              = $debugBar;
+        $this->config                = $config;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function formAction(): ResponseInterface
     {
-        $form = new ContactForm();
+        $form    = new ContactForm();
         $request = $this->getRequest();
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
@@ -108,7 +92,7 @@ class ContactController extends AbstractActionController
             $form->setData($data);
             if ($form->isValid()) {
                 $dataForm = $form->getData();
-                $result = $this->messageService->processMessage($dataForm);
+                $result   = $this->messageService->processMessage($dataForm);
 
                 if ($result) {
                     $this->debugBar->stackData();
@@ -124,8 +108,8 @@ class ContactController extends AbstractActionController
         }
 
         return new HtmlResponse($this->template->render('contact::contact-form', [
-            'form' => $form,
-            'recaptchaSiteKey' => $this->config['recaptcha']['siteKey']
+            'form'             => $form,
+            'recaptchaSiteKey' => $this->config['recaptcha']['siteKey'],
         ]));
     }
 }

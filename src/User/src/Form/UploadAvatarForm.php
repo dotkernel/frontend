@@ -9,16 +9,11 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class UploadAvatarForm
- * @package Frontend\User\Form
- */
 class UploadAvatarForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
     /**
-     * UploadAvatarForm constructor.
      * @param null $name
      * @param array $options
      */
@@ -35,16 +30,16 @@ class UploadAvatarForm extends Form
 
         $this->add([
             'name' => 'avatar',
-            'type' => AvatarFieldset::class
+            'type' => AvatarFieldset::class,
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Upload'
+                'type'  => 'submit',
+                'value' => 'Upload',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 }

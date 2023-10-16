@@ -10,16 +10,11 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class RequestResetPasswordForm
- * @package Frontend\User\Form
- */
 class RequestResetPasswordForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
     /**
-     * RequestResetPasswordForm constructor.
      * @param null $name
      * @param array $options
      */
@@ -38,29 +33,26 @@ class RequestResetPasswordForm extends Form
         parent::init();
 
         $this->add([
-            'name' => 'identity',
-            'options' => [
-                'label' => 'Email address'
+            'name'       => 'identity',
+            'options'    => [
+                'label' => 'Email address',
             ],
             'attributes' => [
                 'placeholder' => 'Email address',
             ],
-            'type' => Email::class
+            'type'       => Email::class,
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Request'
+                'type'  => 'submit',
+                'value' => 'Request',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

@@ -8,19 +8,29 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use InvalidArgumentException;
 
-/**
- * Class RecaptchaService
- * @package Frontend\App\Service
- */
+use function curl_exec;
+use function curl_getinfo;
+use function curl_init;
+use function curl_setopt;
+use function http_build_query;
+use function is_float;
+use function json_decode;
+use function sprintf;
+
+use const CURLINFO_HTTP_CODE;
+use const CURLOPT_POST;
+use const CURLOPT_POSTFIELDS;
+use const CURLOPT_RETURNTRANSFER;
+use const CURLOPT_SSL_VERIFYPEER;
+use const CURLOPT_URL;
+
 class RecaptchaService
 {
     private array $config;
     private string $response;
 
     /**
-     * RecaptchaService constructor.
      * @param array $config
-     *
      * @Inject({
      *     "config.recaptcha"
      * })
@@ -33,7 +43,6 @@ class RecaptchaService
     }
 
     /**
-     * @param string $response
      * @return $this
      */
     public function setResponse(string $response): self
@@ -43,9 +52,6 @@ class RecaptchaService
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isValid(): bool
     {
         if (empty($this->response)) {
@@ -53,7 +59,7 @@ class RecaptchaService
         }
 
         $data = [
-            'secret' => $this->config['secretKey'],
+            'secret'   => $this->config['secretKey'],
             'response' => $this->response,
         ];
 
@@ -68,7 +74,7 @@ class RecaptchaService
         $response = curl_exec($curl);
 
         /** @psalm-suppress InvalidScalarArgument */
-        $response = json_decode($response, true);
+        $response   = json_decode($response, true);
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if ($statusCode !== StatusCodeInterface::STATUS_OK) {
@@ -76,14 +82,13 @@ class RecaptchaService
         }
 
         $success = $response['success'] ?? false;
-        $score = $response['score'] ?? 0;
+        $score   = $response['score'] ?? 0;
 
         return $success && $score > $this->config['scoreThreshold'];
     }
 
     /**
      * @param array $config
-     * @return void
      */
     private function validateConfig(array $config): void
     {

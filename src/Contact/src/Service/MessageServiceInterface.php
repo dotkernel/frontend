@@ -11,7 +11,6 @@ use Frontend\Contact\Repository\MessageRepository;
 
 /**
  * Interface MessageService
- * @package Frontend\Contact\Service
  */
 interface MessageServiceInterface
 {
@@ -19,13 +18,10 @@ interface MessageServiceInterface
 
     /**
      * @param array $data
-     * @return bool
      */
     public function processMessage(array $data): bool;
 
     /**
-     * @param Message $message
-     * @return bool
      * @throws MailException
      */
     public function sendContactMail(Message $message): bool;

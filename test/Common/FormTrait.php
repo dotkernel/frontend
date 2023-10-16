@@ -35,9 +35,18 @@ trait FormTrait
     {
         $this->assertCount(count($inputs), $inputFilter->getInputs());
 
-        foreach ($inputs as $input) {
-            $this->assertTrue($inputFilter->has($input));
-            $this->assertInstanceOf(Input::class, $inputFilter->get($input));
+        foreach ($inputs as $key => $input) {
+            if (is_array($input)) {
+                foreach ($input as $innerInput) {
+                    $this->assertTrue($inputFilter->has($key));
+                    $innerInputFilter = $inputFilter->get($key);
+                    $this->assertTrue($innerInputFilter->has($innerInput));
+                    $this->assertInstanceOf(Input::class, $innerInputFilter->get($innerInput));
+                }
+            } else {
+                $this->assertTrue($inputFilter->has($input));
+                $this->assertInstanceOf(Input::class, $inputFilter->get($input));
+            }
         }
     }
 }

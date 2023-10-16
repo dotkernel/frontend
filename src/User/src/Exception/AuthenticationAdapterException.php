@@ -6,6 +6,8 @@ namespace Frontend\User\Exception;
 
 use RuntimeException;
 
+use function sprintf;
+
 class AuthenticationAdapterException extends RuntimeException
 {
     public static function noCredentialsProvided(): self
@@ -41,6 +43,6 @@ class AuthenticationAdapterException extends RuntimeException
 
     public static function invalidConfigurationProvided(): self
     {
-        return new self("No or invalid authentication configuration provided.",);
+        return new self("No or invalid authentication configuration provided.");
     }
 }

@@ -13,9 +13,10 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use RuntimeException;
 
+use function sprintf;
+
 class AuthenticationAdapterFactory
 {
-
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -32,7 +33,7 @@ class AuthenticationAdapterFactory
         }
 
         $entityManager = $container->get(EntityManager::class);
-        $config = $container->get('config');
+        $config        = $container->get('config');
         if (! isset($config['doctrine']['authentication']['orm_default'])) {
             throw AuthenticationAdapterException::invalidConfigurationProvided();
         }

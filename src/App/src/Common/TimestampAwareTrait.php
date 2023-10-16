@@ -8,9 +8,10 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 
+use function error_log;
+
 /**
  * Trait TimestampAwareTrait
- * @package Frontend\App\Common
  */
 trait TimestampAwareTrait
 {

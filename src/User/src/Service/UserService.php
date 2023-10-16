@@ -5,39 +5,45 @@ declare(strict_types=1);
 namespace Frontend\User\Service;
 
 use DateTimeImmutable;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Service\MailService;
 use Dot\Mail\Service\MailServiceInterface;
+use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
 use Frontend\App\Service\CookieServiceInterface;
-use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
 use Frontend\User\Entity\UserDetail;
 use Frontend\User\Entity\UserInterface;
+use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\UserRole;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
 use Mezzio\Template\TemplateRendererInterface;
-use Exception;
+
+use function file_exists;
+use function is_readable;
+use function mkdir;
+use function password_hash;
+use function sprintf;
+use function time;
+use function unlink;
+
+use const PASSWORD_DEFAULT;
 
 /**
- * Class UserService
- * @package Frontend\User\Service
- *
  * @Service()
  */
 class UserService implements UserServiceInterface
 {
     public const EXTENSIONS = [
-        'image/jpg' => 'jpg',
+        'image/jpg'  => 'jpg',
         'image/jpeg' => 'jpg',
-        'image/png' => 'png'
+        'image/png'  => 'png',
     ];
 
     protected CookieServiceInterface $cookieService;
@@ -52,18 +58,10 @@ class UserService implements UserServiceInterface
 
     protected UserRoleRepository $userRoleRepository;
 
-
     protected array $config = [];
 
     /**
-     * @param CookieServiceInterface $cookieService
-     * @param MailService $mailService
-     * @param UserRoleServiceInterface $userRoleService
-     * @param TemplateRendererInterface $templateRenderer
-     * @param UserRepository $userRepository
-     * @param UserRoleRepository $userRoleRepository
      * @param array $config
-     *
      * @Inject({
      *     CookieServiceInterface::class,
      *     MailService::class,
@@ -83,13 +81,13 @@ class UserService implements UserServiceInterface
         UserRoleRepository $userRoleRepository,
         array $config = []
     ) {
-        $this->cookieService = $cookieService;
-        $this->mailService = $mailService;
-        $this->userRoleService = $userRoleService;
-        $this->templateRenderer = $templateRenderer;
-        $this->userRepository = $userRepository;
+        $this->cookieService      = $cookieService;
+        $this->mailService        = $mailService;
+        $this->userRoleService    = $userRoleService;
+        $this->templateRenderer   = $templateRenderer;
+        $this->userRepository     = $userRepository;
         $this->userRoleRepository = $userRoleRepository;
-        $this->config = $config;
+        $this->config             = $config;
     }
 
     /**
@@ -100,6 +98,9 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findByUuid($uuid);
     }
 
+    /**
+     * @throws Exception
+     */
     public function createUser(array $data = []): UserInterface
     {
         if ($this->exists($data['email'])) {
@@ -132,14 +133,16 @@ class UserService implements UserServiceInterface
             }
         }
 
-        // TODO TEST IF WE NEED THIS
-        if (empty($user->getRoles())) {
+        if ($user->getRoles()->count() < 1) {
             throw new Exception(Message::RESTRICTION_ROLES);
         }
 
         return $this->userRepository->saveUser($user);
     }
 
+    /**
+     * @throws Exception
+     */
     public function updateUser(User $user, array $data = []): User
     {
         if (isset($data['identity'])) {
@@ -172,6 +175,12 @@ class UserService implements UserServiceInterface
             $user->getDetail()->setLastName($data['detail']['lastName']);
         }
 
+        if (! empty($data['avatar'])) {
+            $user->setAvatar(
+                $this->createAvatar($user, $data['avatar'])
+            );
+        }
+
         if (! empty($data['roles'])) {
             $user->resetRoles();
             foreach ($data['roles'] as $roleData) {
@@ -182,18 +191,17 @@ class UserService implements UserServiceInterface
             }
         }
 
+        if ($user->getRoles()->count() < 1) {
+            throw new Exception(Message::RESTRICTION_ROLES);
+        }
+
         return $this->userRepository->saveUser($user);
     }
 
-    /**
-     * @param User $user
-     * @param UploadedFile $uploadedFile
-     * @return UserAvatar
-     */
     protected function createAvatar(User $user, UploadedFile $uploadedFile): UserAvatar
     {
         $path = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             mkdir($path, 0755);
         }
 
@@ -204,11 +212,13 @@ class UserService implements UserServiceInterface
             $avatar = new UserAvatar();
             $avatar->setUser($user);
         }
+
         $fileName = sprintf(
             'avatar-%s.%s',
             UuidOrderedTimeGenerator::generateUuid()->toString(),
             self::EXTENSIONS[$uploadedFile->getClientMediaType()]
         );
+
         $avatar->setName($fileName);
 
         $uploadedFile = new UploadedFile(
@@ -221,10 +231,6 @@ class UserService implements UserServiceInterface
         return $avatar;
     }
 
-    /**
-     * @param string $path
-     * @return bool
-     */
     public function deleteAvatarFile(string $path): bool
     {
         if (empty($path)) {
@@ -238,14 +244,9 @@ class UserService implements UserServiceInterface
         return false;
     }
 
-    /**
-     * @param string $email
-     * @param string|null $uuid
-     * @return bool
-     */
     public function exists(string $email = '', ?string $uuid = ''): bool
     {
-        return !is_null(
+        return ! empty(
             $this->userRepository->exists($email, $uuid)
         );
     }
@@ -259,7 +260,7 @@ class UserService implements UserServiceInterface
         $this->mailService->setBody(
             $this->templateRenderer->render('user::activate', [
                 'config' => $this->config,
-                'user' => $user
+                'user'   => $user,
             ])
         );
 
@@ -288,7 +289,7 @@ class UserService implements UserServiceInterface
         $this->mailService->setBody(
             $this->templateRenderer->render('user::reset-password-requested', [
                 'config' => $this->config,
-                'user' => $user
+                'user'   => $user,
             ])
         );
         $this->mailService->setSubject(
@@ -313,7 +314,7 @@ class UserService implements UserServiceInterface
         $this->mailService->setBody(
             $this->templateRenderer->render('user::reset-password-completed', [
                 'config' => $this->config,
-                'user' => $user
+                'user'   => $user,
             ])
         );
         $this->mailService->setSubject(
@@ -324,16 +325,19 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    public function getRepository(): EntityRepository
+    public function getRepository(): UserRepository
     {
         return $this->userRepository;
     }
 
+    /**
+     * @throws Exception
+     */
     public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void
     {
         $this->deleteExpiredRememberMeTokens();
 
-        $token = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
+        $token          = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
         $userRememberMe = $this->getRepository()->findRememberMeUser($user, $userAgent);
         if ($userRememberMe instanceof UserRememberMe && $userRememberMe->getRememberMeToken() !== $token) {
             $this->getRepository()->removeUserRememberMe($userRememberMe);
@@ -360,10 +364,13 @@ class UserService implements UserServiceInterface
         );
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function deleteRememberMeToken(array $cookies = []): void
     {
         $token = $cookies[$this->config['rememberMe']['cookie']['name']] ?? null;
-        if (!empty($token)) {
+        if (! empty($token)) {
             $userRememberMe = $this->getRepository()->getRememberUser($token);
             if ($userRememberMe instanceof UserRememberMe) {
                 $this->getRepository()->removeUserRememberMe($userRememberMe);

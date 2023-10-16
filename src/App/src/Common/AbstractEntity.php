@@ -6,21 +6,18 @@ namespace Frontend\App\Common;
 
 use DateTimeImmutable;
 
-/**
- * Class AbstractEntity
- * @package Frontend\App\Common
- */
+use function is_array;
+use function method_exists;
+use function ucfirst;
+
 abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInterface
 {
-    use UuidAwareTrait;
     use TimestampAwareTrait;
+    use UuidAwareTrait;
 
-    /**
-     * AbstractEntity constructor.
-     */
     public function __construct()
     {
-        $this->uuid = UuidOrderedTimeGenerator::generateUuid();
+        $this->uuid    = UuidOrderedTimeGenerator::generateUuid();
         $this->created = new DateTimeImmutable();
         $this->updated = new DateTimeImmutable();
     }
@@ -29,14 +26,13 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
      * Exchange internal values from provided array
      *
      * @param array $data
-     * @return void
      */
     public function exchangeArray(array $data): void
     {
         foreach ($data as $property => $values) {
             if (is_array($values)) {
                 $method = 'add' . ucfirst($property);
-                if (!method_exists($this, $method)) {
+                if (! method_exists($this, $method)) {
                     continue;
                 }
                 foreach ($values as $value) {
@@ -44,7 +40,7 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
                 }
             } else {
                 $method = 'set' . ucfirst($property);
-                if (!method_exists($this, $method)) {
+                if (! method_exists($this, $method)) {
                     continue;
                 }
                 $this->$method($values);

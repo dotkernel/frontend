@@ -14,10 +14,8 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class LanguageController
- * @package Frontend\App\Controller
- */
+use function is_array;
+
 class LanguageController extends AbstractActionController
 {
     protected TranslateServiceInterface $translateService;
@@ -26,12 +24,7 @@ class LanguageController extends AbstractActionController
     protected array $translatorConfig = [];
 
     /**
-     * LanguageController constructor.
-     * @param TranslateServiceInterface $translateService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
      * @param array $translatorConfig
-     *
      * @Inject({
      *     TranslateServiceInterface::class,
      *     RouterInterface::class,
@@ -46,39 +39,33 @@ class LanguageController extends AbstractActionController
         array $translatorConfig
     ) {
         $this->translateService = $translateService;
-        $this->router = $router;
-        $this->template = $template;
+        $this->router           = $router;
+        $this->template         = $template;
         $this->translatorConfig = $translatorConfig;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function changeAction(): ResponseInterface
     {
-        $data = $this->getRequest()->getParsedBody();
-        $languageKey = (!empty($data['languageKey'])) ? $data['languageKey'] : $this->translatorConfig['default'];
+        $data        = $this->getRequest()->getParsedBody();
+        $languageKey = ! empty($data['languageKey']) ? $data['languageKey'] : $this->translatorConfig['default'];
         $this->translateService->addTranslatorCookie($languageKey);
 
         return new HtmlResponse('');
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function translateTextAction(): ResponseInterface
     {
         $translation = '';
-        $request = $this->getRequest();
+        $request     = $this->getRequest();
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
             $data = $request->getParsedBody();
 
-            $text = (!empty($data['text'])) ? $data['text'] : '';
+            $text = ! empty($data['text']) ? $data['text'] : '';
 
             if (is_array($text)) {
                 foreach ($text as $textItem) {
-                    $translation = $translation .
+                    $translation .=
                         $this->template->render(
                             'language::translate-text.html.twig',
                             ['translateThis' => $textItem]
@@ -93,7 +80,7 @@ class LanguageController extends AbstractActionController
         }
 
         return new JsonResponse([
-            'translation' => $translation
+            'translation' => $translation,
         ]);
     }
 }

@@ -6,11 +6,15 @@ namespace FrontendTest\Unit\Page;
 
 use Frontend\Page\RoutesDelegator;
 use Mezzio\Application;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 class RoutesDelegatorTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testWillInvoke(): void
     {
         $application = (new RoutesDelegator())(

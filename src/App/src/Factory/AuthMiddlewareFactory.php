@@ -15,10 +15,6 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
-/**
- * Class AuthMiddlewareFactory
- * @package Frontend\App\Factory
- */
 class AuthMiddlewareFactory
 {
     use AttachAuthorizationEventListenersTrait;
@@ -33,7 +29,7 @@ class AuthMiddlewareFactory
         $options = $container->get(RbacGuardOptions::class);
 
         $guardsProviderFactory = new Factory($container, $container->get(GuardsProviderPluginManager::class));
-        $guardsProvider = $guardsProviderFactory->create($options->getGuardsProvider());
+        $guardsProvider        = $guardsProviderFactory->create($options->getGuardsProvider());
 
         return new $requestedName(
             $container->get(RouterInterface::class),

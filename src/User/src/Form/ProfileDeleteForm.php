@@ -10,16 +10,11 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class ProfileDeleteForm
- * @package Frontend\User\Form
- */
 class ProfileDeleteForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
     /**
-     * ProfileDeleteForm constructor.
      * @param null $name
      * @param array $options
      */
@@ -38,34 +33,31 @@ class ProfileDeleteForm extends Form
         parent::init();
 
         $this->add([
-            'name' => 'isDeleted',
-            'type' => 'checkbox',
+            'name'       => 'isDeleted',
+            'type'       => 'checkbox',
             'attributes' => [
-                'class' => 'tooltips',
+                'class'       => 'tooltips',
                 'data-toggle' => 'tooltip',
-                'title' => 'Delete account',
+                'title'       => 'Delete account',
             ],
-            'options' => [
-                'label' => 'I want to delete account',
+            'options'    => [
+                'label'              => 'I want to delete account',
                 'use_hidden_element' => true,
-                'checked_value' => (string)User::IS_DELETED_YES,
-                'unchecked_value' => (string)User::IS_DELETED_NO,
-            ]
+                'checked_value'      => (string) User::IS_DELETED_YES,
+                'unchecked_value'    => (string) User::IS_DELETED_NO,
+            ],
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Delete'
+                'type'  => 'submit',
+                'value' => 'Delete',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

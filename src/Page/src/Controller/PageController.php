@@ -12,10 +12,6 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class PageController
- * @package Frontend\Page\Controller
- */
 class PageController extends AbstractActionController
 {
     protected RouterInterface $router;
@@ -23,11 +19,6 @@ class PageController extends AbstractActionController
     protected TemplateRendererInterface $template;
 
     /**
-     * PageController constructor.
-     * @param PageServiceInterface $pageService
-     * @param RouterInterface $router
-     * @param TemplateRendererInterface $template
-     *
      * @Inject({
      *     PageServiceInterface::class,
      *     RouterInterface::class,
@@ -40,13 +31,10 @@ class PageController extends AbstractActionController
         TemplateRendererInterface $template
     ) {
         $this->pageService = $pageService;
-        $this->router = $router;
-        $this->template = $template;
+        $this->router      = $router;
+        $this->template    = $template;
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function indexAction(): ResponseInterface
     {
         return new HtmlResponse(
@@ -54,9 +42,6 @@ class PageController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function homeAction(): ResponseInterface
     {
         return new HtmlResponse(
@@ -64,9 +49,6 @@ class PageController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function aboutUsAction(): ResponseInterface
     {
         return new HtmlResponse(
@@ -74,9 +56,6 @@ class PageController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function premiumContentAction(): ResponseInterface
     {
         return new HtmlResponse(
@@ -84,9 +63,6 @@ class PageController extends AbstractActionController
         );
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function whoWeAreAction(): ResponseInterface
     {
         return new HtmlResponse(

@@ -6,7 +6,6 @@ namespace Frontend\Page\Service;
 
 /**
  * Interface PageService
- * @package Frontend\Page\Service
  */
 interface PageServiceInterface
 {

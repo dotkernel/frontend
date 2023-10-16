@@ -8,6 +8,7 @@ use Laminas\Filter\StringTrim;
 use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
 use Laminas\Validator\NotEmpty;
+use Laminas\Validator\StringLength;
 
 /**
  * @template TFilteredValues
@@ -26,6 +27,11 @@ class UserDetailInputFilter extends InputFilter
         $firstName->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>First Name</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(StringLength::class, [
+                'min'     => 8,
+                'max'     => 150,
+                'message' => '<b>First Name</b> must have between 8 and 150 characters',
             ], true);
         $this->add($firstName);
 
@@ -36,6 +42,11 @@ class UserDetailInputFilter extends InputFilter
         $lastName->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>Last Name</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(StringLength::class, [
+                'min'     => 8,
+                'max'     => 150,
+                'message' => '<b>Last Name</b> must have between 8 and 150 characters',
             ], true);
         $this->add($lastName);
     }

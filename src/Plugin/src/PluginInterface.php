@@ -6,7 +6,6 @@ namespace Frontend\Plugin;
 
 /**
  * Interface PluginInterface
- * @package Frontend\Plugin
  */
 interface PluginInterface
 {

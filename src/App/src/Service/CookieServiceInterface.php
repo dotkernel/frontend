@@ -6,7 +6,6 @@ namespace Frontend\App\Service;
 
 /**
  * Interface UserService
- * @package Frontend\App\Service
  */
 interface CookieServiceInterface
 {

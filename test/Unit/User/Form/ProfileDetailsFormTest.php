@@ -28,7 +28,10 @@ class ProfileDetailsFormTest extends TestCase
     public function testFormHasInputFilter(): void
     {
         $this->formHasInputFilter((new ProfileDetailsForm())->getInputFilter(), [
-            'detail',
+            'detail' => [
+                'firstName',
+                'lastName',
+            ]
         ]);
     }
 }

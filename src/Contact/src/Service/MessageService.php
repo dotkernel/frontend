@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Frontend\Contact\Service;
 
 use Doctrine\ORM\EntityRepository;
+use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
-use Dot\AnnotatedServices\Annotation\Inject;
 use Mezzio\Template\TemplateRendererInterface;
 
 class MessageService implements MessageServiceInterface
@@ -23,12 +23,7 @@ class MessageService implements MessageServiceInterface
     protected array $config = [];
 
     /**
-     * MessageService constructor.
-     * @param MessageRepository $repository
-     * @param MailServiceInterface $mailService
-     * @param TemplateRendererInterface $templateRenderer
      * @param array $config
-     *
      * @Inject({
      *     MessageRepository::class,
      *     MailServiceInterface::class,
@@ -42,10 +37,10 @@ class MessageService implements MessageServiceInterface
         TemplateRendererInterface $templateRenderer,
         array $config = []
     ) {
-        $this->repository = $repository;
-        $this->mailService = $mailService;
+        $this->repository       = $repository;
+        $this->mailService      = $mailService;
         $this->templateRenderer = $templateRenderer;
-        $this->config = $config;
+        $this->config           = $config;
     }
 
     public function getRepository(): MessageRepository|EntityRepository
@@ -75,8 +70,8 @@ class MessageService implements MessageServiceInterface
     {
         $this->mailService->setBody(
             $this->templateRenderer->render('contact::email', [
-                'config' => $this->config,
-                'message' => $message
+                'config'  => $this->config,
+                'message' => $message,
             ])
         );
 

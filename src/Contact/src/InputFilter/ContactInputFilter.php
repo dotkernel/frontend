@@ -43,7 +43,7 @@ class ContactInputFilter extends InputFilter
                 'message' => '<b>Name</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'max' => 255,
+                'max'     => 255,
                 'message' => '<b>Name</b> must not be greater than 255 characters long.',
             ], true);
         $this->add($name);
@@ -70,7 +70,7 @@ class ContactInputFilter extends InputFilter
                 'message' => '<b>Message</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'max' => 1000,
+                'max'     => 1000,
                 'message' => '<b>Message</b> must not be greater than 1000 characters long.',
             ], true);
         $this->add($message);
