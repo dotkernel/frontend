@@ -50,6 +50,7 @@ jobs:
           mv config/autoload/local.test.php.dist config/autoload/local.test.php
 
       - name: Run unit tests
-        run: vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
-      - name: Run functional tests
-        run: vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
+        run: vendor/bin/phpunit
+#        run: vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
+#      - name: Run functional tests
+#        run: vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always
