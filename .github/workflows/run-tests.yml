@@ -51,5 +51,3 @@ jobs:
 
       - name: Run unit tests
         run: vendor/bin/phpunit --testsuite=UnitTests --testdox --colors=always
-#      - name: Run functional tests
-#        run: vendor/bin/phpunit --testsuite=FunctionalTests --testdox --colors=always

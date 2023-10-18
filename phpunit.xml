@@ -9,10 +9,6 @@
             <directory>./test/Unit</directory>
             <exclude>./test/Unit/UnitTest.php</exclude>
         </testsuite>
-        <testsuite name="FunctionalTests">
-            <directory>./test/Functional</directory>
-            <exclude>./test/Functional/FunctionalTest.php</exclude>
-        </testsuite>
     </testsuites>
     <coverage/>
     <source>
