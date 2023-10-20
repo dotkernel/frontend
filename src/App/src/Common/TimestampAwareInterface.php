@@ -6,9 +6,6 @@ namespace Frontend\App\Common;
 
 use DateTimeImmutable;
 
-/**
- * Interface TimestampAwareInterface
- */
 interface TimestampAwareInterface
 {
     public function getCreated(): ?DateTimeImmutable;

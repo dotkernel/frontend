@@ -15,7 +15,6 @@ use Psr\Container\NotFoundExceptionInterface;
 class PluginManagerFactoryTest extends TestCase
 {
     /**
-     * @return void
      * @throws Exception
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -25,7 +24,7 @@ class PluginManagerFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
         $container->method('get')->willReturn([
             'dot_controller' => [
-                'plugin_manager' => ['plugin manager']
+                'plugin_manager' => ['plugin manager'],
             ],
         ]);
 

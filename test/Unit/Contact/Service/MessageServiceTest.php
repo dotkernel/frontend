@@ -38,9 +38,9 @@ class MessageServiceTest extends TestCase
     public function testProcessMessage(): void
     {
         $messageRepository = $this->createMock(MessageRepository::class);
-        $mailService = $this->createMock(MailServiceInterface::class);
-        $template = $this->createMock(TemplateRendererInterface::class);
-        $result = $this->createMock(ResultInterface::class);
+        $mailService       = $this->createMock(MailServiceInterface::class);
+        $template          = $this->createMock(TemplateRendererInterface::class);
+        $result            = $this->createMock(ResultInterface::class);
 
         $result->expects($this->once())->method('isValid')->willReturn(true);
         $mailService->expects($this->once())->method('send')->willReturn($result);
@@ -50,7 +50,7 @@ class MessageServiceTest extends TestCase
             $mailService,
             $template,
             [
-                'contact' => [
+                'contact'  => [
                     'message_receivers' => [
                         'to' => 'test@dotkernel.com',
                         'cc' => 'bcc@dotkernel.com',
@@ -59,17 +59,17 @@ class MessageServiceTest extends TestCase
                 'dot_mail' => [
                     'default' => [
                         'message_options' => [
-                            'from' => 'dotkernel@test.com',
+                            'from'      => 'dotkernel@test.com',
                             'from_name' => 'DotKernel',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
         );
 
         $this->assertTrue($service->processMessage([
-            'email' => 'test@dotkernel.com',
-            'name' => 'DotKernel',
+            'email'   => 'test@dotkernel.com',
+            'name'    => 'DotKernel',
             'subject' => 'test',
             'message' => 'test message',
         ]));

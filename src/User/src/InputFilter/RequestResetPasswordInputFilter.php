@@ -16,7 +16,7 @@ use Laminas\Validator\NotEmpty;
  */
 class RequestResetPasswordInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

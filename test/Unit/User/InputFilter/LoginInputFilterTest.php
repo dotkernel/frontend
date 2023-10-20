@@ -62,8 +62,8 @@ class LoginInputFilterTest extends AbstractInputFilterTest
     public function testWillPassValidation(): void
     {
         $data = [
-            'identity' => 'test@dotkernel.com',
-            'password' => 'password',
+            'identity'   => 'test@dotkernel.com',
+            'password'   => 'password',
             'rememberMe' => true,
         ];
         $this->inputFilter->setData($data);

@@ -10,6 +10,7 @@ use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilterInterface;
 
 use function count;
+use function is_array;
 
 trait FormTrait
 {

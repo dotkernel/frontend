@@ -18,7 +18,7 @@ use Laminas\Validator\StringLength;
  */
 class RegisterInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

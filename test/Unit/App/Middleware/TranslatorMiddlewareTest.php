@@ -12,9 +12,12 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use function getcwd;
+use function getenv;
+use function rtrim;
+
 class TranslatorMiddlewareTest extends TestCase
 {
-
     /**
      * @throws Exception
      */
@@ -34,17 +37,17 @@ class TranslatorMiddlewareTest extends TestCase
      */
     public function testProcessSwitchLanguage(): void
     {
-        $request = $this->createMock(ServerRequestInterface::class);
-        $handler = $this->createMock(RequestHandlerInterface::class);
-        $service = $this->createMock(TranslateServiceInterface::class);
+        $request  = $this->createMock(ServerRequestInterface::class);
+        $handler  = $this->createMock(RequestHandlerInterface::class);
+        $service  = $this->createMock(TranslateServiceInterface::class);
         $template = $this->createMock(TemplateRendererInterface::class);
 
         $request->expects($this->once())->method('getCookieParams')->willReturn([
-            'dk30Translator' => 'ro'
+            'dk30Translator' => 'ro',
         ]);
 
         $languageKey = 'ro';
-        $language = 'ro_RO';
+        $language    = 'ro_RO';
         $template->expects($this->once())->method('addDefaultParam')->with(
             TemplateRendererInterface::TEMPLATE_ALL,
             'language_key',
@@ -69,13 +72,13 @@ class TranslatorMiddlewareTest extends TestCase
      */
     public function testProcessDefaultLanguage(): void
     {
-        $request = $this->createMock(ServerRequestInterface::class);
-        $handler = $this->createMock(RequestHandlerInterface::class);
-        $service = $this->createMock(TranslateServiceInterface::class);
+        $request  = $this->createMock(ServerRequestInterface::class);
+        $handler  = $this->createMock(RequestHandlerInterface::class);
+        $service  = $this->createMock(TranslateServiceInterface::class);
         $template = $this->createMock(TemplateRendererInterface::class);
 
         $languageKey = 'en';
-        $language = 'en_EN';
+        $language    = 'en_EN';
         $template->expects($this->once())->method('addDefaultParam')->with(
             TemplateRendererInterface::TEMPLATE_ALL,
             'language_key',
@@ -100,17 +103,17 @@ class TranslatorMiddlewareTest extends TestCase
     private function getTranslatorConfig(): array
     {
         return [
-            'cookie' => [
-                'name' => 'dk30Translator',
+            'cookie'   => [
+                'name'     => 'dk30Translator',
                 'lifetime' => 3600 * 24 * 30,
             ],
-            'default' => 'en',
-            'locale' => [
+            'default'  => 'en',
+            'locale'   => [
                 'en' => 'en_EN',
                 'ro' => 'ro_RO',
             ],
             'code_set' => 'UTF-8',
-            'domain' => 'messages',
+            'domain'   => 'messages',
             'base_dir' => getcwd() . '/data/language',
         ];
     }

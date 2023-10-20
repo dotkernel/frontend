@@ -33,7 +33,6 @@ class TranslatorMiddleware implements MiddlewareInterface
     protected array $translatorConfig = [];
 
     /**
-     * @param array $translatorConfig
      * @Inject({
      *     TranslateServiceInterface::class,
      *     TemplateRendererInterface::class,

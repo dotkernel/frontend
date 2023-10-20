@@ -22,11 +22,6 @@ abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInter
         $this->updated = new DateTimeImmutable();
     }
 
-    /**
-     * Exchange internal values from provided array
-     *
-     * @param array $data
-     */
     public function exchangeArray(array $data): void
     {
         foreach ($data as $property => $values) {

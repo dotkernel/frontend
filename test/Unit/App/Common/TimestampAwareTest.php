@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace FrontendTest\Unit\App\Common;
 
+use DateTimeInterface;
 use Frontend\App\Common\TimestampAwareInterface;
 use Frontend\App\Common\TimestampAwareTrait;
 use PHPUnit\Framework\TestCase;
-use DateTimeInterface;
+
+use function date;
 
 class TimestampAwareTest extends TestCase
 {

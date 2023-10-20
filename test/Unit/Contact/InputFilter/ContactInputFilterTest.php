@@ -7,6 +7,8 @@ namespace FrontendTest\Unit\Contact\InputFilter;
 use Frontend\Contact\InputFilter\ContactInputFilter;
 use PHPUnit\Framework\TestCase;
 
+use function str_repeat;
+
 class ContactInputFilterTest extends TestCase
 {
     private ContactInputFilter $inputFilter;

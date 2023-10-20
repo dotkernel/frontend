@@ -23,7 +23,7 @@ class AuthenticationServiceFactoryTest extends TestCase
     public function testWillInstantiate(): void
     {
         $container = $this->createMock(ContainerInterface::class);
-        $adapter = $this->createMock(AuthenticationAdapter::class);
+        $adapter   = $this->createMock(AuthenticationAdapter::class);
 
         $container->expects($this->once())->method('get')->willReturn($adapter);
 

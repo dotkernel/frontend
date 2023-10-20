@@ -16,7 +16,7 @@ use Laminas\Validator\NotEmpty;
  */
 class LoginInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

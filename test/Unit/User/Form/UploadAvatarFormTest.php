@@ -7,6 +7,7 @@ namespace FrontendTest\Unit\User\Form;
 use Frontend\User\Form\UploadAvatarForm;
 use FrontendTest\Common\FormTrait;
 use PHPUnit\Framework\TestCase;
+
 class UploadAvatarFormTest extends TestCase
 {
     use FormTrait;
@@ -28,7 +29,7 @@ class UploadAvatarFormTest extends TestCase
     {
         $this->formHasInputFilter((new UploadAvatarForm())->getInputFilter(), [
             'submit',
-            'avatar' => ['image']
+            'avatar' => ['image'],
         ]);
     }
 }

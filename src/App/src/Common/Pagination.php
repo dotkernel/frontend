@@ -10,10 +10,6 @@ class Pagination
 {
     public const LIMIT = 10;
 
-    /**
-     * @param array $filters
-     * @return array
-     */
     public static function getOffsetAndLimit(array $filters = []): array
     {
         $page = (int) ($filters['page'] ?? 1);

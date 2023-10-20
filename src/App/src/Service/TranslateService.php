@@ -14,7 +14,6 @@ class TranslateService implements TranslateServiceInterface
     protected array $config = [];
 
     /**
-     * @param array $config
      * @Inject({
      *     CookieServiceInterface::class,
      *     "config"

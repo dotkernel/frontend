@@ -37,12 +37,12 @@ class UserRoleServiceTest extends TestCase
      */
     public function testFindOneByReturnsUserRole(): void
     {
-        $role = (new UserRole())->setName(UserRole::ROLE_USER);
+        $role       = (new UserRole())->setName(UserRole::ROLE_USER);
         $repository = $this->createMock(UserRoleRepository::class);
         $repository->expects($this->once())->method('findOneBy')->willReturn($role);
 
         $service = new UserRoleService($repository);
-        $result = $service->findOneBy(['name' => UserRole::ROLE_USER]);
+        $result  = $service->findOneBy(['name' => UserRole::ROLE_USER]);
         $this->assertSame($role->getName(), $result->getName());
     }
 }

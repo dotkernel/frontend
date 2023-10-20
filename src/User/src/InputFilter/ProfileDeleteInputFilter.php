@@ -17,7 +17,7 @@ use Laminas\Validator\NotEmpty;
  */
 class ProfileDeleteInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

@@ -17,7 +17,7 @@ use Laminas\Validator\StringLength;
  */
 class ProfilePasswordInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

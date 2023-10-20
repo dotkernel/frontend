@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace FrontendTest\Unit\App\Resolver;
 
 use Frontend\App\Resolver\EntityListenerResolver;
-use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use stdClass;
 
 class EntityListenerResolverTest extends TestCase

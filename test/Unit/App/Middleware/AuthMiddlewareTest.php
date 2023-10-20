@@ -12,11 +12,13 @@ use Dot\Rbac\Guard\Provider\GuardsProviderInterface;
 use Frontend\App\Middleware\AuthMiddleware;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use PHPUnit\Framework\MockObject\Exception;
+
+use function sprintf;
 
 class AuthMiddlewareTest extends TestCase
 {

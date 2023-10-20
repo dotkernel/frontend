@@ -31,7 +31,7 @@ class ProfileDetailsFormTest extends TestCase
             'detail' => [
                 'firstName',
                 'lastName',
-            ]
+            ],
         ]);
     }
 }

@@ -30,7 +30,6 @@ class RecaptchaService
     private string $response;
 
     /**
-     * @param array $config
      * @Inject({
      *     "config.recaptcha"
      * })
@@ -42,9 +41,6 @@ class RecaptchaService
         $this->config = $config;
     }
 
-    /**
-     * @return $this
-     */
     public function setResponse(string $response): self
     {
         $this->response = $response;
@@ -87,9 +83,6 @@ class RecaptchaService
         return $success && $score > $this->config['scoreThreshold'];
     }
 
-    /**
-     * @param array $config
-     */
     private function validateConfig(array $config): void
     {
         $keysToValidate = ['siteKey', 'secretKey', 'verifyUrl', 'scoreThreshold'];

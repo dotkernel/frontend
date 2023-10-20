@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontendTest\Unit\User\Service;
 
 use Dot\Mail\Service\MailService;
+use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\User\Entity\User;
@@ -15,7 +16,6 @@ use Frontend\User\Service\UserService;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\MockObject\Exception as PHPUnitException;
 use PHPUnit\Framework\TestCase;
-use Exception;
 
 class UserServiceTest extends TestCase
 {
@@ -42,14 +42,14 @@ class UserServiceTest extends TestCase
      */
     public function testCreateUserThrowsDuplicateException(): void
     {
-        $cookieService = $this->createMock(CookieServiceInterface::class);
-        $mailService = $this->createMock(MailService::class);
-        $userRoleService = $this->createMock(UserRoleServiceInterface::class);
-        $template = $this->createMock(TemplateRendererInterface::class);
-        $userRepository = $this->createMock(UserRepository::class);
+        $cookieService      = $this->createMock(CookieServiceInterface::class);
+        $mailService        = $this->createMock(MailService::class);
+        $userRoleService    = $this->createMock(UserRoleServiceInterface::class);
+        $template           = $this->createMock(TemplateRendererInterface::class);
+        $userRepository     = $this->createMock(UserRepository::class);
         $userRoleRepository = $this->createMock(UserRoleRepository::class);
 
-        $userRepository->expects($this->once())->method('exists')->willReturn((new User()));
+        $userRepository->expects($this->once())->method('exists')->willReturn(new User());
         $this->expectException(Exception::class);
         $this->expectExceptionMessage(Message::DUPLICATE_EMAIL);
 
@@ -71,11 +71,11 @@ class UserServiceTest extends TestCase
      */
     public function testCreateUserThrowsRestrictionRolesException(): void
     {
-        $cookieService = $this->createMock(CookieServiceInterface::class);
-        $mailService = $this->createMock(MailService::class);
-        $userRoleService = $this->createMock(UserRoleServiceInterface::class);
-        $template = $this->createMock(TemplateRendererInterface::class);
-        $userRepository = $this->createMock(UserRepository::class);
+        $cookieService      = $this->createMock(CookieServiceInterface::class);
+        $mailService        = $this->createMock(MailService::class);
+        $userRoleService    = $this->createMock(UserRoleServiceInterface::class);
+        $template           = $this->createMock(TemplateRendererInterface::class);
+        $userRepository     = $this->createMock(UserRepository::class);
         $userRoleRepository = $this->createMock(UserRoleRepository::class);
 
         $userRepository->expects($this->once())->method('exists')->willReturn(null);
@@ -93,13 +93,13 @@ class UserServiceTest extends TestCase
         );
 
         $service->createUser([
-            'email' => 'test@dotkernel.com',
+            'email'    => 'test@dotkernel.com',
             'identity' => 'test',
             'password' => 'password',
-            'detail' => [
+            'detail'   => [
                 'firstName' => 'Test',
-                'lastName' => 'Dot Kernel',
-            ]
+                'lastName'  => 'Dot Kernel',
+            ],
         ]);
     }
 }

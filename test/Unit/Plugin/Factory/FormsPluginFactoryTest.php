@@ -24,8 +24,8 @@ class FormsPluginFactoryTest extends TestCase
     public function testWillInstantiate(): void
     {
         $formElementManager = $this->createMock(FormElementManager::class);
-        $flashMessenger = $this->createMock(FlashMessengerInterface::class);
-        $container = $this->createMock(ContainerInterface::class);
+        $flashMessenger     = $this->createMock(FlashMessengerInterface::class);
+        $container          = $this->createMock(ContainerInterface::class);
 
         $container
             ->expects($this->exactly(2))

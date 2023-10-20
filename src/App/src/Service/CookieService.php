@@ -45,9 +45,6 @@ class CookieService implements CookieServiceInterface
         ]));
     }
 
-    /**
-     * @psalm-suppress UndefinedInterfaceMethod
-     */
     private function getMergedOptions(?array $options = []): array
     {
         return [

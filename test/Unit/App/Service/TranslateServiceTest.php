@@ -27,17 +27,16 @@ class TranslateServiceTest extends TestCase
      */
     public function testAddTranslatorCookie(): void
     {
-        $config = [
+        $config        = [
             'translator' => [
                 'cookie' => [
                     'lifetime' => 100,
-                    'name' => 'cookie_name',
+                    'name'     => 'cookie_name',
                 ],
             ],
         ];
         $cookieService = $this->createMock(CookieServiceInterface::class);
         $cookieService->expects($this->once())->method('setCookie');
-
 
         $service = new TranslateService($cookieService, $config);
 

@@ -6,10 +6,10 @@ namespace FrontendTest\Unit\App\Service;
 
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
-use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\MockObject\Exception;
 use Laminas\Session\Config\ConfigInterface;
 use Laminas\Session\SessionManager;
+use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\TestCase;
 
 class CookieServiceTest extends TestCase
 {
@@ -19,7 +19,7 @@ class CookieServiceTest extends TestCase
     public function testWillCreate(): void
     {
         $sessionManager = $this->createMock(SessionManager::class);
-        $config = $this->createMock(ConfigInterface::class);
+        $config         = $this->createMock(ConfigInterface::class);
         $sessionManager->expects($this->once())->method('getConfig')->willReturn($config);
 
         $service = new CookieService($sessionManager);
@@ -33,7 +33,7 @@ class CookieServiceTest extends TestCase
     public function testSetCookieUseCookiesDisabled(): void
     {
         $sessionManager = $this->createMock(SessionManager::class);
-        $config = $this->createMock(ConfigInterface::class);
+        $config         = $this->createMock(ConfigInterface::class);
         $sessionManager->expects($this->once())->method('getConfig')->willReturn($config);
 
         $service = new CookieService($sessionManager);
@@ -47,7 +47,7 @@ class CookieServiceTest extends TestCase
     public function testSetCookieUseCookiesEnabled(): void
     {
         $sessionManager = $this->createMock(SessionManager::class);
-        $config = $this->createMock(ConfigInterface::class);
+        $config         = $this->createMock(ConfigInterface::class);
 
         $config->expects($this->once())->method('getUseCookies')->willReturn(true);
         $sessionManager->expects($this->once())->method('getConfig')->willReturn($config);
@@ -58,12 +58,12 @@ class CookieServiceTest extends TestCase
             'cookie_name',
             'cookie_value',
             [
-                'expires' => 3600 * 24 * 30,
-                'domain' => 'domain',
+                'expires'  => 3600 * 24 * 30,
+                'domain'   => 'domain',
                 'httponly' => false,
-                'path' => '/',
+                'path'     => '/',
                 'samesite' => 'Lax',
-                'secure' => false,
+                'secure'   => false,
             ]
         ));
     }

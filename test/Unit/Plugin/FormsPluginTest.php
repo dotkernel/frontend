@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
 class FormsPluginTest extends TestCase
 {
     /**
-     * @return void
      * @throws Exception
      */
     public function testWillInstantiate(): void
@@ -35,15 +34,15 @@ class FormsPluginTest extends TestCase
     public function testWillRestoreState(): void
     {
         $oldData     = [
-            'identity' => 'old@identity.com',
-            'password' => 'old-password',
+            'identity'   => 'old@identity.com',
+            'password'   => 'old-password',
             'rememberMe' => null,
         ];
         $oldMessages = [];
 
         $newData     = [
-            'identity' => 'new@identity.com',
-            'password' => 'new-password',
+            'identity'   => 'new@identity.com',
+            'password'   => 'new-password',
             'rememberMe' => null,
         ];
         $newMessages = [
@@ -96,8 +95,8 @@ class FormsPluginTest extends TestCase
     public function testWillSaveState(): void
     {
         $data     = [
-            'identity' => 'identity@test.com',
-            'password' => 'password',
+            'identity'   => 'identity@test.com',
+            'password'   => 'password',
             'rememberMe' => null,
         ];
         $messages = [

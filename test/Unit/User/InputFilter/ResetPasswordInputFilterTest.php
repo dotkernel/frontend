@@ -7,6 +7,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 use Frontend\User\InputFilter\ResetPasswordInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
 
+use function str_repeat;
+
 class ResetPasswordInputFilterTest extends AbstractInputFilterTest
 {
     private ResetPasswordInputFilter $inputFilter;
@@ -94,10 +96,9 @@ class ResetPasswordInputFilterTest extends AbstractInputFilterTest
             $messages['passwordConfirm']['stringLengthTooLong']
         );
 
-
         $this->inputFilter->setData([
-            'password' => 'password',
-            'passwordConfirm' => 'invalid_password'
+            'password'        => 'password',
+            'passwordConfirm' => 'invalid_password',
         ]);
         $this->assertFalse($this->inputFilter->isValid());
         $messages = $this->inputFilter->getMessages();
@@ -114,8 +115,8 @@ class ResetPasswordInputFilterTest extends AbstractInputFilterTest
     public function testWillPassValidation(): void
     {
         $data = [
-            'password' => 'password',
-            'passwordConfirm' => 'password'
+            'password'        => 'password',
+            'passwordConfirm' => 'password',
         ];
 
         $this->inputFilter->setData($data);

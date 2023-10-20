@@ -16,7 +16,7 @@ use Laminas\Validator\StringLength;
  */
 class UserDetailInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 

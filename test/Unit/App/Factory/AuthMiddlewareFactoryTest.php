@@ -12,16 +12,15 @@ use Frontend\App\Factory\AuthMiddlewareFactory;
 use Frontend\App\Middleware\AuthMiddleware;
 use Laminas\ConfigAggregator\ArrayProvider;
 use Mezzio\Router\RouterInterface;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use PHPUnit\Framework\MockObject\Exception;
 
 class AuthMiddlewareFactoryTest extends TestCase
 {
     /**
-     * @return void
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception

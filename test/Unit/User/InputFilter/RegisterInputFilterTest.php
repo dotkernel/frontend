@@ -7,6 +7,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 use Frontend\User\InputFilter\RegisterInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
 
+use function str_repeat;
+
 class RegisterInputFilterTest extends AbstractInputFilterTest
 {
     private RegisterInputFilter $inputFilter;
@@ -121,10 +123,9 @@ class RegisterInputFilterTest extends AbstractInputFilterTest
             $messages['passwordConfirm']['stringLengthTooLong']
         );
 
-
         $this->inputFilter->setData([
-            'password' => 'password',
-            'passwordConfirm' => 'invalid_password'
+            'password'        => 'password',
+            'passwordConfirm' => 'invalid_password',
         ]);
         $this->assertFalse($this->inputFilter->isValid());
         $messages = $this->inputFilter->getMessages();
@@ -141,9 +142,9 @@ class RegisterInputFilterTest extends AbstractInputFilterTest
     public function testWillPassValidation(): void
     {
         $data = [
-            'email' => 'test@dotkernel.com',
-            'password' => 'password',
-            'passwordConfirm' => 'password'
+            'email'           => 'test@dotkernel.com',
+            'password'        => 'password',
+            'passwordConfirm' => 'password',
         ];
 
         $this->inputFilter->setData($data);

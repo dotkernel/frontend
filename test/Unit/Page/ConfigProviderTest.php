@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace FrontendTest\Unit\Page;
 
+use Frontend\Page\ConfigProvider;
 use Frontend\Page\Controller\PageController;
 use Frontend\Page\RoutesDelegator;
-use Frontend\Page\ConfigProvider;
 use Frontend\Page\Service\PageService;
 use Frontend\Page\Service\PageServiceInterface;
 use Mezzio\Application;

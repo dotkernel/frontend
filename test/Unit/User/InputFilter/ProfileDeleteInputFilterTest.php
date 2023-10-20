@@ -7,6 +7,7 @@ namespace FrontendTest\Unit\User\InputFilter;
 use Frontend\App\Common\Message;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+
 class ProfileDeleteInputFilterTest extends AbstractInputFilterTest
 {
     private ProfileDeleteInputFilter $inputFilter;

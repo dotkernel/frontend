@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace FrontendTest\Unit\App\Middleware;
 
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Frontend\App\Middleware\RememberMeMiddleware;
 use Frontend\User\Entity\User;
@@ -19,8 +21,6 @@ use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use DateTimeImmutable;
-use DateInterval;
 
 class RememberMeMiddlewareTest extends TestCase
 {
@@ -60,10 +60,10 @@ class RememberMeMiddlewareTest extends TestCase
      */
     public function testAutologin(): void
     {
-        $userAgent = 'google';
-        $token = 'token';
-        $userService = $this->createMock(UserService::class);
-        $userRepository = $this->createMock(UserRepository::class);
+        $userAgent             = 'google';
+        $token                 = 'token';
+        $userService           = $this->createMock(UserService::class);
+        $userRepository        = $this->createMock(UserRepository::class);
         $authenticationService = new AuthenticationService();
 
         $user = (new User())
@@ -125,10 +125,10 @@ class RememberMeMiddlewareTest extends TestCase
      */
     public function testAutologinExpired(): void
     {
-        $userAgent = 'google';
-        $token = 'token';
-        $userService = $this->createMock(UserService::class);
-        $userRepository = $this->createMock(UserRepository::class);
+        $userAgent             = 'google';
+        $token                 = 'token';
+        $userService           = $this->createMock(UserService::class);
+        $userRepository        = $this->createMock(UserRepository::class);
         $authenticationService = new AuthenticationService();
 
         $user = (new User())

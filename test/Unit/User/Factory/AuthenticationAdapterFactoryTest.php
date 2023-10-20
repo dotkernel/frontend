@@ -19,6 +19,8 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use RuntimeException;
 
+use function sprintf;
+
 class AuthenticationAdapterFactoryTest extends TestCase
 {
     /**
@@ -70,13 +72,13 @@ class AuthenticationAdapterFactoryTest extends TestCase
             'doctrine' => [
                 'authentication' => [
                     'orm_default' => [
-                        'identity_class' => User::class
+                        'identity_class' => User::class,
                     ],
                 ],
             ],
         ];
 
-        $container = $this->createMock(ContainerInterface::class);
+        $container     = $this->createMock(ContainerInterface::class);
         $entityManager = $this->createMock(EntityManagerInterface::class);
 
         $entityManager->expects($this->once())->method('getRepository')->willReturn(null);
@@ -108,15 +110,15 @@ class AuthenticationAdapterFactoryTest extends TestCase
             'doctrine' => [
                 'authentication' => [
                     'orm_default' => [
-                        'identity_class' => User::class
+                        'identity_class' => User::class,
                     ],
                 ],
             ],
         ];
 
-        $container = $this->createMock(ContainerInterface::class);
+        $container     = $this->createMock(ContainerInterface::class);
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $repository = $this->createMock(EntityRepository::class);
+        $repository    = $this->createMock(EntityRepository::class);
 
         $entityManager->expects($this->once())->method('getRepository')->willReturn($repository);
         $container->expects($this->once())->method('has')->willReturn(true);
@@ -124,7 +126,6 @@ class AuthenticationAdapterFactoryTest extends TestCase
             ->expects($this->exactly(2))
             ->method('get')
             ->willReturnOnConsecutiveCalls($entityManager, $config);
-
 
         $adapter = (new AuthenticationAdapterFactory())($container);
 

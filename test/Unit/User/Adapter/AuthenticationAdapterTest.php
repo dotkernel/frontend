@@ -17,6 +17,11 @@ use Laminas\Authentication\Result;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
+use function array_merge;
+use function password_hash;
+
+use const PASSWORD_DEFAULT;
+
 class AuthenticationAdapterTest extends TestCase
 {
     /**
@@ -99,7 +104,7 @@ class AuthenticationAdapterTest extends TestCase
         );
 
         $adapter = new AuthenticationAdapter($this->createMock(EntityRepository::class), [
-            'identity_class' => User::class,
+            'identity_class'    => User::class,
             'identity_property' => 'identity',
         ]);
 
@@ -120,8 +125,8 @@ class AuthenticationAdapterTest extends TestCase
         );
 
         $adapter = new AuthenticationAdapter($this->createMock(EntityRepository::class), [
-            'identity_class' => User::class,
-            'identity_property' => 'identity',
+            'identity_class'      => User::class,
+            'identity_property'   => 'identity',
             'credential_property' => 'password',
         ]);
 
@@ -146,8 +151,8 @@ class AuthenticationAdapterTest extends TestCase
         );
 
         $adapter = new AuthenticationAdapter($this->createMock(EntityRepository::class), [
-            'identity_class' => User::class,
-            'identity_property' => 'identity',
+            'identity_class'      => User::class,
+            'identity_property'   => 'identity',
             'credential_property' => 'password',
         ]);
 
@@ -166,14 +171,15 @@ class AuthenticationAdapterTest extends TestCase
      */
     public function testCheckMethodThrowsException(): void
     {
-        $class = new class() {};
+        $class      = new class () {
+        };
         $repository = $this->createMock(EntityRepository::class);
 
         $repository->expects($this->once())->method('findOneBy')->willReturn($class);
 
         $this->expectException(AuthenticationAdapterException::class);
         $this->expectExceptionMessage(
-            (AuthenticationAdapterException::methodNotExists('getPassword', get_class($class)))->getMessage()
+            (AuthenticationAdapterException::methodNotExists('getPassword', $class::class))->getMessage()
         );
 
         $adapter = new AuthenticationAdapter($repository, $this->getConfig($class));
@@ -193,8 +199,9 @@ class AuthenticationAdapterTest extends TestCase
      */
     public function testInvalidIdentityProvided(): void
     {
-        $class = new class() {};
-        $config = $this->getConfig($class);
+        $class      = new class () {
+        };
+        $config     = $this->getConfig($class);
         $repository = $this->createMock(EntityRepository::class);
 
         $repository->expects($this->once())->method('findOneBy')->willReturn(null);
@@ -219,10 +226,11 @@ class AuthenticationAdapterTest extends TestCase
      */
     public function testInvalidCredentialProvided(): void
     {
-        $class = new class() {};
-        $config = $this->getConfig($class);
+        $class      = new class () {
+        };
+        $config     = $this->getConfig($class);
         $repository = $this->createMock(EntityRepository::class);
-        $user = (new User())
+        $user       = (new User())
             ->setIdentity('test@dotkernel.com')
             ->setPassword(password_hash('password', PASSWORD_DEFAULT));
 
@@ -263,12 +271,14 @@ class AuthenticationAdapterTest extends TestCase
 
         $adapter = new AuthenticationAdapter($repository, array_merge(
             $this->getConfig($class),
-            ['options' => [
-                'status' => [
-                    'value' => '',
-                    'message' => Message::USER_NOT_ACTIVATED
+            [
+                'options' => [
+                    'status' => [
+                        'value'   => '',
+                        'message' => Message::USER_NOT_ACTIVATED,
+                    ],
                 ],
-            ]]
+            ]
         ));
 
         $result = $adapter
@@ -301,12 +311,14 @@ class AuthenticationAdapterTest extends TestCase
 
         $adapter = new AuthenticationAdapter($repository, array_merge(
             $this->getConfig($class),
-            ['options' => [
-                'status' => [
-                    'value' => User::STATUS_ACTIVE,
-                    'message' => ''
+            [
+                'options' => [
+                    'status' => [
+                        'value'   => User::STATUS_ACTIVE,
+                        'message' => '',
+                    ],
                 ],
-            ]]
+            ]
         ));
 
         $result = $adapter
@@ -335,12 +347,14 @@ class AuthenticationAdapterTest extends TestCase
 
         $adapter = new AuthenticationAdapter($repository, array_merge(
             $this->getConfig($class),
-            ['options' => [
-                'status' => [
-                    'value' => User::STATUS_ACTIVE,
-                    'message' => 'test message'
+            [
+                'options' => [
+                    'status' => [
+                        'value'   => User::STATUS_ACTIVE,
+                        'message' => 'test message',
+                    ],
                 ],
-            ]]
+            ]
         ));
 
         $result = $adapter
@@ -366,7 +380,7 @@ class AuthenticationAdapterTest extends TestCase
             ->setIdentity('test@dotkernel.com')
             ->setPassword(password_hash('password', PASSWORD_DEFAULT));
 
-        $role = (new UserRole())->setName(UserRole::ROLE_GUEST);
+        $role   = (new UserRole())->setName(UserRole::ROLE_GUEST);
         $detail = (new UserDetail())
             ->setUser($class)
             ->setFirstName('Test')
@@ -376,13 +390,13 @@ class AuthenticationAdapterTest extends TestCase
             ->addRole($role)
             ->setDetail($detail);
 
-        $config = $this->getConfig($class);
+        $config     = $this->getConfig($class);
         $repository = $this->createMock(EntityRepository::class);
 
         $repository->expects($this->once())->method('findOneBy')->willReturn($class);
 
         $adapter = new AuthenticationAdapter($repository, $config);
-        $result = $adapter
+        $result  = $adapter
             ->setIdentity('test@dotkernel.com')
             ->setCredential('password')
             ->authenticate();
@@ -398,12 +412,12 @@ class AuthenticationAdapterTest extends TestCase
     private function getConfig(object $class): array
     {
         return [
-            'identity_class' => get_class($class),
-            'identity_property' => 'identity',
+            'identity_class'      => $class::class,
+            'identity_property'   => 'identity',
             'credential_property' => 'password',
-            'messages' => [
-                'success' => 'Authenticated successfully.',
-                'not_found' => 'Identity not found.',
+            'messages'            => [
+                'success'            => 'Authenticated successfully.',
+                'not_found'          => 'Identity not found.',
                 'invalid_credential' => 'Invalid credentials.',
             ],
         ];

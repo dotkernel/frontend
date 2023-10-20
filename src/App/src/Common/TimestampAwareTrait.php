@@ -10,9 +10,6 @@ use Exception;
 
 use function error_log;
 
-/**
- * Trait TimestampAwareTrait
- */
 trait TimestampAwareTrait
 {
     private string $dateFormat = 'Y-m-d H:i:s';

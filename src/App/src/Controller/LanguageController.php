@@ -24,7 +24,6 @@ class LanguageController extends AbstractActionController
     protected array $translatorConfig = [];
 
     /**
-     * @param array $translatorConfig
      * @Inject({
      *     TranslateServiceInterface::class,
      *     RouterInterface::class,

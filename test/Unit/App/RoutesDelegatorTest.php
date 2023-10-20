@@ -18,7 +18,7 @@ class RoutesDelegatorTest extends TestCase
     public function testWillInvoke(): void
     {
         $application = (new RoutesDelegator())(
-        $this->createMock(ContainerInterface::class),
+            $this->createMock(ContainerInterface::class),
             '',
             function () {
                 return $this->createMock(Application::class);

@@ -7,6 +7,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 use Frontend\User\InputFilter\UserDetailInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
 
+use function str_repeat;
+
 class UserDetailInputFilterTest extends AbstractInputFilterTest
 {
     private UserDetailInputFilter $inputFilter;
@@ -99,7 +101,7 @@ class UserDetailInputFilterTest extends AbstractInputFilterTest
     {
         $data = [
             'firstName' => 'first_name',
-            'lastName' => 'last_name',
+            'lastName'  => 'last_name',
         ];
 
         $this->inputFilter->setData($data);
