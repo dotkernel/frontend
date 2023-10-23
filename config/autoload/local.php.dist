@@ -1,141 +1,88 @@
 <?php
 
+/**
+ * Local configuration.
+ *
+ * Copy this file to `local.php` and change its settings as required.
+ * `local.php` is ignored by git and safe to use for local and sensitive data like usernames and passwords.
+ */
+
 declare(strict_types=1);
 
+$baseUrl = 'http://dotkernel.local';
+
+$databases = [
+    'default' => [
+        'host' => 'localhost',
+        'dbname' => '',
+        'user' => '',
+        'password' => '',
+        'port' => 3306,
+        'driver' => 'pdo_mysql',
+        'charset' => 'utf8mb4',
+        'collate' => 'utf8mb4_general_ci',
+    ],
+    // you can add more database connections into this array
+];
+
 return [
-
-    /**
-     * Dotkernel mail module configuration
-     * Note that many of these options can be set programmaticaly too, when sending mail messages
-     * actually that is what you'll usually do, these config provide just default and options that remain the same for all mails
-     */
-
-    'dot_mail' => [
-        //the key is the mail service name, this is the default one, which does not extends any configuration
-        'default' => [
-            //tells which other mail service configuration to extend
-            'extends' => null,
-
-            /**
-             * the mail transport to use
-             * can be any class implementing Laminas\Mail\Transport\TransportInterface
-             *
-             * for standard mail transports, you can use these aliases
-             * - sendmail => Laminas\Mail\Transport\Sendmail
-             * - smtp => Laminas\Mail\Transport\Smtp
-             * - file => Laminas\Mail\Transport\File
-             * - in_memory => Laminas\Mail\Transport\InMemory
-             *
-             * defaults to sendmail
-             **/
-
-            'transport' => Laminas\Mail\Transport\Sendmail::class,
-
-             // Uncomment the below line if you want to save a copy of all sent emails to a certain IMAP folder
-            // Valid only if the Transport is SMTP
-            // 'save_sent_message_folder' => ['INBOX.Sent'],
-
-            //message configuration
-            'message_options' => [
-
-                //from email address of the email
-                'from' => '',
-
-                //from name to be displayed instead of from address
-                'from_name' => '',
-
-                //reply-to email address of the email
-                'reply_to' => '',
-
-                //replyTo name to be displayed instead of the address
-                'reply_to_name' => '',
-
-                //destination email address as string or a list of email addresses
-                'to' => [],
-
-                //copy destination addresses
-                'cc' => [],
-
-                //hidden copy destination addresses
-                'bcc' => [],
-
-                //email subject
-                'subject' => '',
-
-                //body options - content can be plain text, HTML
-                'body' => [
-                    'content' => '',
-
-                    'charset' => 'utf-8',
-                ],
-
-                //attachments config
-                'attachments' => [
-                    'files' => [],
-
-                    'dir' => [
-                        'iterate' => false,
-                        'path' => 'data/mail/attachments',
-                        'recursive' => false,
-                    ]
-                ],
-            ],
-
-            //options that will be used only if Laminas\Mail\Transport\Smtp adapter is used
-            'smtp_options' => [
-
-                //hostname or IP address of the mail server
-                'host' => '',
-
-                //port of the mail server - 587 or 465 for secure connections
-                'port' => 587,
-
-                //connection class used for authentication
-                //the value can be one of smtp, plain, login or crammd5
-                'connection_class' => 'login',
-
-                'connection_config' => [
-
-                    //the smtp authentication identity
-                    'username' => '',
-
-                    //the smtp authentication credential
-                    'password' => '',
-
-                    //the encryption type to be used, ssl or tls
-                    //null should be used to disable SSL
-                    'ssl' => 'ssl',
-                ]
-            ],
-
-            //file options that will be used only if the adapter is Laminas\Mail\Transport\File
-            /*'file_options' => [
-
-                //this is the folder where the file is going to be saved
-                //default value is 'data/mail/output'
-                'path' => 'data/mail/output',
-
-                //a callable that will get the Laminas\Mail\Transport\File object as an argument and should return the filename
-                //if null is used, and empty callable will be used
-                //'callback' => null,
-            ],*/
-
-            //listeners to register with the mail service, for mail events
-            'event_listeners' => [
-                //[
-                    //'type' => 'service or class name',
-                    //'priority' => 1
-                //],
+    'annotations_cache_dir' => getcwd() . '/data/cache/annotations',
+    'application' => [
+        'name' => 'DotKernel',
+        'url' => $baseUrl,
+    ],
+    'databases' => $databases,
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'params' => $databases['default'],
             ],
         ],
-        // option to log the SENT emails
-        'log' => [
-            'sent' => getcwd() . '/log/mail/sent.log'
+    ],
+    'uploads' => [
+        'user' => [
+            'url'  => $baseUrl . '/uploads/user',
+            'path' => \realpath(__DIR__ . '/../../public/uploads/user'),
+        ],
+    ],
+    'contact' => [
+        'notification_receivers' => [
+        ],
+        'message_receivers' => [
+            'to' => [
+                'tech@example.com',
+            ],
+            'cc' => [
+                'tech@example.com',
+            ],
+        ],
+    ],
+    'translator' => [
+        'cookie' => [
+            'name' => 'dk30Translator',
+            'lifetime' => 3600 * 24 * 30,
         ],
 
-        /**
-         * You can define other mail services here, with the same structure as the default block
-         * you can even extend from the default block, and overwrite only the differences
-         */
+        'default' => 'en',
+        'locale' => [
+            'en' => 'en_EN',
+            'dk' => 'da_DK',
+        ],
+        'code_set' => 'UTF-8',
+        'domain' => 'messages',
+        'base_dir' => getcwd() . '/data/language',
+    ],
+    'recaptcha' => [
+        'scoreThreshold' => 0.5,
+        'siteKey' => '',
+        'secretKey' => '',
+        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify',
+    ],
+
+    'rememberMe' => [
+        'cookie' => [
+            'name' => 'rememberMe',
+            'lifetime' => 3600 * 24 * 30,
+        ],
     ],
 ];
