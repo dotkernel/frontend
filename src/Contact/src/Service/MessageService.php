@@ -14,16 +14,7 @@ use Mezzio\Template\TemplateRendererInterface;
 
 class MessageService implements MessageServiceInterface
 {
-    protected MessageRepository|EntityRepository $repository;
-
-    protected MailServiceInterface $mailService;
-
-    protected TemplateRendererInterface $templateRenderer;
-
-    protected array $config = [];
-
     /**
-     * @param array $config
      * @Inject({
      *     MessageRepository::class,
      *     MailServiceInterface::class,
@@ -32,15 +23,11 @@ class MessageService implements MessageServiceInterface
      * })
      */
     public function __construct(
-        MessageRepository $repository,
-        MailServiceInterface $mailService,
-        TemplateRendererInterface $templateRenderer,
-        array $config = []
+        protected MessageRepository $repository,
+        protected MailServiceInterface $mailService,
+        protected TemplateRendererInterface $templateRenderer,
+        protected array $config = []
     ) {
-        $this->repository       = $repository;
-        $this->mailService      = $mailService;
-        $this->templateRenderer = $templateRenderer;
-        $this->config           = $config;
     }
 
     public function getRepository(): MessageRepository|EntityRepository

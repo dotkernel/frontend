@@ -24,7 +24,6 @@ use Frontend\User\Form\ResetPasswordForm;
 use Frontend\User\Form\UploadAvatarForm;
 use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
@@ -35,14 +34,6 @@ use function sprintf;
 
 class AccountController extends AbstractActionController
 {
-    protected RouterInterface $router;
-    protected TemplateRendererInterface $template;
-    protected UserServiceInterface $userService;
-    protected AuthenticationServiceInterface $authenticationService;
-    protected FlashMessengerInterface $messenger;
-    protected FormsPlugin $forms;
-    protected DebugBar $debugBar;
-
     /**
      * @Inject({
      *     UserServiceInterface::class,
@@ -55,21 +46,14 @@ class AccountController extends AbstractActionController
      * })
      */
     public function __construct(
-        UserServiceInterface $userService,
-        RouterInterface $router,
-        TemplateRendererInterface $template,
-        AuthenticationService $authenticationService,
-        FlashMessengerInterface $messenger,
-        FormsPlugin $forms,
-        DebugBar $debugBar
+        protected UserServiceInterface $userService,
+        protected RouterInterface $router,
+        protected TemplateRendererInterface $template,
+        protected AuthenticationService $authenticationService,
+        protected FlashMessengerInterface $messenger,
+        protected FormsPlugin $forms,
+        protected DebugBar $debugBar
     ) {
-        $this->userService           = $userService;
-        $this->router                = $router;
-        $this->template              = $template;
-        $this->authenticationService = $authenticationService;
-        $this->messenger             = $messenger;
-        $this->forms                 = $forms;
-        $this->debugBar              = $debugBar;
     }
 
     public function activateAction(): ResponseInterface

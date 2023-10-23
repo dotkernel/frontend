@@ -19,14 +19,8 @@ use function ucfirst;
 
 class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 {
-    private EntityRepository $entityRepository;
-
-    private array $config;
-
-    public function __construct(EntityRepository $entityRepository, array $config)
+    public function __construct(private EntityRepository $entityRepository, private array $config)
     {
-        $this->entityRepository = $entityRepository;
-        $this->config           = $config;
     }
 
     public function authenticate(): Result

@@ -15,17 +15,13 @@ use function sprintf;
  */
 class UserAvatarEventListener
 {
-    protected array $config;
-
     /**
-     * @param array $config
      * @Inject({
      *     "config"
      * })
      */
-    public function __construct(array $config = [])
+    public function __construct(protected array $config = [])
     {
-        $this->config = $config;
     }
 
     public function postLoad(UserAvatar $avatar): void

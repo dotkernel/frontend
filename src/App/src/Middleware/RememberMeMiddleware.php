@@ -10,9 +10,7 @@ use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Entity\UserRole;
-use Frontend\User\Repository\UserRepository;
 use Frontend\User\Service\UserServiceInterface;
-use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Authentication\Exception\ExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,12 +23,6 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class RememberMeMiddleware implements MiddlewareInterface
 {
-    protected UserServiceInterface $userService;
-    protected AuthenticationServiceInterface $authenticationService;
-
-    protected UserRepository $repository;
-    protected array $rememberConfig = [];
-
     /**
      * @Inject({
      *     UserServiceInterface::class,
@@ -39,13 +31,10 @@ class RememberMeMiddleware implements MiddlewareInterface
      * })
      */
     public function __construct(
-        UserServiceInterface $userService,
-        AuthenticationServiceInterface $authenticationService,
-        array $rememberConfig
+        protected UserServiceInterface $userService,
+        protected AuthenticationServiceInterface $authenticationService,
+        protected array $rememberConfig
     ) {
-        $this->userService           = $userService;
-        $this->authenticationService = $authenticationService;
-        $this->rememberConfig        = $rememberConfig;
     }
 
     /**

@@ -10,9 +10,6 @@ use function time;
 
 class TranslateService implements TranslateServiceInterface
 {
-    protected CookieServiceInterface $cookieService;
-    protected array $config = [];
-
     /**
      * @Inject({
      *     CookieServiceInterface::class,
@@ -20,11 +17,9 @@ class TranslateService implements TranslateServiceInterface
      * })
      */
     public function __construct(
-        CookieServiceInterface $cookieService,
-        array $config = []
+        protected CookieServiceInterface $cookieService,
+        protected array $config = []
     ) {
-        $this->cookieService = $cookieService;
-        $this->config        = $config;
     }
 
     public function addTranslatorCookie(string $languageKey): void

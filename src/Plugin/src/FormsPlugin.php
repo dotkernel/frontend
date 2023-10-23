@@ -15,15 +15,10 @@ use function is_string;
 
 class FormsPlugin implements PluginInterface
 {
-    protected FormElementManager $formElementManager;
-    protected ?FlashMessengerInterface $flashMessenger;
-
     public function __construct(
-        FormElementManager $formManager,
-        ?FlashMessengerInterface $flashMessenger = null
+        protected FormElementManager $formManager,
+        protected ?FlashMessengerInterface $flashMessenger = null
     ) {
-        $this->formElementManager = $formManager;
-        $this->flashMessenger     = $flashMessenger;
     }
 
     public function restoreState(Form $form): void

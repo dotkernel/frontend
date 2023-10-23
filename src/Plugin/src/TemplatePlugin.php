@@ -10,16 +10,10 @@ use function func_get_args;
 
 class TemplatePlugin implements PluginInterface
 {
-    protected TemplateRendererInterface $template;
-
-    public function __construct(TemplateRendererInterface $template)
+    public function __construct(protected TemplateRendererInterface $template)
     {
-        $this->template = $template;
     }
 
-    /**
-     * @param array $params
-     */
     public function __invoke(?string $templateName = null, array $params = []): TemplatePlugin|string
     {
         $args = func_get_args();
@@ -30,9 +24,6 @@ class TemplatePlugin implements PluginInterface
         return $this->render($templateName, $params);
     }
 
-    /**
-     * @param array $params
-     */
     public function render(string $templateName, array $params = []): string
     {
         return $this->template->render($templateName, $params);

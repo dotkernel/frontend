@@ -14,7 +14,6 @@ use Frontend\Contact\Form\ContactForm;
 use Frontend\Contact\Service\MessageServiceInterface;
 use Frontend\Plugin\FormsPlugin;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
@@ -23,18 +22,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class ContactController extends AbstractActionController
 {
-    protected RouterInterface $router;
-    protected TemplateRendererInterface $template;
-    protected MessageServiceInterface $messageService;
-    protected RecaptchaService $recaptchaService;
-    protected AuthenticationServiceInterface $authenticationService;
-    protected FlashMessenger $messenger;
-    protected FormsPlugin $forms;
-    protected DebugBar $debugBar;
-    protected array $config;
-
     /**
-     * @param array $config
      * @Inject({
      *     MessageServiceInterface::class,
      *     RecaptchaService::class,
@@ -48,25 +36,16 @@ class ContactController extends AbstractActionController
      *     })
      */
     public function __construct(
-        MessageServiceInterface $messageService,
-        RecaptchaService $recaptchaService,
-        RouterInterface $router,
-        TemplateRendererInterface $template,
-        AuthenticationService $authenticationService,
-        FlashMessenger $messenger,
-        FormsPlugin $forms,
-        DebugBar $debugBar,
-        array $config = []
+        protected MessageServiceInterface $messageService,
+        protected RecaptchaService $recaptchaService,
+        protected RouterInterface $router,
+        protected TemplateRendererInterface $template,
+        protected AuthenticationService $authenticationService,
+        protected FlashMessenger $messenger,
+        protected FormsPlugin $forms,
+        protected DebugBar $debugBar,
+        protected array $config = []
     ) {
-        $this->messageService        = $messageService;
-        $this->recaptchaService      = $recaptchaService;
-        $this->router                = $router;
-        $this->template              = $template;
-        $this->authenticationService = $authenticationService;
-        $this->messenger             = $messenger;
-        $this->forms                 = $forms;
-        $this->debugBar              = $debugBar;
-        $this->config                = $config;
     }
 
     public function formAction(): ResponseInterface

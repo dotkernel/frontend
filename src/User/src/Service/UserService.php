@@ -46,22 +46,7 @@ class UserService implements UserServiceInterface
         'image/png'  => 'png',
     ];
 
-    protected CookieServiceInterface $cookieService;
-
-    protected MailServiceInterface $mailService;
-
-    protected TemplateRendererInterface $templateRenderer;
-
-    protected UserRoleServiceInterface $userRoleService;
-
-    protected UserRepository $userRepository;
-
-    protected UserRoleRepository $userRoleRepository;
-
-    protected array $config = [];
-
     /**
-     * @param array $config
      * @Inject({
      *     CookieServiceInterface::class,
      *     MailService::class,
@@ -73,21 +58,14 @@ class UserService implements UserServiceInterface
      * })
      */
     public function __construct(
-        CookieServiceInterface $cookieService,
-        MailService $mailService,
-        UserRoleServiceInterface $userRoleService,
-        TemplateRendererInterface $templateRenderer,
-        UserRepository $userRepository,
-        UserRoleRepository $userRoleRepository,
-        array $config = []
+        protected CookieServiceInterface $cookieService,
+        protected MailService $mailService,
+        protected UserRoleServiceInterface $userRoleService,
+        protected TemplateRendererInterface $templateRenderer,
+        protected UserRepository $userRepository,
+        protected UserRoleRepository $userRoleRepository,
+        protected array $config = []
     ) {
-        $this->cookieService      = $cookieService;
-        $this->mailService        = $mailService;
-        $this->userRoleService    = $userRoleService;
-        $this->templateRenderer   = $templateRenderer;
-        $this->userRepository     = $userRepository;
-        $this->userRoleRepository = $userRoleRepository;
-        $this->config             = $config;
     }
 
     /**

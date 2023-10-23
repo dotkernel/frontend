@@ -18,11 +18,6 @@ use function is_array;
 
 class LanguageController extends AbstractActionController
 {
-    protected TranslateServiceInterface $translateService;
-    protected RouterInterface $router;
-    protected TemplateRendererInterface $template;
-    protected array $translatorConfig = [];
-
     /**
      * @Inject({
      *     TranslateServiceInterface::class,
@@ -32,15 +27,11 @@ class LanguageController extends AbstractActionController
      * })
      */
     public function __construct(
-        TranslateServiceInterface $translateService,
-        RouterInterface $router,
-        TemplateRendererInterface $template,
-        array $translatorConfig
+        protected TranslateServiceInterface $translateService,
+        protected RouterInterface $router,
+        protected TemplateRendererInterface $template,
+        protected array $translatorConfig
     ) {
-        $this->translateService = $translateService;
-        $this->router           = $router;
-        $this->template         = $template;
-        $this->translatorConfig = $translatorConfig;
     }
 
     public function changeAction(): ResponseInterface

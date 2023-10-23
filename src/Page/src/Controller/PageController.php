@@ -14,10 +14,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class PageController extends AbstractActionController
 {
-    protected RouterInterface $router;
-    protected PageServiceInterface $pageService;
-    protected TemplateRendererInterface $template;
-
     /**
      * @Inject({
      *     PageServiceInterface::class,
@@ -26,13 +22,10 @@ class PageController extends AbstractActionController
      * })
      */
     public function __construct(
-        PageServiceInterface $pageService,
-        RouterInterface $router,
-        TemplateRendererInterface $template
+        protected PageServiceInterface $pageService,
+        protected RouterInterface $router,
+        protected TemplateRendererInterface $template
     ) {
-        $this->pageService = $pageService;
-        $this->router      = $router;
-        $this->template    = $template;
     }
 
     public function indexAction(): ResponseInterface

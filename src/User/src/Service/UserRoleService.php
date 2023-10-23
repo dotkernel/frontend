@@ -14,16 +14,13 @@ use Frontend\User\Repository\UserRoleRepository;
  */
 class UserRoleService implements UserRoleServiceInterface
 {
-    protected UserRoleRepository $roleRepository;
-
     /**
      * @Inject({
      *     UserRoleRepository::class,
      * })
      */
-    public function __construct(UserRoleRepository $roleRepository)
+    public function __construct(protected UserRoleRepository $roleRepository)
     {
-        $this->roleRepository = $roleRepository;
     }
 
     public function findOneBy(array $params = []): ?UserRole

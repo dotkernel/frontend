@@ -28,26 +28,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class UserController extends AbstractActionController
 {
-    protected CookieServiceInterface $cookieService;
-
-    protected RouterInterface $router;
-
-    protected TemplateRendererInterface $template;
-
-    protected UserServiceInterface $userService;
-
-    protected AuthenticationService $authenticationService;
-
-    protected FlashMessengerInterface $messenger;
-
-    protected FormsPlugin $forms;
-
-    protected DebugBar $debugBar;
-
-    protected array $config = [];
-
     /**
-     * @param array $config
      * @Inject({
      *     CookieServiceInterface::class,
      *     UserServiceInterface::class,
@@ -61,25 +42,16 @@ class UserController extends AbstractActionController
      * })
      */
     public function __construct(
-        CookieServiceInterface $cookieService,
-        UserServiceInterface $userService,
-        RouterInterface $router,
-        TemplateRendererInterface $template,
-        AuthenticationService $authenticationService,
-        FlashMessengerInterface $messenger,
-        FormsPlugin $forms,
-        DebugBar $debugBar,
-        array $config = []
+        protected CookieServiceInterface $cookieService,
+        protected UserServiceInterface $userService,
+        protected RouterInterface $router,
+        protected TemplateRendererInterface $template,
+        protected AuthenticationService $authenticationService,
+        protected FlashMessengerInterface $messenger,
+        protected FormsPlugin $forms,
+        protected DebugBar $debugBar,
+        protected array $config = []
     ) {
-        $this->cookieService         = $cookieService;
-        $this->userService           = $userService;
-        $this->router                = $router;
-        $this->template              = $template;
-        $this->authenticationService = $authenticationService;
-        $this->messenger             = $messenger;
-        $this->forms                 = $forms;
-        $this->debugBar              = $debugBar;
-        $this->config                = $config;
     }
 
     /**

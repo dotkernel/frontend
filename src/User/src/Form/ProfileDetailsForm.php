@@ -15,11 +15,7 @@ class ProfileDetailsForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * @param mixed $name
-     * @param array $options
-     */
-    public function __construct($name = null, array $options = [])
+    public function __construct(mixed $name = null, array $options = [])
     {
         parent::__construct($name, $options);
 

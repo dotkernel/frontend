@@ -28,10 +28,6 @@ use const LC_ALL;
  */
 class TranslatorMiddleware implements MiddlewareInterface
 {
-    protected TranslateServiceInterface $translateService;
-    protected TemplateRendererInterface $template;
-    protected array $translatorConfig = [];
-
     /**
      * @Inject({
      *     TranslateServiceInterface::class,
@@ -40,13 +36,10 @@ class TranslatorMiddleware implements MiddlewareInterface
      * })
      */
     public function __construct(
-        TranslateServiceInterface $translateService,
-        TemplateRendererInterface $template,
-        array $translatorConfig
+        protected TranslateServiceInterface $translateService,
+        protected TemplateRendererInterface $template,
+        protected array $translatorConfig
     ) {
-        $this->translateService = $translateService;
-        $this->template         = $template;
-        $this->translatorConfig = $translatorConfig;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

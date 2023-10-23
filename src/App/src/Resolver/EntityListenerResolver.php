@@ -11,11 +11,8 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class EntityListenerResolver extends DefaultEntityListenerResolver
 {
-    protected ContainerInterface $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     /**
