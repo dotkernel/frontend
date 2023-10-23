@@ -30,7 +30,7 @@ class RegisterForm extends Form
         $this->inputFilter->add($detailsInputFilter, 'detail');
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

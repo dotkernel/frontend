@@ -8,9 +8,6 @@ use Doctrine\ORM\EntityRepository;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
 
-/**
- * Interface UserServiceInterface
- */
 interface UserServiceInterface
 {
     public function createUser(array $data): UserInterface;

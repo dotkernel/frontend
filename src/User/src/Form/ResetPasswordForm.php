@@ -24,7 +24,7 @@ class ResetPasswordForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 

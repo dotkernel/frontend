@@ -10,9 +10,6 @@ use Frontend\Plugin\Factory\PluginManagerFactory;
 
 class ConfigProvider
 {
-    /**
-     * @return array
-     */
     public function __invoke(): array
     {
         return [
@@ -27,9 +24,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getDependencies(): array
     {
         return [

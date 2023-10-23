@@ -40,9 +40,6 @@ class UserRememberMe extends AbstractEntity
         return $this->user;
     }
 
-    /**
-     * @return $this
-     */
     public function setUser(User $user): self
     {
         $this->user = $user;
@@ -55,9 +52,6 @@ class UserRememberMe extends AbstractEntity
         return $this->rememberMeToken;
     }
 
-    /**
-     * @return $this
-     */
     public function setRememberMeToken(string $rememberMeToken): self
     {
         $this->rememberMeToken = $rememberMeToken;
@@ -70,9 +64,6 @@ class UserRememberMe extends AbstractEntity
         return $this->userAgent;
     }
 
-    /**
-     * @return $this
-     */
     public function setUserAgent(?string $userAgent): self
     {
         $this->userAgent = $userAgent;
@@ -85,9 +76,6 @@ class UserRememberMe extends AbstractEntity
         return $this->expireDate;
     }
 
-    /**
-     * @return $this
-     */
     public function setExpireDate(DateTimeImmutable $expireDate): self
     {
         $this->expireDate = $expireDate;
@@ -95,9 +83,6 @@ class UserRememberMe extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array
     {
         return [

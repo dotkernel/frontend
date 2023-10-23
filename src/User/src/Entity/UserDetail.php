@@ -67,9 +67,6 @@ class UserDetail extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array
     {
         return [

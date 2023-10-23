@@ -6,9 +6,6 @@ namespace Frontend\Contact\Repository;
 
 use Frontend\Contact\Entity\Message;
 
-/**
- * Interface MessageRepositoryInterface
- */
 interface MessageRepositoryInterface
 {
     public function saveMessage(Message $message): void;

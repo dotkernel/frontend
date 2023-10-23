@@ -14,7 +14,9 @@ class AbstractEntityTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$entity = new class extends AbstractEntity {            public mixed $value;
+        self::$entity = new class extends AbstractEntity {
+
+            public mixed $value;
 
             public function setValue(mixed $value)
             {

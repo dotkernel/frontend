@@ -68,9 +68,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getDoctrineConfig(): array
     {
         return [

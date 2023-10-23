@@ -17,9 +17,6 @@ use Mezzio\Application;
 
 class ConfigProvider
 {
-    /**
-     * @return array
-     */
     public function __invoke(): array
     {
         return [
@@ -30,9 +27,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getDependencies(): array
     {
         return [
@@ -52,9 +46,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getTemplates(): array
     {
         return [
@@ -64,9 +55,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getForms(): array
     {
         return [
@@ -79,9 +67,6 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getDoctrineConfig(): array
     {
         return [

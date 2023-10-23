@@ -13,10 +13,6 @@ class UserIdentity implements UserInterface
     protected array $details;
     protected string $uuid;
 
-    /**
-     * @param array $roles
-     * @param array $details
-     */
     public function __construct(
         string $uuid,
         string $identity,
@@ -49,7 +45,7 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @param null|mixed $default
+     * @param mixed $default
      */
     public function getDetail(string $name, $default = null): mixed
     {
@@ -57,7 +53,6 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @return array
      * @psalm-return array<string, mixed>
      */
     public function getDetails(): array

@@ -15,7 +15,6 @@ use Frontend\App\Common\AbstractEntity;
 class Message extends AbstractEntity
 {
     public const PLATFORM_WEBSITE = 'website';
-    public const PLATFORM_ADMIN   = 'admin';
 
     /** @ORM\Column(name="email", type="string", length=150) */
     protected string $email = '';

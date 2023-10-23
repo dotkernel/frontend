@@ -66,9 +66,6 @@ class UserAvatar extends AbstractEntity
         $this->url = $url;
     }
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array
     {
         return [

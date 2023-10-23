@@ -9,16 +9,10 @@ use Dot\Mail\Exception\MailException;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
 
-/**
- * Interface MessageService
- */
 interface MessageServiceInterface
 {
     public function getRepository(): MessageRepository|EntityRepository;
 
-    /**
-     * @param array $data
-     */
     public function processMessage(array $data): bool;
 
     /**

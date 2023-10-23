@@ -7,9 +7,6 @@ namespace Frontend\User\Entity;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * Interface UserInterface
- */
 interface UserInterface
 {
     public function getUuid(): ?UuidInterface;
@@ -42,9 +39,6 @@ interface UserInterface
 
     public function getIsDeleted(): bool;
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array;
 
     public function activate(): UserInterface;

@@ -12,7 +12,7 @@ use Frontend\Contact\Entity\Message;
  * @Entity(name="Frontend\Contact\Entity\Message")
  * @extends EntityRepository<object>
  */
-class MessageRepository extends EntityRepository
+class MessageRepository extends EntityRepository implements MessageRepositoryInterface
 {
     public function saveMessage(Message $message): void
     {

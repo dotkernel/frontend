@@ -280,9 +280,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @param array $resetPasswords
-     */
     public function setResetPasswords(array $resetPasswords): self
     {
         foreach ($resetPasswords as $resetPassword) {
@@ -292,9 +289,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array
     {
         return [
