@@ -9,7 +9,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
 use Dot\Mail\Service\MailService;
-use Dot\Mail\Service\MailServiceInterface;
 use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
