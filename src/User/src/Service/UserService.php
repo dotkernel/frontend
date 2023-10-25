@@ -265,6 +265,9 @@ class UserService implements UserServiceInterface
         return $this->userRepository->saveUser($user->activate());
     }
 
+    /**
+     * @throws MailException
+     */
     public function sendResetPasswordRequestedMail(UserInterface|User $user): bool
     {
         $this->mailService->setBody(
