@@ -6,7 +6,6 @@ namespace Frontend\Contact\Service;
 
 use Doctrine\ORM\EntityRepository;
 use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
@@ -35,9 +34,6 @@ class MessageService implements MessageServiceInterface
         return $this->repository;
     }
 
-    /**
-     * @throws MailException
-     */
     public function processMessage(array $data): bool
     {
         $message = new Message(

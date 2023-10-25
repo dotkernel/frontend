@@ -69,7 +69,6 @@ class RecaptchaService
 
         $response = curl_exec($curl);
 
-        /** @psalm-suppress InvalidScalarArgument */
         $response   = json_decode($response, true);
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 

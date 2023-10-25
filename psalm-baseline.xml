@@ -17,4 +17,9 @@
             <code>getCookieSameSite</code>
         </UndefinedInterfaceMethod>
     </file>
+    <file src="src/User/src/Entity/UserIdentity.php">
+        <LessSpecificImplementedReturnType>
+            <code>iterable</code>
+        </LessSpecificImplementedReturnType>
+    </file>
 </files>

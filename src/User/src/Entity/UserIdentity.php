@@ -37,7 +37,6 @@ class UserIdentity implements UserInterface
 
     /**
      * @return iterable
-     * @psalm-suppress LessSpecificImplementedReturnType
      */
     public function getRoles(): iterable
     {

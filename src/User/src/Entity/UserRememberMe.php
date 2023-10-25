@@ -30,11 +30,6 @@ class UserRememberMe extends AbstractEntity
     /** @ORM\Column(name="expireDate", type="datetime_immutable") */
     protected DateTimeImmutable $expireDate;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function getUser(): User
     {
         return $this->user;

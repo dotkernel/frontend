@@ -7,7 +7,7 @@ return [
         /**
          * Enable/Disable DebugBar
          */
-        'enabled' => true,
+        'enabled' => false,
 
         /**
          * Enable DebugBar by whitelisting your IPV4 address
@@ -32,6 +32,10 @@ return [
             'disable_jquery'      => true,
             'disable_fontawesome' => false,
             'disable_highlightjs' => false,
+        ],
+        'application'         => [
+            'name' => 'DotKernel',
+            'url'  => 'a',
         ],
     ],
 ];
