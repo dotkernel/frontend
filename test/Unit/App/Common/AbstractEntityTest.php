@@ -17,7 +17,7 @@ class AbstractEntityTest extends TestCase
         self::$entity = new class extends AbstractEntity {
             public mixed $value;
 
-            public function setValue(mixed $value)
+            public function setValue(mixed $value): void
             {
                 $this->value = $value;
             }
@@ -27,7 +27,7 @@ class AbstractEntityTest extends TestCase
                 return $this->value;
             }
 
-            public function addValue(mixed $value)
+            public function addValue(mixed $value): void
             {
                 $this->value = $value;
             }

@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\AnnotatedServices\Annotation\Service;
+use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
 use Exception;
 use Frontend\App\Common\Message;
@@ -228,6 +229,9 @@ class UserService implements UserServiceInterface
         );
     }
 
+    /**
+     * @throws MailException
+     */
     public function sendActivationMail(User $user): bool
     {
         if ($user->isActive()) {
@@ -286,6 +290,9 @@ class UserService implements UserServiceInterface
         return $this->userRepository->findByResetPasswordHash($hash);
     }
 
+    /**
+     * @throws MailException
+     */
     public function sendResetPasswordCompletedMail(User $user): bool
     {
         $this->mailService->setBody(
