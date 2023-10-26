@@ -51,7 +51,7 @@ class ResetPasswordInputFilter extends InputFilter
             ])
             ->attachByName(Identical::class, [
                 'token'   => 'password',
-                'message' => '<b>Password confirm</b> does not match',
+                'message' => '<b>Confirm Password</b> does not match',
             ]);
         $this->add($passwordConfirm);
     }
