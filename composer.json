@@ -59,7 +59,7 @@
         "dotkernel/dot-rbac-guard": "^3.2",
         "dotkernel/dot-response-header": "^3.1",
         "dotkernel/dot-session": "^5.2",
-        "dotkernel/dot-twigrenderer": "^3.2",
+        "dotkernel/dot-twigrenderer": "^3.4",
         "friendsofphp/proxy-manager-lts": "^1.0",
         "laminas/laminas-component-installer": "^3.3",
         "laminas/laminas-config-aggregator": "^1.8",
