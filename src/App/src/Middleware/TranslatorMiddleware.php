@@ -13,24 +13,22 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use function array_key_exists;
+use function bind_textdomain_codeset;
+use function bindtextdomain;
+use function putenv;
+use function rtrim;
+use function setlocale;
+use function textdomain;
+
+use const LC_ALL;
+
 /**
- * Class TranslatorMiddleware
- * @package Frontend\App\Middleware
- *
  * @Service()
  */
 class TranslatorMiddleware implements MiddlewareInterface
 {
-    protected TranslateServiceInterface $translateService;
-    protected TemplateRendererInterface $template;
-    protected array $translatorConfig = [];
-
     /**
-     * TranslatorMiddleware constructor.
-     * @param TranslateServiceInterface $translateService
-     * @param TemplateRendererInterface $template
-     * @param array $translatorConfig
-     *
      * @Inject({
      *     TranslateServiceInterface::class,
      *     TemplateRendererInterface::class,
@@ -38,24 +36,16 @@ class TranslatorMiddleware implements MiddlewareInterface
      * })
      */
     public function __construct(
-        TranslateServiceInterface $translateService,
-        TemplateRendererInterface $template,
-        array $translatorConfig
+        protected TranslateServiceInterface $translateService,
+        protected TemplateRendererInterface $template,
+        protected array $translatorConfig
     ) {
-        $this->translateService = $translateService;
-        $this->template = $template;
-        $this->translatorConfig = $translatorConfig;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $cookies = $request->getCookieParams();
-        $cookieKey = $this->translatorConfig['cookie']['name'];
+        $cookies   = $request->getCookieParams();
+        $cookieKey = $this->translatorConfig['cookie']['name'] ?? '';
 
         // add language key
         if (isset($cookies[$cookieKey]) && array_key_exists($cookies[$cookieKey], $this->translatorConfig['locale'])) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.15.0@086b94371304750d1c673315321a55d15fc59015">
+    <file src="src/App/src/Common/UuidOrderedTimeGenerator.php">
+        <UndefinedInterfaceMethod>
+            <code>getUuidBuilder</code>
+            <code>setCodec</code>
+        </UndefinedInterfaceMethod>
+    </file>
+    <file src="src/App/src/Middleware/RememberMeMiddleware.php">
+        <UndefinedInterfaceMethod>
+            <code>getStorage</code>
+            <code>getStorage</code>
+        </UndefinedInterfaceMethod>
+    </file>
+    <file src="src/App/src/Service/CookieService.php">
+        <UndefinedInterfaceMethod>
+            <code>getCookieSameSite</code>
+        </UndefinedInterfaceMethod>
+    </file>
+    <file src="src/User/src/Entity/UserIdentity.php">
+        <LessSpecificImplementedReturnType>
+            <code>iterable</code>
+        </LessSpecificImplementedReturnType>
+    </file>
+</files>

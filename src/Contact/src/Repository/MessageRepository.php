@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Repository;
 
-use Frontend\Contact\Entity\Message;
 use Doctrine\ORM\EntityRepository;
+use Dot\AnnotatedServices\Annotation\Entity;
+use Frontend\Contact\Entity\Message;
 
 /**
- * Class MessageRepository
- * @package Frontend\Contact\Repository
+ * @Entity(name="Frontend\Contact\Entity\Message")
  * @extends EntityRepository<object>
  */
-class MessageRepository extends EntityRepository
+class MessageRepository extends EntityRepository implements MessageRepositoryInterface
 {
-    /**
-     * @param Message $message
-     * @return void
-     */
     public function saveMessage(Message $message): void
     {
         $this->getEntityManager()->persist($message);

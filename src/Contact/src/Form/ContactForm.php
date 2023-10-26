@@ -12,20 +12,11 @@ use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class ContactForm
- * @package Frontend\Contact\Form
- */
 class ContactForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * ContactForm constructor.
-     * @param null $name
-     * @param array $options
-     */
-    public function __construct($name = null, array $options = [])
+    public function __construct(mixed $name = null, array $options = [])
     {
         parent::__construct($name, $options);
 
@@ -35,63 +26,57 @@ class ContactForm extends Form
         $this->inputFilter->init();
     }
 
-    /**
-     * @return void
-     */
     public function init(): void
     {
         parent::init();
 
         $this->add([
-            'name' => 'email',
-            'options' => [
-                'label' => 'E-mail'
+            'name'       => 'email',
+            'options'    => [
+                'label' => 'E-mail',
             ],
             'attributes' => [
-                'placeholder' => 'E-mail address...'
+                'placeholder' => 'E-mail address...',
             ],
-            'type' => Email::class
+            'type'       => Email::class,
         ]);
 
         $this->add([
-            'name' => 'name',
-            'options' => [
-                'label' => 'Name'
+            'name'       => 'name',
+            'options'    => [
+                'label' => 'Name',
             ],
             'attributes' => [
-                'placeholder' => 'Your name...'
+                'placeholder' => 'Your name...',
             ],
-            'type' => Text::class,
+            'type'       => Text::class,
         ]);
 
         $this->add([
-            'name' => 'subject',
-            'options' => [
-                'label' => 'Subject'
+            'name'       => 'subject',
+            'options'    => [
+                'label' => 'Subject',
             ],
             'attributes' => [
-                'placeholder' => 'Subject...'
+                'placeholder' => 'Subject...',
             ],
-            'type' => Hidden::class,
+            'type'       => Hidden::class,
         ]);
 
         $this->add([
-            'name' => 'message',
-            'options' => [
-                'label' => 'Message'
+            'name'       => 'message',
+            'options'    => [
+                'label' => 'Message',
             ],
             'attributes' => [
-                'id' => 'userMessage_textarea',
+                'id'          => 'userMessage_textarea',
                 'placeholder' => 'Message...',
-                'rows' => 5,
+                'rows'        => 5,
             ],
-            'type' => Textarea::class,
+            'type'       => Textarea::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

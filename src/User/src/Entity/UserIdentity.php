@@ -6,10 +6,6 @@ namespace Frontend\User\Entity;
 
 use Mezzio\Authentication\UserInterface;
 
-/**
- * Class UserIdentity
- * @package Frontend\User\Entity
- */
 class UserIdentity implements UserInterface
 {
     protected string $identity;
@@ -17,36 +13,23 @@ class UserIdentity implements UserInterface
     protected array $details;
     protected string $uuid;
 
-    /**
-     * UserIdentity constructor.
-     * @param string $uuid
-     * @param string $identity
-     * @param array $roles
-     * @param array $details
-     */
     public function __construct(
         string $uuid,
         string $identity,
         array $roles = [],
         array $details = []
     ) {
-        $this->uuid = $uuid;
+        $this->uuid     = $uuid;
         $this->identity = $identity;
-        $this->roles = $roles;
-        $this->details = $details;
+        $this->roles    = $roles;
+        $this->details  = $details;
     }
 
-    /**
-     * @return string
-     */
     public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentity(): string
     {
         return $this->identity;
@@ -54,7 +37,6 @@ class UserIdentity implements UserInterface
 
     /**
      * @return iterable
-     * @psalm-suppress LessSpecificImplementedReturnType
      */
     public function getRoles(): iterable
     {
@@ -62,9 +44,7 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @param string $name
-     * @param null|mixed $default
-     * @return mixed
+     * @param mixed $default
      */
     public function getDetail(string $name, $default = null): mixed
     {
@@ -72,7 +52,6 @@ class UserIdentity implements UserInterface
     }
 
     /**
-     * @return array
      * @psalm-return array<string, mixed>
      */
     public function getDetails(): array

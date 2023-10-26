@@ -17,7 +17,7 @@ use Laminas\Validator\StringLength;
  */
 class ProfilePasswordInputFilter extends InputFilter
 {
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -30,8 +30,8 @@ class ProfilePasswordInputFilter extends InputFilter
                 'message' => '<b>Password</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min' => 8,
-                'max' => 150,
+                'min'     => 8,
+                'max'     => 150,
                 'message' => '<b>Password</b> must have between 8 and 150 characters',
             ], true);
         $this->add($password);
@@ -45,13 +45,13 @@ class ProfilePasswordInputFilter extends InputFilter
                 'message' => '<b>Confirm Password</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min' => 8,
-                'max' => 150,
+                'min'     => 8,
+                'max'     => 150,
                 'message' => '<b>Confirm Password</b> must have between 8 and 150 characters',
             ])
             ->attachByName(Identical::class, [
-                'token' => 'password',
-                'message' => '<b>Password confirm</b> does not match',
+                'token'   => 'password',
+                'message' => '<b>Confirm Password</b> does not match',
             ]);
         $this->add($passwordConfirm);
     }

@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 use Dot\DebugBar\Middleware\DebugBarMiddleware;
 use Dot\ErrorHandler\ErrorHandlerInterface;
+use Dot\Rbac\Guard\Middleware\ForbiddenHandler;
+use Dot\Rbac\Guard\Middleware\RbacGuardMiddleware;
 use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
 use Dot\Session\SessionMiddleware;
+use Frontend\App\Middleware\AuthMiddleware;
 use Frontend\App\Middleware\RememberMeMiddleware;
+use Frontend\App\Middleware\TranslatorMiddleware;
 use Mezzio\Application;
 use Mezzio\Cors\Middleware\CorsMiddleware;
 use Mezzio\Handler\NotFoundHandler;
@@ -19,14 +23,7 @@ use Mezzio\Router\Middleware\ImplicitOptionsMiddleware;
 use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddleware;
 use Psr\Container\ContainerInterface;
-use Frontend\App\Middleware\TranslatorMiddleware;
-use Dot\Rbac\Guard\Middleware\ForbiddenHandler;
-use Dot\Rbac\Guard\Middleware\RbacGuardMiddleware;
-use Frontend\App\Middleware\AuthMiddleware;
 
-/**
- * Setup middleware pipeline:
- */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
@@ -59,8 +56,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(RouteMiddleware::class);
     $app->pipe(ResponseHeaderMiddleware::class);
 
-
-
     // The following handle routing failures for common conditions:
     // - HEAD request but no routes answer that method
     // - OPTIONS request but no routes answer that method
@@ -86,7 +81,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(AuthMiddleware::class);
     $app->pipe(ForbiddenHandler::class);
     $app->pipe(RbacGuardMiddleware::class);
-
 
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);

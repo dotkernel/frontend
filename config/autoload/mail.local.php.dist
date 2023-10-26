@@ -7,9 +7,9 @@ return [
     /**
      * Dotkernel mail module configuration
      * Note that many of these options can be set programmaticaly too, when sending mail messages
-     * actually that is what you'll usually do, these config provide just default and options that remain the same for all mails
+     * actually that is what you'll usually do, these config provide just default and options that
+     * remain the same for all mails
      */
-
     'dot_mail' => [
         //the key is the mail service name, this is the default one, which does not extends any configuration
         'default' => [
@@ -28,11 +28,10 @@ return [
              *
              * defaults to sendmail
              **/
-
             'transport' => Laminas\Mail\Transport\Sendmail::class,
-            
+
              // Uncomment the below line if you want to save a copy of all sent emails to a certain IMAP folder
-            // Valid only if the Transport is SMTP 
+            // Valid only if the Transport is SMTP
             // 'save_sent_message_folder' => ['INBOX.Sent'],
 
             //message configuration
@@ -65,19 +64,17 @@ return [
                 //body options - content can be plain text, HTML
                 'body' => [
                     'content' => '',
-
                     'charset' => 'utf-8',
                 ],
 
                 //attachments config
                 'attachments' => [
                     'files' => [],
-
-                    'dir' => [
-                        'iterate' => false,
-                        'path' => 'data/mail/attachments',
+                    'dir'   => [
+                        'iterate'   => false,
+                        'path'      => 'data/mail/attachments',
                         'recursive' => false,
-                    ]
+                    ],
                 ],
             ],
 
@@ -92,8 +89,7 @@ return [
 
                 //connection class used for authentication
                 //the value can be one of smtp, plain, login or crammd5
-                'connection_class' => 'login',
-
+                'connection_class'  => 'login',
                 'connection_config' => [
 
                     //the smtp authentication identity
@@ -105,7 +101,7 @@ return [
                     //the encryption type to be used, ssl or tls
                     //null should be used to disable SSL
                     'ssl' => 'ssl',
-                ]
+                ],
             ],
 
             //file options that will be used only if the adapter is Laminas\Mail\Transport\File
@@ -115,7 +111,8 @@ return [
                 //default value is 'data/mail/output'
                 'path' => 'data/mail/output',
 
-                //a callable that will get the Laminas\Mail\Transport\File object as an argument and should return the filename
+                //a callable that will get the Laminas\Mail\Transport\File object as an argument
+                // and should return the filename
                 //if null is used, and empty callable will be used
                 //'callback' => null,
             ],*/
@@ -130,7 +127,7 @@ return [
         ],
         // option to log the SENT emails
         'log' => [
-            'sent' => getcwd() . '/log/mail/sent.log'
+            'sent' => getcwd() . '/log/mail/sent.log',
         ],
 
         /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     /**
      * dotkernel/dot-flashmessenger options
+     *
      * @see https://github.com/dotkernel/dot-flashmessenger
      */
     'dot_flashmessenger' => [
@@ -12,12 +13,13 @@ return [
             /**
              * FlashMessenger session container
              */
-            'namespace' => 'frontend_messenger'
-        ]
+            'namespace' => 'frontend_messenger',
+        ],
     ],
 
     /**
      * dotkernel/dot-session options
+     *
      * @see https://github.com/dotkernel/dot-session
      */
     'dot_session' => [
@@ -32,6 +34,7 @@ return [
 
     /**
      * laminas/laminas-session options
+     *
      * @see https://docs.laminas.dev/laminas-session/config/
      */
     'session_config' => [
@@ -84,6 +87,6 @@ return [
      * Allows creating Container instances.
      */
     'session_containers' => [
-        'user'
+        'user',
     ],
 ];

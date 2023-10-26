@@ -22,7 +22,7 @@ require 'vendor/autoload.php';
     $container = require 'config/container.php';
 
     /** @var Application $app */
-    $app = $container->get(Application::class);
+    $app     = $container->get(Application::class);
     $factory = $container->get(MiddlewareFactory::class);
 
     // Execute programmatic/declarative middleware pipeline and routing

@@ -6,7 +6,6 @@ namespace Frontend\Plugin\Exception;
 
 /**
  * Interface ExceptionInterface
- * @package Frontend\Plugin\Exception
  */
 interface ExceptionInterface
 {

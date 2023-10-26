@@ -19,7 +19,6 @@ $aggregator = new ConfigAggregator([
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
-
     \Mezzio\Helper\ConfigProvider::class,
     \Mezzio\ConfigProvider::class,
     \Mezzio\Router\ConfigProvider::class,
@@ -28,7 +27,9 @@ $aggregator = new ConfigAggregator([
     // Swoole config to overwrite some services (if installed)
     class_exists(\Mezzio\Swoole\ConfigProvider::class)
         ? \Mezzio\Swoole\ConfigProvider::class
-        : function(){ return[]; },
+        : function () {
+            return [];
+        },
 
     // DotKernel packages
     \Dot\Session\ConfigProvider::class,

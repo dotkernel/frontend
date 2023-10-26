@@ -16,41 +16,16 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-/**
- * Class AuthMiddleware
- * @package Frontend\App\Middleware
- */
 class AuthMiddleware implements MiddlewareInterface
 {
-    protected RouterInterface $router;
-    protected FlashMessengerInterface $messenger;
-    protected GuardsProviderInterface $guardProvider;
-    protected RbacGuardOptions $options;
-
-    /**
-     * AuthMiddleware constructor.
-     * @param RouterInterface $router
-     * @param FlashMessengerInterface $messenger
-     * @param GuardsProviderInterface $guardProvider
-     * @param RbacGuardOptions $options
-     */
     public function __construct(
-        RouterInterface $router,
-        FlashMessengerInterface $messenger,
-        GuardsProviderInterface $guardProvider,
-        RbacGuardOptions $options
+        protected RouterInterface $router,
+        protected FlashMessengerInterface $messenger,
+        protected GuardsProviderInterface $guardProvider,
+        protected RbacGuardOptions $options
     ) {
-        $this->router = $router;
-        $this->messenger = $messenger;
-        $this->guardProvider = $guardProvider;
-        $this->options = $options;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $guards = $this->guardProvider->getGuards();
@@ -61,7 +36,7 @@ class AuthMiddleware implements MiddlewareInterface
         $isGranted = $this->options->getProtectionPolicy() === GuardInterface::POLICY_ALLOW;
 
         foreach ($guards as $guard) {
-            if (!$guard instanceof GuardInterface) {
+            if (! $guard instanceof GuardInterface) {
                 throw new RuntimeException("Guard is not an instance of " . GuardInterface::class);
             }
             //according to the policy, we whitelist or blacklist matched routes
@@ -73,7 +48,7 @@ class AuthMiddleware implements MiddlewareInterface
             }
         }
 
-        if (!$isGranted) {
+        if (! $isGranted) {
             $this->messenger->addWarning(
                 'You must sign in first in order to access the requested content',
                 'user-login'

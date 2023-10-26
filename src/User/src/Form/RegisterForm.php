@@ -10,23 +10,14 @@ use Frontend\User\InputFilter\UserDetailInputFilter;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
-use Laminas\InputFilter\InputFilterInterface;
 use Laminas\Form\Form;
+use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class RegisterForm
- * @package Frontend\User\Form
- */
 class RegisterForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * RegisterForm constructor.
-     * @param null $name
-     * @param array $options
-     */
-    public function __construct($name = null, array $options = [])
+    public function __construct(mixed $name = null, array $options = [])
     {
         parent::__construct($name, $options);
 
@@ -39,61 +30,58 @@ class RegisterForm extends Form
         $this->inputFilter->add($detailsInputFilter, 'detail');
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
         $this->add([
             'name' => 'detail',
-            'type' => UserDetailFieldset::class
+            'type' => UserDetailFieldset::class,
         ]);
 
         $this->add([
-            'name' => 'email',
-            'options' => [
-                'label' => 'Email address'
+            'name'       => 'email',
+            'options'    => [
+                'label' => 'Email address',
             ],
             'attributes' => [
                 'placeholder' => 'Email...',
             ],
-            'type' => Email::class
+            'type'       => Email::class,
         ]);
 
         $this->add([
-            'name' => 'password',
-            'options' => [
-                'label' => 'Password'
+            'name'       => 'password',
+            'options'    => [
+                'label' => 'Password',
             ],
             'attributes' => [
                 'placeholder' => 'Password...',
             ],
-            'type' => Password::class
+            'type'       => Password::class,
         ]);
 
         $this->add([
-            'name' => 'passwordConfirm',
-            'options' => [
-                'label' => 'Confirm password'
+            'name'       => 'passwordConfirm',
+            'options'    => [
+                'label' => 'Confirm password',
             ],
             'attributes' => [
                 'placeholder' => 'Confirm password...',
             ],
-            'type' => Password::class
+            'type'       => Password::class,
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Register'
+                'type'  => 'submit',
+                'value' => 'Register',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

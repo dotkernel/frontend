@@ -10,20 +10,11 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class ResetPasswordForm
- * @package Frontend\User\Form
- */
 class ResetPasswordForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * ResetPasswordForm constructor.
-     * @param null $name
-     * @param array $options
-     */
-    public function __construct($name = null, array $options = [])
+    public function __construct(mixed $name = null, array $options = [])
     {
         parent::__construct($name, $options);
 
@@ -33,45 +24,42 @@ class ResetPasswordForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
         $this->add([
-            'name' => 'password',
-            'options' => [
-                'label' => 'Password'
+            'name'       => 'password',
+            'options'    => [
+                'label' => 'Password',
             ],
             'attributes' => [
                 'placeholder' => 'Password...',
             ],
-            'type' => Password::class
+            'type'       => Password::class,
         ]);
 
         $this->add([
-            'name' => 'passwordConfirm',
-            'options' => [
-                'label' => 'Confirm password'
+            'name'       => 'passwordConfirm',
+            'options'    => [
+                'label' => 'Confirm password',
             ],
             'attributes' => [
                 'placeholder' => 'Confirm password...',
             ],
-            'type' => Password::class
+            'type'       => Password::class,
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Change'
+                'type'  => 'submit',
+                'value' => 'Change',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;

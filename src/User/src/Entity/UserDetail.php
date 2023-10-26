@@ -8,11 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
 /**
- * Class UserDetail
  * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserDetailRepository")
  * @ORM\Table(name="user_detail")
  * @ORM\HasLifecycleCallbacks()
- * @package Frontend\User\Entity
  */
 class UserDetail extends AbstractEntity
 {
@@ -22,36 +20,22 @@ class UserDetail extends AbstractEntity
      */
     protected UserInterface $user;
 
-    /**
-     * @ORM\Column(name="firstName", type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(name="firstName", type="string", length=191, nullable=true) */
     protected string $firstName;
 
-    /**
-     * @ORM\Column(name="lastName", type="string", length=191, nullable=true)
-     */
+    /** @ORM\Column(name="lastName", type="string", length=191, nullable=true) */
     protected string $lastName;
 
-    /**
-     * UserDetail constructor.
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * @return UserInterface
-     */
     public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     * @return self
-     */
     public function setUser(User $user): self
     {
         $this->user = $user;
@@ -59,18 +43,11 @@ class UserDetail extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     * @return self
-     */
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
@@ -78,18 +55,11 @@ class UserDetail extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     * @return self
-     */
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
@@ -97,17 +67,14 @@ class UserDetail extends AbstractEntity
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getArrayCopy(): array
     {
         return [
-            'uuid' => $this->getUuid()->toString(),
+            'uuid'      => $this->getUuid()->toString(),
             'firstName' => $this->getFirstName(),
-            'lastName' => $this->getLastName(),
-            'created' => $this->getCreated(),
-            'updated' => $this->getUpdated()
+            'lastName'  => $this->getLastName(),
+            'created'   => $this->getCreated(),
+            'updated'   => $this->getUpdated(),
         ];
     }
 }

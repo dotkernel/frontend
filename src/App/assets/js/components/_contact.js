@@ -85,6 +85,9 @@ function validateContactUsForm()
         $('#contactUsErrors').show();
         $('#contactUsEmptyText').show();
     }
+
+    //grecaptcha.execute();
+
     if (submit == true) {
         grecaptcha.execute();
     }

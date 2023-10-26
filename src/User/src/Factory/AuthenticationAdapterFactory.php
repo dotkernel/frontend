@@ -5,44 +5,44 @@ declare(strict_types=1);
 namespace Frontend\User\Factory;
 
 use Doctrine\ORM\EntityManager;
-use Exception;
+use Doctrine\ORM\EntityRepository;
 use Frontend\User\Adapter\AuthenticationAdapter;
-use Frontend\User\Repository\UserRepository;
+use Frontend\User\Exception\AuthenticationAdapterException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use RuntimeException;
 
-/**
- * Class AuthenticationAdapter
- * @package Frontend\User\Factory
- */
+use function sprintf;
+
 class AuthenticationAdapterFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return AuthenticationAdapter
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
-     * @throws Exception
      */
     public function __invoke(ContainerInterface $container): AuthenticationAdapter
     {
-        if (!$container->has(EntityManager::class)) {
-            throw new Exception('EntityManager not found.');
+        if (! $container->has(EntityManager::class)) {
+            throw new RuntimeException(
+                sprintf(
+                    "Class '%s' not found in container.",
+                    EntityManager::class
+                )
+            );
         }
 
-        $config = $container->get('config');
-        if (!isset($config['doctrine']['authentication']['orm_default'])) {
-            throw new Exception('Authentication config not found.');
-        }
-
-        /** @var EntityManager $entityManager */
         $entityManager = $container->get(EntityManager::class);
+        $config        = $container->get('config');
+        if (! isset($config['doctrine']['authentication']['orm_default'])) {
+            throw AuthenticationAdapterException::invalidConfigurationProvided();
+        }
+
         $repository = $entityManager->getRepository(
             $config['doctrine']['authentication']['orm_default']['identity_class']
         );
-        if (!$repository instanceof UserRepository) {
-            throw new Exception(
+        if (! $repository instanceof EntityRepository) {
+            throw new RuntimeException(
                 sprintf(
                     'Could not find repository for identity class: %s',
                     $config['doctrine']['authentication']['orm_default']['identity_class']

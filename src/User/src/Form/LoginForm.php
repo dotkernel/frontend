@@ -11,20 +11,11 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\InputFilter\InputFilterInterface;
 
-/**
- * Class LoginForm
- * @package Frontend\User\Form
- */
 class LoginForm extends Form
 {
     protected InputFilterInterface $inputFilter;
 
-    /**
-     * LoginForm constructor.
-     * @param null $name
-     * @param array $options
-     */
-    public function __construct($name = null, array $options = [])
+    public function __construct(mixed $name = null, array $options = [])
     {
         parent::__construct($name, $options);
 
@@ -34,55 +25,52 @@ class LoginForm extends Form
         $this->inputFilter->init();
     }
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
         $this->add([
-            'name' => 'identity',
-            'options' => [
-                'label' => 'Email address'
+            'name'       => 'identity',
+            'options'    => [
+                'label' => 'Email address',
             ],
             'attributes' => [
                 'placeholder' => 'Email address',
             ],
-            'type' => Email::class
+            'type'       => Email::class,
         ]);
 
         $this->add([
-            'name' => 'password',
-            'options' => [
-                'label' => 'Password'
+            'name'       => 'password',
+            'options'    => [
+                'label' => 'Password',
             ],
             'attributes' => [
                 'placeholder' => 'Password',
             ],
-            'type' => Password::class
+            'type'       => Password::class,
         ]);
 
         $this->add([
-            'name' => 'rememberMe',
-            'type' => 'checkbox',
+            'name'       => 'rememberMe',
+            'type'       => 'checkbox',
             'attributes' => [
-                'class' => 'tooltips',
+                'class'       => 'tooltips',
                 'data-toggle' => 'tooltip',
-                'title' => 'Remember me',
+                'title'       => 'Remember me',
             ],
         ]);
 
         $this->add([
-            'name' => 'submit',
+            'name'       => 'submit',
             'attributes' => [
-                'type' => 'submit',
-                'value' => 'Log in'
+                'type'  => 'submit',
+                'value' => 'Log in',
             ],
-            'type' => Submit::class
+            'type'       => Submit::class,
         ]);
     }
 
-    /**
-     * @return InputFilterInterface
-     */
     public function getInputFilter(): InputFilterInterface
     {
         return $this->inputFilter;
