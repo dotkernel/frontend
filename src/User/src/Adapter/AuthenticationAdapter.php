@@ -12,6 +12,7 @@ use Laminas\Authentication\Adapter\AbstractAdapter;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Laminas\Authentication\Result;
 
+use function array_key_exists;
 use function class_exists;
 use function method_exists;
 use function password_verify;
@@ -19,7 +20,7 @@ use function ucfirst;
 
 class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 {
-    public function __construct(private EntityRepository $entityRepository, private array $config)
+    public function __construct(private readonly EntityRepository $entityRepository, private readonly array $config)
     {
     }
 
@@ -57,7 +58,7 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
 
                 $this->checkMethod($identityClass, $methodName);
 
-                if (empty($option['value'])) {
+                if (! array_key_exists('value', $option)) {
                     throw AuthenticationAdapterException::invalidOptionValue('value', $property);
                 }
 

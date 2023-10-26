@@ -134,7 +134,7 @@ class RegisterInputFilterTest extends AbstractInputFilterTest
         $this->assertIsArray($messages['passwordConfirm']);
         $this->assertArrayHasKey('notSame', $messages['passwordConfirm']);
         $this->assertSame(
-            '<b>Password confirm</b> does not match',
+            '<b>Confirm Password</b> does not match',
             $messages['passwordConfirm']['notSame']
         );
     }

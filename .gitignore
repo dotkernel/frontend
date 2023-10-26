@@ -50,3 +50,4 @@ package-lock.json
 
 public/uploads/user/*
 !public/uploads/user/.gitkeep
+config/autoload/local.test.php

@@ -26,7 +26,7 @@ class RememberMeMiddleware implements MiddlewareInterface
     /**
      * @Inject({
      *     UserServiceInterface::class,
-     *     AuthenticationService::class,
+     *     AuthenticationServiceInterface::class,
      *     "config.rememberMe"
      * })
      */

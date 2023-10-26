@@ -91,7 +91,7 @@ class UserService implements UserServiceInterface
 
         $user = (new User())
             ->setDetail($detail)
-            ->setIdentity($data['identity'])
+            ->setIdentity($data['email'])
             ->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))
             ->setStatus($data['status'] ?? User::STATUS_PENDING);
 
