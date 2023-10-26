@@ -243,7 +243,7 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new UploadAvatarForm();
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
-            $file = $this->request->getUploadedFiles()['avatar']['image'] ?? '';
+            $file = $this->request->getUploadedFiles()['avatar']['image'];
             if ($file->getSize() === 0) {
                 $this->messenger->addWarning('Please select a file for upload.', 'profile-avatar');
                 return new RedirectResponse($this->router->generateUri(

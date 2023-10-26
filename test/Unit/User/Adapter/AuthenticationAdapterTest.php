@@ -274,7 +274,7 @@ class AuthenticationAdapterTest extends TestCase
             [
                 'options' => [
                     'status' => [
-                        'values'   => '',
+                        'values'  => '',
                         'message' => Message::USER_NOT_ACTIVATED,
                     ],
                 ],
