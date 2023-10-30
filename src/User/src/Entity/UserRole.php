@@ -7,12 +7,11 @@ namespace Frontend\User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Dot\Authorization\Role\RoleInterface;
 use Frontend\App\Common\AbstractEntity;
+use Frontend\User\Repository\UserRoleRepository;
 
-/**
- * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserRoleRepository")
- * @ORM\Table(name="user_role")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: UserRoleRepository::class)]
+#[ORM\Table(name: 'user_role')]
+#[ORM\HasLifecycleCallbacks]
 class UserRole extends AbstractEntity implements RoleInterface
 {
     public const ROLE_ADMIN = 'admin';
@@ -24,7 +23,7 @@ class UserRole extends AbstractEntity implements RoleInterface
         self::ROLE_GUEST,
     ];
 
-    /** @ORM\Column(name="name", type="string", length=30, nullable=false, unique=true) */
+    #[ORM\Column(name: 'name', type: 'string', length: 30, unique: true, nullable: false)]
     protected string $name;
 
     public function getName(): string

@@ -6,30 +6,22 @@ namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
+use Frontend\User\Repository\UserDetailRepository;
 
-/**
- * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserDetailRepository")
- * @ORM\Table(name="user_detail")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: UserDetailRepository::class)]
+#[ORM\Table(name: 'user_detail')]
+#[ORM\HasLifecycleCallbacks]
 class UserDetail extends AbstractEntity
 {
-    /**
-     * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User", inversedBy="detail")
-     * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     */
+    #[ORM\OneToOne(inversedBy: 'detail', targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected UserInterface $user;
 
-    /** @ORM\Column(name="firstName", type="string", length=191, nullable=true) */
+    #[ORM\Column(name: 'firstName', type: 'string', length: 191, nullable: true)]
     protected string $firstName;
 
-    /** @ORM\Column(name="lastName", type="string", length=191, nullable=true) */
+    #[ORM\Column(name: 'lastName', type: 'string', length: 191, nullable: true)]
     protected string $lastName;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function getUser(): UserInterface
     {

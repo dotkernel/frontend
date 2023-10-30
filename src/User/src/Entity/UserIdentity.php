@@ -8,21 +8,12 @@ use Mezzio\Authentication\UserInterface;
 
 class UserIdentity implements UserInterface
 {
-    protected string $identity;
-    protected array $roles;
-    protected array $details;
-    protected string $uuid;
-
     public function __construct(
-        string $uuid,
-        string $identity,
-        array $roles = [],
-        array $details = []
+        protected string $uuid,
+        protected string $identity,
+        protected array $roles = [],
+        protected array $details = []
     ) {
-        $this->uuid     = $uuid;
-        $this->identity = $identity;
-        $this->roles    = $roles;
-        $this->details  = $details;
     }
 
     public function getUuid(): string

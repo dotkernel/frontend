@@ -11,11 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Frontend\App\Common\AbstractEntity;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="user_reset_password")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'user_reset_password')]
+#[ORM\HasLifecycleCallbacks]
 class UserResetPassword extends AbstractEntity
 {
     public const STATUS_COMPLETED = 'completed';
@@ -25,19 +23,17 @@ class UserResetPassword extends AbstractEntity
         self::STATUS_REQUESTED,
     ];
 
-    /**
-     * @ORM\ManyToOne(targetEntity="User", cascade={"persist", "remove"}, inversedBy="resetPasswords")
-     * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist', 'remove'], inversedBy: 'resetPasswords')]
+    #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected User $user;
 
-    /** @ORM\Column(name="expires", type="datetime_immutable", nullable=false) */
+    #[ORM\Column(name: 'expires', type: 'datetime_immutable', nullable: false)]
     protected DateTimeImmutable $expires;
 
-    /** @ORM\Column(name="hash", type="string", length=64, nullable=false, unique=true) */
+    #[ORM\Column(name: 'hash', type: 'string', length: 64, unique: true, nullable: false)]
     protected string $hash;
 
-    /** @ORM\Column(name="status", type="string", length=20, nullable=false) */
+    #[ORM\Column(name: 'status', type: 'string', length: 20, nullable: false)]
     protected string $status = self::STATUS_REQUESTED;
 
     public function __construct()
