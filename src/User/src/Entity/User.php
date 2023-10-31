@@ -11,15 +11,14 @@ use Dot\Authorization\Role\RoleInterface;
 use Exception;
 use Frontend\App\Common\AbstractEntity;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
+use Frontend\User\Repository\UserRepository;
 
 use function bin2hex;
 use function random_bytes;
 
-/**
- * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserRepository")
- * @ORM\Table(name="user")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'user')]
+#[ORM\HasLifecycleCallbacks]
 class User extends AbstractEntity implements UserInterface
 {
     public const STATUS_PENDING = 'pending';
@@ -37,41 +36,39 @@ class User extends AbstractEntity implements UserInterface
         self::IS_DELETED_NO,
     ];
 
-    /** @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserDetail", cascade={"persist", "remove"}, mappedBy="user") */
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserDetail::class, cascade: ['persist', 'remove'])]
     protected UserDetail $detail;
 
-    /** @ORM\OneToOne(targetEntity="Frontend\User\Entity\UserAvatar", cascade={"persist", "remove"}, mappedBy="user") */
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserAvatar::class, cascade: ['persist', 'remove'])]
     protected ?UserAvatar $avatar;
 
-    /** @ORM\Column(name="identity", type="string", length=191, nullable=false, unique=true) */
+    #[ORM\Column(name: 'identity', type: 'string', length: 191, unique: true, nullable: false)]
     protected string $identity;
 
-    /** @ORM\Column(name="password", type="string", length=191, nullable=false) */
+    #[ORM\Column(name: 'password', type: 'string', length: 191, nullable: false)]
     protected string $password;
 
-    /** @ORM\Column(name="status", type="string", length=20, columnDefinition="ENUM('pending', 'active')") */
+    #[ORM\Column(name: 'status', type: 'string', length: 20, columnDefinition: "ENUM('pending', 'active')")]
     protected string $status = self::STATUS_PENDING;
 
-    /** @ORM\Column(name="isDeleted", type="boolean") */
+    #[ORM\Column(name: 'isDeleted', type: 'boolean')]
     protected bool $isDeleted = self::IS_DELETED_NO;
 
-    /** @ORM\Column(name="hash", type="string", length=64, nullable=false, unique=true) */
+    #[ORM\Column(name: 'hash', type: 'string', length: 64, unique: true, nullable: false)]
     protected string $hash;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Frontend\User\Entity\UserRole")
-     * @ORM\JoinTable(
-     *     name="user_roles",
-     *     joinColumns={@ORM\JoinColumn(name="userUuid", referencedColumnName="uuid")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="roleUuid", referencedColumnName="uuid")}
-     * )
-     */
+    #[ORM\ManyToMany(targetEntity: UserRole::class)]
+    #[ORM\JoinTable(name: 'user_roles')]
+    #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid')]
+    #[ORM\InverseJoinColumn(name: 'roleUuid', referencedColumnName: 'uuid')]
     protected Collection $roles;
 
-    /**
-     * @ORM\OneToMany(targetEntity="UserResetPassword",
-     *     cascade={"persist", "remove"}, mappedBy="user", fetch="EXTRA_LAZY")
-     */
+    #[ORM\OneToMany(
+        mappedBy: 'user',
+        targetEntity: UserResetPassword::class,
+        cascade: ['persist', 'remove'],
+        fetch: 'EXTRA_LAZY'
+    )]
     protected Collection $resetPasswords;
 
     /**

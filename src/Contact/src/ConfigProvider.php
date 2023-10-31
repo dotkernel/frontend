@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\Contact;
 
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\Contact\Controller\ContactController;
@@ -77,7 +77,7 @@ class ConfigProvider
                     ],
                 ],
                 'ContactEntities' => [
-                    'class' => AnnotationDriver::class,
+                    'class' => AttributeDriver::class,
                     'cache' => 'array',
                     'paths' => [__DIR__ . '/Entity'],
                 ],

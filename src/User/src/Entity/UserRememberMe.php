@@ -8,26 +8,22 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="user_remember_me")
- * @ORM\HasLifecycleCallbacks()
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'user_remember_me')]
+#[ORM\HasLifecycleCallbacks]
 class UserRememberMe extends AbstractEntity
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Frontend\User\Entity\User")
-     * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected User $user;
 
-    /** @ORM\Column(name="rememberMeToken", type="string", length=100, nullable=false, unique=true) */
+    #[ORM\Column(name: 'rememberMeToken', type: 'string', length: 100, unique: true, nullable: false)]
     protected string $rememberMeToken = '';
 
-    /** @ORM\Column(name="userAgent", type="text") */
+    #[ORM\Column(name: 'userAgent', type: 'text')]
     protected ?string $userAgent = null;
 
-    /** @ORM\Column(name="expireDate", type="datetime_immutable") */
+    #[ORM\Column(name: 'expireDate', type: 'datetime_immutable')]
     protected DateTimeImmutable $expireDate;
 
     public function getUser(): User

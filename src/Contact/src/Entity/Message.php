@@ -6,29 +6,28 @@ namespace Frontend\Contact\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
+use Frontend\Contact\Repository\MessageRepository;
 
-/**
- * @ORM\Entity(repositoryClass="Frontend\Contact\Repository\MessageRepository")
- * @ORM\Table(name="contact_message")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: MessageRepository::class)]
+#[ORM\Table(name: 'contact_message')]
+#[ORM\HasLifecycleCallbacks]
 class Message extends AbstractEntity
 {
     public const PLATFORM_WEBSITE = 'website';
 
-    /** @ORM\Column(name="email", type="string", length=150) */
+    #[ORM\Column(name: 'email', type: 'string', length: 150)]
     protected string $email = '';
 
-    /** @ORM\Column(name="name", type="string", length=150) */
+    #[ORM\Column(name: 'name', type: 'string', length: 150)]
     protected string $name = '';
 
-    /** @ORM\Column(name="subject", type="text") */
+    #[ORM\Column(name: 'subject', type: 'text')]
     protected string $subject = '';
 
-    /** @ORM\Column(name="message", type="text") */
+    #[ORM\Column(name: 'message', type: 'text')]
     protected string $message = '';
 
-    /** @ORM\Column(name="platform", type="text") */
+    #[ORM\Column(name: 'platform', type: 'text')]
     protected string $platform = '';
 
     public function __construct(

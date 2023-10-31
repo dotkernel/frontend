@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User;
 
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
 use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
 use Frontend\User\Adapter\AuthenticationAdapter;
@@ -96,7 +96,7 @@ class ConfigProvider
                     ],
                 ],
                 'UserEntities' => [
-                    'class' => AnnotationDriver::class,
+                    'class' => AttributeDriver::class,
                     'cache' => 'array',
                     'paths' => [__DIR__ . '/Entity'],
                 ],

@@ -7,30 +7,22 @@ namespace Frontend\User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Frontend\App\Common\AbstractEntity;
 use Frontend\User\EventListener\UserAvatarEventListener;
+use Frontend\User\Repository\UserAvatarRepository;
 
-/**
- * @ORM\Entity(repositoryClass="Frontend\User\Repository\UserAvatarRepository")
- * @ORM\Table(name="user_avatar")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\EntityListeners({UserAvatarEventListener::class})
- */
+#[ORM\Entity(repositoryClass: UserAvatarRepository::class)]
+#[ORM\Table(name: 'user_avatar')]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\EntityListeners([UserAvatarEventListener::class])]
 class UserAvatar extends AbstractEntity
 {
-    /**
-     * @ORM\OneToOne(targetEntity="Frontend\User\Entity\User", inversedBy="avatar")
-     * @ORM\JoinColumn(name="userUuid", referencedColumnName="uuid", nullable=false)
-     */
+    #[ORM\OneToOne(inversedBy: 'avatar', targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected UserInterface $user;
 
-    /** @ORM\Column(name="name", type="string", length=191) */
+    #[ORM\Column(name: 'name', type: 'string', length: 191)]
     protected string $name;
 
     protected string $url;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function getUser(): UserInterface
     {
