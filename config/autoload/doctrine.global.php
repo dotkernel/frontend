@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Doctrine\Common\Cache\PhpFileCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
@@ -24,14 +23,6 @@ return [
         ],
     ],
     'doctrine'            => [
-        'configuration' => [
-            'orm_default' => [
-                'entity_listener_resolver' => EntityListenerResolver::class,
-                'query_cache'              => PhpFileCache::class,
-                'metadata_cache'           => PhpFileCache::class,
-                'result_cache'             => PhpFileCache::class,
-            ],
-        ],
         'connection'    => [
             'orm_default' => [
                 'doctrine_mapping_types' => [
@@ -52,12 +43,6 @@ return [
             UuidType::NAME                  => UuidType::class,
             UuidBinaryType::NAME            => UuidBinaryType::class,
             UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
-        ],
-        'cache'         => [
-            PhpFileCache::class => [
-                'class'     => PhpFileCache::class,
-                'directory' => getcwd() . '/data/cache/doctrine',
-            ],
         ],
         'fixtures'      => getcwd() . '/data/doctrine/fixtures',
     ],
