@@ -77,7 +77,7 @@ class UserController extends AbstractActionController
                 /** @var AuthenticationAdapter $adapter */
                 $adapter = $this->authenticationService->getAdapter();
                 /** @var array $data */
-                $data    = $form->getData();
+                $data = $form->getData();
                 $adapter->setIdentity($data['identity'])->setCredential($data['password']);
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
