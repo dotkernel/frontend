@@ -55,10 +55,10 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap-slider": "^11.0.2",
-    "npm": "^10.4.0",
+    "npm": "^9.9.2",
     "pdfjs-dist": "^4.0.379",
     "pdfobject": "^2.2.12",
     "sass": "^1.70.0",
-    "sweetalert2": "11.10.5"
+    "sweetalert2": "^11.10.5"
   }
 }
