@@ -8,8 +8,10 @@ use Frontend\User\InputFilter\RequestResetPasswordInputFilter;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
+use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
 
+/** @template-extends Form<FormInterface> */
 class RequestResetPasswordForm extends Form
 {
     protected InputFilterInterface $inputFilter;

@@ -134,7 +134,9 @@ class AccountController extends AbstractActionController
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
-            $user = $this->userService->findOneBy(['identity' => $form->getData()['identity']]);
+            /** @var array $data */
+            $data = $form->getData();
+            $user = $this->userService->findOneBy(['identity' => $data['identity']]);
             if (! $user instanceof User) {
                 $this->messenger->addInfo(Message::MAIL_SENT_RESET_PASSWORD, 'request-reset');
                 return new RedirectResponse($this->getRequest()->getUri());
@@ -201,10 +203,12 @@ class AccountController extends AbstractActionController
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
+            /** @var array $data */
+            $data = $form->getData();
             try {
                 $this->userService->updateUser(
                     $resetPasswordRequest->markAsCompleted()->getUser(),
-                    $form->getData()
+                    $data
                 );
                 $this->debugBar->stackData();
             } catch (Exception $exception) {
@@ -299,6 +303,7 @@ class AccountController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
+                /** @var array $userData */
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
@@ -363,6 +368,7 @@ class AccountController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
+                /** @var array $userData */
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
@@ -416,6 +422,7 @@ class AccountController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
+                /** @var array $userData */
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);

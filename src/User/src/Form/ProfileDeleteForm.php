@@ -8,8 +8,10 @@ use Frontend\User\Entity\User;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
+use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
 
+/** @template-extends Form<FormInterface> */
 class ProfileDeleteForm extends Form
 {
     protected InputFilterInterface $inputFilter;
