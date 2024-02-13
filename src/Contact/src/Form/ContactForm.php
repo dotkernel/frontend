@@ -10,8 +10,10 @@ use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
+use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
 
+/** @template-extends Form<FormInterface> */
 class ContactForm extends Form
 {
     protected InputFilterInterface $inputFilter;

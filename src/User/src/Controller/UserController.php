@@ -76,7 +76,8 @@ class UserController extends AbstractActionController
             if ($form->isValid()) {
                 /** @var AuthenticationAdapter $adapter */
                 $adapter = $this->authenticationService->getAdapter();
-                $data    = $form->getData();
+                /** @var array $data */
+                $data = $form->getData();
                 $adapter->setIdentity($data['identity'])->setCredential($data['password']);
                 $authResult = $this->authenticationService->authenticate();
                 if ($authResult->isValid()) {
@@ -146,6 +147,7 @@ class UserController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
             $form->setData($this->getRequest()->getParsedBody());
             if ($form->isValid()) {
+                /** @var array $userData */
                 $userData = $form->getData();
                 try {
                     /** @var User $user */

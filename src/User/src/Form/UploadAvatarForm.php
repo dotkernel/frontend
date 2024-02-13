@@ -7,8 +7,10 @@ namespace Frontend\User\Form;
 use Frontend\User\Fieldset\AvatarFieldset;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
+use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
 
+/** @template-extends Form<FormInterface> */
 class UploadAvatarForm extends Form
 {
     protected InputFilterInterface $inputFilter;

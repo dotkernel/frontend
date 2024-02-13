@@ -8,8 +8,10 @@ use Frontend\User\InputFilter\ProfilePasswordInputFilter;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
+use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
 
+/** @template-extends Form<FormInterface> */
 class ProfilePasswordForm extends Form
 {
     protected InputFilterInterface $inputFilter;
