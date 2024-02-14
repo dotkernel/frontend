@@ -4,7 +4,7 @@ Dotkernel web starter package suitable for frontend applications.
 
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/frontend)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/4.0.0)
+![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/4.2.0)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/frontend)](https://github.com/dotkernel/frontend/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/frontend)](https://github.com/dotkernel/frontend/network)
@@ -32,6 +32,8 @@ Dotkernel web starter package suitable for frontend applications.
 ## Tools
 
 DotKernel can be installed through a single command that utilizes [Composer](https://getcomposer.org/). Because of that, Composer is required to install DotKernel `frontend`.
+
+DotKernel has been tested with npm v10.0.4 and Node.js v20.11.0.
 
 ### Composer
 
