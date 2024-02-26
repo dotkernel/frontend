@@ -34,7 +34,7 @@ return [
         'driver'     => [
             // default metadata driver, aggregates all other drivers into a single one.
             // Override `orm_default` only if you know what you're doing
-            'orm_default' => [
+            'orm_default'   => [
                 'class'   => MappingDriverChain::class,
                 'drivers' => [],
             ],
