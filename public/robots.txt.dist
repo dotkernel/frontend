@@ -1,0 +1,9 @@
+# Below group disalow all robots.
+# To be used in DEVELOPMENT 
+User-Agent: *
+Disallow: /
+
+# Below group allow all robots.
+# To be used in PRODUCTION 
+User-Agent: *
+Allow: /
