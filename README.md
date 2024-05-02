@@ -337,7 +337,7 @@ You should see the `DotKernel Frontend` welcome page.
 **NOTE:**
 - If you are getting exceptions or errors regarding some missing services, try running the following command:
 
-    php bin/clear-config-cache.php
+    ` sudo php bin/clear-config-cache.php`
 
 > If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
 - **Development only**: `session.cookie_secure` does not work locally so make sure you modify your `local.php`, as per the following:
