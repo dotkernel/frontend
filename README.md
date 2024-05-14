@@ -69,6 +69,9 @@ To enable an extension, remove the semicolon (;) in front of it.
 
 #### I. Installing DotKernel `frontend` using composer 
 
+#### NOTE
+> please use the below CLI commands in terminal, do NOT use the PhpStorm buttons 
+
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
     composer create-project dotkernel/frontend -s dev dk
@@ -81,10 +84,11 @@ The setup script prompts for some configuration settings, for example the lines 
 Please select which config file you wish to inject 'Laminas\Diactoros\ConfigProvider' into:
   [0] Do not inject
   [1] config/config.php
-  Make your selection (default is 0):
+  Make your selection (default is 1):
 ```
 
 Simply select `[0] Do not inject`, because DotKernel includes its own configProvider which already contains the prompted configurations.
+
 If you choose `[1] config/config.php` Laminas's `ConfigProvider` from `session` will be injected.
 
 The next question is:
