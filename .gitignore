@@ -1,6 +1,5 @@
 clover.xml
 coveralls-upload.json
-phpunit.xml
 .phpcs-cache
 .phpunit.result.cache
 
