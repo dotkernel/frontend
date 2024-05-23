@@ -11,7 +11,6 @@ use Frontend\User\Repository\UserRoleRepository;
 
 #[ORM\Entity(repositoryClass: UserRoleRepository::class)]
 #[ORM\Table(name: 'user_role')]
-#[ORM\HasLifecycleCallbacks]
 class UserRole extends AbstractEntity implements RoleInterface
 {
     public const ROLE_ADMIN = 'admin';

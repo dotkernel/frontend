@@ -13,7 +13,6 @@ use Frontend\App\Common\AbstractEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_reset_password')]
-#[ORM\HasLifecycleCallbacks]
 class UserResetPassword extends AbstractEntity
 {
     public const STATUS_COMPLETED = 'completed';
