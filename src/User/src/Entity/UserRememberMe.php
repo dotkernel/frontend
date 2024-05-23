@@ -10,7 +10,6 @@ use Frontend\App\Common\AbstractEntity;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_remember_me')]
-#[ORM\HasLifecycleCallbacks]
 class UserRememberMe extends AbstractEntity
 {
     #[ORM\ManyToOne(targetEntity: User::class)]

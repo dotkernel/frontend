@@ -10,7 +10,6 @@ use Frontend\Contact\Repository\MessageRepository;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 #[ORM\Table(name: 'contact_message')]
-#[ORM\HasLifecycleCallbacks]
 class Message extends AbstractEntity
 {
     public const PLATFORM_WEBSITE = 'website';

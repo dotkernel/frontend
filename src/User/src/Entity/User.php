@@ -18,7 +18,6 @@ use function random_bytes;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
-#[ORM\HasLifecycleCallbacks]
 class User extends AbstractEntity implements UserInterface
 {
     public const STATUS_PENDING = 'pending';
