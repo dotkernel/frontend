@@ -43,7 +43,7 @@ Installation instructions:
 
 > If you have never used composer before make sure you read the [`Composer Basic Usage`](https://getcomposer.org/doc/01-basic-usage.md) section in Composer's documentation
 
-## Choosing an installation path for DotKernel `frontend` 
+## Choosing an installation path for DotKernel `frontend`
 
 Example:
 
@@ -54,7 +54,8 @@ Example:
 
 After choosing the path for DotKernel (`dk` will be used for the remainder of this example) it must be installed. There are two installation methods.
 
-#### Note
+### Note
+
 The installation uses the PHP extension `ext-intl` that may not be enabled by default in your web server. If the installation returns a similar error to the below, check the `extension=intl` extension in your `php.ini`.
 
 ```bash
@@ -73,7 +74,9 @@ To enable an extension, remove the semicolon (;) in front of it.
 
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
-    composer create-project dotkernel/frontend -s dev dk
+```bash
+composer create-project dotkernel/frontend -s dev dk
+```
 
 The above command downloads the `frontend` package, then downloads and installs the `dependencies`.
 
@@ -118,14 +121,16 @@ Just like for `II Installing DotKernel frontend using composer` (see above), the
 - Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration
 
 ## Configuration - Mail
- 
+
 If you want your application to send mails on registration, contact... please provide valid credentials to the following keys in `config/autoload/mail.local.php`
 
 Under `message_options` key:
+
 - `from` - email address from whom users will receive emails (required)
 - `from_name` - organization name from whom users will receive emails (optional)
 
 Under `smtp_options` key:
+
 - `host` - hostname or IP address of the mail server (required)
 - `connection_config` - please complete the `username` and `password` keys (required)
 
@@ -145,7 +150,6 @@ Update the `recaptcha` array in `config/autoload/local.php` with the `siteKey` a
 Note: you need to whitelist `localhost` in the reCAPTCHA settings page during development.
 **When in production do not forget to either remove `localhost` from the reCAPTCHA whitelist, or have a separate reCAPTCHA**
 
-
 ## Migrations
 
 Out of the box, we use Doctrine Migrations like detailed below to populate the database. An example file is included in `/data/doctrine/migrations`. To generate a new migration file, use this command:
@@ -155,11 +159,14 @@ php vendor/bin/doctrine-migrations migrations:generate
 ```
 It creates a PHP file like this one `/data/doctrine/migrations/Version20220606131835.php` that can then be edited in the IDE. You can add new queries to be executed when the migration is run (in `public function up`) and optionally queries that undo those changes (in `public function down`).
 
-Here is an example you can add in `public function up` 
+Here is an example you can add in `public function up`
+
 ```bash
 $this->addSql('ALTER TABLE users ADD test VARCHAR(255) NOT NULL');
 ```
+
 and its opposite in `public function down`
+
 ```bash
 $this->addSql('ALTER TABLE users DROP test');
 ```
@@ -270,7 +277,8 @@ To install dependencies into the `node_modules` directory run this command.
 
 ```bash
 npm install
-``` 
+```
+
 - If `npm install` fails, this could be caused by user permissions of npm. Recommendation is to install npm through `Node Version Manager`.
 
 The watch command compiles the components then watches the files and recompiles when one of them changes.
