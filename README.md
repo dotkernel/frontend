@@ -17,16 +17,14 @@ Dotkernel web starter package suitable for frontend applications.
 
 [![SymfonyInsight](https://insight.symfony.com/projects/a28dac55-3366-4020-9a49-53f6fcbeda4e/big.svg)](https://insight.symfony.com/projects/a28dac55-3366-4020-9a49-53f6fcbeda4e)
 
-# Installing DotKernel `frontend`
+## Installing DotKernel `frontend`
 
 - [Installing DotKernel `frontend`](#installing-dotkernel-frontend)
-    - [Installation](#installation)
-        - [Composer](#composer)
-    - [Choose a destination path for DotKernel `frontend` installation](#choose-a-destination-path-for-dotkernel-frontend-installation)
-    - [Installing the `frontend` Composer package](#installing-the-frontend-composer-package)
-        - [Installing DotKernel Frontend](#installing-dotkernel-frontend)
+    - [Composer](#composer)
+    - [Choose a destination path for DotKernel `frontend` installation](#choosing-an-installation-path-for-dotkernel-frontend)
+    - [Installing DotKernel Frontend](#installing-dotkernel-frontend)
     - [Configuration - First Run](#configuration---first-run)
-    - [Testing (Running)](#testing-running)
+    - [Testing (Running)](#running-the-application)
 
 ## Tools
 
@@ -355,6 +353,7 @@ The `authorization-guards.global.php` file provides configuration to restrict ac
 The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.po` files like the example in `data/language/da_DK/LC_MESSAGES/messages.po`. The compiled file will have the extension `.mo`
 
 To apply the translations
+
 - the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
 - then the js file needs `translateText("translateText")`
 
