@@ -12,7 +12,6 @@ use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserDetail;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Entity\UserRememberMe;
-use Frontend\User\Entity\UserRole;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Service\UserService;
 use Laminas\Authentication\AuthenticationService;
@@ -78,14 +77,7 @@ class RememberMeMiddlewareTest extends TestCase
 
         $user->setDetail($detail);
 
-        $userIdentity = new UserIdentity(
-            $user->getUuid()->toString(),
-            $user->getIdentity(),
-            $user->getRoles()->map(function (UserRole $userRole) {
-                return $userRole->getName();
-            })->toArray(),
-            $user->getDetail()->getArrayCopy(),
-        );
+        $userIdentity = UserIdentity::fromEntity($user);
 
         $userRememberMe = (new UserRememberMe())
             ->setUser($user)

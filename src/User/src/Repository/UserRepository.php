@@ -7,16 +7,16 @@ namespace Frontend\User\Repository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Dot\AnnotatedServices\Annotation\Entity;
+use Dot\DependencyInjection\Attribute\Entity;
 use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserRememberMe;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 
 /**
- * @Entity(name="Frontend\User\Entity\User")
  * @extends EntityRepository<object>
  */
+#[Entity(name: User::class)]
 class UserRepository extends EntityRepository
 {
     /**

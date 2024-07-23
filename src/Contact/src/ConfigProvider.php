@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Frontend\Contact;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
-use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
-use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\Contact\Controller\ContactController;
 use Frontend\Contact\Form\ContactForm;
 use Frontend\Contact\Repository\MessageRepository;
+use Frontend\Contact\Repository\MessageRepositoryInterface;
 use Frontend\Contact\Service\MessageService;
 use Frontend\Contact\Service\MessageServiceInterface;
 use Laminas\Form\ElementFactory;
@@ -36,12 +37,13 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                ContactController::class => AnnotatedServiceFactory::class,
-                MessageService::class    => AnnotatedServiceFactory::class,
-                MessageRepository::class => AnnotatedRepositoryFactory::class,
+                ContactController::class => AttributedServiceFactory::class,
+                MessageService::class    => AttributedServiceFactory::class,
+                MessageRepository::class => AttributedRepositoryFactory::class,
             ],
             'aliases'    => [
-                MessageServiceInterface::class => MessageService::class,
+                MessageServiceInterface::class    => MessageService::class,
+                MessageRepositoryInterface::class => MessageRepository::class,
             ],
         ];
     }

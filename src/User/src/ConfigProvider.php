@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Frontend\User;
 
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
-use Dot\AnnotatedServices\Factory\AnnotatedRepositoryFactory;
-use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\DependencyInjection\Factory\AttributedRepositoryFactory;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Controller\AccountController;
 use Frontend\User\Controller\UserController;
@@ -48,12 +48,12 @@ class ConfigProvider
             'factories'  => [
                 AuthenticationService::class => AuthenticationServiceFactory::class,
                 AuthenticationAdapter::class => AuthenticationAdapterFactory::class,
-                UserController::class        => AnnotatedServiceFactory::class,
-                AccountController::class     => AnnotatedServiceFactory::class,
-                UserService::class           => AnnotatedServiceFactory::class,
-                UserRoleService::class       => AnnotatedServiceFactory::class,
-                UserRepository::class        => AnnotatedRepositoryFactory::class,
-                UserRoleRepository::class    => AnnotatedRepositoryFactory::class,
+                UserController::class        => AttributedServiceFactory::class,
+                AccountController::class     => AttributedServiceFactory::class,
+                UserService::class           => AttributedServiceFactory::class,
+                UserRoleService::class       => AttributedServiceFactory::class,
+                UserRepository::class        => AttributedRepositoryFactory::class,
+                UserRoleRepository::class    => AttributedRepositoryFactory::class,
             ],
             'aliases'    => [
                 UserInterface::class            => User::class,

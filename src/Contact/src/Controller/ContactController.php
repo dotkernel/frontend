@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Controller;
 
-use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
+use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessenger;
+use Dot\FlashMessenger\FlashMessengerInterface;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\App\Service\RecaptchaService;
 use Frontend\Contact\Form\ContactForm;
 use Frontend\Contact\Service\MessageServiceInterface;
 use Frontend\Plugin\FormsPlugin;
 use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
@@ -22,19 +24,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class ContactController extends AbstractActionController
 {
-    /**
-     * @Inject({
-     *     MessageServiceInterface::class,
-     *     RecaptchaService::class,
-     *     RouterInterface::class,
-     *     TemplateRendererInterface::class,
-     *     AuthenticationService::class,
-     *     FlashMessenger::class,
-     *     FormsPlugin::class,
-     *     DebugBar::class,
-     *     "config"
-     *     })
-     */
+    #[Inject(
+        MessageServiceInterface::class,
+        RecaptchaService::class,
+        RouterInterface::class,
+        TemplateRendererInterface::class,
+        AuthenticationServiceInterface::class,
+        FlashMessengerInterface::class,
+        FormsPlugin::class,
+        DebugBar::class,
+        "config",
+    )]
     public function __construct(
         protected MessageServiceInterface $messageService,
         protected RecaptchaService $recaptchaService,

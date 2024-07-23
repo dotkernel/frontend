@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace Frontend\Contact\Service;
 
 use Doctrine\ORM\EntityRepository;
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\DependencyInjection\Attribute\Inject;
 use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
 use Frontend\Contact\Repository\MessageRepository;
+use Frontend\Contact\Repository\MessageRepositoryInterface;
 use Mezzio\Template\TemplateRendererInterface;
 
 class MessageService implements MessageServiceInterface
 {
-    /**
-     * @Inject({
-     *     MessageRepository::class,
-     *     MailServiceInterface::class,
-     *     TemplateRendererInterface::class,
-     *     "config"
-     * })
-     */
+    #[Inject(
+        MessageRepositoryInterface::class,
+        MailServiceInterface::class,
+        TemplateRendererInterface::class,
+        "config",
+    )]
     public function __construct(
         protected MessageRepository $repository,
         protected MailServiceInterface $mailService,

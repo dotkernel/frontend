@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Frontend\User\Service;
 
-use Doctrine\ORM\EntityRepository;
 use Dot\Mail\Exception\MailException;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
+use Frontend\User\Repository\UserRepository;
 
 interface UserServiceInterface
 {
@@ -24,7 +24,7 @@ interface UserServiceInterface
 
     public function findByUuid(string $uuid): ?User;
 
-    public function getRepository(): EntityRepository;
+    public function getRepository(): UserRepository;
 
     public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void;
 

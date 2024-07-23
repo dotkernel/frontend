@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\Page;
 
-use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\Page\Controller\PageController;
 use Frontend\Page\Service\PageService;
 use Frontend\Page\Service\PageServiceInterface;
@@ -29,8 +29,8 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                PageController::class => AnnotatedServiceFactory::class,
-                PageService::class    => AnnotatedServiceFactory::class,
+                PageController::class => AttributedServiceFactory::class,
+                PageService::class    => AttributedServiceFactory::class,
             ],
             'aliases'    => [
                 PageServiceInterface::class => PageService::class,

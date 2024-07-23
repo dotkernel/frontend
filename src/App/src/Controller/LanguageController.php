@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Frontend\App\Controller;
 
-use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
-use Fig\Http\Message\RequestMethodInterface;
+use Dot\DependencyInjection\Attribute\Inject;
+use Fig\Http\Message\StatusCodeInterface;
 use Frontend\App\Service\TranslateServiceInterface;
-use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
@@ -18,14 +18,12 @@ use function is_array;
 
 class LanguageController extends AbstractActionController
 {
-    /**
-     * @Inject({
-     *     TranslateServiceInterface::class,
-     *     RouterInterface::class,
-     *     TemplateRendererInterface::class,
-     *     "config.translator"
-     * })
-     */
+    #[Inject(
+        TranslateServiceInterface::class,
+        RouterInterface::class,
+        TemplateRendererInterface::class,
+        "config.translator",
+    )]
     public function __construct(
         protected TranslateServiceInterface $translateService,
         protected RouterInterface $router,
@@ -40,33 +38,27 @@ class LanguageController extends AbstractActionController
         $languageKey = ! empty($data['languageKey']) ? $data['languageKey'] : $this->translatorConfig['default'];
         $this->translateService->addTranslatorCookie($languageKey);
 
-        return new HtmlResponse('');
+        return new EmptyResponse(StatusCodeInterface::STATUS_OK);
     }
 
     public function translateTextAction(): ResponseInterface
     {
         $translation = '';
-        $request     = $this->getRequest();
-
-        if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {
-            $data = $request->getParsedBody();
-
-            $text = ! empty($data['text']) ? $data['text'] : '';
-
-            if (is_array($text)) {
-                foreach ($text as $textItem) {
-                    $translation .=
-                        $this->template->render(
-                            'language::translate-text.html.twig',
-                            ['translateThis' => $textItem]
-                        ) . '<br/>';
-                }
-            } else {
-                $translation = $this->template->render(
-                    'language::translate-text.html.twig',
-                    ['translateThis' => $text]
-                );
+        $data        = $this->getRequest()->getParsedBody();
+        $text        = ! empty($data['text']) ? $data['text'] : '';
+        if (is_array($text)) {
+            foreach ($text as $textItem) {
+                $translation .=
+                    $this->template->render(
+                        'language::translate-text.html.twig',
+                        ['translateThis' => $textItem]
+                    ) . '<br/>';
             }
+        } else {
+            $translation = $this->template->render(
+                'language::translate-text.html.twig',
+                ['translateThis' => $text]
+            );
         }
 
         return new JsonResponse([

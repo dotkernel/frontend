@@ -6,10 +6,8 @@ namespace Frontend\App\Middleware;
 
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
-use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\AnnotatedServices\Annotation\Service;
+use Dot\DependencyInjection\Attribute\Inject;
 use Frontend\User\Entity\UserIdentity;
-use Frontend\User\Entity\UserRole;
 use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\Authentication\Exception\ExceptionInterface;
@@ -18,18 +16,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-/**
- * @Service()
- */
 class RememberMeMiddleware implements MiddlewareInterface
 {
-    /**
-     * @Inject({
-     *     UserServiceInterface::class,
-     *     AuthenticationServiceInterface::class,
-     *     "config.rememberMe"
-     * })
-     */
+    #[Inject(
+        UserServiceInterface::class,
+        AuthenticationServiceInterface::class,
+        "config.rememberMe",
+    )]
     public function __construct(
         protected UserServiceInterface $userService,
         protected AuthenticationServiceInterface $authenticationService,
@@ -55,15 +48,7 @@ class RememberMeMiddleware implements MiddlewareInterface
                     $rememberUser->getExpireDate() > new DateTimeImmutable('now') &&
                     $user->getIsDeleted() === false
                 ) {
-                    $userIdentity = new UserIdentity(
-                        $user->getUuid()->toString(),
-                        $user->getIdentity(),
-                        $user->getRoles()->map(function (UserRole $userRole) {
-                            return $userRole->getName();
-                        })->toArray(),
-                        $user->getDetail()->getArrayCopy(),
-                    );
-
+                    $userIdentity = UserIdentity::fromEntity($user);
                     $this->authenticationService->getStorage()->write($userIdentity);
                 } else {
                     $this->authenticationService->getStorage()->clear();

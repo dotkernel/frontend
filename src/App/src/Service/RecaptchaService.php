@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\App\Service;
 
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\DependencyInjection\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use InvalidArgumentException;
 
@@ -29,11 +29,7 @@ class RecaptchaService
     private array $config;
     private string $response;
 
-    /**
-     * @Inject({
-     *     "config.recaptcha"
-     * })
-     */
+    #[Inject("config.recaptcha")]
     public function __construct(array $config)
     {
         $this->validateConfig($config);
