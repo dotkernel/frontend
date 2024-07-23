@@ -67,9 +67,10 @@ Problem 1
 
 To enable an extension, remove the semicolon (;) in front of it.
 
-#### I. Installing DotKernel `frontend` using composer 
+#### I. Installing DotKernel `frontend` using composer
 
 #### NOTE
+
 > please use the below CLI commands in terminal, do NOT use the PhpStorm buttons
 
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
@@ -157,6 +158,7 @@ Out of the box, we use Doctrine Migrations like detailed below to populate the d
 ```bash
 php vendor/bin/doctrine-migrations migrations:generate
 ```
+
 It creates a PHP file like this one `/data/doctrine/migrations/Version20220606131835.php` that can then be edited in the IDE. You can add new queries to be executed when the migration is run (in `public function up`) and optionally queries that undo those changes (in `public function down`).
 
 Here is an example you can add in `public function up`
@@ -205,10 +207,11 @@ and you can revert its changes with
 php vendor/bin/doctrine-migrations migrations:execute --down 20220606131835
 ```
 
-This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`. 
+This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`.
 Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
 
 ## Seeding the database (Fixtures)
+
 Seeding the database is done with the help of our custom package ``dotkernel/dot-data-fixtures`` built on top of doctrine/data-fixtures. See below on how to use our CLI command for listing and executing Doctrine data fixtures.
 
 An example of a fixtures class is ``data/doctrine/fixtures/RoleLoader.php``
@@ -287,13 +290,14 @@ The watch command compiles the components then watches the files and recompiles 
 npm run watch
 ```  
 
-After all updates are done, this command compiles the assets locally, minifies them and makes them ready for production. 
+After all updates are done, this command compiles the assets locally, minifies them and makes them ready for production.
 
 ```bash
 npm run prod
 ```
 
 ## Authorization Guards
+
 The packages responsible for restricting access to certain parts of the application are [dot-rbac-guard](https://github.com/dotkernel/dot-rbac-guard) and [dot-rbac](https://github.com/dotkernel/dot-rbac). These packages work together to create an infrastructure that is customizable and diversified to manage user access to the platform by specifying the type of role the user has.
 
 The `authorization.global.php` file provides multiple configurations specifying multiple roles as well as the types of permissions to which these roles have access.
@@ -350,7 +354,7 @@ The `authorization-guards.global.php` file provides configuration to restrict ac
 
 The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.po` files like the example in `data/language/da_DK/LC_MESSAGES/messages.po`. The compiled file will have the extension `.mo`
 
-To apply the translations 
+To apply the translations
 - the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
 - then the js file needs `translateText("translateText")`
 
@@ -361,21 +365,22 @@ In order to have a proper behaviour of language selector , you need the language
 dnf install glibc-all-langpacks
 ```
 
-Then restart PHP-FPM. 
-
+Then restart PHP-FPM.
 
 ## Running the application
+
 We recommend running your applications in WSL:
-* make sure you have [WSL](https://github.com/dotkernel/development/blob/main/wsl/README.md) installed on your system
-* currently we provide 2 distro implementations: [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md) and [Ubuntu20](https://github.com/dotkernel/development/blob/main/wsl/os/ubuntu20/README.md)
-* install the application in a virtualhost as recommended by the chosen distro
-* set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
-* run the application by opening the virtualhost address in your browser
+
+- make sure you have [WSL](https://github.com/dotkernel/development/blob/main/wsl/README.md) installed on your system
+- currently we provide 2 distro implementations: [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md) and [Ubuntu20](https://github.com/dotkernel/development/blob/main/wsl/os/ubuntu20/README.md)
+- install the application in a virtualhost as recommended by the chosen distro
+- set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
+- run the application by opening the virtualhost address in your browser
 
 You should see the `DotKernel Frontend` welcome page.
 
-
 **NOTE:**
+
 - If you are getting exceptions or errors regarding some missing services, try running the following command:
 
 ```bash
@@ -383,7 +388,9 @@ sudo php bin/clear-config-cache.php
 ```
 
 > If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
+
 - **Development only**: `session.cookie_secure` does not work locally so make sure you modify your `local.php`, as per the following:
+
 ```php
 # other code
 
@@ -394,4 +401,5 @@ return [
     ],
 ];
 ```
+
 Do not change this in `local.php.dist` as well because this value should remain `true` on production.
