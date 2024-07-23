@@ -35,9 +35,6 @@ use function unlink;
 
 use const PASSWORD_DEFAULT;
 
-/**
- * @Service()
- */
 class UserService implements UserServiceInterface
 {
     public const EXTENSIONS = [
