@@ -2,7 +2,6 @@
 
 Dotkernel web starter package suitable for frontend applications.
 
-
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/frontend)
 ![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/4.2.0)
 
@@ -10,7 +9,6 @@ Dotkernel web starter package suitable for frontend applications.
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/frontend)](https://github.com/dotkernel/frontend/network)
 [![GitHub stars](https://img.shields.io/github/stars/dotkernel/frontend)](https://github.com/dotkernel/frontend/stargazers)
 [![GitHub license](https://img.shields.io/github/license/dotkernel/frontend)](https://github.com/dotkernel/frontend/blob/4.0/LICENSE.md)
-
 
 [![Build Static](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml)
 [![Build Static](https://github.com/dotkernel/frontend/actions/workflows/run-tests.yml/badge.svg?branch=4.0)](https://github.com/dotkernel/frontend/actions/workflows/run-tests.yml)
@@ -71,7 +69,7 @@ To enable an extension, remove the semicolon (;) in front of it.
 #### I. Installing DotKernel `frontend` using composer 
 
 #### NOTE
-> please use the below CLI commands in terminal, do NOT use the PhpStorm buttons 
+> please use the below CLI commands in terminal, do NOT use the PhpStorm buttons
 
 The advantage of using this command is that it runs through the whole installation process. Run the following command:
 
@@ -102,11 +100,15 @@ Type `y` here, and hit `enter`
 
 This method requires more manual input, but it ensures that the default branch is installed, even if it is not released. Run the following command:
 
-    git clone https://github.com/dotkernel/frontend.git .
+```bash
+git clone https://github.com/dotkernel/frontend.git .
+```
 
 The dependencies have to be installed separately, by running this command:
 
-    composer install
+```bash
+composer install
+```
 
 Just like for `II Installing DotKernel frontend using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
 
@@ -163,29 +165,39 @@ $this->addSql('ALTER TABLE users DROP test');
 ```
 
 Running the migrations is done with this command
+
 ```bash
 php vendor/bin/doctrine-migrations migrate
 ```
+
 Note: if you have already run the phinx migrations, you may get this message
+
 ```bash
 WARNING! You have x previously executed migrations in the database that are not registered migrations.
   {migration list}
 Are you sure you wish to continue? (y/n)
 ```
+
 After submitting `y`, you will get this confirmation message.
+
 ```bash
 WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
 ```
+
 Again, submit `y` to run all of the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
 
 You can opt to run a single migration
+
 ```bash
 php vendor/bin/doctrine-migrations migrations:execute --up 20220606131835
 ```
+
 and you can revert its changes with
+
 ```bash
 php vendor/bin/doctrine-migrations migrations:execute --down 20220606131835
 ```
+
 This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`. 
 Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
 
@@ -196,15 +208,21 @@ An example of a fixtures class is ``data/doctrine/fixtures/RoleLoader.php``
 
 To list all the available fixtures, by order of execution, run:
 
-    php bin/doctrine fixtures:list
+```bash
+php bin/doctrine fixtures:list
+```
 
 To execute all fixtures, run:
 
-    php bin/doctrine fixtures:execute
+```bash
+php bin/doctrine fixtures:execute
+```
 
 To execute a specific fixtures, run:
 
-    php bin/doctrine fixtures:execute --class=RoleLoader
+```bash
+php bin/doctrine fixtures:execute --class=RoleLoader
+```
 
 Fixtures can and should be ordered to ensure database consistency, more on ordering fixtures can be found here :
 https://www.doctrine-project.org/projects/doctrine-data-fixtures/en/latest/how-to/fixture-ordering.html#fixture-ordering
@@ -215,7 +233,13 @@ https://www.doctrine-project.org/projects/doctrine-data-fixtures/en/latest/how-t
 
 ```bash
 composer development-status
+```
+
+```bash
 composer development-enable
+```
+
+```bash
 composer development-disable
 ```
 
@@ -243,6 +267,7 @@ These are the email templates provided on a fresh installation, all present in t
 ## NPM Commands
 
 To install dependencies into the `node_modules` directory run this command.
+
 ```bash
 npm install
 ``` 
@@ -259,6 +284,7 @@ After all updates are done, this command compiles the assets locally, minifies t
 ```bash
 npm run prod
 ```
+
 ## Authorization Guards
 The packages responsible for restricting access to certain parts of the application are [dot-rbac-guard](https://github.com/dotkernel/dot-rbac-guard) and [dot-rbac](https://github.com/dotkernel/dot-rbac). These packages work together to create an infrastructure that is customizable and diversified to manage user access to the platform by specifying the type of role the user has.
 
@@ -323,7 +349,9 @@ To apply the translations
 **NOTE:**
 In order to have a proper behaviour of language selector , you need the language pack installed at Operating System level.
 
-`dnf install glibc-all-langpacks`
+```bash
+dnf install glibc-all-langpacks
+```
 
 Then restart PHP-FPM. 
 
@@ -342,8 +370,9 @@ You should see the `DotKernel Frontend` welcome page.
 **NOTE:**
 - If you are getting exceptions or errors regarding some missing services, try running the following command:
 
-
-    sudo php bin/clear-config-cache.php
+```bash
+sudo php bin/clear-config-cache.php
+```
 
 > If `config-cache.php` is present that config will be loaded regardless of the `ConfigAggregator::ENABLE_CACHE` in `config/autoload/mezzio.global.php`
 - **Development only**: `session.cookie_secure` does not work locally so make sure you modify your `local.php`, as per the following:
