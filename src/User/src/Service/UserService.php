@@ -6,10 +6,10 @@ namespace Frontend\User\Service;
 
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
-use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\AnnotatedServices\Annotation\Service;
+use Dot\DependencyInjection\Attribute\Inject;
 use Dot\Mail\Exception\MailException;
 use Dot\Mail\Service\MailService;
+use Dot\Mail\Service\MailServiceInterface;
 use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Common\UuidOrderedTimeGenerator;
@@ -35,9 +35,6 @@ use function unlink;
 
 use const PASSWORD_DEFAULT;
 
-/**
- * @Service()
- */
 class UserService implements UserServiceInterface
 {
     public const EXTENSIONS = [
@@ -46,17 +43,15 @@ class UserService implements UserServiceInterface
         'image/png'  => 'png',
     ];
 
-    /**
-     * @Inject({
-     *     CookieServiceInterface::class,
-     *     MailService::class,
-     *     UserRoleServiceInterface::class,
-     *     TemplateRendererInterface::class,
-     *     UserRepository::class,
-     *     UserRoleRepository::class,
-     *     "config"
-     * })
-     */
+    #[Inject(
+        CookieServiceInterface::class,
+        MailServiceInterface::class,
+        UserRoleServiceInterface::class,
+        TemplateRendererInterface::class,
+        UserRepository::class,
+        UserRoleRepository::class,
+        "config",
+    )]
     public function __construct(
         protected CookieServiceInterface $cookieService,
         protected MailService $mailService,

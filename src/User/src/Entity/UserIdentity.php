@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Entity;
 
+use Frontend\User\Entity\UserInterface as UserIdentityInterface;
 use Mezzio\Authentication\UserInterface;
 
 class UserIdentity implements UserInterface
@@ -48,5 +49,17 @@ class UserIdentity implements UserInterface
     public function getDetails(): array
     {
         return $this->details;
+    }
+
+    public static function fromEntity(UserIdentityInterface $user): self
+    {
+        return new self(
+            $user->getUuid()->toString(),
+            $user->getIdentity(),
+            $user->getRoles()->map(function (UserRole $userRole) {
+                return $userRole->getName();
+            })->toArray(),
+            $user->getDetail()->getArrayCopy(),
+        );
     }
 }

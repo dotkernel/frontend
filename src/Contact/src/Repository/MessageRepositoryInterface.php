@@ -8,5 +8,5 @@ use Frontend\Contact\Entity\Message;
 
 interface MessageRepositoryInterface
 {
-    public function saveMessage(Message $message): void;
+    public function saveMessage(Message $message): Message;
 }

@@ -4,26 +4,18 @@ declare(strict_types=1);
 
 namespace Frontend\App\Service;
 
-use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\AnnotatedServices\Annotation\Service;
+use Dot\DependencyInjection\Attribute\Inject;
 use Laminas\Session\Config\ConfigInterface;
 use Laminas\Session\SessionManager;
 
 use function setcookie;
 use function time;
 
-/**
- * @Service()
- */
 class CookieService implements CookieServiceInterface
 {
     private ConfigInterface $sessionConfig;
 
-    /**
-     * @Inject({
-     *     SessionManager::class
-     * })
-     */
+    #[Inject(SessionManager::class)]
     public function __construct(SessionManager $sessionManager)
     {
         $this->sessionConfig = $sessionManager->getConfig();

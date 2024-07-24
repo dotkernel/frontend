@@ -38,7 +38,7 @@ $aggregator = new ConfigAggregator([
     \Laminas\Form\ConfigProvider::class,
     \Dot\Log\ConfigProvider::class,
     \Dot\ErrorHandler\ConfigProvider::class,
-    \Dot\AnnotatedServices\ConfigProvider::class,
+    \Dot\DependencyInjection\ConfigProvider::class,
     \Dot\Twig\ConfigProvider::class,
     \Dot\FlashMessenger\ConfigProvider::class,
     \Dot\Rbac\ConfigProvider::class,

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\App\Middleware;
 
-use Dot\AnnotatedServices\Annotation\Inject;
-use Dot\AnnotatedServices\Annotation\Service;
+use Dot\DependencyInjection\Attribute\Inject;
 use Frontend\App\Service\TranslateServiceInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -23,18 +22,13 @@ use function textdomain;
 
 use const LC_ALL;
 
-/**
- * @Service()
- */
 class TranslatorMiddleware implements MiddlewareInterface
 {
-    /**
-     * @Inject({
-     *     TranslateServiceInterface::class,
-     *     TemplateRendererInterface::class,
-     *     "config.translator"
-     * })
-     */
+    #[Inject(
+        TranslateServiceInterface::class,
+        TemplateRendererInterface::class,
+        "config.translator",
+    )]
     public function __construct(
         protected TranslateServiceInterface $translateService,
         protected TemplateRendererInterface $template,

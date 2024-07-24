@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Frontend\User\Controller;
 
 use Doctrine\ORM\NonUniqueResultException;
-use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
+use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Exception;
 use Fig\Http\Message\RequestMethodInterface;
@@ -34,17 +34,15 @@ use function sprintf;
 
 class AccountController extends AbstractActionController
 {
-    /**
-     * @Inject({
-     *     UserServiceInterface::class,
-     *     RouterInterface::class,
-     *     TemplateRendererInterface::class,
-     *     AuthenticationService::class,
-     *     FlashMessengerInterface::class,
-     *     FormsPlugin::class,
-     *     DebugBar::class
-     * })
-     */
+    #[Inject(
+        UserServiceInterface::class,
+        RouterInterface::class,
+        TemplateRendererInterface::class,
+        AuthenticationService::class,
+        FlashMessengerInterface::class,
+        FormsPlugin::class,
+        DebugBar::class,
+    )]
     public function __construct(
         protected UserServiceInterface $userService,
         protected RouterInterface $router,

@@ -6,9 +6,11 @@ namespace Frontend\App;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Dot\AnnotatedServices\Factory\AnnotatedServiceFactory;
+use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
+use Frontend\App\Middleware\RememberMeMiddleware;
+use Frontend\App\Middleware\TranslatorMiddleware;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
@@ -40,10 +42,12 @@ class ConfigProvider
             'factories'  => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class         => EntityListenerResolverFactory::class,
-                TranslateService::class               => AnnotatedServiceFactory::class,
-                LanguageController::class             => AnnotatedServiceFactory::class,
-                RecaptchaService::class               => AnnotatedServiceFactory::class,
-                CookieService::class                  => AnnotatedServiceFactory::class,
+                TranslateService::class               => AttributedServiceFactory::class,
+                LanguageController::class             => AttributedServiceFactory::class,
+                RecaptchaService::class               => AttributedServiceFactory::class,
+                CookieService::class                  => AttributedServiceFactory::class,
+                TranslatorMiddleware::class           => AttributedServiceFactory::class,
+                RememberMeMiddleware::class           => AttributedServiceFactory::class,
             ],
             'aliases'    => [
                 EntityManager::class             => 'doctrine.entity_manager.orm_default',

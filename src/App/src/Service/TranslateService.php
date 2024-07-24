@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Frontend\App\Service;
 
-use Dot\AnnotatedServices\Annotation\Inject;
+use Dot\DependencyInjection\Attribute\Inject;
 
 use function time;
 
 class TranslateService implements TranslateServiceInterface
 {
-    /**
-     * @Inject({
-     *     CookieServiceInterface::class,
-     *     "config"
-     * })
-     */
+    #[Inject(
+        CookieServiceInterface::class,
+        "config",
+    )]
     public function __construct(
         protected CookieServiceInterface $cookieService,
         protected array $config = []

@@ -29,7 +29,7 @@ class UserDetailInputFilter extends InputFilter
                 'message' => '<b>First Name</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min'     => 8,
+                'min'     => 2,
                 'max'     => 150,
                 'message' => '<b>First Name</b> must have between 8 and 150 characters',
             ], true);
@@ -44,7 +44,7 @@ class UserDetailInputFilter extends InputFilter
                 'message' => '<b>Last Name</b> is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
-                'min'     => 8,
+                'min'     => 2,
                 'max'     => 150,
                 'message' => '<b>Last Name</b> must have between 8 and 150 characters',
             ], true);

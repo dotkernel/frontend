@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Frontend\User\Controller;
 
-use Doctrine\ORM\NonUniqueResultException;
-use Dot\AnnotatedServices\Annotation\Inject;
 use Dot\Controller\AbstractActionController;
 use Dot\DebugBar\DebugBar;
+use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Exception;
 use Fig\Http\Message\RequestMethodInterface;
@@ -19,7 +18,6 @@ use Frontend\User\Form\LoginForm;
 use Frontend\User\Form\RegisterForm;
 use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\Exception\ExceptionInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Router\RouterInterface;
@@ -28,19 +26,17 @@ use Psr\Http\Message\ResponseInterface;
 
 class UserController extends AbstractActionController
 {
-    /**
-     * @Inject({
-     *     CookieServiceInterface::class,
-     *     UserServiceInterface::class,
-     *     RouterInterface::class,
-     *     TemplateRendererInterface::class,
-     *     AuthenticationService::class,
-     *     FlashMessengerInterface::class,
-     *     FormsPlugin::class,
-     *     DebugBar::class,
-     *     "config"
-     * })
-     */
+    #[Inject(
+        CookieServiceInterface::class,
+        UserServiceInterface::class,
+        RouterInterface::class,
+        TemplateRendererInterface::class,
+        AuthenticationService::class,
+        FlashMessengerInterface::class,
+        FormsPlugin::class,
+        DebugBar::class,
+        "config"
+    )]
     public function __construct(
         protected CookieServiceInterface $cookieService,
         protected UserServiceInterface $userService,
@@ -54,10 +50,6 @@ class UserController extends AbstractActionController
     ) {
     }
 
-    /**
-     * @throws NonUniqueResultException
-     * @throws Exception|ExceptionInterface
-     */
     public function loginAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
