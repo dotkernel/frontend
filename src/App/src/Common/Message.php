@@ -33,7 +33,4 @@ class Message
     public const VALIDATOR_REQUIRED_UPLOAD     = 'A file must be uploaded first.';
     public const DELETE_ACCOUNT                = 'You must check delete option.';
     public const IS_DELETED                    = 'User is deleted.';
-
-    public const RECAPTCHA_VERIFICATION_FAILED = 'Captcha verification failed. Please try again.';
-    public const RECAPTCHA_MISSING_RESPONSE    = 'Missing recaptcha.';
 }

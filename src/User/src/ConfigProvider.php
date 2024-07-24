@@ -12,6 +12,7 @@ use Frontend\User\Controller\AccountController;
 use Frontend\User\Controller\UserController;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserInterface;
+use Frontend\User\EventListener\UserAvatarEventListener;
 use Frontend\User\Factory\AuthenticationAdapterFactory;
 use Frontend\User\Factory\AuthenticationServiceFactory;
 use Frontend\User\Form\LoginForm;
@@ -46,14 +47,15 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                AuthenticationService::class => AuthenticationServiceFactory::class,
-                AuthenticationAdapter::class => AuthenticationAdapterFactory::class,
-                UserController::class        => AttributedServiceFactory::class,
-                AccountController::class     => AttributedServiceFactory::class,
-                UserService::class           => AttributedServiceFactory::class,
-                UserRoleService::class       => AttributedServiceFactory::class,
-                UserRepository::class        => AttributedRepositoryFactory::class,
-                UserRoleRepository::class    => AttributedRepositoryFactory::class,
+                AuthenticationService::class   => AuthenticationServiceFactory::class,
+                AuthenticationAdapter::class   => AuthenticationAdapterFactory::class,
+                UserController::class          => AttributedServiceFactory::class,
+                AccountController::class       => AttributedServiceFactory::class,
+                UserService::class             => AttributedServiceFactory::class,
+                UserRoleService::class         => AttributedServiceFactory::class,
+                UserRepository::class          => AttributedRepositoryFactory::class,
+                UserRoleRepository::class      => AttributedRepositoryFactory::class,
+                UserAvatarEventListener::class => AttributedServiceFactory::class,
             ],
             'aliases'    => [
                 UserInterface::class            => User::class,
