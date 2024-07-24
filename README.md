@@ -27,8 +27,6 @@ Dotkernel web starter package suitable for frontend applications.
 
 ## Tools
 
-DotKernel can be installed through a single command that utilizes [Composer](https://getcomposer.org/). Because of that, Composer is required to install DotKernel `frontend`.
-
 DotKernel has been tested with npm v10.0.4 and Node.js v20.11.0.
 
 ### Composer
@@ -49,7 +47,7 @@ Example:
 
 ## Installing DotKernel `frontend`
 
-After choosing the path for DotKernel (`dk` will be used for the remainder of this example) it must be installed. There are two installation methods.
+After you choose the path for DotKernel (`dk` will be used for the remainder of this example), let's move onto installation.
 
 ### Note
 
@@ -64,19 +62,19 @@ Problem 1
 
 To enable an extension, remove the semicolon (;) in front of it.
 
-#### I. Installing DotKernel `frontend` using composer
+#### Installing DotKernel `frontend` using git clone
 
-#### NOTE
-
-> please use the below CLI commands in terminal, do NOT use the PhpStorm buttons
-
-The advantage of using this command is that it runs through the whole installation process. Run the following command:
+This method ensures that the default branch is installed, even if it is not released. Run the following command:
 
 ```shell
-composer create-project dotkernel/frontend -s dev dk
+git clone https://github.com/dotkernel/frontend.git .
 ```
 
-The above command downloads the `frontend` package, then downloads and installs the `dependencies`.
+The dependencies have to be installed separately, by running this command:
+
+```shell
+composer install
+```
 
 The setup script prompts for some configuration settings, for example the lines below:
 
@@ -95,50 +93,35 @@ The next question is:
 
 `Remember this option for other packages of the same type? (y/N)`
 
-Type `y` here, and hit `enter`
-
-#### II. Installing DotKernel `frontend` using git clone
-
-This method requires more manual input, but it ensures that the default branch is installed, even if it is not released. Run the following command:
-
-```shell
-git clone https://github.com/dotkernel/frontend.git .
-```
-
-The dependencies have to be installed separately, by running this command:
-
-```shell
-composer install
-```
-
-Just like for `II Installing DotKernel frontend using composer` (see above), the setup asks for configuration settings regarding injections (type `0` and hit `enter`) and a confirmation to use this setting for other packages (type `y` and hit `enter`)
-
 ## Configuration - First Run
 
-- Remove the `.dist` extension from the files `config/autoload/local.php.dist` and `config/autoload/mail.local.php.dist`
-- Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration
+- Remove the `.dist` extension from these files
+  - `config/autoload/debugbar.local.php.dist`
+  - `config/autoload/local.php.dist`
+  - `config/autoload/mail.local.php.dist`
+- Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration.
 
-## Configuration - Mail
+## Configuration - Mail (optional)
 
-If you want your application to send mails on registration, contact... please provide valid credentials to the following keys in `config/autoload/mail.local.php`
+If you want your application to send mails on registration, contact etc. add valid credentials to the following keys in `config/autoload/mail.local.php`
 
 Under `message_options` key:
 
-- `from` - email address from whom users will receive emails (required)
-- `from_name` - organization name from whom users will receive emails (optional)
+- `from` - email address that will send emails (required)
+- `from_name` - organization name for signing sent emails (optional)
 
 Under `smtp_options` key:
 
 - `host` - hostname or IP address of the mail server (required)
-- `connection_config` - please complete the `username` and `password` keys (required)
+- `connection_config` - add the `username` and `password` keys (required)
 
-In `config/autoload/local.php` add under `contact` => `message_receivers` => `to` key *string* values with the emails that should receive contact messages
+In `config/autoload/local.php` edit the key `contact` => `message_receivers` => `to` with *string* values for emails that should receive contact messages.
 
 Note: **Please add at least 1 email address in order for contact message to reach someone**
 
-Also feel free to add as many cc as you want under `contact` => `message_receivers` => `cc` key
+Also feel free to add as many CCs as you want under the `contact` => `message_receivers` => `cc` key.
 
-## Configuration - reCAPTCHA
+## Configuration - reCAPTCHA (optional)
 
 reCAPTCHA is used to prevent abusive activities on your website. DotKernel frontend uses the Google reCAPTCHA for its contact us form.
 You must first generate a `siteKey` and `secretKey` in your Google account - [Google reCAPTCHA](https://www.google.com/recaptcha/admin)
@@ -148,29 +131,9 @@ Update the `recaptcha` array in `config/autoload/local.php` with the `siteKey` a
 Note: you need to whitelist `localhost` in the reCAPTCHA settings page during development.
 **When in production do not forget to either remove `localhost` from the reCAPTCHA whitelist, or have a separate reCAPTCHA**
 
-## Migrations
+## Database migration
 
-Out of the box, we use Doctrine Migrations like detailed below to populate the database. An example file is included in `/data/doctrine/migrations`. To generate a new migration file, use this command:
-
-```shell
-php vendor/bin/doctrine-migrations migrations:generate
-```
-
-It creates a PHP file like this one `/data/doctrine/migrations/Version20220606131835.php` that can then be edited in the IDE. You can add new queries to be executed when the migration is run (in `public function up`) and optionally queries that undo those changes (in `public function down`).
-
-Here is an example you can add in `public function up`
-
-```shell
-$this->addSql('ALTER TABLE users ADD test VARCHAR(255) NOT NULL');
-```
-
-and its opposite in `public function down`
-
-```shell
-$this->addSql('ALTER TABLE users DROP test');
-```
-
-Running the migrations is done with this command
+Running the database migration is done with this command
 
 ```shell
 php vendor/bin/doctrine-migrations migrate
@@ -190,86 +153,41 @@ After submitting `y`, you will get this confirmation message.
 WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)
 ```
 
-Again, submit `y` to run all of the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
-
-You can opt to run a single migration
-
-```shell
-php vendor/bin/doctrine-migrations migrations:execute --up 20220606131835
-```
-
-and you can revert its changes with
-
-```shell
-php vendor/bin/doctrine-migrations migrations:execute --down 20220606131835
-```
-
-This will also remove the log for that migration in the database, allowing the migration to run again with `php vendor/bin/doctrine-migrations migrate`.
-Note the `20220606131835` is taken from the migration filename, e.g. `Version20220606131835.php`
+Again, submit `y` to run all the migrations in chronological order. Each migration will be logged in the `migrations` table to prevent running the same migration more than once, which is often not desirable.
 
 ## Seeding the database (Fixtures)
 
-Seeding the database is done with the help of our custom package ``dotkernel/dot-data-fixtures`` built on top of doctrine/data-fixtures. See below on how to use our CLI command for listing and executing Doctrine data fixtures.
-
-An example of a fixtures class is ``data/doctrine/fixtures/RoleLoader.php``
-
-To list all the available fixtures, by order of execution, run:
-
-```shell
-php bin/doctrine fixtures:list
-```
-
-To execute all fixtures, run:
+Seeding the database is done with the help of our custom package ``dotkernel/dot-data-fixtures`` built on top of doctrine/data-fixtures. To execute all fixtures, run:
 
 ```shell
 php bin/doctrine fixtures:execute
 ```
 
-To execute a specific fixtures, run:
-
-```shell
-php bin/doctrine fixtures:execute --class=RoleLoader
-```
-
-Fixtures can and should be ordered to ensure database consistency, more on ordering fixtures can be found here :
-https://www.doctrine-project.org/projects/doctrine-data-fixtures/en/latest/how-to/fixture-ordering.html#fixture-ordering
-
 ## Development mode
 
-- If you use `composer create-project`, the project will go into development mode automatically after installing. The development mode status can be checked and toggled by using these composer commands
-
-```shell
-composer development-status
-```
+Run this command to enable dev mode by turning debug flag to `true` and turning configuration caching to `off`. It will also make sure that any existing config cache is cleared.
 
 ```shell
 composer development-enable
 ```
 
-```shell
-composer development-disable
-```
-
-- If not already done on installation, remove the `.dist` extension from `config/autoload/development.global.php.dist`.
-This will enable dev mode by turning debug flag to `true` and turning configuration caching to `off`. It will also make sure that any existing config cache is cleared.
-
-> Charset recommendation: utf8mb4_general_ci
+- If not already done, remove the `.dist` extension from `config/autoload/development.global.php.dist`.
 
 ## Using DebugBar
 
-DotKernel comes with its own DebugBar already installed and configured, but disabled by default.
+DotKernel comes with its own DebugBar already installed and configured. It was enabled when you cloned the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`. You can disable the tool by going into its config file `config/autoload/debugbar.local.php` and changing 
 
-In order to enable it, you need to clone the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`.
+```
+'enabled' => true
+```
+
+to 
+
+```
+'enabled' => false
+```
 
 More about DebugBar [here](https://github.com/dotkernel/dot-debugbar).
-
-## Email Templates
-
-These are the email templates provided on a fresh installation, all present in the User module
-
-- `activate.html.twig` used for the activation email
-- `reset-password-requested.html.twig` used when the user requests a password reset
-- `reset-password-completed.html.twig` used when the password has reset successfully
 
 ## NPM Commands
 
@@ -370,7 +288,7 @@ Then restart PHP-FPM.
 We recommend running your applications in WSL:
 
 - make sure you have [WSL](https://github.com/dotkernel/development/blob/main/wsl/README.md) installed on your system
-- currently we provide 2 distro implementations: [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md) and [Ubuntu20](https://github.com/dotkernel/development/blob/main/wsl/os/ubuntu20/README.md)
+- currently we provide a distro implementations for [AlmaLinux9](https://github.com/dotkernel/development/blob/main/wsl/os/almalinux9/README.md)
 - install the application in a virtualhost as recommended by the chosen distro
 - set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
 - run the application by opening the virtualhost address in your browser
