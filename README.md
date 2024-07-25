@@ -27,7 +27,7 @@ Dotkernel web starter package suitable for frontend applications.
 
 ## Tools
 
-DotKernel has been tested with npm v10.0.4 and Node.js v20.11.0.
+DotKernel Frontend interface has been tested with npm v10.0.4 and Node.js v20.11.0.
 
 ### Composer
 
@@ -47,7 +47,7 @@ Example:
 
 ## Installing DotKernel `frontend`
 
-After you choose the path for DotKernel (`dk` will be used for the remainder of this example), let's move onto installation.
+After you choose the path for DotKernel Frontend (`dk` will be used for the remainder of this example), let's move onto installation.
 
 ### Note
 
