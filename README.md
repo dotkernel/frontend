@@ -95,10 +95,10 @@ The next question is:
 
 ## Configuration - First Run
 
-- Remove the `.dist` extension from these files
-    - `config/autoload/debugbar.local.php.dist`
-    - `config/autoload/local.php.dist`
-    - `config/autoload/mail.local.php.dist`
+- duplicate `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`
+- duplicate `config/autoload/development.local.php.dist` as `config/autoload/development.local.php`
+- duplicate `config/autoload/local.php.dist` as `config/autoload/local.php`
+- duplicate `config/autoload/mail.local.php.dist` as `config/autoload/mail.local.php`
 - Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration.
 
 ## Configuration - Mail (optional)
@@ -210,78 +210,6 @@ After all updates are done, this command compiles the assets locally, minifies t
 ```shell
 npm run prod
 ```
-
-## Authorization Guards
-
-The packages responsible for restricting access to certain parts of the application are [dot-rbac-guard](https://github.com/dotkernel/dot-rbac-guard) and [dot-rbac](https://github.com/dotkernel/dot-rbac). These packages work together to create an infrastructure that is customizable and diversified to manage user access to the platform by specifying the type of role the user has.
-
-The `authorization.global.php` file provides multiple configurations specifying multiple roles as well as the types of permissions to which these roles have access.
-
-```php
-//example of a flat RBAC model that specifies two types of roles as well as their permission
-    'roles' => [
-                'admin' => [
-                    'permissions' => [
-                        'authenticated',
-                        'edit',
-                        'delete',
-                        //etc..
-                    ]
-                ],
-                'user' => [
-                    'permissions' => [
-                        'authenticated',
-                        //etc..
-                    ]
-                ]
-            ]
-```
-
-The `authorization-guards.global.php` file provides configuration to restrict access to certain actions based on the permissions defined in `authorization.global.php` so basically we have to add the permissions in the dot-rbac configuration file first to specify the action restriction permissions.
-
-```php
-// configuration example to restrict certain actions of some routes based on the permissions specified in the dot-rbac configuration file
-    'rules' => [
-                    [
-                        'route' => 'account',
-                        'actions' => [//list of actions to apply , or empty array for all actions
-                            'unregister',
-                            'avatar',
-                            'details',
-                            'changePassword'
-                        ],
-                        'permissions' => ['authenticated']
-                    ],
-                    [
-                        'route' => 'admin',
-                        'actions' => [
-                            'deleteAccount'
-                        ],
-                         'permissions' => [
-                            'delete'
-                            //list of roles to allow
-                        ]
-                    ]
-                ]
-```
-
-## Languages
-
-The `local.php.dist` file provides an example for working with multiple languages. The `translator` variable can be expanded to other languages using [Poedit](https://poedit.net/) which can edit `.po` files like the example in `data/language/da_DK/LC_MESSAGES/messages.po`. The compiled file will have the extension `.mo`
-
-To apply the translations
-
-- the twig templates need either `{% trans 'translateText' %}` or `{{ translateText|trans }}`
-- then the js file needs `translateText("translateText")`
-
-**NOTE:**
-In order to have a proper behaviour of language selector , you need the language pack installed at Operating System level.
-
-```shell
-dnf install glibc-all-langpacks
-```
-
-Then restart PHP-FPM.
 
 ## Running the application
 
