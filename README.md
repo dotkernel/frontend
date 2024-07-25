@@ -96,9 +96,9 @@ The next question is:
 ## Configuration - First Run
 
 - Remove the `.dist` extension from these files
-  - `config/autoload/debugbar.local.php.dist`
-  - `config/autoload/local.php.dist`
-  - `config/autoload/mail.local.php.dist`
+    - `config/autoload/debugbar.local.php.dist`
+    - `config/autoload/local.php.dist`
+    - `config/autoload/mail.local.php.dist`
 - Edit `config/autoload/local.php` according to your dev machine and fill in the `database` configuration.
 
 ## Configuration - Mail (optional)
@@ -175,15 +175,15 @@ composer development-enable
 
 ## Using DebugBar
 
-DotKernel comes with its own DebugBar already installed and configured. It was enabled when you cloned the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`. You can disable the tool by going into its config file `config/autoload/debugbar.local.php` and changing 
+DotKernel comes with its own DebugBar already installed and configured. It was enabled when you cloned the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`. You can disable the tool by going into its config file `config/autoload/debugbar.local.php` and changing
 
-```
+```php
 'enabled' => true
 ```
 
-to 
+to
 
-```
+```php
 'enabled' => false
 ```
 
