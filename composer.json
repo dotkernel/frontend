@@ -51,7 +51,6 @@
         "dotkernel/dot-authorization": "^3.4.1",
         "dotkernel/dot-controller": "^3.4.3",
         "dotkernel/dot-data-fixtures": "^1.1.3",
-        "dotkernel/dot-debugbar": "^1.1.5",
         "dotkernel/dot-errorhandler": "^3.3.2",
         "dotkernel/dot-flashmessenger": "^3.4.2",
         "dotkernel/dot-mail": "~3.4 || ^4.1.1",

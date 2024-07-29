@@ -95,7 +95,6 @@ The next question is:
 
 ## Configuration - First Run
 
-- duplicate `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`
 - duplicate `config/autoload/development.local.php.dist` as `config/autoload/development.local.php`
 - duplicate `config/autoload/local.php.dist` as `config/autoload/local.php`
 - duplicate `config/autoload/mail.local.php.dist` as `config/autoload/mail.local.php`
@@ -172,22 +171,6 @@ composer development-enable
 ```
 
 - If not already done, remove the `.dist` extension from `config/autoload/development.global.php.dist`.
-
-## Using DebugBar
-
-DotKernel comes with its own DebugBar already installed and configured. It was enabled when you cloned the config file `config/autoload/debugbar.local.php.dist` as `config/autoload/debugbar.local.php`. You can disable the tool by going into its config file `config/autoload/debugbar.local.php` and changing
-
-```php
-'enabled' => true
-```
-
-to
-
-```php
-'enabled' => false
-```
-
-More about DebugBar [here](https://github.com/dotkernel/dot-debugbar).
 
 ## NPM Commands
 
