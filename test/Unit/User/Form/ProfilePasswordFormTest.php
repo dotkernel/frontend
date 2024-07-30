@@ -23,6 +23,7 @@ class ProfilePasswordFormTest extends TestCase
             'password',
             'passwordConfirm',
             'submit',
+            'userPasswordCsrf',
         ]);
     }
 
@@ -31,6 +32,7 @@ class ProfilePasswordFormTest extends TestCase
         $this->formHasInputFilter((new ProfilePasswordForm())->getInputFilter(), [
             'password',
             'passwordConfirm',
+            'userPasswordCsrf',
         ]);
     }
 }

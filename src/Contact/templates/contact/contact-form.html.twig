@@ -76,6 +76,8 @@
                          data-size="invisible">
                     </div>
 
+                    {{ formElement(form.get('contactCsrf')) }}
+
                     <input type="submit" id="recaptcha-submit" value="Send message" onclick="validateContactUsForm()">
 
                     {{ form().closeTag() | raw }}

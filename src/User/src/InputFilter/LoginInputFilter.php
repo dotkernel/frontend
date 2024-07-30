@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Frontend\User\InputFilter;
 
 use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 use Laminas\Validator\EmailAddress;
 use Laminas\Validator\NotEmpty;
 
@@ -50,5 +53,21 @@ class LoginInputFilter extends InputFilter
         $rememberMe->getValidatorChain()
             ->attachByName(NotEmpty::class, [], true);
         $this->add($rememberMe);
+
+        $csrf = new Input('userLoginCsrf');
+        $csrf->setRequired(true);
+        $csrf->getFilterChain()
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
+        $csrf->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>CSRF</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(Csrf::class, [
+                'name'    => 'userLoginCsrf',
+                'message' => '<b>CSRF</b> is invalid',
+                'session' => new Container(),
+            ], true);
+        $this->add($csrf);
     }
 }

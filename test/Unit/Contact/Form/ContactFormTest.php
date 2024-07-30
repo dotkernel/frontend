@@ -24,6 +24,7 @@ class ContactFormTest extends TestCase
             'name',
             'subject',
             'message',
+            'contactCsrf',
         ]);
     }
 
@@ -34,6 +35,7 @@ class ContactFormTest extends TestCase
             'name',
             'subject',
             'message',
+            'contactCsrf',
         ]);
     }
 }

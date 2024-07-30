@@ -6,10 +6,12 @@ namespace Frontend\User\Form;
 
 use Frontend\User\Entity\User;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class ProfileDeleteForm extends Form
@@ -54,6 +56,13 @@ class ProfileDeleteForm extends Form
             ],
             'type'       => Submit::class,
         ]);
+
+        $this->add(new Csrf('userDeleteCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

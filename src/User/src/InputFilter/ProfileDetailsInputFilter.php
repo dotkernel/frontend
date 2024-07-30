@@ -14,7 +14,7 @@ use Laminas\Validator\StringLength;
  * @template TFilteredValues
  * @extends InputFilter<TFilteredValues>
  */
-class UserDetailInputFilter extends InputFilter
+class ProfileDetailsInputFilter extends InputFilter
 {
     public function init(): void
     {

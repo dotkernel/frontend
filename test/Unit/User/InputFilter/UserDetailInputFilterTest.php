@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace FrontendTest\Unit\User\InputFilter;
 
-use Frontend\User\InputFilter\UserDetailInputFilter;
+use Frontend\User\InputFilter\ProfileDetailsInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
 
 use function str_repeat;
 
 class UserDetailInputFilterTest extends AbstractInputFilterTest
 {
-    private UserDetailInputFilter $inputFilter;
+    private ProfileDetailsInputFilter $inputFilter;
 
     public function setUp(): void
     {
-        $this->inputFilter = new UserDetailInputFilter();
+        $this->inputFilter = new ProfileDetailsInputFilter();
         $this->inputFilter->init();
     }
 

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Frontend\User\Form;
 
 use Frontend\User\InputFilter\ProfilePasswordInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class ProfilePasswordForm extends Form
@@ -60,6 +62,13 @@ class ProfilePasswordForm extends Form
             ],
             'type'       => Submit::class,
         ]);
+
+        $this->add(new Csrf('userPasswordCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

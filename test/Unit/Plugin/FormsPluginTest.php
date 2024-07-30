@@ -8,6 +8,8 @@ use Dot\FlashMessenger\FlashMessengerInterface;
 use Frontend\Plugin\FormsPlugin;
 use Frontend\User\Form\LoginForm;
 use Laminas\Form\FormElementManager;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -33,17 +35,21 @@ class FormsPluginTest extends TestCase
      */
     public function testWillRestoreState(): void
     {
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
         $oldData     = [
-            'identity'   => 'old@identity.com',
-            'password'   => 'old-password',
-            'rememberMe' => null,
+            'identity'      => 'old@identity.com',
+            'password'      => 'old-password',
+            'rememberMe'    => null,
+            'userLoginCsrf' => $hash,
         ];
         $oldMessages = [];
 
         $newData     = [
-            'identity'   => 'new@identity.com',
-            'password'   => 'new-password',
-            'rememberMe' => null,
+            'identity'      => 'new@identity.com',
+            'password'      => 'new-password',
+            'rememberMe'    => null,
+            'userLoginCsrf' => $hash,
         ];
         $newMessages = [
             'test-message',
@@ -94,10 +100,13 @@ class FormsPluginTest extends TestCase
      */
     public function testWillSaveState(): void
     {
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
         $data     = [
-            'identity'   => 'identity@test.com',
-            'password'   => 'password',
-            'rememberMe' => null,
+            'identity'      => 'identity@test.com',
+            'password'      => 'password',
+            'rememberMe'    => null,
+            'userLoginCsrf' => $hash,
         ];
         $messages = [
             'test-message',

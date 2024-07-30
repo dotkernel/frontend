@@ -22,6 +22,7 @@ class RequestResetPasswordFormTest extends TestCase
         $this->formHasElements(new RequestResetPasswordForm(), [
             'identity',
             'submit',
+            'userRequestResetPasswordCsrf',
         ]);
     }
 
@@ -29,6 +30,7 @@ class RequestResetPasswordFormTest extends TestCase
     {
         $this->formHasInputFilter((new RequestResetPasswordForm())->getInputFilter(), [
             'identity',
+            'userRequestResetPasswordCsrf',
         ]);
     }
 }

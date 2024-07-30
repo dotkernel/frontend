@@ -18,6 +18,8 @@
 {% set dummy = lastName.setAttribute('placeholder', elementTranslatePlaceholder) %}
 {{ formElement(lastName) }}
 
+{{ formElement(form.get('userDetailsCsrf')) }}
+
 {% set submit = form.get('submit') %}
 {% set submitValue = submit.getValue|trans|raw %}
 {% set dummy = submit.setAttribute('value', submitValue) %}
