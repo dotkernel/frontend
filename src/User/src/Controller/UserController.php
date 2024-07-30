@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Frontend\User\Controller;
 
 use Dot\Controller\AbstractActionController;
-use Dot\DebugBar\DebugBar;
 use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Exception;
@@ -34,7 +33,6 @@ class UserController extends AbstractActionController
         AuthenticationService::class,
         FlashMessengerInterface::class,
         FormsPlugin::class,
-        DebugBar::class,
         "config"
     )]
     public function __construct(
@@ -45,7 +43,6 @@ class UserController extends AbstractActionController
         protected AuthenticationService $authenticationService,
         protected FlashMessengerInterface $messenger,
         protected FormsPlugin $forms,
-        protected DebugBar $debugBar,
         protected array $config = []
     ) {
     }
@@ -144,7 +141,6 @@ class UserController extends AbstractActionController
                 try {
                     /** @var User $user */
                     $user = $this->userService->createUser($userData);
-                    $this->debugBar->stackData();
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);

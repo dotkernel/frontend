@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Dot\DebugBar\Middleware\DebugBarMiddleware;
 use Dot\ErrorHandler\ErrorHandlerInterface;
 use Dot\Rbac\Guard\Middleware\ForbiddenHandler;
 use Dot\Rbac\Guard\Middleware\RbacGuardMiddleware;
@@ -27,7 +26,6 @@ use Psr\Container\ContainerInterface;
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
-    $app->pipe(DebugBarMiddleware::class);
     $app->pipe(ErrorHandlerInterface::class);
     $app->pipe(SessionMiddleware::class);
     $app->pipe(ServerUrlMiddleware::class);

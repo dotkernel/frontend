@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Dot\DebugBar\Extension\DebugBarExtension;
 use Dot\Twig\Extension\DateExtension;
 use Dot\Twig\Extension\TranslationExtension;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -33,7 +32,6 @@ return [
         'extensions'      => [
             DateExtension::class,
             TranslationExtension::class,
-            DebugBarExtension::class,
         ],
         'optimizations'   => -1,
         'runtime_loaders' => [],

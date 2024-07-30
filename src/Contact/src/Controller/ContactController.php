@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Frontend\Contact\Controller;
 
 use Dot\Controller\AbstractActionController;
-use Dot\DebugBar\DebugBar;
 use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessenger;
 use Dot\FlashMessenger\FlashMessengerInterface;
@@ -32,7 +31,6 @@ class ContactController extends AbstractActionController
         AuthenticationServiceInterface::class,
         FlashMessengerInterface::class,
         FormsPlugin::class,
-        DebugBar::class,
         "config",
     )]
     public function __construct(
@@ -43,7 +41,6 @@ class ContactController extends AbstractActionController
         protected AuthenticationService $authenticationService,
         protected FlashMessenger $messenger,
         protected FormsPlugin $forms,
-        protected DebugBar $debugBar,
         protected array $config = []
     ) {
     }
@@ -74,7 +71,6 @@ class ContactController extends AbstractActionController
                 $result   = $this->messageService->processMessage($dataForm);
 
                 if ($result) {
-                    $this->debugBar->stackData();
                     return new HtmlResponse($this->template->render('contact::thank-you'));
                 } else {
                     $this->messenger->addError('Something went wrong. Please try again later!');

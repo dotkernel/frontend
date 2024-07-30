@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Frontend\User\Controller;
 
 use Dot\Controller\AbstractActionController;
-use Dot\DebugBar\DebugBar;
 use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessengerInterface;
 use Exception;
@@ -41,7 +40,6 @@ class AccountController extends AbstractActionController
         AuthenticationService::class,
         FlashMessengerInterface::class,
         FormsPlugin::class,
-        DebugBar::class,
     )]
     public function __construct(
         protected UserServiceInterface $userService,
@@ -50,7 +48,6 @@ class AccountController extends AbstractActionController
         protected AuthenticationService $authenticationService,
         protected FlashMessengerInterface $messenger,
         protected FormsPlugin $forms,
-        protected DebugBar $debugBar
     ) {
     }
 
@@ -75,7 +72,6 @@ class AccountController extends AbstractActionController
 
         try {
             $this->userService->activateUser($user);
-            $this->debugBar->stackData();
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
@@ -111,7 +107,6 @@ class AccountController extends AbstractActionController
 
         try {
             $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
-            $this->debugBar->stackData();
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
@@ -142,7 +137,6 @@ class AccountController extends AbstractActionController
 
             try {
                 $user = $this->userService->updateUser($user->createResetPassword());
-                $this->debugBar->stackData();
             } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'request-reset');
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
@@ -208,7 +202,6 @@ class AccountController extends AbstractActionController
                     $resetPasswordRequest->markAsCompleted()->getUser(),
                     $data
                 );
-                $this->debugBar->stackData();
             } catch (Exception $exception) {
                 $this->messenger->addError($exception->getMessage(), 'reset-password');
 
@@ -248,7 +241,6 @@ class AccountController extends AbstractActionController
                     $this->userService->updateUser($user, [
                         'avatar' => $this->request->getUploadedFiles()['avatar']['image'],
                     ]);
-                    $this->debugBar->stackData();
                 } catch (Exception) {
                     $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
                     return new RedirectResponse($this->router->generateUri('account', ['action' => 'avatar']));
@@ -292,7 +284,6 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                    $this->debugBar->stackData();
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
@@ -357,7 +348,6 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                    $this->debugBar->stackData();
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
@@ -411,7 +401,6 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
-                    $this->debugBar->stackData();
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
