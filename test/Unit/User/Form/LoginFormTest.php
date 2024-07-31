@@ -24,6 +24,7 @@ class LoginFormTest extends TestCase
             'password',
             'rememberMe',
             'submit',
+            'userLoginCsrf',
         ]);
     }
 
@@ -33,6 +34,7 @@ class LoginFormTest extends TestCase
             'identity',
             'password',
             'rememberMe',
+            'userLoginCsrf',
         ]);
     }
 }

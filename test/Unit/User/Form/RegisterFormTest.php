@@ -25,6 +25,7 @@ class RegisterFormTest extends TestCase
             'password',
             'passwordConfirm',
             'submit',
+            'userRegisterCsrf',
         ]);
     }
 
@@ -38,6 +39,7 @@ class RegisterFormTest extends TestCase
             'email',
             'password',
             'passwordConfirm',
+            'userRegisterCsrf',
         ]);
     }
 }

@@ -6,6 +6,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 
 use Frontend\User\InputFilter\ResetPasswordInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 
 use function str_repeat;
 
@@ -114,9 +116,12 @@ class ResetPasswordInputFilterTest extends AbstractInputFilterTest
 
     public function testWillPassValidation(): void
     {
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
         $data = [
-            'password'        => 'password',
-            'passwordConfirm' => 'password',
+            'password'              => 'password',
+            'passwordConfirm'       => 'password',
+            'userResetPasswordCsrf' => $hash,
         ];
 
         $this->inputFilter->setData($data);

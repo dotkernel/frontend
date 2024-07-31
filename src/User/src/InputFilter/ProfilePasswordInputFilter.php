@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Frontend\User\InputFilter;
 
 use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 use Laminas\Validator\Identical;
 use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
@@ -54,5 +57,21 @@ class ProfilePasswordInputFilter extends InputFilter
                 'message' => '<b>Confirm Password</b> does not match',
             ]);
         $this->add($passwordConfirm);
+
+        $csrf = new Input('userPasswordCsrf');
+        $csrf->setRequired(true);
+        $csrf->getFilterChain()
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
+        $csrf->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>CSRF</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(Csrf::class, [
+                'name'    => 'userPasswordCsrf',
+                'message' => '<b>CSRF</b> is invalid',
+                'session' => new Container(),
+            ], true);
+        $this->add($csrf);
     }
 }

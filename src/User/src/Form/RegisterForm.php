@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Frontend\User\Form;
 
 use Frontend\User\Fieldset\UserDetailFieldset;
+use Frontend\User\InputFilter\ProfileDetailsInputFilter;
 use Frontend\User\InputFilter\RegisterInputFilter;
-use Frontend\User\InputFilter\UserDetailInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class RegisterForm extends Form
@@ -27,7 +29,7 @@ class RegisterForm extends Form
 
         $this->inputFilter = new RegisterInputFilter();
         $this->inputFilter->init();
-        $detailsInputFilter = new UserDetailInputFilter();
+        $detailsInputFilter = new ProfileDetailsInputFilter();
         $detailsInputFilter->init();
         $this->inputFilter->add($detailsInputFilter, 'detail');
     }
@@ -82,6 +84,13 @@ class RegisterForm extends Form
             ],
             'type'       => Submit::class,
         ]);
+
+        $this->add(new Csrf('userRegisterCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

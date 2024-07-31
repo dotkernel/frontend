@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Frontend\User\Form;
 
 use Frontend\User\InputFilter\RequestResetPasswordInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class RequestResetPasswordForm extends Form
@@ -49,6 +51,13 @@ class RequestResetPasswordForm extends Form
             ],
             'type'       => Submit::class,
         ]);
+
+        $this->add(new Csrf('userRequestResetPasswordCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

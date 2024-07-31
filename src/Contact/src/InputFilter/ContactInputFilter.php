@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Frontend\Contact\InputFilter;
 
 use Laminas\Filter\StringTrim;
+use Laminas\Filter\StripTags;
 use Laminas\InputFilter\Input;
 use Laminas\InputFilter\InputFilter;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 use Laminas\Validator\EmailAddress;
 use Laminas\Validator\NotEmpty;
 use Laminas\Validator\StringLength;
@@ -24,7 +27,8 @@ class ContactInputFilter extends InputFilter
         $email = new Input('email');
         $email->setRequired(true);
         $email->getFilterChain()
-            ->attachByName(StringTrim::class);
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
         $email->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>E-mail address</b> is required and cannot be empty',
@@ -37,7 +41,8 @@ class ContactInputFilter extends InputFilter
         $name = new Input('name');
         $name->setRequired(true);
         $name->getFilterChain()
-            ->attachByName(StringTrim::class);
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
         $name->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>Name</b> is required and cannot be empty',
@@ -51,7 +56,8 @@ class ContactInputFilter extends InputFilter
         $subject = new Input('subject');
         $subject->setRequired(false);
         $subject->getFilterChain()
-            ->attachByName(StringTrim::class);
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
         $subject->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>Subject</b> is required and cannot be empty',
@@ -64,7 +70,8 @@ class ContactInputFilter extends InputFilter
         $message = new Input('message');
         $message->setRequired(true);
         $message->getFilterChain()
-            ->attachByName(StringTrim::class);
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
         $message->getValidatorChain()
             ->attachByName(NotEmpty::class, [
                 'message' => '<b>Message</b> is required and cannot be empty',
@@ -74,5 +81,21 @@ class ContactInputFilter extends InputFilter
                 'message' => '<b>Message</b> must not be greater than 1000 characters long.',
             ], true);
         $this->add($message);
+
+        $csrf = new Input('contactCsrf');
+        $csrf->setRequired(true);
+        $csrf->getFilterChain()
+            ->attachByName(StringTrim::class)
+            ->attachByName(StripTags::class);
+        $csrf->getValidatorChain()
+            ->attachByName(NotEmpty::class, [
+                'message' => '<b>CSRF</b> is required and cannot be empty',
+            ], true)
+            ->attachByName(Csrf::class, [
+                'name'    => 'contactCsrf',
+                'message' => '<b>CSRF</b> is invalid',
+                'session' => new Container(),
+            ], true);
+        $this->add($csrf);
     }
 }

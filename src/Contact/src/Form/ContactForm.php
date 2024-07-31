@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\Contact\Form;
 
 use Frontend\Contact\InputFilter\ContactInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
@@ -12,6 +13,7 @@ use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class ContactForm extends Form
@@ -77,6 +79,13 @@ class ContactForm extends Form
             ],
             'type'       => Textarea::class,
         ]);
+
+        $this->add(new Csrf('contactCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

@@ -23,6 +23,7 @@ class ResetPasswordFormTest extends TestCase
             'password',
             'passwordConfirm',
             'submit',
+            'userResetPasswordCsrf',
         ]);
     }
 
@@ -31,6 +32,7 @@ class ResetPasswordFormTest extends TestCase
         $this->formHasInputFilter((new ResetPasswordForm())->getInputFilter(), [
             'password',
             'passwordConfirm',
+            'userResetPasswordCsrf',
         ]);
     }
 }

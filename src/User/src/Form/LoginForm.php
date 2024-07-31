@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Frontend\User\Form;
 
 use Frontend\User\InputFilter\LoginInputFilter;
+use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
 use Laminas\Form\Element\Password;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\Form;
 use Laminas\Form\FormInterface;
 use Laminas\InputFilter\InputFilterInterface;
+use Laminas\Session\Container;
 
 /** @template-extends Form<FormInterface> */
 class LoginForm extends Form
@@ -71,6 +73,13 @@ class LoginForm extends Form
             ],
             'type'       => Submit::class,
         ]);
+
+        $this->add(new Csrf('userLoginCsrf', [
+            'csrf_options' => [
+                'timeout' => 3600,
+                'session' => new Container(),
+            ],
+        ]));
     }
 
     public function getInputFilter(): InputFilterInterface

@@ -22,6 +22,7 @@ class ProfileDetailsFormTest extends TestCase
         $this->formHasElements(new ProfileDetailsForm(), [
             'detail',
             'submit',
+            'userDetailsCsrf',
         ]);
     }
 
@@ -32,6 +33,7 @@ class ProfileDetailsFormTest extends TestCase
                 'firstName',
                 'lastName',
             ],
+            'userDetailsCsrf',
         ]);
     }
 }

@@ -22,14 +22,16 @@ class UploadAvatarFormTest extends TestCase
         $this->formHasElements(new UploadAvatarForm(), [
             'avatar',
             'submit',
+            'userAvatarCsrf',
         ]);
     }
 
     public function testFormHasInputFilter(): void
     {
         $this->formHasInputFilter((new UploadAvatarForm())->getInputFilter(), [
-            'submit',
             'avatar' => ['image'],
+            'submit',
+            'userAvatarCsrf',
         ]);
     }
 }

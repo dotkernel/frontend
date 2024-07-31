@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Frontend\User\Controller;
 
-use Doctrine\ORM\NonUniqueResultException;
 use Dot\Controller\AbstractActionController;
 use Dot\DependencyInjection\Attribute\Inject;
 use Dot\FlashMessenger\FlashMessengerInterface;
@@ -29,6 +28,7 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
+use function array_merge;
 use function sprintf;
 
 class AccountController extends AbstractActionController
@@ -56,29 +56,29 @@ class AccountController extends AbstractActionController
         $hash = $this->getRequest()->getAttribute('hash', false);
         if (! $hash) {
             $this->messenger->addError(sprintf(Message::MISSING_PARAMETER, 'hash'), 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (! $user instanceof User) {
             $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         if ($user->getStatus() === User::STATUS_ACTIVE) {
             $this->messenger->addError(Message::USER_ALREADY_ACTIVATED, 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         try {
             $this->userService->activateUser($user);
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         $this->messenger->addSuccess(Message::USER_ACTIVATED_SUCCESSFULLY, 'user-login');
-        return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+        return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
     }
 
     public function unregisterAction(): ResponseInterface
@@ -86,34 +86,34 @@ class AccountController extends AbstractActionController
         $hash = $this->getRequest()->getAttribute('hash', false);
         if (! $hash) {
             $this->messenger->addError(sprintf(Message::MISSING_PARAMETER, 'hash'), 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (! $user instanceof User) {
             $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         if ($user->getIsDeleted() === User::IS_DELETED_YES) {
             $this->messenger->addError(Message::USER_ALREADY_DEACTIVATED, 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         if ($user->getStatus() !== User::STATUS_PENDING) {
             $this->messenger->addError(Message::USER_UNREGISTER_STATUS, 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         try {
             $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         $this->messenger->addSuccess(Message::USER_DEACTIVATED_SUCCESSFULLY, 'user-login');
-        return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+        return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
     }
 
     public function requestResetPasswordAction(): ResponseInterface
@@ -217,7 +217,7 @@ class AccountController extends AbstractActionController
             }
             $this->messenger->addSuccess(Message::PASSWORD_RESET_SUCCESSFULLY, 'user-login');
 
-            return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         return new HtmlResponse(
@@ -227,9 +227,6 @@ class AccountController extends AbstractActionController
         );
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
     public function avatarAction(): ResponseInterface
     {
         /** @var UserIdentity $identity */
@@ -238,29 +235,22 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new UploadAvatarForm();
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
-            $file = $this->request->getUploadedFiles()['avatar']['image'];
-            if ($file->getSize() === 0) {
-                $this->messenger->addWarning('Please select a file for upload.', 'profile-avatar');
-                return new RedirectResponse($this->router->generateUri(
-                    "account",
-                    ['action' => 'avatar']
-                ));
+            $form->setData(array_merge($this->request->getParsedBody(), $this->request->getUploadedFiles()));
+            if ($form->isValid()) {
+                try {
+                    $this->userService->updateUser($user, [
+                        'avatar' => $this->request->getUploadedFiles()['avatar']['image'],
+                    ]);
+                } catch (Exception) {
+                    $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
+                    return new RedirectResponse($this->router->generateUri('account', ['action' => 'avatar']));
+                }
+                $this->messenger->addSuccess('Profile image updated successfully!', 'profile-avatar');
+            } else {
+                $this->messenger->addError($this->forms->getMessages($form), 'profile-avatar');
             }
 
-            try {
-                $this->userService->updateUser($user, ['avatar' => $file]);
-            } catch (Exception) {
-                $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
-                return new RedirectResponse($this->router->generateUri(
-                    "account",
-                    ['action' => 'avatar']
-                ));
-            }
-            $this->messenger->addSuccess('Profile image updated successfully!', 'profile-avatar');
-            return new RedirectResponse($this->router->generateUri(
-                "account",
-                ['action' => 'avatar']
-            ));
+            return new RedirectResponse($this->router->generateUri('account', ['action' => 'avatar']));
         }
 
         return new HtmlResponse(
@@ -274,9 +264,6 @@ class AccountController extends AbstractActionController
         );
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
     public function detailsAction(): ResponseInterface
     {
         /** @var UserIdentity $identity */
@@ -306,10 +293,7 @@ class AccountController extends AbstractActionController
                 }
 
                 $this->messenger->addSuccess('Profile details updated.', 'profile-details');
-                return new RedirectResponse($this->router->generateUri(
-                    "account",
-                    ['action' => 'details']
-                ));
+                return new RedirectResponse($this->router->generateUri('account', ['action' => 'details']));
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
@@ -319,9 +303,12 @@ class AccountController extends AbstractActionController
             }
         } else {
             if ($user instanceof User) {
-                $userDetails['detail']['firstName'] = $user->getDetail()->getFirstName();
-                $userDetails['detail']['lastName']  = $user->getDetail()->getLastName();
-                $form->setData($userDetails);
+                $form->setData([
+                    'detail' => [
+                        'firstName' => $user->getDetail()?->getFirstName(),
+                        'lastName'  => $user->getDetail()?->getLastName(),
+                    ],
+                ]);
             } else {
                 $this->authenticationService->clearIdentity();
                 return new RedirectResponse(
@@ -373,7 +360,7 @@ class AccountController extends AbstractActionController
                 $this->authenticationService->clearIdentity();
 
                 $this->messenger->addSuccess('Password updated. Login with your new credentials.', 'user-login');
-                return new RedirectResponse($this->router->generateUri("user", ['action' => 'login']));
+                return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
@@ -426,7 +413,7 @@ class AccountController extends AbstractActionController
                 $this->authenticationService->clearIdentity();
 
                 $this->messenger->addSuccess('Your account is deleted.', 'page-home');
-                return new RedirectResponse($this->router->generateUri("page"));
+                return new RedirectResponse($this->router->generateUri('page'));
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);

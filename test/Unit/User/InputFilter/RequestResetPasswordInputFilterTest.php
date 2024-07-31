@@ -6,6 +6,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 
 use Frontend\User\InputFilter\RequestResetPasswordInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 
 class RequestResetPasswordInputFilterTest extends AbstractInputFilterTest
 {
@@ -46,7 +48,9 @@ class RequestResetPasswordInputFilterTest extends AbstractInputFilterTest
 
     public function testWillPassValidation(): void
     {
-        $data = ['identity' => 'test@dotkernel.com'];
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
+        $data = ['identity' => 'test@dotkernel.com', 'userRequestResetPasswordCsrf' => $hash];
         $this->inputFilter->setData($data);
 
         $this->assertTrue($this->inputFilter->isValid());

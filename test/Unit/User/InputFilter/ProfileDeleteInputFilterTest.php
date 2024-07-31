@@ -7,6 +7,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 use Frontend\App\Common\Message;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 
 class ProfileDeleteInputFilterTest extends AbstractInputFilterTest
 {
@@ -47,7 +49,9 @@ class ProfileDeleteInputFilterTest extends AbstractInputFilterTest
 
     public function testWillPassValidation(): void
     {
-        $this->inputFilter->setData(['isDeleted' => true]);
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
+        $this->inputFilter->setData(['isDeleted' => true, 'userDeleteCsrf' => $hash]);
         $this->assertTrue($this->inputFilter->isValid());
         $this->assertSame(
             true,

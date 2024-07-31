@@ -22,6 +22,7 @@ class ProfileDeleteFormTest extends TestCase
         $this->formHasElements(new ProfileDeleteForm(), [
             'isDeleted',
             'submit',
+            'userDeleteCsrf',
         ]);
     }
 
@@ -29,6 +30,7 @@ class ProfileDeleteFormTest extends TestCase
     {
         $this->formHasInputFilter((new ProfileDeleteForm())->getInputFilter(), [
             'isDeleted',
+            'userDeleteCsrf',
         ]);
     }
 }

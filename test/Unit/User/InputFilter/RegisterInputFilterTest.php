@@ -6,6 +6,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 
 use Frontend\User\InputFilter\RegisterInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 
 use function str_repeat;
 
@@ -141,10 +143,13 @@ class RegisterInputFilterTest extends AbstractInputFilterTest
 
     public function testWillPassValidation(): void
     {
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
         $data = [
-            'email'           => 'test@dotkernel.com',
-            'password'        => 'password',
-            'passwordConfirm' => 'password',
+            'email'            => 'test@dotkernel.com',
+            'password'         => 'password',
+            'passwordConfirm'  => 'password',
+            'userRegisterCsrf' => $hash,
         ];
 
         $this->inputFilter->setData($data);

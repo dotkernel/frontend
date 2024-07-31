@@ -6,6 +6,8 @@ namespace FrontendTest\Unit\User\InputFilter;
 
 use Frontend\User\InputFilter\LoginInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
+use Laminas\Session\Container;
+use Laminas\Session\Validator\Csrf;
 
 class LoginInputFilterTest extends AbstractInputFilterTest
 {
@@ -61,10 +63,13 @@ class LoginInputFilterTest extends AbstractInputFilterTest
 
     public function testWillPassValidation(): void
     {
+        $hash = (new Csrf(['session' => new Container()]))->getHash();
+
         $data = [
-            'identity'   => 'test@dotkernel.com',
-            'password'   => 'password',
-            'rememberMe' => true,
+            'identity'      => 'test@dotkernel.com',
+            'password'      => 'password',
+            'rememberMe'    => true,
+            'userLoginCsrf' => $hash,
         ];
         $this->inputFilter->setData($data);
 
