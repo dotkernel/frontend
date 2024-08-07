@@ -4,7 +4,7 @@
 {{ messagesPartial('partial::alerts', {}, null, 'profile-details') }}
 
 {% set dummy = form.prepare() %}
-{{ form().openTag(form) | raw }}
+{{ form().openTag(form)|raw }}
 
 {% set details = form.get('detail') %}
 
@@ -25,4 +25,4 @@
 {% set dummy = submit.setAttribute('value', submitValue) %}
 {{ formSubmit(submit) }}
 
-{{ form().closeTag() | raw }}
+{{ form().closeTag()|raw }}

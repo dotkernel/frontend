@@ -4,7 +4,7 @@
 {{ messagesPartial('partial::alerts', {}, null, 'profile-delete') }}
 
 {% set dummy = form.prepare() %}
-{{ form().openTag(form) | raw }}
+{{ form().openTag(form)|raw }}
 
 <div class="checkbox delete-checkbox">
     {% set deleted = form.get('isDeleted') %}
@@ -19,4 +19,4 @@
 {% set dummy = submit.setAttribute('value', submitValue) %}
 {{ formSubmit(submit) }}
 
-{{ form().closeTag() | raw }}
+{{ form().closeTag()|raw }}
