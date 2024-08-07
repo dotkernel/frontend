@@ -87,7 +87,7 @@
                             <div class="card-header" id="headingTwo">
                                 <h4 class="">
                                     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Authorization
+                                        Authentication & Authorization
                                     </button>
                                 </h4>
                             </div>
@@ -95,6 +95,10 @@
                                  aria-labelledby="headingTwo">
                                 <div class="card-body">
                                     <ul>
+                                        <li>
+                                            <a href="https://github.com/dotkernel/dot-authentication" target="_blank" class="text-decoration-none">dot-authentication</a>:
+                                            core authentication interfaces
+                                        </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-authorization" target="_blank" class="text-decoration-none">dot-authorization</a>:
                                             core authorization interfaces
@@ -137,7 +141,7 @@
                             <div class="card-header" id="headingFour">
                                 <h4 class="">
                                     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Forms
+                                        Email
                                     </button>
                                 </h4>
                             </div>
@@ -146,9 +150,8 @@
                                 <div class="card-body">
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-form"
-                                               target="_blank" class="text-decoration-none">dot-form</a>
-                                            (<a href="https://docs.laminas.dev/laminas-form/" target="_blank" class="text-decoration-none">laminas-form</a>)
+                                            <a href="https://github.com/dotkernel/dot-mail"
+                                               target="_blank" class="text-decoration-none">dot-mail</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -158,22 +161,22 @@
                         <div class="card">
                             <div class="card-header" id="headingFive">
                                 <h4 class="">
-                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                        Session
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#headingFive" aria-expanded="false" aria-controls="headingFive">
+                                        Logging & Error Handling
                                     </button>
                                 </h4>
                             </div>
-                            <div id="collapseFive" class="collapse" data-parent="#dotkernelComponents"
+                            <div id="headingFive" class="collapse" data-parent="#dotkernelComponents"
                                  aria-labelledby="headingFive">
                                 <div class="card-body">
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-session" target="_blank" class="text-decoration-none">dot-session</a>
-                                            (<a href="https://docs.laminas.dev/laminas-session/" target="_blank" class="text-decoration-none">laminas-session</a>)
+                                            <a href="https://github.com/dotkernel/dot-log" target="_blank" class="text-decoration-none">dot-log</a>
+                                            (<a href="https://docs.laminas.dev/laminas-log/"
+                                                target="_blank" class="text-decoration-none">laminas-log</a>)
                                         </li>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-flashmessenger" target="_blank" class="text-decoration-none">dot-flashmessenger</a>:
-                                            short-lived session messages
+                                            <a href="https://github.com/dotkernel/dot-errorhandler" target="_blank" class="text-decoration-none">dot-errorhandler</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -202,20 +205,45 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header" id="headingEight">
+                            <div class="card-header" id="headingSeven">
                                 <h4 class="panel-title">
-                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#headingSeven" aria-expanded="false" aria-controls="headingSeven">
                                         Navigation
                                     </button>
                                 </h4>
                             </div>
-                            <div id="collapseEight" class="collapse" data-parent="#dotkernelComponents"
-                                 aria-labelledby="headingEight">
+                            <div id="headingSeven" class="collapse" data-parent="#dotkernelComponents"
+                                 aria-labelledby="headingSeven">
                                 <div class="card-body">
                                     <ul>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-navigation" target="_blank" class="text-decoration-none">dot-navigation</a>:
                                             easy menu configuration and parsing
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" id="headingEight">
+                                <h4 class="">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#headingEight" aria-expanded="false" aria-controls="headingEight">
+                                        Session
+                                    </button>
+                                </h4>
+                            </div>
+                            <div id="headingEight" class="collapse" data-parent="#dotkernelComponents"
+                                 aria-labelledby="headingEight">
+                                <div class="card-body">
+                                    <ul>
+                                        <li>
+                                            <a href="https://github.com/dotkernel/dot-session" target="_blank" class="text-decoration-none">dot-session</a>
+                                            (<a href="https://docs.laminas.dev/laminas-session/" target="_blank" class="text-decoration-none">laminas-session</a>)
+                                        </li>
+                                        <li>
+                                            <a href="https://github.com/dotkernel/dot-flashmessenger" target="_blank" class="text-decoration-none">dot-flashmessenger</a>:
+                                            short-lived session messages
                                         </li>
                                     </ul>
                                 </div>
@@ -235,17 +263,12 @@
                                 <div class="card-body">
                                     <ul>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-log" target="_blank" class="text-decoration-none">dot-log</a>
-                                            (<a href="https://docs.laminas.dev/laminas-log/"
-                                                target="_blank" class="text-decoration-none">laminas-log</a>)
+                                            <a href="https://github.com/dotkernel/dot-data-fixtures"
+                                               target="_blank" class="text-decoration-none">dot-data-fixtures</a>: fixtures populate tables with data
                                         </li>
                                         <li>
-                                            <a href="https://github.com/dotkernel/dot-errorhandler" target="_blank" class="text-decoration-none">dot-errorhandler</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/dotkernel/dot-annotated-services"
-                                               target="_blank" class="text-decoration-none">dot-annotated-services</a>: creates and injects services
-                                            with dependencies through annotations
+                                            <a href="https://github.com/dotkernel/dot-dependency-injection"
+                                               target="_blank" class="text-decoration-none">dot-dependency-injection</a>: dependency injection component using class attributes
                                         </li>
                                         <li>
                                             <a href="https://github.com/dotkernel/dot-event"
