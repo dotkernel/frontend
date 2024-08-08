@@ -9,17 +9,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Dot\Authorization\Role\RoleInterface;
 use Exception;
-use Frontend\App\Common\AbstractEntity;
-use Frontend\App\Common\UuidOrderedTimeGenerator;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 use Frontend\User\Repository\UserRepository;
+use Ramsey\Uuid\Uuid;
 
 use function bin2hex;
 use function random_bytes;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
+#[ORM\HasLifecycleCallbacks]
 class User extends AbstractEntity implements UserInterface
 {
+    use TimestampsTrait;
+
     public const STATUS_PENDING = 'pending';
     public const STATUS_ACTIVE  = 'active';
     public const STATUSES       = [
@@ -202,7 +206,7 @@ class User extends AbstractEntity implements UserInterface
         try {
             $bytes = random_bytes(32);
         } catch (Exception) {
-            $bytes = UuidOrderedTimeGenerator::generateUuid()->getBytes();
+            $bytes = Uuid::uuid4()->getBytes();
         }
 
         return bin2hex($bytes);

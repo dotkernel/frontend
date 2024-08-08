@@ -80,18 +80,10 @@ class ConfigProviderTest extends TestCase
 
     public function testGetDoctrineConfig(): void
     {
-        $this->assertArrayHasKey('configuration', $this->config['doctrine']);
-        $this->assertIsArray($this->config['doctrine']['configuration']);
-        $this->assertArrayHasKey('orm_default', $this->config['doctrine']['configuration']);
-        $this->assertIsArray($this->config['doctrine']['configuration']['orm_default']);
-        $this->assertArrayHasKey(
-            'entity_listener_resolver',
-            $this->config['doctrine']['configuration']['orm_default']
-        );
-        $this->assertSame(
-            EntityListenerResolver::class,
-            $this->config['doctrine']['configuration']['orm_default']['entity_listener_resolver']
-        );
+        $this->assertArrayHasKey('driver', $this->config['doctrine']);
+        $this->assertIsArray($this->config['doctrine']['driver']);
+        $this->assertArrayHasKey('orm_default', $this->config['doctrine']['driver']);
+        $this->assertIsArray($this->config['doctrine']['driver']['orm_default']);
     }
 
     public function testGetTemplates(): void

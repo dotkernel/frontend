@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Frontend\Contact\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Frontend\App\Common\AbstractEntity;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 use Frontend\Contact\Repository\MessageRepository;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 #[ORM\Table(name: 'contact_message')]
+#[ORM\HasLifecycleCallbacks]
 class Message extends AbstractEntity
 {
+    use TimestampsTrait;
+
     public const PLATFORM_WEBSITE = 'website';
 
     #[ORM\Column(name: 'email', type: 'string', length: 150)]

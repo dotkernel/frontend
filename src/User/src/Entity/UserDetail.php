@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Frontend\App\Common\AbstractEntity;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 use Frontend\User\Repository\UserDetailRepository;
 
 #[ORM\Entity(repositoryClass: UserDetailRepository::class)]
 #[ORM\Table(name: 'user_detail')]
+#[ORM\HasLifecycleCallbacks]
 class UserDetail extends AbstractEntity
 {
+    use TimestampsTrait;
+
     #[ORM\OneToOne(inversedBy: 'detail', targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected UserInterface $user;

@@ -6,12 +6,16 @@ namespace Frontend\User\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Frontend\App\Common\AbstractEntity;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_remember_me')]
+#[ORM\HasLifecycleCallbacks]
 class UserRememberMe extends AbstractEntity
 {
+    use TimestampsTrait;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected User $user;

@@ -6,13 +6,17 @@ namespace Frontend\User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dot\Authorization\Role\RoleInterface;
-use Frontend\App\Common\AbstractEntity;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 use Frontend\User\Repository\UserRoleRepository;
 
 #[ORM\Entity(repositoryClass: UserRoleRepository::class)]
 #[ORM\Table(name: 'user_role')]
+#[ORM\HasLifecycleCallbacks]
 class UserRole extends AbstractEntity implements RoleInterface
 {
+    use TimestampsTrait;
+
     public const ROLE_ADMIN = 'admin';
     public const ROLE_USER  = 'user';
     public const ROLE_GUEST = 'guest';
