@@ -43,33 +43,33 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
                                     <div class="dropdown-menu" aria-labelledby="pageDropdown">
-                                        <a class="dropdown-item" href="{{ url('page', {'action': 'home'}) }}">{% trans 'Home' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {'action': 'about-us'}) }}">{% trans 'About Us' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {'action': 'who-we-are'}) }}">{% trans 'Who We Are' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {'action': 'premium-content'}) }}">{% trans 'Protected Content' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'home'}) }}">{% trans 'Home' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'about-us'}) }}">{% trans 'About Us' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'who-we-are'}) }}">{% trans 'Who We Are' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'premium-content'}) }}">{% trans 'Protected Content' %}</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="https://github.com/dotkernel" target="_blank">{% trans 'Contribute' %}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('contact', {'action': 'form'}) }}">{% trans 'Contact Us' %}</a>
+                                    <a class="nav-link" href="{{ url('contact', {action: 'form'}) }}">{% trans 'Contact Us' %}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" href="{{ url('page', {'action': 'index'}) }}">{% trans 'Disabled' %}</a>
+                                    <a class="nav-link disabled" href="{{ url('page', {action: 'index'}) }}">{% trans 'Disabled' %}</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav ms-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('account', {'action': 'details'}) }}">{% trans 'Profile' %}</a>
+                                        <a class="nav-link" href="{{ url('account', {action: 'details'}) }}">{% trans 'Profile' %}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('user', {'action': 'logout'}) }}">{% trans 'Log out' %}</a>
+                                        <a class="nav-link" href="{{ url('user', {action: 'logout'}) }}">{% trans 'Log out' %}</a>
                                     </li>
                                 {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('user', {'action': 'login'}) }}">{% trans 'Log in' %}</a>
+                                    <a class="nav-link" href="{{ url('user', {action: 'login'}) }}">{% trans 'Log in' %}</a>
                                 </li>
                                 {% endif %}
                             </ul>
@@ -100,7 +100,7 @@
                     {% trans 'enjoy dotkernel' %}
                 </p>
                 <p>
-                    © {{ 'now' | date('Y') }} {% trans 'DotKernel by Apidemia' %}
+                    © {{ 'now'|date('Y') }} {% trans 'DotKernel by Apidemia' %}
                 </p>
             </div>
         </footer>

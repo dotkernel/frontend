@@ -25,7 +25,7 @@
 
                     {% set dummy = form.prepare() %}
                     {% set dummy = form.setAttribute('id', 'contact_form') %}
-                    {{ form().openTag(form) | raw }}
+                    {{ form().openTag(form)|raw }}
 
                     <div class="row">
                         {% set email = form.get('email') %}
@@ -80,7 +80,7 @@
 
                     <input type="submit" id="recaptcha-submit" value="Send message" onclick="validateContactUsForm()">
 
-                    {{ form().closeTag() | raw }}
+                    {{ form().closeTag()|raw }}
                 </div>
             </div>
         </div>
