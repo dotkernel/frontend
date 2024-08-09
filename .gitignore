@@ -2,6 +2,7 @@ clover.xml
 coveralls-upload.json
 .phpcs-cache
 .phpunit.result.cache
+.twig-cs-fixer.cache
 
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template

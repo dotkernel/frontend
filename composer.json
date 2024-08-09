@@ -117,6 +117,7 @@
         "serve": "php -S 0.0.0.0:8080 -t public/",
         "static-analysis": "psalm --shepherd --stats",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "twig-cs-fixer": "vendor/bin/twig-cs-fixer lint --config=config/.twig-cs-fixer.php"
     }
 }
