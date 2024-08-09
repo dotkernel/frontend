@@ -15,7 +15,7 @@
                     {{ messagesPartial('partial::alerts', {}, null, 'request-reset') }}
 
                     {% set dummy = form.prepare() %}
-                    {{ form().openTag(form) | raw }}
+                    {{ form().openTag(form)|raw }}
 
                     {% set identity = form.get('identity') %}
                     {% set elementTranslatePlaceholder = identity.getAttribute('placeholder')|trans|raw %}
@@ -29,7 +29,7 @@
                     {% set dummy = submit.setAttribute('value', submitValue) %}
                     {{ formSubmit(submit) }}
 
-                    {{ form().closeTag() | raw }}
+                    {{ form().closeTag()|raw }}
                 </div>
             </div>
         </div>

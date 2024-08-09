@@ -16,7 +16,7 @@
                     {{ messagesPartial('partial::alerts', {}, null, 'user-login') }}
 
                     {% set dummy = form.prepare() %}
-                    {{ form().openTag(form) | raw }}
+                    {{ form().openTag(form)|raw }}
 
                     {% set identity = form.get('identity') %}
                     {% set elementTranslatePlaceholder = identity.getAttribute('placeholder')|trans|raw %}
@@ -44,12 +44,12 @@
                     {% set dummy = submit.setAttribute('value', submitValue) %}
                     {{ formSubmit(submit) }}
 
-                    {{ form().closeTag() | raw }}
+                    {{ form().closeTag()|raw }}
 
                     <hr>
 
-                    <p class="forgot-password"><a href="{{ path('account', {'action' : 'request-reset-password' } )}}" class="text-decoration-none">{% trans 'Forgot password' %}</a></p>
-                    <p>{% trans "You don't have an account?" %} <a href="{{ path('user', {'action' : 'register'}) }}" class="text-decoration-none">{% trans 'Register' %}</a>!</p>
+                    <p class="forgot-password"><a href="{{ path('account', {action: 'request-reset-password'}) }}" class="text-decoration-none">{% trans 'Forgot password' %}</a></p>
+                    <p>{% trans "You don't have an account?" %} <a href="{{ path('user', {action: 'register'}) }}" class="text-decoration-none">{% trans 'Register' %}</a>!</p>
                 </div>
             </div>
         </div>
