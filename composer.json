@@ -118,6 +118,6 @@
         "static-analysis": "psalm --shepherd --stats",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-        "twig-cs-fixer": "vendor/bin/twig-cs-fixer lint --config=config/.twig-cs-fixer.php"
+        "twig-cs-fixer": "vendor/bin/twig-cs-fixer lint --config=config/twig-cs-fixer.php"
     }
 }
