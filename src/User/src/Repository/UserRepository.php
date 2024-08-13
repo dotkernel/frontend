@@ -11,7 +11,7 @@ use Dot\DependencyInjection\Attribute\Entity;
 use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserRememberMe;
-use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @extends EntityRepository<object>
@@ -24,12 +24,14 @@ class UserRepository extends EntityRepository
      */
     public function findByUuid(string $uuid): ?User
     {
+        $uuid = Uuid::fromString($uuid)->getBytes();
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb
             ->select('user')
             ->from(User::class, 'user')
             ->where("user.uuid = :uuid")
-            ->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME)
+            ->setParameter('uuid', $uuid)
             ->setMaxResults(1);
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
@@ -51,7 +53,8 @@ class UserRepository extends EntityRepository
             ->where('user.identity = :email')->setParameter('email', $email)
             ->andWhere('user.isDeleted = :isDeleted')->setParameter('isDeleted', User::IS_DELETED_NO);
         if (! empty($uuid)) {
-            $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME);
+            $uuid = Uuid::fromString($uuid)->getBytes();
+            $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid);
         }
 
         try {
@@ -104,7 +107,7 @@ class UserRepository extends EntityRepository
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
             ->where('user_remember_me.user = :uuid')
-            ->setParameter('uuid', $user->getUuid(), UuidBinaryOrderedTimeType::NAME)
+            ->setParameter('uuid', $user->getUuid()->getBytes())
             ->andWhere('user_remember_me.userAgent = :userAgent')
             ->setParameter('userAgent', $userAgent);
 

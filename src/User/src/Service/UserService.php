@@ -12,7 +12,6 @@ use Dot\Mail\Service\MailService;
 use Dot\Mail\Service\MailServiceInterface;
 use Exception;
 use Frontend\App\Common\Message;
-use Frontend\App\Common\UuidOrderedTimeGenerator;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserAvatar;
@@ -24,6 +23,7 @@ use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
 use Mezzio\Template\TemplateRendererInterface;
+use Ramsey\Uuid\Uuid;
 
 use function file_exists;
 use function is_readable;
@@ -188,7 +188,7 @@ class UserService implements UserServiceInterface
 
         $fileName = sprintf(
             'avatar-%s.%s',
-            UuidOrderedTimeGenerator::generateUuid()->toString(),
+            Uuid::uuid4()->toString(),
             self::EXTENSIONS[$uploadedFile->getClientMediaType()]
         );
 

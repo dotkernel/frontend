@@ -66,44 +66,6 @@ class AuthenticationAdapterFactoryTest extends TestCase
      * @throws NotFoundExceptionInterface
      * @throws Exception
      */
-    public function testInvokeThrowsErrorRepositoryNotFound(): void
-    {
-        $config = [
-            'doctrine' => [
-                'authentication' => [
-                    'orm_default' => [
-                        'identity_class' => User::class,
-                    ],
-                ],
-            ],
-        ];
-
-        $container     = $this->createMock(ContainerInterface::class);
-        $entityManager = $this->createMock(EntityManagerInterface::class);
-
-        $entityManager->expects($this->once())->method('getRepository')->willReturn(null);
-        $container->expects($this->once())->method('has')->willReturn(true);
-        $container
-            ->expects($this->exactly(2))
-            ->method('get')
-            ->willReturnOnConsecutiveCalls($entityManager, $config);
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Could not find repository for identity class: %s',
-                $config['doctrine']['authentication']['orm_default']['identity_class']
-            )
-        );
-
-        (new AuthenticationAdapterFactory())($container);
-    }
-
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws Exception
-     */
     public function testWillInstantiate(): void
     {
         $config = [

@@ -23,7 +23,12 @@ return [
         ],
     ],
     'doctrine'            => [
-        'connection' => [
+        'configuration' => [
+            'orm_default' => [
+                'entity_listener_resolver' => EntityListenerResolver::class,
+            ],
+        ],
+        'connection'    => [
             'orm_default' => [
                 'doctrine_mapping_types' => [
                     UuidBinaryType::NAME            => 'binary',
@@ -31,25 +36,20 @@ return [
                 ],
             ],
         ],
-        'driver'     => [
+        'driver'        => [
             // default metadata driver, aggregates all other drivers into a single one.
             // Override `orm_default` only if you know what you're doing
-            'orm_default'   => [
+            'orm_default' => [
                 'class'   => MappingDriverChain::class,
                 'drivers' => [],
             ],
-            'configuration' => [
-                'orm_default' => [
-                    'entity_listener_resolver' => EntityListenerResolver::class,
-                ],
-            ],
         ],
-        'types'      => [
+        'types'         => [
             UuidType::NAME                  => UuidType::class,
             UuidBinaryType::NAME            => UuidBinaryType::class,
             UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
         ],
-        'fixtures'   => getcwd() . '/data/doctrine/fixtures',
+        'fixtures'      => getcwd() . '/data/doctrine/fixtures',
     ],
     'resultCacheLifetime' => 600,
 ];

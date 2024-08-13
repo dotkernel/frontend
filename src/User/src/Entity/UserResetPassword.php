@@ -9,12 +9,16 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
-use Frontend\App\Common\AbstractEntity;
+use Frontend\App\Entity\AbstractEntity;
+use Frontend\App\Entity\TimestampsTrait;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user_reset_password')]
+#[ORM\HasLifecycleCallbacks]
 class UserResetPassword extends AbstractEntity
 {
+    use TimestampsTrait;
+
     public const STATUS_COMPLETED = 'completed';
     public const STATUS_REQUESTED = 'requested';
     public const STATUSES         = [

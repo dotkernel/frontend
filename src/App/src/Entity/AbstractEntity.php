@@ -2,29 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Frontend\App\Common;
+namespace Frontend\App\Entity;
 
-use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 use function is_array;
 use function method_exists;
 use function ucfirst;
 
-abstract class AbstractEntity implements UuidAwareInterface, TimestampAwareInterface
+#[ORM\MappedSuperclass]
+abstract class AbstractEntity
 {
-    use TimestampAwareTrait;
-    use UuidAwareTrait;
+    #[ORM\Id]
+    #[ORM\Column(name: 'uuid', type: "uuid_binary", unique: true)]
+    protected UuidInterface $uuid;
 
     public function __construct()
     {
-        $this->uuid    = UuidOrderedTimeGenerator::generateUuid();
-        $this->created = new DateTimeImmutable();
-        $this->updated = new DateTimeImmutable();
+        $this->uuid = Uuid::uuid4();
     }
 
-    public function exchangeArray(array $data): void
+    public function getUuid(): UuidInterface
     {
-        foreach ($data as $property => $values) {
+        return $this->uuid;
+    }
+
+    public function exchangeArray(array $array): void
+    {
+        foreach ($array as $property => $values) {
             if (is_array($values)) {
                 $method = 'add' . ucfirst($property);
                 if (! method_exists($this, $method)) {

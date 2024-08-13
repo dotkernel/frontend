@@ -6,6 +6,7 @@ namespace Frontend\App;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
@@ -61,9 +62,16 @@ class ConfigProvider
     public function getDoctrineConfig(): array
     {
         return [
-            'configuration' => [
+            'driver' => [
                 'orm_default' => [
-                    'entity_listener_resolver' => EntityListenerResolver::class,
+                    'drivers' => [
+                        'Frontend\App\Entity' => 'AppEntities',
+                    ],
+                ],
+                'AppEntities' => [
+                    'class' => AttributeDriver::class,
+                    'cache' => 'array',
+                    'paths' => [__DIR__ . '/Entity'],
                 ],
             ],
         ];
