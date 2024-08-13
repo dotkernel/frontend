@@ -11,7 +11,6 @@ use Dot\DependencyInjection\Attribute\Entity;
 use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserRememberMe;
-use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -55,7 +54,7 @@ class UserRepository extends EntityRepository
             ->andWhere('user.isDeleted = :isDeleted')->setParameter('isDeleted', User::IS_DELETED_NO);
         if (! empty($uuid)) {
             $uuid = Uuid::fromString($uuid)->getBytes();
-            $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid, UuidBinaryOrderedTimeType::NAME);
+            $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid);
         }
 
         try {
@@ -108,7 +107,7 @@ class UserRepository extends EntityRepository
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
             ->where('user_remember_me.user = :uuid')
-            ->setParameter('uuid', $user->getUuid()->getBytes(), UuidBinaryOrderedTimeType::NAME)
+            ->setParameter('uuid', $user->getUuid()->getBytes())
             ->andWhere('user_remember_me.userAgent = :userAgent')
             ->setParameter('userAgent', $userAgent);
 
