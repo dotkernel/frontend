@@ -12,37 +12,31 @@ use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 
-use function rtrim;
-
 class PageController extends AbstractActionController
 {
     #[Inject(
         PageServiceInterface::class,
         RouterInterface::class,
         TemplateRendererInterface::class,
-        "config",
     )]
     public function __construct(
         protected PageServiceInterface $pageService,
         protected RouterInterface $router,
-        protected TemplateRendererInterface $template,
-        protected array $config = []
+        protected TemplateRendererInterface $template
     ) {
     }
 
     public function indexAction(): ResponseInterface
     {
-        $canonicalUrl = rtrim($this->config['application']['url'], '/') . $this->router->generateUri('home');
         return new HtmlResponse(
-            $this->template->render('page::home', ['canonicalUrl' => $canonicalUrl])
+            $this->template->render('page::home', ['routeName' => 'home'])
         );
     }
 
     public function homeAction(): ResponseInterface
     {
-        $canonicalUrl = rtrim($this->config['application']['url'], '/') . $this->router->generateUri('home');
         return new HtmlResponse(
-            $this->template->render('page::home', ['canonicalUrl' => $canonicalUrl])
+            $this->template->render('page::home', ['routeName' => 'home'])
         );
     }
 
