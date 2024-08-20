@@ -14,7 +14,6 @@ use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
-use Mezzio\Application;
 use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
 class ConfigProvider
@@ -31,17 +30,17 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories'  => [
+            'factories' => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class         => EntityListenerResolverFactory::class,
                 RecaptchaService::class               => AttributedServiceFactory::class,
                 CookieService::class                  => AttributedServiceFactory::class,
                 RememberMeMiddleware::class           => AttributedServiceFactory::class,
             ],
-            'aliases'    => [
-                EntityManager::class             => 'doctrine.entity_manager.orm_default',
-                EntityManagerInterface::class    => 'doctrine.entity_manager.orm_default',
-                CookieServiceInterface::class    => CookieService::class,
+            'aliases'   => [
+                EntityManager::class          => 'doctrine.entity_manager.orm_default',
+                EntityManagerInterface::class => 'doctrine.entity_manager.orm_default',
+                CookieServiceInterface::class => CookieService::class,
             ],
         ];
     }

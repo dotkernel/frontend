@@ -7,14 +7,10 @@ namespace FrontendTest\Unit\App;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Frontend\App\ConfigProvider;
-use Frontend\App\Controller\LanguageController;
 use Frontend\App\Resolver\EntityListenerResolver;
-use Frontend\App\RoutesDelegator;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
-use Frontend\App\Service\TranslateService;
-use Frontend\App\Service\TranslateServiceInterface;
 use Mezzio\Application;
 use PHPUnit\Framework\TestCase;
 
@@ -50,10 +46,6 @@ class ConfigProviderTest extends TestCase
         $this->assertIsArray($this->config['dependencies']['delegators']);
         $this->assertArrayHasKey(Application::class, $this->config['dependencies']['delegators']);
         $this->assertIsArray($this->config['dependencies']['delegators'][Application::class]);
-        $this->assertContainsEquals(
-            RoutesDelegator::class,
-            $this->config['dependencies']['delegators'][Application::class]
-        );
     }
 
     public function testDependenciesHasFactories(): void
@@ -62,8 +54,6 @@ class ConfigProviderTest extends TestCase
         $this->assertIsArray($this->config['dependencies']['factories']);
         $this->assertArrayHasKey('doctrine.entity_manager.orm_default', $this->config['dependencies']['factories']);
         $this->assertArrayHasKey(EntityListenerResolver::class, $this->config['dependencies']['factories']);
-        $this->assertArrayHasKey(TranslateService::class, $this->config['dependencies']['factories']);
-        $this->assertArrayHasKey(LanguageController::class, $this->config['dependencies']['factories']);
         $this->assertArrayHasKey(RecaptchaService::class, $this->config['dependencies']['factories']);
         $this->assertArrayHasKey(CookieService::class, $this->config['dependencies']['factories']);
     }
@@ -74,7 +64,6 @@ class ConfigProviderTest extends TestCase
         $this->assertIsArray($this->config['dependencies']['aliases']);
         $this->assertArrayHasKey(EntityManager::class, $this->config['dependencies']['aliases']);
         $this->assertArrayHasKey(EntityManagerInterface::class, $this->config['dependencies']['aliases']);
-        $this->assertArrayHasKey(TranslateServiceInterface::class, $this->config['dependencies']['aliases']);
         $this->assertArrayHasKey(CookieServiceInterface::class, $this->config['dependencies']['aliases']);
     }
 
