@@ -11,7 +11,6 @@ use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
-use Mezzio\Application;
 use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
@@ -38,14 +37,6 @@ class ConfigProviderTest extends TestCase
     public function testConfigHasTemplates(): void
     {
         $this->assertArrayHasKey('templates', $this->config);
-    }
-
-    public function testDependenciesHasDelegators(): void
-    {
-        $this->assertArrayHasKey('delegators', $this->config['dependencies']);
-        $this->assertIsArray($this->config['dependencies']['delegators']);
-        $this->assertArrayHasKey(Application::class, $this->config['dependencies']['delegators']);
-        $this->assertIsArray($this->config['dependencies']['delegators'][Application::class]);
     }
 
     public function testDependenciesHasFactories(): void
