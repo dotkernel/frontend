@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="contact-block">
-                    <h3>{% trans 'Contact Us' %}</h3>
-                    <p>{% trans 'Any issues or good feedback?' %}<br /><br />{% trans 'Write us here and we will get in touch with you as soon as possible.' %}</p>
+                    <h3>Contact Us</h3>
+                    <p>Any issues or good feedback?<br /><br />Leave us a note. We will get in touch with you as soon as possible.</p>
                     <hr />
                     {{ messagesPartial('partial::alerts') }}
                     <div id="contactUsErrors" class="alert alert-danger contactUsFormErrors" role="alert" {% if recaptchaSiteKey != '' %}style="display:none"{% endif %}>
@@ -31,8 +31,8 @@
                         {% set email = form.get('email') %}
                         {% set dummy = email.setAttribute('class', 'form-control') %}
                         {% set dummy = email.setAttribute('id', 'email') %}
-                        {% set emailTranslatePlaceholder = email.getAttribute('placeholder')|trans|raw %}
-                        {% set dummy = email.setAttribute('placeholder', emailTranslatePlaceholder) %}
+                        {% set emailPlaceholder = email.getAttribute('placeholder')|raw %}
+                        {% set dummy = email.setAttribute('placeholder', emailPlaceholder) %}
                         <div class="col-md-12">
                             {{ formElement(email) }}
                         </div>
@@ -42,8 +42,8 @@
                         {% set name = form.get('name') %}
                         {% set dummy = name.setAttribute('class', 'form-control') %}
                         {% set dummy = name.setAttribute('id', 'name') %}
-                        {% set nameTranslatePlaceholder = name.getAttribute('placeholder')|trans|raw %}
-                        {% set dummy = name.setAttribute('placeholder', nameTranslatePlaceholder) %}
+                        {% set namePlaceholder = name.getAttribute('placeholder')|raw %}
+                        {% set dummy = name.setAttribute('placeholder', namePlaceholder) %}
                         <div class="col-md-12">
                             {{ formElement(name) }}
                         </div>
@@ -53,8 +53,8 @@
                         {% set subject = form.get('subject') %}
                         {% set dummy = subject.setAttribute('class', 'form-control') %}
                         {% set dummy = subject.setAttribute('id', 'subject') %}
-                        {% set subjectTranslatePlaceholder = subject.getAttribute('placeholder')|trans|raw %}
-                        {% set dummy = subject.setAttribute('placeholder', subjectTranslatePlaceholder) %}
+                        {% set subjectPlaceholder = subject.getAttribute('placeholder')|raw %}
+                        {% set dummy = subject.setAttribute('placeholder', subjectPlaceholder) %}
                         <div class="col-md-12">
                             {{ formElement(subject) }}
                         </div>
@@ -64,8 +64,8 @@
                         {% set message = form.get('message') %}
                         {% set dummy = message.setAttribute('class', 'form-control') %}
                         {% set dummy = message.setAttribute('id', 'message') %}
-                        {% set messageTranslatePlaceholder = message.getAttribute('placeholder')|trans|raw %}
-                        {% set dummy = message.setAttribute('placeholder', messageTranslatePlaceholder) %}
+                        {% set messagePlaceholder = message.getAttribute('placeholder')|raw %}
+                        {% set dummy = message.setAttribute('placeholder', messagePlaceholder) %}
                         <div class="col-md-12">
                             {{ formElement(message) }}
                         </div>

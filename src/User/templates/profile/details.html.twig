@@ -9,19 +9,19 @@
 {% set details = form.get('detail') %}
 
 {% set firstName = details.get('firstName') %}
-{% set elementTranslatePlaceholder = firstName.getAttribute('placeholder')|trans|raw %}
-{% set dummy = firstName.setAttribute('placeholder', elementTranslatePlaceholder) %}
+{% set elementPlaceholder = firstName.getAttribute('placeholder')|raw %}
+{% set dummy = firstName.setAttribute('placeholder', elementPlaceholder) %}
 {{ formElement(firstName) }}
 
 {% set lastName = details.get('lastName') %}
-{% set elementTranslatePlaceholder = lastName.getAttribute('placeholder')|trans|raw %}
-{% set dummy = lastName.setAttribute('placeholder', elementTranslatePlaceholder) %}
+{% set elementPlaceholder = lastName.getAttribute('placeholder')|raw %}
+{% set dummy = lastName.setAttribute('placeholder', elementPlaceholder) %}
 {{ formElement(lastName) }}
 
 {{ formElement(form.get('userDetailsCsrf')) }}
 
 {% set submit = form.get('submit') %}
-{% set submitValue = submit.getValue|trans|raw %}
+{% set submitValue = submit.getValue|raw %}
 {% set dummy = submit.setAttribute('value', submitValue) %}
 {{ formSubmit(submit) }}
 

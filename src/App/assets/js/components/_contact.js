@@ -12,7 +12,7 @@ $(document).ready(function () {
         }).fail(function (jqXHR) {
             switch (jqXHR.status) {
                 default:
-                    window.toastr.error(translateText('Something went wrong! Please try again!'));
+                    window.toastr.error('Something went wrong! Please try again!');
                     break;
             }
         });
@@ -35,24 +35,24 @@ $(document).ready(function () {
                 $('input[name="name"]').val('');
                 $('textarea[name="message"]').val('');
                 document.getElementById("contact-form-yb-frontend").style.display = "none";
-                window.toastr.success(translateText(response.message.text));
+                window.toastr.success(response.message.text);
             } else {
-                window.toastr.error(translateText(response.message.text));
+                window.toastr.error(response.message.text);
             }
         }).fail(function (jqXHR) {
             switch (jqXHR.status) {
                 case 422:
-                    let responseText = JSON.parse(translateText(jqXHR.responseText));
+                    let responseText = JSON.parse(jqXHR.responseText);
                     window.toastr.error(responseText);
                     break;
 
                 case 401:
-                    let data = JSON.parse(translateText(jqXHR.responseText));
+                    let data = JSON.parse(jqXHR.responseText);
                     redirectTo(data.redirect);
                     break;
 
                 default:
-                    window.toastr.error(translateText("Unexpected error. Please try again!"));
+                    window.toastr.error("Unexpected error. Please try again!");
                     break;
             }
         });

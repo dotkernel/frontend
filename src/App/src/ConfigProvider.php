@@ -8,16 +8,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\DependencyInjection\Factory\AttributedServiceFactory;
-use Frontend\App\Controller\LanguageController;
 use Frontend\App\Factory\EntityListenerResolverFactory;
 use Frontend\App\Middleware\RememberMeMiddleware;
-use Frontend\App\Middleware\TranslatorMiddleware;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
-use Frontend\App\Service\TranslateService;
-use Frontend\App\Service\TranslateServiceInterface;
 use Mezzio\Application;
 use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
@@ -35,25 +31,16 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'delegators' => [
-                Application::class => [
-                    RoutesDelegator::class,
-                ],
-            ],
             'factories'  => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class         => EntityListenerResolverFactory::class,
-                TranslateService::class               => AttributedServiceFactory::class,
-                LanguageController::class             => AttributedServiceFactory::class,
                 RecaptchaService::class               => AttributedServiceFactory::class,
                 CookieService::class                  => AttributedServiceFactory::class,
-                TranslatorMiddleware::class           => AttributedServiceFactory::class,
                 RememberMeMiddleware::class           => AttributedServiceFactory::class,
             ],
             'aliases'    => [
                 EntityManager::class             => 'doctrine.entity_manager.orm_default',
                 EntityManagerInterface::class    => 'doctrine.entity_manager.orm_default',
-                TranslateServiceInterface::class => TranslateService::class,
                 CookieServiceInterface::class    => CookieService::class,
             ],
         ];

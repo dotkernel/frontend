@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}{% trans 'Log in' %}{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block page_title %}{% endblock %}
 
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="sign-in-block">
-                    <h3>{% trans 'Log in to your account' %}</h3>
+                    <h3>Log in to your account</h3>
 
                     {{ messagesPartial('partial::alerts', {}, null, 'user-login') }}
 
@@ -19,13 +19,13 @@
                     {{ form().openTag(form)|raw }}
 
                     {% set identity = form.get('identity') %}
-                    {% set elementTranslatePlaceholder = identity.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = identity.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = identity.getAttribute('placeholder')|raw %}
+                    {% set dummy = identity.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(identity) }}
 
                     {% set password = form.get('password') %}
-                    {% set elementTranslatePlaceholder = password.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = password.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = password.getAttribute('placeholder')|raw %}
+                    {% set dummy = password.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(password) }}
 
                     <div class="checkbox remember-me-checkbox">
@@ -40,7 +40,7 @@
                     {{ formElement(form.get('userLoginCsrf')) }}
 
                     {% set submit = form.get('submit') %}
-                    {% set submitValue = submit.getValue|trans|raw %}
+                    {% set submitValue = submit.getValue|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}
                     {{ formSubmit(submit) }}
 
@@ -48,8 +48,8 @@
 
                     <hr>
 
-                    <p class="forgot-password"><a href="{{ path('account', {action: 'request-reset-password'}) }}" class="text-decoration-none">{% trans 'Forgot password' %}</a></p>
-                    <p>{% trans "You don't have an account?" %} <a href="{{ path('user', {action: 'register'}) }}" class="text-decoration-none">{% trans 'Register' %}</a>!</p>
+                    <p class="forgot-password"><a href="{{ path('account', {action: 'request-reset-password'}) }}" class="text-decoration-none">Forgot password</a></p>
+                    <p>You don't have an account?<a href="{{ path('user', {action: 'register'}) }}" class="text-decoration-none">Register</a>!</p>
                 </div>
             </div>
         </div>

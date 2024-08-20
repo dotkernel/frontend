@@ -25,7 +25,7 @@
 
         {% block stylesheets %}{% endblock %}
     </head>
-    <body class="app {% block body_class %}{% endblock %} language-{{ language_key }}">
+    <body class="app {% block body_class %}{% endblock %}">
         <div id="wrapper">
             <header class="app-header">
 
@@ -44,35 +44,35 @@
                         <div class="collapse navbar-collapse" id="navbarHeader">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Pages' %}</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <div class="dropdown-menu" aria-labelledby="pageDropdown">
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'home'}) }}">{% trans 'Home' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'about-us'}) }}">{% trans 'About Us' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'who-we-are'}) }}">{% trans 'Who We Are' %}</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'premium-content'}) }}">{% trans 'Protected Content' %}</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'home'}) }}">Home</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'about-us'}) }}">About Us</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'who-we-are'}) }}">Who We Are</a>
+                                        <a class="dropdown-item" href="{{ url('page', {action: 'premium-content'}) }}">Protected Content</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://github.com/dotkernel" target="_blank">{% trans 'Contribute' %}</a>
+                                    <a class="nav-link" href="https://github.com/dotkernel" target="_blank">Contribute</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('contact', {action: 'form'}) }}">{% trans 'Contact Us' %}</a>
+                                    <a class="nav-link" href="{{ url('contact', {action: 'form'}) }}">Contact Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" href="{{ url('page', {action: 'index'}) }}">{% trans 'Disabled' %}</a>
+                                    <a class="nav-link disabled" href="{{ url('page', {action: 'index'}) }}">Disabled</a>
                                 </li>
                             </ul>
                             <ul class="navbar-nav ms-auto">
                                 {% if hasIdentity() %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('account', {action: 'details'}) }}">{% trans 'Profile' %}</a>
+                                        <a class="nav-link" href="{{ url('account', {action: 'details'}) }}">Profile</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('user', {action: 'logout'}) }}">{% trans 'Log out' %}</a>
+                                        <a class="nav-link" href="{{ url('user', {action: 'logout'}) }}">Log out</a>
                                     </li>
                                 {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('user', {action: 'login'}) }}">{% trans 'Log in' %}</a>
+                                    <a class="nav-link" href="{{ url('user', {action: 'login'}) }}">Log in</a>
                                 </li>
                                 {% endif %}
                             </ul>
@@ -100,30 +100,13 @@
         <footer class="app-footer">
             <div class="container">
                 <p class="enjoy">
-                    {% trans 'enjoy dotkernel' %}
+                    enjoy dotkernel
                 </p>
                 <p>
-                    © {{ 'now'|date('Y') }} {% trans 'DotKernel by Apidemia' %}
+                    © {{ 'now'|date('Y') }} DotKernel by Apidemia
                 </p>
             </div>
         </footer>
-
-        <div class="language-container">
-            <div class="languages">
-                <div class="language-active clearfix">
-                    <img src="{{ asset('images/app/flags/' ~ language_key ~ '.png') }}" alt="Language selector" />
-                    <div class="language-selector"></div>
-                </div>
-                <ul class="language-list">
-                    <li class="language language-en clearfix" data-language-key="en">
-                        <img src="{{ asset('images/app/flags/en.png') }}" alt="English" /><span>EN</span>
-                    </li>
-                    <li class="language language-dk clearfix" data-language-key="dk">
-                        <img src="{{ asset('images/app/flags/dk.png') }}" alt="Dansk" /><span>DK</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
         <script src="{{ asset('js/app.js') }}"></script>
         {% block javascript %}{% endblock %}

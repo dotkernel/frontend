@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}{% trans 'Password Reset Request' %}{% endblock %}
+{% block title %}Password Reset Request{% endblock %}
 {% block page_title %}{% endblock %}
 
 {% block body_class %}user-form{% endblock %}
@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="request-reset-block">
-                    <h3>{% trans 'Request new password' %}</h3>
+                    <h3>Request new password</h3>
 
                     {{ messagesPartial('partial::alerts', {}, null, 'request-reset') }}
 
@@ -18,14 +18,14 @@
                     {{ form().openTag(form)|raw }}
 
                     {% set identity = form.get('identity') %}
-                    {% set elementTranslatePlaceholder = identity.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = identity.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = identity.getAttribute('placeholder')|raw %}
+                    {% set dummy = identity.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(identity) }}
 
                     {{ formElement(form.get('userRequestResetPasswordCsrf')) }}
 
                     {% set submit = form.get('submit') %}
-                    {% set submitValue = submit.getValue|trans|raw %}
+                    {% set submitValue = submit.getValue|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}
                     {{ formSubmit(submit) }}
 

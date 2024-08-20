@@ -22,7 +22,7 @@
                     {% for message in messages[namespace] %}
 
                         {% set writeMessage = message|raw %}
-                        <li>{% trans writeMessage %}</li>
+                        <li>{{ writeMessage }}</li>
 
                     {% endfor %}
 

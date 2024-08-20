@@ -9,7 +9,6 @@ use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
 use Dot\Session\SessionMiddleware;
 use Frontend\App\Middleware\AuthMiddleware;
 use Frontend\App\Middleware\RememberMeMiddleware;
-use Frontend\App\Middleware\TranslatorMiddleware;
 use Mezzio\Application;
 use Mezzio\Cors\Middleware\CorsMiddleware;
 use Mezzio\Handler\NotFoundHandler;
@@ -74,7 +73,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - route-based validation
     // - etc.
 
-    $app->pipe(TranslatorMiddleware::class);
     $app->pipe(RememberMeMiddleware::class);
     $app->pipe(AuthMiddleware::class);
     $app->pipe(ForbiddenHandler::class);
