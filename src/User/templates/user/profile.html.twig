@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}{% trans 'My Profile' %}{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 {% block body_class %}{% endblock %}
 
@@ -10,7 +10,7 @@
             <div class="profile-details-header">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>{% trans 'My Profile' %}</h1>
+                        <h1>My Profile</h1>
                     </div>
                 </div>
             </div>
@@ -18,14 +18,14 @@
                 <div class="row">
                     <div class="col-md-4 actions">
                         <div class="collapse-menu clearfix">
-                            <span>{% trans 'Profile menu' %}</span>
+                            <span>Profile menu</span>
                             <i class="fas fa-bars"></i>
                         </div>
                         <ul class="profile-action-menu">
-                            <li class="{% if action is defined and action is same as ('avatar') %}active{% endif %}"><a href="{{ path('account', {action: 'avatar'}) }}" class="text-decoration-none">{% trans 'Avatar' %}</a></li>
-                            <li class="{% if action is defined and action is same as ('details') %}active{% endif %}"><a href="{{ path('account', {action: 'details'}) }}" class="text-decoration-none">{% trans 'Details' %}</a></li>
-                            <li class="{% if action is defined and action is same as ('change-password') %}active{% endif %}"><a href="{{ path('account', {action: 'change-password'}) }}" class="text-decoration-none">{% trans 'Change password' %}</a></li>
-                            <li class="{% if action is defined and action is same as ('delete-account') %}active{% endif %}"><a href="{{ path('account', {action: 'delete-account'}) }}" class="text-decoration-none">{% trans 'Delete account' %}</a></li>
+                            <li class="{% if action is defined and action is same as ('avatar') %}active{% endif %}"><a href="{{ path('account', {action: 'avatar'}) }}" class="text-decoration-none">Avatar</a></li>
+                            <li class="{% if action is defined and action is same as ('details') %}active{% endif %}"><a href="{{ path('account', {action: 'details'}) }}" class="text-decoration-none">Details</a></li>
+                            <li class="{% if action is defined and action is same as ('change-password') %}active{% endif %}"><a href="{{ path('account', {action: 'change-password'}) }}" class="text-decoration-none">Change password</a></li>
+                            <li class="{% if action is defined and action is same as ('delete-account') %}active{% endif %}"><a href="{{ path('account', {action: 'delete-account'}) }}" class="text-decoration-none">Delete account</a></li>
                         </ul>
                     </div>
                     <div class="col-md-8">

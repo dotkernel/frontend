@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}{% trans 'Register' %}{% endblock %}
+{% block title %}Register{% endblock %}
 {% block page_title %}{% endblock %}
 
 {% block body_class %}user-form{% endblock %}
@@ -20,42 +20,42 @@
                     {% set details = form.get('detail') %}
 
                     {% set firstName = details.get('firstName') %}
-                    {% set elementTranslatePlaceholder = firstName.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = firstName.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = firstName.getAttribute('placeholder')|raw %}
+                    {% set dummy = firstName.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(firstName) }}
 
                     {% set lastName = details.get('lastName') %}
-                    {% set elementTranslatePlaceholder = lastName.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = lastName.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = lastName.getAttribute('placeholder')|raw %}
+                    {% set dummy = lastName.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(lastName) }}
 
                     {% set identity = form.get('email') %}
-                    {% set elementTranslatePlaceholder = identity.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = identity.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = identity.getAttribute('placeholder')|raw %}
+                    {% set dummy = identity.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(identity) }}
 
                     {% set password = form.get('password') %}
-                    {% set elementTranslatePlaceholder = password.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = password.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = password.getAttribute('placeholder')|raw %}
+                    {% set dummy = password.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(password) }}
 
                     {% set passwordConfirm = form.get('passwordConfirm') %}
-                    {% set elementTranslatePlaceholder = passwordConfirm.getAttribute('placeholder')|trans|raw %}
-                    {% set dummy = passwordConfirm.setAttribute('placeholder', elementTranslatePlaceholder) %}
+                    {% set elementPlaceholder = passwordConfirm.getAttribute('placeholder')|raw %}
+                    {% set dummy = passwordConfirm.setAttribute('placeholder', elementPlaceholder) %}
                     {{ formElement(passwordConfirm) }}
 
                     {{ formElement(form.get('userRegisterCsrf')) }}
 
                     {% set submit = form.get('submit') %}
-                    {% set submitValue = submit.getValue|trans|raw %}
+                    {% set submitValue = submit.getValue|raw %}
                     {% set dummy = submit.setAttribute('value', submitValue) %}
                     {{ formSubmit(submit) }}
 
                     {{ form().closeTag()|raw }}
 
                     <hr>
-                    <p class="terms">{% trans 'When you sign up for an account, you agree to our' %} <a href="#">{% trans 'terms and conditions' %}</a>.</p>
-                    <p>{% trans 'Already registered?' %} <a href="{{ path('user', {action: 'login'}) }}">{% trans 'Log in' %}</a>!</p>
+                    <p class="terms">When you sign up for an account, you agree to our <a href="#">terms and conditions</a>.</p>
+                    <p>Already registered? <a href="{{ path('user', {action: 'login'}) }}">Log in</a>!</p>
                 </div>
             </div>
         </div>
