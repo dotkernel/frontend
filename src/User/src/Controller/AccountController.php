@@ -24,7 +24,6 @@ use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
-use Laminas\Form\ElementInterface;
 use Laminas\Form\FieldsetInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
@@ -360,7 +359,7 @@ class AccountController extends AbstractActionController
 
         /** @var FieldsetInterface $avatarElement */
         $avatarElement = $form->get('avatar');
-        $imageElement = $avatarElement->get('image');
+        $imageElement  = $avatarElement->get('image');
         $imageElement->setAttribute(
             'data-url',
             $this->router->generateUri('account', ['action' => 'avatar'])
