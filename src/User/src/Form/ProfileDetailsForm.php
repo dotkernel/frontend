@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\Fieldset\UserDetailFieldset;
 use Frontend\User\InputFilter\ProfileDetailsInputFilter;
 use Laminas\Filter\StringTrim;
@@ -56,6 +57,8 @@ class ProfileDetailsForm extends Form
     public function init(): void
     {
         parent::init();
+
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
 
         $this->add([
             'name' => 'detail',

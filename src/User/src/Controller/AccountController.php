@@ -24,6 +24,8 @@ use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\FieldsetInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -55,101 +57,182 @@ class AccountController extends AbstractActionController
     {
         $hash = $this->getRequest()->getAttribute('hash', false);
         if (! $hash) {
-            $this->messenger->addError(sprintf(Message::MISSING_PARAMETER, 'hash'), 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                sprintf(Message::MISSING_PARAMETER, 'hash'),
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (! $user instanceof User) {
-            $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                Message::INVALID_ACTIVATION_CODE,
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         if ($user->getStatus() === User::STATUS_ACTIVE) {
-            $this->messenger->addError(Message::USER_ALREADY_ACTIVATED, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                Message::USER_ALREADY_ACTIVATED,
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         try {
             $this->userService->activateUser($user);
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
-        $this->messenger->addSuccess(Message::USER_ACTIVATED_SUCCESSFULLY, 'user-login');
-        return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+        $this->messenger->addSuccess(
+            Message::USER_ACTIVATED_SUCCESSFULLY,
+            'user-login'
+        );
+        return new RedirectResponse(
+            $this->router->generateUri('user', ['action' => 'login'])
+        );
     }
 
     public function unregisterAction(): ResponseInterface
     {
         $hash = $this->getRequest()->getAttribute('hash', false);
         if (! $hash) {
-            $this->messenger->addError(sprintf(Message::MISSING_PARAMETER, 'hash'), 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                sprintf(Message::MISSING_PARAMETER, 'hash'),
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (! $user instanceof User) {
-            $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                Message::INVALID_ACTIVATION_CODE,
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         if ($user->getIsDeleted() === User::IS_DELETED_YES) {
-            $this->messenger->addError(Message::USER_ALREADY_DEACTIVATED, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                Message::USER_ALREADY_DEACTIVATED,
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         if ($user->getStatus() !== User::STATUS_PENDING) {
-            $this->messenger->addError(Message::USER_UNREGISTER_STATUS, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            $this->messenger->addError(
+                Message::USER_UNREGISTER_STATUS,
+                'user-login'
+            );
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         try {
-            $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
+            $this->userService->updateUser(
+                $user,
+                ['isDeleted' => User::IS_DELETED_YES]
+            );
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
-        $this->messenger->addSuccess(Message::USER_DEACTIVATED_SUCCESSFULLY, 'user-login');
-        return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+        $this->messenger->addSuccess(
+            Message::USER_DEACTIVATED_SUCCESSFULLY,
+            'user-login'
+        );
+        return new RedirectResponse(
+            $this->router->generateUri('user', ['action' => 'login'])
+        );
     }
 
     public function requestResetPasswordAction(): ResponseInterface
     {
         $form = new RequestResetPasswordForm();
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri(
+                'account',
+                ['action' => 'request-reset-password']
+            )
+        );
 
-        if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
+        if (
+            RequestMethodInterface::METHOD_POST === $this->getRequest()
+                ->getMethod()
+        ) {
             $form->setData($this->getRequest()->getParsedBody());
             if (! $form->isValid()) {
-                $this->messenger->addError($this->forms->getMessages($form), 'request-reset');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'request-reset'
+                );
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
             /** @var array $data */
             $data = $form->getData();
-            $user = $this->userService->findOneBy(['identity' => $data['identity']]);
+            $user = $this->userService->findOneBy(
+                ['identity' => $data['identity']]
+            );
             if (! $user instanceof User) {
-                $this->messenger->addInfo(Message::MAIL_SENT_RESET_PASSWORD, 'request-reset');
+                $this->messenger->addInfo(
+                    Message::MAIL_SENT_RESET_PASSWORD,
+                    'request-reset'
+                );
                 return new RedirectResponse($this->getRequest()->getUri());
             }
 
             try {
-                $user = $this->userService->updateUser($user->createResetPassword());
+                $user = $this->userService->updateUser(
+                    $user->createResetPassword()
+                );
             } catch (Exception $exception) {
-                $this->messenger->addError($exception->getMessage(), 'request-reset');
+                $this->messenger->addError(
+                    $exception->getMessage(),
+                    'request-reset'
+                );
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
             try {
                 $this->userService->sendResetPasswordRequestedMail($user);
             } catch (Exception $exception) {
-                $this->messenger->addError($exception->getMessage(), 'request-reset');
+                $this->messenger->addError(
+                    $exception->getMessage(),
+                    'request-reset'
+                );
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
-            $this->messenger->addInfo(Message::MAIL_SENT_RESET_PASSWORD, 'request-reset');
+            $this->messenger->addInfo(
+                Message::MAIL_SENT_RESET_PASSWORD,
+                'request-reset'
+            );
             return new RedirectResponse($this->getRequest()->getUri());
         }
 
@@ -164,7 +247,22 @@ class AccountController extends AbstractActionController
     {
         $form = new ResetPasswordForm();
         $hash = $this->getRequest()->getAttribute('hash') ?? null;
-        if ($this->getRequest()->getMethod() === RequestMethodInterface::METHOD_POST) {
+
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri(
+                'account',
+                [
+                    'action' => 'reset-password',
+                    'hash'   => $hash,
+                ]
+            )
+        );
+
+        if (
+            $this->getRequest()->getMethod()
+            === RequestMethodInterface::METHOD_POST
+        ) {
             $user = $this->userService->findByResetPasswordHash($hash);
             if (! $user instanceof User) {
                 $this->messenger->addError(
@@ -178,19 +276,28 @@ class AccountController extends AbstractActionController
             /** @var UserResetPassword $resetPasswordRequest */
             $resetPasswordRequest = $user->getResetPasswords()->current();
             if (! $resetPasswordRequest->isValid()) {
-                $this->messenger->addError(sprintf(Message::RESET_PASSWORD_EXPIRED, $hash), 'reset-password');
+                $this->messenger->addError(
+                    sprintf(Message::RESET_PASSWORD_EXPIRED, $hash),
+                    'reset-password'
+                );
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
             if ($resetPasswordRequest->isCompleted()) {
-                $this->messenger->addError(sprintf(Message::RESET_PASSWORD_USED, $hash), 'reset-password');
+                $this->messenger->addError(
+                    sprintf(Message::RESET_PASSWORD_USED, $hash),
+                    'reset-password'
+                );
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
 
             $form->setData($this->getRequest()->getParsedBody());
             if (! $form->isValid()) {
-                $this->messenger->addError($this->forms->getMessages($form), 'reset-password');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'reset-password'
+                );
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
@@ -203,7 +310,10 @@ class AccountController extends AbstractActionController
                     $data
                 );
             } catch (Exception $exception) {
-                $this->messenger->addError($exception->getMessage(), 'reset-password');
+                $this->messenger->addError(
+                    $exception->getMessage(),
+                    'reset-password'
+                );
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
@@ -211,13 +321,21 @@ class AccountController extends AbstractActionController
             try {
                 $this->userService->sendResetPasswordCompletedMail($user);
             } catch (Exception $exception) {
-                $this->messenger->addError($exception->getMessage(), 'reset-password');
+                $this->messenger->addError(
+                    $exception->getMessage(),
+                    'reset-password'
+                );
 
                 return new RedirectResponse($this->getRequest()->getUri(), 303);
             }
-            $this->messenger->addSuccess(Message::PASSWORD_RESET_SUCCESSFULLY, 'user-login');
+            $this->messenger->addSuccess(
+                Message::PASSWORD_RESET_SUCCESSFULLY,
+                'user-login'
+            );
 
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+            return new RedirectResponse(
+                $this->router->generateUri('user', ['action' => 'login'])
+            );
         }
 
         return new HtmlResponse(
@@ -233,24 +351,68 @@ class AccountController extends AbstractActionController
         $identity = $this->authenticationService->getIdentity();
 
         $user = $this->userService->findByUuid($identity->getUuid());
+
         $form = new UploadAvatarForm();
-        if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
-            $form->setData(array_merge($this->request->getParsedBody(), $this->request->getUploadedFiles()));
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri('account', ['action' => 'avatar'])
+        );
+
+        /** @var FieldsetInterface $avatarElement */
+        $avatarElement = $form->get('avatar');
+        $imageElement = $avatarElement->get('image');
+        $imageElement->setAttribute(
+            'data-url',
+            $this->router->generateUri('account', ['action' => 'avatar'])
+        );
+        $imageElement->setAttribute(
+            'data-preview',
+            $user->getAvatar()?->getUrl() ??
+            '/images/app/user/user-placeholder.png'
+        );
+
+        if (
+            RequestMethodInterface::METHOD_POST === $this->request->getMethod(
+            )
+        ) {
+            $form->setData(
+                array_merge(
+                    $this->request->getParsedBody(),
+                    $this->request->getUploadedFiles()
+                )
+            );
             if ($form->isValid()) {
                 try {
                     $this->userService->updateUser($user, [
-                        'avatar' => $this->request->getUploadedFiles()['avatar']['image'],
+                        'avatar' => $this->request->getUploadedFiles(
+                        )['avatar']['image'],
                     ]);
                 } catch (Exception) {
-                    $this->messenger->addError('Something went wrong updating your profile image!', 'profile-avatar');
-                    return new RedirectResponse($this->router->generateUri('account', ['action' => 'avatar']));
+                    $this->messenger->addError(
+                        'Something went wrong updating your profile image!',
+                        'profile-avatar'
+                    );
+                    return new RedirectResponse(
+                        $this->router->generateUri(
+                            'account',
+                            ['action' => 'avatar']
+                        )
+                    );
                 }
-                $this->messenger->addSuccess('Profile image updated successfully!', 'profile-avatar');
+                $this->messenger->addSuccess(
+                    'Profile image updated successfully!',
+                    'profile-avatar'
+                );
             } else {
-                $this->messenger->addError($this->forms->getMessages($form), 'profile-avatar');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'profile-avatar'
+                );
             }
 
-            return new RedirectResponse($this->router->generateUri('account', ['action' => 'avatar']));
+            return new RedirectResponse(
+                $this->router->generateUri('account', ['action' => 'avatar'])
+            );
         }
 
         return new HtmlResponse(
@@ -258,7 +420,7 @@ class AccountController extends AbstractActionController
                 'action'  => 'avatar',
                 'content' => $this->template->render('profile::avatar', [
                     'user' => $user,
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );
@@ -271,13 +433,20 @@ class AccountController extends AbstractActionController
 
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new ProfileDetailsForm();
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri('account', ['action' => 'details'])
+        );
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
             $this->forms->restoreState($form);
         }
 
-        if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
+        if (
+            RequestMethodInterface::METHOD_POST === $this->request->getMethod(
+            )
+        ) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
                 /** @var array $userData */
@@ -287,17 +456,31 @@ class AccountController extends AbstractActionController
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
-                    $this->messenger->addError($e->getMessage(), 'profile-details');
+                    $this->messenger->addError(
+                        $e->getMessage(),
+                        'profile-details'
+                    );
 
                     return new RedirectResponse($this->request->getUri(), 303);
                 }
 
-                $this->messenger->addSuccess('Profile details updated.', 'profile-details');
-                return new RedirectResponse($this->router->generateUri('account', ['action' => 'details']));
+                $this->messenger->addSuccess(
+                    'Profile details updated.',
+                    'profile-details'
+                );
+                return new RedirectResponse(
+                    $this->router->generateUri(
+                        'account',
+                        ['action' => 'details']
+                    )
+                );
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
-                $this->messenger->addError($this->forms->getMessages($form), 'profile-details');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'profile-details'
+                );
 
                 return new RedirectResponse($this->request->getUri(), 303);
             }
@@ -321,7 +504,7 @@ class AccountController extends AbstractActionController
             $this->template->render('user::profile', [
                 'action'  => 'details',
                 'content' => $this->template->render('profile::details', [
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );
@@ -335,13 +518,23 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfilePasswordForm();
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri(
+                'account',
+                ['action' => 'change-password']
+            )
+        );
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
             $this->forms->restoreState($form);
         }
 
-        if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
+        if (
+            RequestMethodInterface::METHOD_POST === $this->request->getMethod(
+            )
+        ) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
                 /** @var array $userData */
@@ -351,7 +544,10 @@ class AccountController extends AbstractActionController
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
-                    $this->messenger->addError($e->getMessage(), 'profile-password');
+                    $this->messenger->addError(
+                        $e->getMessage(),
+                        'profile-password'
+                    );
 
                     return new RedirectResponse($this->request->getUri(), 303);
                 }
@@ -359,12 +555,20 @@ class AccountController extends AbstractActionController
                 // logout and enter new password to login
                 $this->authenticationService->clearIdentity();
 
-                $this->messenger->addSuccess('Password updated. Login with your new credentials.', 'user-login');
-                return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
+                $this->messenger->addSuccess(
+                    'Password updated. Login with your new credentials.',
+                    'user-login'
+                );
+                return new RedirectResponse(
+                    $this->router->generateUri('user', ['action' => 'login'])
+                );
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
-                $this->messenger->addError($this->forms->getMessages($form), 'profile-password');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'profile-password'
+                );
 
                 return new RedirectResponse($this->request->getUri(), 303);
             }
@@ -373,9 +577,12 @@ class AccountController extends AbstractActionController
         return new HtmlResponse(
             $this->template->render('user::profile', [
                 'action'  => 'change-password',
-                'content' => $this->template->render('profile::change-password', [
-                    'form' => $form,
-                ]),
+                'content' => $this->template->render(
+                    'profile::change-password',
+                    [
+                        'form' => $form->prepare(),
+                    ]
+                ),
             ])
         );
     }
@@ -388,13 +595,20 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfileDeleteForm();
+        $form->setAttribute(
+            'action',
+            $this->router->generateUri('account', ['action' => 'delete-account'])
+        );
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
             $this->forms->restoreState($form);
         }
 
-        if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
+        if (
+            RequestMethodInterface::METHOD_POST === $this->request->getMethod(
+            )
+        ) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
                 /** @var array $userData */
@@ -404,7 +618,10 @@ class AccountController extends AbstractActionController
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
-                    $this->messenger->addError($e->getMessage(), 'profile-delete');
+                    $this->messenger->addError(
+                        $e->getMessage(),
+                        'profile-delete'
+                    );
 
                     return new RedirectResponse($this->request->getUri(), 303);
                 }
@@ -412,12 +629,18 @@ class AccountController extends AbstractActionController
                 // logout and enter new password to login
                 $this->authenticationService->clearIdentity();
 
-                $this->messenger->addSuccess('Your account is deleted.', 'page-home');
+                $this->messenger->addSuccess(
+                    'Your account is deleted.',
+                    'page-home'
+                );
                 return new RedirectResponse($this->router->generateUri('page'));
             } else {
                 $this->messenger->addData('shouldRebind', true);
                 $this->forms->saveState($form);
-                $this->messenger->addError($this->forms->getMessages($form), 'profile-delete');
+                $this->messenger->addError(
+                    $this->forms->getMessages($form),
+                    'profile-delete'
+                );
 
                 return new RedirectResponse($this->request->getUri(), 303);
             }
@@ -426,9 +649,12 @@ class AccountController extends AbstractActionController
         return new HtmlResponse(
             $this->template->render('user::profile', [
                 'action'  => 'delete-account',
-                'content' => $this->template->render('profile::delete-account', [
-                    'form' => $form,
-                ]),
+                'content' => $this->template->render(
+                    'profile::delete-account',
+                    [
+                        'form' => $form->prepare(),
+                    ]
+                ),
             ])
         );
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\Fieldset\AvatarFieldset;
 use Frontend\User\InputFilter\UploadAvatarInputFilter;
 use Laminas\Filter\StringTrim;
@@ -56,6 +57,8 @@ class UploadAvatarForm extends Form
     public function init(): void
     {
         parent::init();
+
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
 
         $this->add([
             'name' => 'avatar',

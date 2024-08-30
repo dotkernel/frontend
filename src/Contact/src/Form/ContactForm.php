@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\Contact\InputFilter\ContactInputFilter;
 use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
@@ -34,6 +35,8 @@ class ContactForm extends Form
     {
         parent::init();
 
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
+
         $this->add([
             'name'       => 'email',
             'options'    => [
@@ -41,6 +44,7 @@ class ContactForm extends Form
             ],
             'attributes' => [
                 'placeholder' => 'E-mail address...',
+                'class'       => 'form-control',
             ],
             'type'       => Email::class,
         ]);
@@ -52,6 +56,7 @@ class ContactForm extends Form
             ],
             'attributes' => [
                 'placeholder' => 'Your name...',
+                'class'       => 'form-control',
             ],
             'type'       => Text::class,
         ]);
@@ -63,6 +68,7 @@ class ContactForm extends Form
             ],
             'attributes' => [
                 'placeholder' => 'Subject...',
+                'class'       => 'form-control',
             ],
             'type'       => Hidden::class,
         ]);
@@ -76,6 +82,7 @@ class ContactForm extends Form
                 'id'          => 'userMessage_textarea',
                 'placeholder' => 'Message...',
                 'rows'        => 5,
+                'class'       => 'form-control',
             ],
             'type'       => Textarea::class,
         ]);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\Fieldset\UserDetailFieldset;
 use Frontend\User\InputFilter\ProfileDetailsInputFilter;
 use Frontend\User\InputFilter\RegisterInputFilter;
@@ -37,6 +38,8 @@ class RegisterForm extends Form
     public function init(): void
     {
         parent::init();
+
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
 
         $this->add([
             'name' => 'detail',
