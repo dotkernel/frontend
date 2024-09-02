@@ -31,10 +31,10 @@ class ContactInputFilter extends InputFilter
             ->attachByName(StripTags::class);
         $email->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => '<b>E-mail address</b> is required and cannot be empty',
+                'message' => 'E-mail address is required and cannot be empty',
             ], true)
             ->attachByName(EmailAddress::class, [
-                'message' => '<b>E-mail address</b> is invalid',
+                'message' => 'E-mail address is invalid',
             ], true);
         $this->add($email);
 
@@ -45,11 +45,11 @@ class ContactInputFilter extends InputFilter
             ->attachByName(StripTags::class);
         $name->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => '<b>Name</b> is required and cannot be empty',
+                'message' => 'Name is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
                 'max'     => 255,
-                'message' => '<b>Name</b> must not be greater than 255 characters long.',
+                'message' => 'Name must not be greater than 255 characters long.',
             ], true);
         $this->add($name);
 
@@ -60,7 +60,7 @@ class ContactInputFilter extends InputFilter
             ->attachByName(StripTags::class);
         $subject->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => '<b>Subject</b> is required and cannot be empty',
+                'message' => 'Subject is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
                 'max' => 500,
@@ -74,11 +74,11 @@ class ContactInputFilter extends InputFilter
             ->attachByName(StripTags::class);
         $message->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => '<b>Message</b> is required and cannot be empty',
+                'message' => 'Message is required and cannot be empty',
             ], true)
             ->attachByName(StringLength::class, [
                 'max'     => 1000,
-                'message' => '<b>Message</b> must not be greater than 1000 characters long.',
+                'message' => 'Message must not be greater than 1000 characters long.',
             ], true);
         $this->add($message);
 
@@ -89,11 +89,11 @@ class ContactInputFilter extends InputFilter
             ->attachByName(StripTags::class);
         $csrf->getValidatorChain()
             ->attachByName(NotEmpty::class, [
-                'message' => '<b>CSRF</b> is required and cannot be empty',
+                'message' => 'CSRF is required and cannot be empty',
             ], true)
             ->attachByName(Csrf::class, [
                 'name'    => 'contactCsrf',
-                'message' => '<b>CSRF</b> is invalid',
+                'message' => 'CSRF is invalid',
                 'session' => new Container(),
             ], true);
         $this->add($csrf);
