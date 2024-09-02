@@ -23,51 +23,29 @@
                         </ul>
                     </div>
 
-                    {% set dummy = form.prepare() %}
-                    {% set dummy = form.setAttribute('id', 'contact_form') %}
                     {{ form().openTag(form)|raw }}
 
                     <div class="row">
-                        {% set email = form.get('email') %}
-                        {% set dummy = email.setAttribute('class', 'form-control') %}
-                        {% set dummy = email.setAttribute('id', 'email') %}
-                        {% set emailPlaceholder = email.getAttribute('placeholder')|raw %}
-                        {% set dummy = email.setAttribute('placeholder', emailPlaceholder) %}
                         <div class="col-md-12">
-                            {{ formElement(email) }}
+                            {{ formElement(form.get('email')) }}
                         </div>
                     </div>
 
                     <div class="row">
-                        {% set name = form.get('name') %}
-                        {% set dummy = name.setAttribute('class', 'form-control') %}
-                        {% set dummy = name.setAttribute('id', 'name') %}
-                        {% set namePlaceholder = name.getAttribute('placeholder')|raw %}
-                        {% set dummy = name.setAttribute('placeholder', namePlaceholder) %}
                         <div class="col-md-12">
-                            {{ formElement(name) }}
+                            {{ formElement(form.get('name')) }}
                         </div>
                     </div>
 
                     <div class="row">
-                        {% set subject = form.get('subject') %}
-                        {% set dummy = subject.setAttribute('class', 'form-control') %}
-                        {% set dummy = subject.setAttribute('id', 'subject') %}
-                        {% set subjectPlaceholder = subject.getAttribute('placeholder')|raw %}
-                        {% set dummy = subject.setAttribute('placeholder', subjectPlaceholder) %}
                         <div class="col-md-12">
-                            {{ formElement(subject) }}
+                            {{ formElement(form.get('subject')) }}
                         </div>
                     </div>
 
                     <div class="row">
-                        {% set message = form.get('message') %}
-                        {% set dummy = message.setAttribute('class', 'form-control') %}
-                        {% set dummy = message.setAttribute('id', 'message') %}
-                        {% set messagePlaceholder = message.getAttribute('placeholder')|raw %}
-                        {% set dummy = message.setAttribute('placeholder', messagePlaceholder) %}
                         <div class="col-md-12">
-                            {{ formElement(message) }}
+                            {{ formElement(form.get('message')) }}
                         </div>
                     </div>
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\InputFilter\LoginInputFilter;
 use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
@@ -33,6 +34,8 @@ class LoginForm extends Form
     {
         parent::init();
 
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
+
         $this->add([
             'name'       => 'identity',
             'options'    => [
@@ -40,6 +43,7 @@ class LoginForm extends Form
             ],
             'attributes' => [
                 'placeholder' => 'Email address',
+                'class'       => 'form-control',
             ],
             'type'       => Email::class,
         ]);
@@ -51,6 +55,7 @@ class LoginForm extends Form
             ],
             'attributes' => [
                 'placeholder' => 'Password',
+                'class'       => 'form-control',
             ],
             'type'       => Password::class,
         ]);
@@ -62,6 +67,7 @@ class LoginForm extends Form
                 'class'       => 'tooltips',
                 'data-toggle' => 'tooltip',
                 'title'       => 'Remember me',
+                'id'          => 'rememberMe',
             ],
         ]);
 

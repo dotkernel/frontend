@@ -54,6 +54,7 @@ class UserController extends AbstractActionController
         }
 
         $form = new LoginForm();
+        $form->setAttribute('action', $this->router->generateUri('user', ['action' => 'login']));
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
@@ -123,10 +124,11 @@ class UserController extends AbstractActionController
     public function registerAction(): ResponseInterface
     {
         if ($this->authenticationService->hasIdentity()) {
-            return new RedirectResponse($this->router->generateUri("page"));
+            return new RedirectResponse($this->router->generateUri('page'));
         }
 
         $form = new RegisterForm();
+        $form->setAttribute('action', $this->router->generateUri('user', ['action' => 'register']));
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
@@ -169,7 +171,7 @@ class UserController extends AbstractActionController
 
         return new HtmlResponse(
             $this->template->render('user::register', [
-                'form' => $form,
+                'form' => $form->prepare(),
             ])
         );
     }

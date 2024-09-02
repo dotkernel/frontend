@@ -14,20 +14,13 @@
 
                     {{ messagesPartial('partial::alerts', {}, null, 'request-reset') }}
 
-                    {% set dummy = form.prepare() %}
                     {{ form().openTag(form)|raw }}
 
-                    {% set identity = form.get('identity') %}
-                    {% set elementPlaceholder = identity.getAttribute('placeholder')|raw %}
-                    {% set dummy = identity.setAttribute('placeholder', elementPlaceholder) %}
-                    {{ formElement(identity) }}
+                    {{ formElement(form.get('identity')) }}
 
                     {{ formElement(form.get('userRequestResetPasswordCsrf')) }}
 
-                    {% set submit = form.get('submit') %}
-                    {% set submitValue = submit.getValue|raw %}
-                    {% set dummy = submit.setAttribute('value', submitValue) %}
-                    {{ formSubmit(submit) }}
+                    {{ formSubmit(form.get('submit')) }}
 
                     {{ form().closeTag()|raw }}
                 </div>

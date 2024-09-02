@@ -3,20 +3,15 @@
 
 {{ messagesPartial('partial::alerts', {}, null, 'profile-delete') }}
 
-{% set dummy = form.prepare() %}
 {{ form().openTag(form)|raw }}
 
 <div class="checkbox delete-checkbox">
-    {% set deleted = form.get('isDeleted') %}
-    {{ formElement(deleted) }}
+    {{ formElement(form.get('isDeleted')) }}
     <p>I accept the <a href="#" target="_blank">Terms and Conditions</a> and I want to delete my account with all additional data.</p>
 </div>
 
 {{ formElement(form.get('userDeleteCsrf')) }}
 
-{% set submit = form.get('submit') %}
-{% set submitValue = submit.getValue|raw %}
-{% set dummy = submit.setAttribute('value', submitValue) %}
-{{ formSubmit(submit) }}
+{{ formSubmit(form.get('submit')) }}
 
 {{ form().closeTag()|raw }}

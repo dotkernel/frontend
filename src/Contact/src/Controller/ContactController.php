@@ -47,7 +47,9 @@ class ContactController extends AbstractActionController
 
     public function formAction(): ResponseInterface
     {
-        $form    = new ContactForm();
+        $form = new ContactForm();
+        $form->setAttribute('action', $this->router->generateUri('contact', ['action' => 'form']));
+
         $request = $this->getRequest();
 
         if ($request->getMethod() === RequestMethodInterface::METHOD_POST) {

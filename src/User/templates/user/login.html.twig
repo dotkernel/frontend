@@ -15,34 +15,22 @@
 
                     {{ messagesPartial('partial::alerts', {}, null, 'user-login') }}
 
-                    {% set dummy = form.prepare() %}
                     {{ form().openTag(form)|raw }}
 
-                    {% set identity = form.get('identity') %}
-                    {% set elementPlaceholder = identity.getAttribute('placeholder')|raw %}
-                    {% set dummy = identity.setAttribute('placeholder', elementPlaceholder) %}
-                    {{ formElement(identity) }}
+                    {{ formElement(form.get('identity')) }}
 
-                    {% set password = form.get('password') %}
-                    {% set elementPlaceholder = password.getAttribute('placeholder')|raw %}
-                    {% set dummy = password.setAttribute('placeholder', elementPlaceholder) %}
-                    {{ formElement(password) }}
+                    {{ formElement(form.get('password')) }}
 
                     <div class="checkbox remember-me-checkbox">
-                        {% set rememberMe = form.get('rememberMe') %}
-                        {% set dummy = rememberMe.setAttribute('id', 'rememberMe') %}
                         <label>
-                            {{ formElement(rememberMe) }}
+                            {{ formElement(form.get('rememberMe')) }}
                             Remember me
                         </label>
                     </div>
 
                     {{ formElement(form.get('userLoginCsrf')) }}
 
-                    {% set submit = form.get('submit') %}
-                    {% set submitValue = submit.getValue|raw %}
-                    {% set dummy = submit.setAttribute('value', submitValue) %}
-                    {{ formSubmit(submit) }}
+                    {{ formSubmit(form.get('submit')) }}
 
                     {{ form().closeTag()|raw }}
 

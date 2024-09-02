@@ -24,6 +24,7 @@ use Frontend\User\Service\UserServiceInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Form\FieldsetInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -119,6 +120,7 @@ class AccountController extends AbstractActionController
     public function requestResetPasswordAction(): ResponseInterface
     {
         $form = new RequestResetPasswordForm();
+        $form->setAttribute('action', $this->router->generateUri('account', ['action' => 'request-reset-password']));
 
         if (RequestMethodInterface::METHOD_POST === $this->getRequest()->getMethod()) {
             $form->setData($this->getRequest()->getParsedBody());
@@ -164,6 +166,15 @@ class AccountController extends AbstractActionController
     {
         $form = new ResetPasswordForm();
         $hash = $this->getRequest()->getAttribute('hash') ?? null;
+
+        $form->setAttribute('action', $this->router->generateUri(
+            'account',
+            [
+                'action' => 'reset-password',
+                'hash'   => $hash,
+            ]
+        ));
+
         if ($this->getRequest()->getMethod() === RequestMethodInterface::METHOD_POST) {
             $user = $this->userService->findByResetPasswordHash($hash);
             if (! $user instanceof User) {
@@ -233,7 +244,19 @@ class AccountController extends AbstractActionController
         $identity = $this->authenticationService->getIdentity();
 
         $user = $this->userService->findByUuid($identity->getUuid());
+
         $form = new UploadAvatarForm();
+        $form->setAttribute('action', $this->router->generateUri('account', ['action' => 'avatar']));
+
+        /** @var FieldsetInterface $avatarElement */
+        $avatarElement = $form->get('avatar');
+        $imageElement  = $avatarElement->get('image');
+        $imageElement->setAttribute('data-url', $this->router->generateUri('account', ['action' => 'avatar']));
+        $imageElement->setAttribute(
+            'data-preview',
+            $user->getAvatar()?->getUrl() ?? '/images/app/user/user-placeholder.png'
+        );
+
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $form->setData(array_merge($this->request->getParsedBody(), $this->request->getUploadedFiles()));
             if ($form->isValid()) {
@@ -258,7 +281,7 @@ class AccountController extends AbstractActionController
                 'action'  => 'avatar',
                 'content' => $this->template->render('profile::avatar', [
                     'user' => $user,
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );
@@ -271,6 +294,7 @@ class AccountController extends AbstractActionController
 
         $user = $this->userService->findByUuid($identity->getUuid());
         $form = new ProfileDetailsForm();
+        $form->setAttribute('action', $this->router->generateUri('account', ['action' => 'details']));
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
@@ -321,7 +345,7 @@ class AccountController extends AbstractActionController
             $this->template->render('user::profile', [
                 'action'  => 'details',
                 'content' => $this->template->render('profile::details', [
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );
@@ -335,6 +359,7 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfilePasswordForm();
+        $form->setAttribute('action', $this->router->generateUri('account', ['action' => 'change-password']));
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
@@ -374,7 +399,7 @@ class AccountController extends AbstractActionController
             $this->template->render('user::profile', [
                 'action'  => 'change-password',
                 'content' => $this->template->render('profile::change-password', [
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );
@@ -388,6 +413,7 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findByUuid($identity->getUuid());
 
         $form = new ProfileDeleteForm();
+        $form->setAttribute('action', $this->router->generateUri('account', ['action' => 'delete-account']));
 
         $shouldRebind = $this->messenger->getData('shouldRebind') ?? true;
         if ($shouldRebind) {
@@ -427,7 +453,7 @@ class AccountController extends AbstractActionController
             $this->template->render('user::profile', [
                 'action'  => 'delete-account',
                 'content' => $this->template->render('profile::delete-account', [
-                    'form' => $form,
+                    'form' => $form->prepare(),
                 ]),
             ])
         );

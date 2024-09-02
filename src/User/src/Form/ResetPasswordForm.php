@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Frontend\User\Form;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\InputFilter\ResetPasswordInputFilter;
 use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Password;
@@ -31,6 +32,8 @@ class ResetPasswordForm extends Form
     public function init(): void
     {
         parent::init();
+
+        $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
 
         $this->add([
             'name'       => 'password',
