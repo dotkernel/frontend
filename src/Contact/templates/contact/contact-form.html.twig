@@ -23,6 +23,7 @@
                         </ul>
                     </div>
 
+                    {% set dummy = form.setAttribute('id', 'contact_form') %}
                     {{ form().openTag(form)|raw }}
 
                     <div class="row">
