@@ -36,6 +36,7 @@ class ContactForm extends Form
         parent::init();
 
         $this->setAttribute('method', RequestMethodInterface::METHOD_POST);
+        $this->setAttribute('id', 'contact_form');
 
         $this->add([
             'name'       => 'email',
