@@ -122,8 +122,6 @@ module.exports = {
         rules: rules,
     },
 
-    devtool: false,
-
     stats: {
         children: false
     },
