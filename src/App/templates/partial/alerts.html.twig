@@ -21,8 +21,7 @@
                 <ul>
                     {% for message in messages[namespace] %}
 
-                        {% set writeMessage = message|raw %}
-                        <li>{{ writeMessage|raw }}</li>
+                        <li>{{ message|raw }}</li>
 
                     {% endfor %}
 
