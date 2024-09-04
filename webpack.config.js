@@ -18,7 +18,8 @@ const appModules = [{
     assets_path: './App/assets',
     styles: true,
     js: true,
-    images: true
+    images: true,
+    fonts: true
 }];
 
 
@@ -54,9 +55,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 
 // dynamically build webpack entries based on registered app modules
-let entries = {
-    app: []
-};
+let entries = {};
 let copyImages = [];
 let rules = generateBaseRules();
 
@@ -67,11 +66,12 @@ let rules = generateBaseRules();
  *
  */
 appModules.forEach(function (appModule) {
+    entries[appModule.name] = [];
     if (appModule.js === true) {
-        entries.app.push(appModule.assets_path + '/js/index.js')
+        entries[appModule.name].push(appModule.assets_path + '/js/index.js')
     }
     if (appModule.styles === true) {
-        entries.app.push(appModule.assets_path + '/scss/index.scss')
+        entries[appModule.name].push(appModule.assets_path + '/scss/index.scss')
     }
     if (appModule.images === true) {
         copyImages.push({from: appModule.assets_path + '/images', to: './images/' + appModule.name});
@@ -83,6 +83,20 @@ appModules.forEach(function (appModule) {
             ],
             use: [
                    {loader: 'file-loader'}
+            ]
+        })
+    }
+    if (appModule.fonts === true) {
+        copyImages.push({from: appModule.assets_path + '/fonts', to: './fonts/' + appModule.name});
+
+        rules.push({
+            test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+            include: [
+                path.resolve(__dirname, './src/' + appModule.assets_path)
+            ],
+            exclude: [/images?|img/],
+            use: [
+                {loader: 'file-loader'}
             ]
         })
     }
