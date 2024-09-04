@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace FrontendTest\Unit\User\InputFilter;
 
 use Frontend\App\Common\Message;
+use Frontend\User\Entity\User;
 use Frontend\User\InputFilter\ProfileDeleteInputFilter;
 use FrontendTest\Common\AbstractInputFilterTest;
 use Laminas\Session\Container;
@@ -51,10 +52,10 @@ class ProfileDeleteInputFilterTest extends AbstractInputFilterTest
     {
         $hash = (new Csrf(['session' => new Container()]))->getHash();
 
-        $this->inputFilter->setData(['isDeleted' => true, 'userDeleteCsrf' => $hash]);
+        $this->inputFilter->setData(['isDeleted' => (string) User::IS_DELETED_YES, 'userDeleteCsrf' => $hash]);
         $this->assertTrue($this->inputFilter->isValid());
         $this->assertSame(
-            true,
+            (string) User::IS_DELETED_YES,
             $this->inputFilter->getValue('isDeleted')
         );
     }
