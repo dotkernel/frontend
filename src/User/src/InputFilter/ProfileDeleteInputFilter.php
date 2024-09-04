@@ -31,7 +31,7 @@ class ProfileDeleteInputFilter extends InputFilter
             ->attachByName(InArray::class, [
                 'haystack' => User::IS_DELETED,
                 'message'  => Message::DELETE_ACCOUNT,
-                'strict'   => InArray::COMPARE_STRICT,
+                'strict'   => InArray::COMPARE_NOT_STRICT,
             ], true)
             ->attachByName(NotEmpty::class, [
                 'message' => Message::DELETE_ACCOUNT,
