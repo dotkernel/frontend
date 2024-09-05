@@ -438,7 +438,7 @@ class AccountController extends AbstractActionController
                 // logout and enter new password to login
                 $this->authenticationService->clearIdentity();
 
-                $this->messenger->addSuccess('Your account is deleted.', 'page-home');
+                $this->messenger->addSuccess(Message::ACCOUNT_IS_DELETED, 'page-home');
                 return new RedirectResponse($this->router->generateUri('page'));
             } else {
                 $this->messenger->addData('shouldRebind', true);
