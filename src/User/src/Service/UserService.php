@@ -133,7 +133,7 @@ class UserService implements UserServiceInterface
         }
 
         if (isset($data['isDeleted'])) {
-            $user->setIsDeleted($data['isDeleted']);
+            $user->setIsDeleted((bool) $data['isDeleted']);
         }
 
         if (isset($data['hash'])) {
