@@ -138,7 +138,9 @@ class UserService implements UserServiceInterface
 
             if ((bool) $data['isDeleted'] === true) {
                 // make user anonymous
-                $user->setIdentity('anonymous' . date('dmYHis') . $this->config['userAnonymizeAppend']);
+                $user->setIdentity(
+                    sprintf('anonymous%s@%s', date('dmYHis'), $this->config['userAnonymizeAppend'])
+                );
                 $userDetails = $user->getDetail();
                 $userDetails->setFirstName('anonymous' . date('dmYHis'));
                 $userDetails->setLastName('anonymous' . date('dmYHis'));
