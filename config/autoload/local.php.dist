@@ -26,25 +26,25 @@ $databases = [
 ];
 
 return [
-    'application' => [
+    'application'         => [
         'name' => 'DotKernel',
         'url'  => $baseUrl,
     ],
-    'databases'   => $databases,
-    'doctrine'    => [
+    'databases'           => $databases,
+    'doctrine'            => [
         'connection' => [
             'orm_default' => [
                 'params' => $databases['default'],
             ],
         ],
     ],
-    'uploads'     => [
+    'uploads'             => [
         'user' => [
             'url'  => $baseUrl . '/uploads/user',
             'path' => realpath(__DIR__ . '/../../public/uploads/user'),
         ],
     ],
-    'contact'     => [
+    'contact'             => [
         'notification_receivers' => [],
         'message_receivers'      => [
             'to' => [
@@ -55,16 +55,17 @@ return [
             ],
         ],
     ],
-    'recaptcha'   => [
+    'recaptcha'           => [
         'scoreThreshold' => 0.5,
         'siteKey'        => '',
         'secretKey'      => '',
         'verifyUrl'      => 'https://www.google.com/recaptcha/api/siteverify',
     ],
-    'rememberMe'  => [
+    'rememberMe'          => [
         'cookie' => [
             'name'     => 'rememberMe',
             'lifetime' => 3600 * 24 * 30,
         ],
     ],
+    'userAnonymizeAppend' => '',
 ];

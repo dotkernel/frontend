@@ -9,6 +9,8 @@ class Message
     public const DUPLICATE_EMAIL               = 'An account with this email address already exists.';
     public const RESTRICTION_ROLES             = 'User accounts must have at least one role.';
     public const INVALID_ACTIVATION_CODE       = 'Invalid activation code.';
+    public const AUTHENTICATED_SUCCESSFULLY    = 'Authenticated successfully.';
+    public const INVALID_CREDENTIALS           = 'Invalid credentials.';
     public const MAIL_SENT_RESET_PASSWORD      = 'If the provided email identifies an account in our system, '
     . 'you will receive an email with further instructions on resetting your account\'s password.';
     public const MISSING_PARAMETER             = 'Missing parameter: \'%s\'';
@@ -23,5 +25,6 @@ class Message
     public const PASSWORD_RESET_SUCCESSFULLY   = 'Password Successfully reset.';
     public const USER_NOT_ACTIVATED            = 'User account must be activated first.';
     public const DELETE_ACCOUNT                = 'You must check delete option.';
-    public const IS_DELETED                    = 'User is deleted.';
+    public const ACCOUNT_IS_DELETED            = 'Your account is deleted.';
+    public const ACCOUNT_NOT_FOUND             = 'Account not found.';
 }

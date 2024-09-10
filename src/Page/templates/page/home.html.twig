@@ -5,6 +5,7 @@
 {% block page_title %}{% endblock %}
 
 {% block content %}
+    {{ messagesPartial('partial::alerts', {}, null, 'page-home') }}
     <div class="page-intro home-intro">
         <div class="container">
             <p class="welcome">DotKernel is a collection of</p>

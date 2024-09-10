@@ -14,9 +14,9 @@ return [
                 'identity_property'   => 'identity',
                 'credential_property' => 'password',
                 'messages'            => [
-                    'success'            => 'Authenticated successfully.',
-                    'not_found'          => 'Identity not found.',
-                    'invalid_credential' => 'Invalid credentials.',
+                    'success'            => Message::AUTHENTICATED_SUCCESSFULLY,
+                    'not_found'          => Message::ACCOUNT_NOT_FOUND,
+                    'invalid_credential' => Message::INVALID_CREDENTIALS,
                 ],
                 'options'             => [
                     'status'    => [
@@ -25,7 +25,7 @@ return [
                     ],
                     'isDeleted' => [
                         'value'   => false,
-                        'message' => Message::IS_DELETED,
+                        'message' => Message::ACCOUNT_NOT_FOUND,
                     ],
                 ],
             ],
