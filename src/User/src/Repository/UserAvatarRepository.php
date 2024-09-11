@@ -18,7 +18,7 @@ class UserAvatarRepository extends EntityRepository
     public function deleteAvatar(string $uuid): mixed
     {
         $uuid = Uuid::fromString($uuid)->getBytes();
-        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb   = $this->getEntityManager()->createQueryBuilder();
         $qb->delete(UserAvatar::class, 'user_avatar')
             ->where('user_avatar.uuid = :uuid')
             ->setParameter('uuid', $uuid);

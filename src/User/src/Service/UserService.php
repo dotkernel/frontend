@@ -222,7 +222,7 @@ class UserService implements UserServiceInterface
 
     public function deleteAvatar(User $user): void
     {
-        $path = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
+        $path   = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
         $avatar = $user->getAvatar();
         $this->deleteAvatarFile($path . $avatar->getName());
         $this->userAvatarRepository->deleteAvatar($user->getAvatar()->getUuid()->toString());
