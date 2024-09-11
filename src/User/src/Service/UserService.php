@@ -19,6 +19,7 @@ use Frontend\User\Entity\UserDetail;
 use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\UserRole;
+use Frontend\User\Repository\UserAvatarRepository;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
@@ -50,6 +51,7 @@ class UserService implements UserServiceInterface
         UserRoleServiceInterface::class,
         TemplateRendererInterface::class,
         UserRepository::class,
+        UserAvatarRepository::class,
         UserRoleRepository::class,
         "config",
     )]
@@ -59,6 +61,7 @@ class UserService implements UserServiceInterface
         protected UserRoleServiceInterface $userRoleService,
         protected TemplateRendererInterface $templateRenderer,
         protected UserRepository $userRepository,
+        protected UserAvatarRepository $userAvatarRepository,
         protected UserRoleRepository $userRoleRepository,
         protected array $config = []
     ) {
@@ -215,6 +218,14 @@ class UserService implements UserServiceInterface
         $uploadedFile->moveTo($path . $fileName);
 
         return $avatar;
+    }
+
+    public function deleteAvatar(User $user): void
+    {
+        $path = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
+        $avatar = $user->getAvatar();
+        $this->deleteAvatarFile($path . $avatar->getName());
+        $this->userAvatarRepository->deleteAvatar($user->getAvatar()->getUuid()->toString());
     }
 
     public function deleteAvatarFile(string $path): bool
