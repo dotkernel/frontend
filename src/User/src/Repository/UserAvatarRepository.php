@@ -7,7 +7,6 @@ namespace Frontend\User\Repository;
 use Doctrine\ORM\EntityRepository;
 use Dot\DependencyInjection\Attribute\Entity;
 use Frontend\User\Entity\UserAvatar;
-use Ramsey\Uuid\Uuid;
 
 /**
  * @extends EntityRepository<object>
@@ -15,14 +14,9 @@ use Ramsey\Uuid\Uuid;
 #[Entity(name: UserAvatar::class)]
 class UserAvatarRepository extends EntityRepository
 {
-    public function deleteAvatar(string $uuid): mixed
+    public function deleteAvatar(UserAvatar $avatar): void
     {
-        $uuid = Uuid::fromString($uuid)->getBytes();
-        $qb   = $this->getEntityManager()->createQueryBuilder();
-        $qb->delete(UserAvatar::class, 'user_avatar')
-            ->where('user_avatar.uuid = :uuid')
-            ->setParameter('uuid', $uuid);
-
-        return $qb->getQuery()->useQueryCache(true)->execute();
+        $this->getEntityManager()->remove($avatar);
+        $this->getEntityManager()->flush();
     }
 }

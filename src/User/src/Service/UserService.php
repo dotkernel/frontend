@@ -31,6 +31,7 @@ use function file_exists;
 use function is_readable;
 use function mkdir;
 use function password_hash;
+use function rmdir;
 use function sprintf;
 use function time;
 use function unlink;
@@ -222,10 +223,16 @@ class UserService implements UserServiceInterface
 
     public function deleteAvatar(User $user): void
     {
-        $path   = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
         $avatar = $user->getAvatar();
+        if (! $avatar instanceof UserAvatar) {
+            return;
+        }
+
+        $path = sprintf('%s/%s/', $this->config['uploads']['user']['path'], $user->getUuid()->toString());
         $this->deleteAvatarFile($path . $avatar->getName());
-        $this->userAvatarRepository->deleteAvatar($user->getAvatar()->getUuid()->toString());
+        rmdir($path);
+
+        $this->userAvatarRepository->deleteAvatar($avatar);
     }
 
     public function deleteAvatarFile(string $path): bool
