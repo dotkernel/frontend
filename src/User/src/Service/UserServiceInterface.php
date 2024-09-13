@@ -34,6 +34,8 @@ interface UserServiceInterface
 
     public function updateUser(User $user, array $data = []): UserInterface;
 
+    public function deleteAvatar(User $user): void;
+
     public function deleteAvatarFile(string $path): bool;
 
     public function exists(string $email = '', ?string $uuid = ''): bool;

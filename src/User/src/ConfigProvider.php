@@ -16,6 +16,7 @@ use Frontend\User\EventListener\UserAvatarEventListener;
 use Frontend\User\Factory\AuthenticationAdapterFactory;
 use Frontend\User\Factory\AuthenticationServiceFactory;
 use Frontend\User\Form\LoginForm;
+use Frontend\User\Repository\UserAvatarRepository;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Frontend\User\Service\UserRoleService;
@@ -54,6 +55,7 @@ class ConfigProvider
                 UserService::class             => AttributedServiceFactory::class,
                 UserRoleService::class         => AttributedServiceFactory::class,
                 UserRepository::class          => AttributedRepositoryFactory::class,
+                UserAvatarRepository::class    => AttributedRepositoryFactory::class,
                 UserRoleRepository::class      => AttributedRepositoryFactory::class,
                 UserAvatarEventListener::class => AttributedServiceFactory::class,
             ],

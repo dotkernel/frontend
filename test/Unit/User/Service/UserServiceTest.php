@@ -9,6 +9,7 @@ use Exception;
 use Frontend\App\Common\Message;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\User\Entity\User;
+use Frontend\User\Repository\UserAvatarRepository;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
 use Frontend\User\Service\UserRoleServiceInterface;
@@ -30,6 +31,7 @@ class UserServiceTest extends TestCase
             $this->createMock(UserRoleServiceInterface::class),
             $this->createMock(TemplateRendererInterface::class),
             $this->createMock(UserRepository::class),
+            $this->createMock(UserAvatarRepository::class),
             $this->createMock(UserRoleRepository::class),
             []
         );
@@ -42,12 +44,13 @@ class UserServiceTest extends TestCase
      */
     public function testCreateUserThrowsDuplicateException(): void
     {
-        $cookieService      = $this->createMock(CookieServiceInterface::class);
-        $mailService        = $this->createMock(MailService::class);
-        $userRoleService    = $this->createMock(UserRoleServiceInterface::class);
-        $template           = $this->createMock(TemplateRendererInterface::class);
-        $userRepository     = $this->createMock(UserRepository::class);
-        $userRoleRepository = $this->createMock(UserRoleRepository::class);
+        $cookieService        = $this->createMock(CookieServiceInterface::class);
+        $mailService          = $this->createMock(MailService::class);
+        $userRoleService      = $this->createMock(UserRoleServiceInterface::class);
+        $template             = $this->createMock(TemplateRendererInterface::class);
+        $userRepository       = $this->createMock(UserRepository::class);
+        $userAvatarRepository = $this->createMock(UserAvatarRepository::class);
+        $userRoleRepository   = $this->createMock(UserRoleRepository::class);
 
         $userRepository->expects($this->once())->method('exists')->willReturn(new User());
         $this->expectException(Exception::class);
@@ -59,6 +62,7 @@ class UserServiceTest extends TestCase
             $userRoleService,
             $template,
             $userRepository,
+            $userAvatarRepository,
             $userRoleRepository,
             []
         );
@@ -71,12 +75,13 @@ class UserServiceTest extends TestCase
      */
     public function testCreateUserThrowsRestrictionRolesException(): void
     {
-        $cookieService      = $this->createMock(CookieServiceInterface::class);
-        $mailService        = $this->createMock(MailService::class);
-        $userRoleService    = $this->createMock(UserRoleServiceInterface::class);
-        $template           = $this->createMock(TemplateRendererInterface::class);
-        $userRepository     = $this->createMock(UserRepository::class);
-        $userRoleRepository = $this->createMock(UserRoleRepository::class);
+        $cookieService        = $this->createMock(CookieServiceInterface::class);
+        $mailService          = $this->createMock(MailService::class);
+        $userRoleService      = $this->createMock(UserRoleServiceInterface::class);
+        $template             = $this->createMock(TemplateRendererInterface::class);
+        $userRepository       = $this->createMock(UserRepository::class);
+        $userAvatarRepository = $this->createMock(UserAvatarRepository::class);
+        $userRoleRepository   = $this->createMock(UserRoleRepository::class);
 
         $userRepository->expects($this->once())->method('exists')->willReturn(null);
         $this->expectException(Exception::class);
@@ -88,6 +93,7 @@ class UserServiceTest extends TestCase
             $userRoleService,
             $template,
             $userRepository,
+            $userAvatarRepository,
             $userRoleRepository,
             []
         );

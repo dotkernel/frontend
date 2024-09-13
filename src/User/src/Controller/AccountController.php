@@ -427,6 +427,7 @@ class AccountController extends AbstractActionController
                 $userData = $form->getData();
                 try {
                     $this->userService->updateUser($user, $userData);
+                    $this->userService->deleteAvatar($user);
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);
                     $this->forms->saveState($form);
