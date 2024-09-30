@@ -250,9 +250,7 @@ class UserService implements UserServiceInterface
 
     public function exists(string $email = '', ?string $uuid = ''): bool
     {
-        return ! empty(
-            $this->userRepository->exists($email, $uuid)
-        );
+        return $this->userRepository->exists($email, $uuid) instanceof User;
     }
 
     /**
