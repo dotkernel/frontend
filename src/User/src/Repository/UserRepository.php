@@ -13,6 +13,9 @@ use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserRememberMe;
 use Ramsey\Uuid\Uuid;
 
+use function is_string;
+use function strlen;
+
 /**
  * @extends EntityRepository<object>
  */
@@ -50,9 +53,8 @@ class UserRepository extends EntityRepository
 
         $qb->select('user')
             ->from(User::class, 'user')
-            ->where('user.identity = :email')->setParameter('email', $email)
-            ->andWhere('user.isDeleted = :isDeleted')->setParameter('isDeleted', User::IS_DELETED_NO);
-        if (! empty($uuid)) {
+            ->where('user.identity = :email')->setParameter('email', $email);
+        if (is_string($uuid) && strlen($uuid) > 0) {
             $uuid = Uuid::fromString($uuid)->getBytes();
             $qb->andWhere('user.uuid != :uuid')->setParameter('uuid', $uuid);
         }
