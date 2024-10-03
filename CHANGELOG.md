@@ -1,5 +1,31 @@
 # Changelog
 
+## 5.0.1 - 2024-10-03
+
+### Changed
+
+* Nothing
+
+### Added
+
+* Issue [#487](https://github.com/dotkernel/frontend/issues/487): Created file `CHANGELOG.md` by [@alexmerlin](https://github.com/alexmerlin) in [#488](https://github.com/dotkernel/frontend/pull/488)
+* Added .gitattributes by [@bidi47](https://github.com/bidi47) in [#489](https://github.com/dotkernel/frontend/pull/489)
+
+### Deprecated
+
+* Nothing
+
+### Removed
+
+* Issue [#493](https://github.com/dotkernel/frontend/issues/493): Removed unused assets by [@alexmerlin](https://github.com/alexmerlin) in [#496](https://github.com/dotkernel/frontend/pull/496)
+* Issue [#494](https://github.com/dotkernel/frontend/issues/494): Removed `rector/rector` package and config file by [@alexmerlin](https://github.com/alexmerlin) in [#495](https://github.com/dotkernel/frontend/pull/495)
+* Issue [#497](https://github.com/dotkernel/frontend/issues/497): Temporarily remove `.gitattributes` file to repair `CRLF` files by [@alexmerlin](https://github.com/alexmerlin) in [#499](https://github.com/dotkernel/frontend/pull/499)
+
+### Fixed
+
+* Issue [#484](https://github.com/dotkernel/frontend/issues/484): Show correct message when user tries to register with a deleted account email by [@alexmerlin](https://github.com/alexmerlin) in [#491](https://github.com/dotkernel/frontend/pull/491)
+* Issue [#498](https://github.com/dotkernel/frontend/issues/498): Fixed `CRLF` files and restored `.gitattributes` by [@alexmerlin](https://github.com/alexmerlin) in [#500](https://github.com/dotkernel/frontend/pull/500)
+
 ## 5.0.0 - 2024-09-16
 
 ### Changed
