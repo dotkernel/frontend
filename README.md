@@ -15,7 +15,6 @@ Dotkernel web starter package suitable for frontend applications.
 [![Qodana](https://github.com/dotkernel/frontend/actions/workflows/qodana_code_quality.yml/badge.svg)](https://github.com/dotkernel/frontend/actions/workflows/qodana_code_quality.yml)
 [![PHPStan](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml/badge.svg?branch=5.0)](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml)
 
-
 ## Installing DotKernel `frontend`
 
 - [Installing DotKernel `frontend`](#installing-dotkernel-frontend)
