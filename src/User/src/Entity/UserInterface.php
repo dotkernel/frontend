@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use Frontend\User\Enum\UserStatusEnum;
 use Ramsey\Uuid\UuidInterface;
 
 interface UserInterface
@@ -27,9 +28,9 @@ interface UserInterface
 
     public function setPassword(string $password): UserInterface;
 
-    public function getStatus(): string;
+    public function getStatus(): UserStatusEnum;
 
-    public function setStatus(string $status): UserInterface;
+    public function setStatus(UserStatusEnum $status): UserInterface;
 
     public function getRoles(): Collection;
 

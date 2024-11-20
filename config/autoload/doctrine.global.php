@@ -2,30 +2,43 @@
 
 declare(strict_types=1);
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
+use Dot\Cache\Adapter\ArrayAdapter;
+use Dot\Cache\Adapter\FilesystemAdapter;
 use Frontend\App\Resolver\EntityListenerResolver;
+use Frontend\User\DBAL\Types\UserResetPasswordStatusEnumType;
+use Frontend\User\DBAL\Types\UserStatusEnumType;
 use Ramsey\Uuid\Doctrine\UuidBinaryOrderedTimeType;
 use Ramsey\Uuid\Doctrine\UuidBinaryType;
 use Ramsey\Uuid\Doctrine\UuidType;
-use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
 return [
-    'dependencies'        => [
-        'factories' => [
-            'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
-        ],
-        'aliases'   => [
-            EntityManager::class                 => 'doctrine.entity_manager.orm_default',
-            EntityManagerInterface::class        => 'doctrine.entity_manager.orm_default',
-            'doctrine.entitymanager.orm_default' => 'doctrine.entity_manager.orm_default',
-        ],
-    ],
     'doctrine'            => [
+        'cache'         => [
+            'array'      => [
+                'class' => ArrayAdapter::class,
+            ],
+            'filesystem' => [
+                'class'     => FilesystemAdapter::class,
+                'directory' => getcwd() . '/data/cache',
+                'namespace' => 'doctrine',
+            ],
+        ],
         'configuration' => [
             'orm_default' => [
                 'entity_listener_resolver' => EntityListenerResolver::class,
+                'result_cache'             => 'filesystem',
+                'metadata_cache'           => 'filesystem',
+                'query_cache'              => 'filesystem',
+                'hydration_cache'          => 'array',
+                'typed_field_mapper'       => null,
+                'second_level_cache'       => [
+                    'enabled'                    => true,
+                    'default_lifetime'           => 3600,
+                    'default_lock_lifetime'      => 60,
+                    'file_lock_region_directory' => '',
+                    'regions'                    => [],
+                ],
             ],
         ],
         'connection'    => [
@@ -45,9 +58,11 @@ return [
             ],
         ],
         'types'         => [
-            UuidType::NAME                  => UuidType::class,
-            UuidBinaryType::NAME            => UuidBinaryType::class,
-            UuidBinaryOrderedTimeType::NAME => UuidBinaryOrderedTimeType::class,
+            UuidType::NAME                        => UuidType::class,
+            UuidBinaryType::NAME                  => UuidBinaryType::class,
+            UuidBinaryOrderedTimeType::NAME       => UuidBinaryOrderedTimeType::class,
+            UserStatusEnumType::NAME              => UserStatusEnumType::class,
+            UserResetPasswordStatusEnumType::NAME => UserResetPasswordStatusEnumType::class,
         ],
         'fixtures'      => getcwd() . '/data/doctrine/fixtures',
     ],

@@ -11,6 +11,7 @@ use Dot\Authorization\Role\RoleInterface;
 use Exception;
 use Frontend\App\Entity\AbstractEntity;
 use Frontend\App\Entity\TimestampsTrait;
+use Frontend\User\Enum\UserStatusEnum;
 use Frontend\User\Repository\UserRepository;
 use Ramsey\Uuid\Uuid;
 
@@ -24,22 +25,15 @@ class User extends AbstractEntity implements UserInterface
 {
     use TimestampsTrait;
 
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_ACTIVE  = 'active';
-    public const STATUSES       = [
-        self::STATUS_PENDING,
-        self::STATUS_ACTIVE,
-    ];
-
     public const IS_DELETED_YES = true;
     public const IS_DELETED_NO  = false;
 
     public const IS_DELETED = ['1', '0'];
 
-    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserDetail::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: UserDetail::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     protected UserDetail $detail;
 
-    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserAvatar::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: UserAvatar::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     protected ?UserAvatar $avatar;
 
     #[ORM\Column(name: 'identity', type: 'string', length: 191, unique: true, nullable: false)]
@@ -48,8 +42,8 @@ class User extends AbstractEntity implements UserInterface
     #[ORM\Column(name: 'password', type: 'string', length: 191, nullable: false)]
     protected string $password;
 
-    #[ORM\Column(name: 'status', type: 'string', length: 20, columnDefinition: "ENUM('pending', 'active')")]
-    protected string $status = self::STATUS_PENDING;
+    #[ORM\Column(type: 'user_status_enum', options: ['default' => UserStatusEnum::Pending])]
+    protected UserStatusEnum $status = UserStatusEnum::Pending;
 
     #[ORM\Column(name: 'isDeleted', type: 'boolean')]
     protected bool $isDeleted = self::IS_DELETED_NO;
@@ -64,8 +58,8 @@ class User extends AbstractEntity implements UserInterface
     protected Collection $roles;
 
     #[ORM\OneToMany(
-        mappedBy: 'user',
         targetEntity: UserResetPassword::class,
+        mappedBy: 'user',
         cascade: ['persist', 'remove'],
         fetch: 'EXTRA_LAZY'
     )]
@@ -132,12 +126,12 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    public function getStatus(): string
+    public function getStatus(): UserStatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(UserStatusEnum $status): self
     {
         $this->status = $status;
 
@@ -211,7 +205,12 @@ class User extends AbstractEntity implements UserInterface
 
     public function isActive(): bool
     {
-        return $this->status === self::STATUS_ACTIVE;
+        return $this->status === UserStatusEnum::Active;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === UserStatusEnum::Pending;
     }
 
     public function markAsDeleted(): self
@@ -228,7 +227,7 @@ class User extends AbstractEntity implements UserInterface
 
     public function activate(): self
     {
-        return $this->setStatus(self::STATUS_ACTIVE);
+        return $this->setStatus(UserStatusEnum::Active);
     }
 
     public function resetRoles(): self

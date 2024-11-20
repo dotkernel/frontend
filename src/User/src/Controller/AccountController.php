@@ -66,7 +66,7 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
-        if ($user->getStatus() === User::STATUS_ACTIVE) {
+        if ($user->isActive()) {
             $this->messenger->addError(Message::USER_ALREADY_ACTIVATED, 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
@@ -101,7 +101,7 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
-        if ($user->getStatus() !== User::STATUS_PENDING) {
+        if (! $user->isPending()) {
             $this->messenger->addError(Message::USER_UNREGISTER_STATUS, 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }

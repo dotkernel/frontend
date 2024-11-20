@@ -19,6 +19,7 @@ use Frontend\User\Entity\UserDetail;
 use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserRememberMe;
 use Frontend\User\Entity\UserRole;
+use Frontend\User\Enum\UserStatusEnum;
 use Frontend\User\Repository\UserAvatarRepository;
 use Frontend\User\Repository\UserRepository;
 use Frontend\User\Repository\UserRoleRepository;
@@ -93,7 +94,7 @@ class UserService implements UserServiceInterface
             ->setDetail($detail)
             ->setIdentity($data['email'])
             ->setPassword(password_hash($data['password'], PASSWORD_DEFAULT))
-            ->setStatus($data['status'] ?? User::STATUS_PENDING);
+            ->setStatus($data['status'] ?? UserStatusEnum::Pending);
 
         $detail->setUser($user);
 
