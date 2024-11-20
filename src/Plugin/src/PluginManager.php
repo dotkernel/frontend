@@ -11,6 +11,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
  */
 class PluginManager extends AbstractPluginManager
 {
-    /** @var string $instanceOf */
+    /** @var class-string<mixed>|null $instanceOf */
     protected $instanceOf = PluginInterface::class;
 }

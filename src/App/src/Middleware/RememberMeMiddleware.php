@@ -9,7 +9,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Dot\DependencyInjection\Attribute\Inject;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Service\UserServiceInterface;
-use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Exception\ExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -20,12 +20,12 @@ class RememberMeMiddleware implements MiddlewareInterface
 {
     #[Inject(
         UserServiceInterface::class,
-        AuthenticationServiceInterface::class,
+        AuthenticationService::class,
         "config.rememberMe",
     )]
     public function __construct(
         protected UserServiceInterface $userService,
-        protected AuthenticationServiceInterface $authenticationService,
+        protected AuthenticationService $authenticationService,
         protected array $rememberConfig
     ) {
     }

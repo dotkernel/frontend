@@ -6,6 +6,7 @@ namespace Frontend\App\Service;
 
 use Dot\DependencyInjection\Attribute\Inject;
 use Laminas\Session\Config\ConfigInterface;
+use Laminas\Session\Config\SameSiteCookieCapableInterface;
 use Laminas\Session\SessionManager;
 
 use function setcookie;
@@ -13,7 +14,7 @@ use function time;
 
 class CookieService implements CookieServiceInterface
 {
-    private ConfigInterface $sessionConfig;
+    private ConfigInterface|SameSiteCookieCapableInterface $sessionConfig;
 
     #[Inject(SessionManager::class)]
     public function __construct(SessionManager $sessionManager)

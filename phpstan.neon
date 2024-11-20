@@ -1,0 +1,18 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+parameters:
+    level: 5
+    paths:
+        - src
+        - test
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        - '/Parameter #1 \$expected of method PHPUnit\\Framework\\Assert::assertSame\(\) contains unresolvable type\./'
+        -
+            message: '#Call to method PHPUnit\\Framework\\Assert::assertInstanceOf\(\) with .* will always evaluate to true.#'
+            path: test
+        -
+            message: '#Call to an undefined method Laminas\\InputFilter\\InputFilterInterface::getInputs\(\)#'
+            path: test
+
