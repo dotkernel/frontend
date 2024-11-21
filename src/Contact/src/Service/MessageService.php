@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Frontend\Contact\Service;
 
-use Doctrine\ORM\EntityRepository;
 use Dot\DependencyInjection\Attribute\Inject;
 use Dot\Mail\Service\MailServiceInterface;
 use Frontend\Contact\Entity\Message;
@@ -28,7 +27,7 @@ class MessageService implements MessageServiceInterface
     ) {
     }
 
-    public function getRepository(): MessageRepository|EntityRepository
+    public function getRepository(): MessageRepository
     {
         return $this->repository;
     }

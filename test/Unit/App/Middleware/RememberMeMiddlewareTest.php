@@ -17,15 +17,16 @@ use Frontend\User\Service\UserService;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\Exception\ExceptionInterface;
 use PHPUnit\Framework\MockObject\Exception;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class RememberMeMiddlewareTest extends TestCase
 {
-    private ServerRequestInterface $request;
+    private ServerRequestInterface|MockObject $request;
 
-    private RequestHandlerInterface $handler;
+    private RequestHandlerInterface|MockObject $handler;
 
     /**
      * @throws Exception

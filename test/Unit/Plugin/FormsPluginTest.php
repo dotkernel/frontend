@@ -37,6 +37,7 @@ class FormsPluginTest extends TestCase
     {
         $hash = (new Csrf(['session' => new Container()]))->getHash();
 
+        /** @var array<string, string> $oldData */
         $oldData     = [
             'identity'      => 'old@identity.com',
             'password'      => 'old-password',
@@ -155,7 +156,7 @@ class FormsPluginTest extends TestCase
         $this->assertNotEmpty($messagesAsString);
     }
 
-    private function getDummyFlashMessenger(): FlashMessengerInterface
+    private function getDummyFlashMessenger(): object
     {
         return new class implements FlashMessengerInterface {
             private array $data     = [];

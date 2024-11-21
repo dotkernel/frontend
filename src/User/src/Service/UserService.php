@@ -275,7 +275,7 @@ class UserService implements UserServiceInterface
         return $this->mailService->send()->isValid();
     }
 
-    public function findOneBy(array $params = []): ?UserInterface
+    public function findOneBy(array $params = []): ?User
     {
         if (empty($params)) {
             return null;
@@ -344,7 +344,7 @@ class UserService implements UserServiceInterface
     /**
      * @throws Exception
      */
-    public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void
+    public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void
     {
         $this->deleteExpiredRememberMeTokens();
 
