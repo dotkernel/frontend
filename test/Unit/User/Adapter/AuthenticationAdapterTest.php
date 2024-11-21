@@ -10,6 +10,7 @@ use Frontend\User\Adapter\AuthenticationAdapter;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserDetail;
 use Frontend\User\Entity\UserRole;
+use Frontend\User\Enum\UserStatusEnum;
 use Frontend\User\Exception\AuthenticationAdapterException;
 use Laminas\Authentication\Adapter\AdapterInterface;
 use Laminas\Authentication\Adapter\Exception\ExceptionInterface;
@@ -314,7 +315,7 @@ class AuthenticationAdapterTest extends TestCase
             [
                 'options' => [
                     'status' => [
-                        'value'   => User::STATUS_ACTIVE,
+                        'value'   => UserStatusEnum::Active,
                         'message' => '',
                     ],
                 ],
@@ -338,8 +339,7 @@ class AuthenticationAdapterTest extends TestCase
     {
         $class = (new User())
             ->setIdentity('test@dotkernel.com')
-            ->setPassword(password_hash('password', PASSWORD_DEFAULT))
-            ->setStatus('invalid_status');
+            ->setPassword(password_hash('password', PASSWORD_DEFAULT));
 
         $repository = $this->createMock(EntityRepository::class);
 
@@ -350,7 +350,7 @@ class AuthenticationAdapterTest extends TestCase
             [
                 'options' => [
                     'status' => [
-                        'value'   => User::STATUS_ACTIVE,
+                        'value'   => UserStatusEnum::Active,
                         'message' => 'test message',
                     ],
                 ],

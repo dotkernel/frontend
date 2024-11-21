@@ -16,7 +16,7 @@ class UserDetail extends AbstractEntity
 {
     use TimestampsTrait;
 
-    #[ORM\OneToOne(inversedBy: 'detail', targetEntity: User::class)]
+    #[ORM\OneToOne(targetEntity: User::class, inversedBy: 'detail')]
     #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
     protected UserInterface $user;
 

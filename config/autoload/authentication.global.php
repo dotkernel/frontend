@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 use Frontend\App\Common\Message;
 use Frontend\User\Entity\User;
+use Frontend\User\Enum\UserStatusEnum;
 
 return [
     'doctrine' => [
         'authentication' => [
             'orm_default' => [
-                'object_manager'      => 'doctrine.entitymanager.orm_default',
+                'object_manager'      => 'doctrine.entity_manager.orm_default',
                 'identity_class'      => User::class,
                 'identity_property'   => 'identity',
                 'credential_property' => 'password',
@@ -20,7 +21,7 @@ return [
                 ],
                 'options'             => [
                     'status'    => [
-                        'value'   => User::STATUS_ACTIVE,
+                        'value'   => UserStatusEnum::Active,
                         'message' => Message::USER_NOT_ACTIVATED,
                     ],
                     'isDeleted' => [

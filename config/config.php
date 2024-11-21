@@ -44,6 +44,7 @@ $aggregator = new ConfigAggregator([
     \Dot\Rbac\Guard\ConfigProvider::class,
     \Dot\ResponseHeader\ConfigProvider::class,
     \Dot\DataFixtures\ConfigProvider::class,
+    \Dot\Cache\ConfigProvider::class,
 
     // Default App module config
     \Frontend\App\ConfigProvider::class,
