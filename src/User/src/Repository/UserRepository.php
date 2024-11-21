@@ -10,7 +10,6 @@ use Doctrine\ORM\NonUniqueResultException;
 use Dot\DependencyInjection\Attribute\Entity;
 use Exception;
 use Frontend\User\Entity\User;
-use Frontend\User\Entity\UserInterface;
 use Frontend\User\Entity\UserRememberMe;
 use Ramsey\Uuid\Uuid;
 
