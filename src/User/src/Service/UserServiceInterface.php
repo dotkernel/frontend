@@ -18,7 +18,7 @@ interface UserServiceInterface
      */
     public function sendActivationMail(User $user): bool;
 
-    public function findOneBy(array $params = []): ?UserInterface;
+    public function findOneBy(array $params = []): ?User;
 
     public function activateUser(User $user): User;
 
@@ -26,7 +26,7 @@ interface UserServiceInterface
 
     public function getRepository(): UserRepository;
 
-    public function addRememberMeToken(UserInterface|User $user, string $userAgent, array $cookies = []): void;
+    public function addRememberMeToken(User $user, string $userAgent, array $cookies = []): void;
 
     public function deleteRememberMeToken(array $cookies = []): void;
 

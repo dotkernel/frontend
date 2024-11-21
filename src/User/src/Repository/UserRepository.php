@@ -104,7 +104,7 @@ class UserRepository extends EntityRepository
     /**
      * @throws NonUniqueResultException
      */
-    public function findRememberMeUser(User|UserInterface $user, string $userAgent): ?UserRememberMe
+    public function findRememberMeUser(User $user, string $userAgent): ?UserRememberMe
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')

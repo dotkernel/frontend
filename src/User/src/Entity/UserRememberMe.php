@@ -18,7 +18,7 @@ class UserRememberMe extends AbstractEntity
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'userUuid', referencedColumnName: 'uuid', nullable: false)]
-    protected User|UserInterface $user;
+    protected User $user;
 
     #[ORM\Column(name: 'rememberMeToken', type: 'string', length: 100, unique: true, nullable: false)]
     protected string $rememberMeToken = '';
@@ -29,12 +29,12 @@ class UserRememberMe extends AbstractEntity
     #[ORM\Column(name: 'expireDate', type: 'datetime_immutable')]
     protected DateTimeImmutable $expireDate;
 
-    public function getUser(): User|UserInterface
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(User|UserInterface $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 

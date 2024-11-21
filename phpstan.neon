@@ -15,4 +15,7 @@ parameters:
         -
             message: '#Call to an undefined method Laminas\\InputFilter\\InputFilterInterface::getInputs\(\)#'
             path: test
+        -
+            message: '#Call to an undefined method Laminas\\Authentication\\AuthenticationServiceInterface::getStorage\(\)#'
+            path: src/App/src/Middleware/RememberMeMiddleware.php
 
