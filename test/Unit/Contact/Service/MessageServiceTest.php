@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace FrontendTest\Unit\Contact\Service;
 
+use Dot\Mail\Email;
 use Dot\Mail\Exception\MailException;
 use Dot\Mail\Result\ResultInterface;
 use Dot\Mail\Service\MailServiceInterface;
@@ -41,10 +42,12 @@ class MessageServiceTest extends TestCase
         $mailService       = $this->createMock(MailServiceInterface::class);
         $template          = $this->createMock(TemplateRendererInterface::class);
         $result            = $this->createMock(ResultInterface::class);
+        $mail             = $this->createMock(Email::class);
 
+        $mail->expects($this->once())->method('addFrom')->willReturn($mail);
         $result->expects($this->once())->method('isValid')->willReturn(true);
         $mailService->expects($this->once())->method('send')->willReturn($result);
-
+        $mailService->expects($this->any())->method('getMessage')->willReturn($mail);
         $service = new MessageService(
             $messageRepository,
             $mailService,
