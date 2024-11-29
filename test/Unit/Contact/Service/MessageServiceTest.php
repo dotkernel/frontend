@@ -42,7 +42,7 @@ class MessageServiceTest extends TestCase
         $mailService       = $this->createMock(MailServiceInterface::class);
         $template          = $this->createMock(TemplateRendererInterface::class);
         $result            = $this->createMock(ResultInterface::class);
-        $mail             = $this->createMock(Email::class);
+        $mail              = $this->createMock(Email::class);
 
         $mail->expects($this->once())->method('addFrom')->willReturn($mail);
         $result->expects($this->once())->method('isValid')->willReturn(true);
