@@ -104,8 +104,10 @@
         "post-create-project-cmd": [
             "@development-enable"
         ],
-        "post-package-install": [
-            "php bin/composer-post-install-script.php"
+        "post-install-cmd": [
+            "php -r \"if (is_readable('config/autoload/local.php')) { echo 'File already exists' . PHP_EOL; } else { copy('config/autoload/local.php.dist', 'config/autoload/local.php'); echo 'File copied successfully'; }\"",
+            "php -r \"if (is_readable('config/autoload/local.test.php')) { echo 'File already exists' . PHP_EOL; } else { copy('config/autoload/local.test.php.dist', 'config/autoload/local.test.php'); echo 'File copied successfully'; }\"",
+            "php -r \"if (is_readable('config/autoload/mail.local.php')) { echo 'File already exists' . PHP_EOL; } else { copy('vendor/dotkernel/dot-mail/config/mail.global.php.dist', 'config/autoload/mail.local.php'); echo 'File copied successfully'; }\""
         ],
         "development-disable": "laminas-development-mode disable",
         "development-enable": "laminas-development-mode enable",
