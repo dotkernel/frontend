@@ -30,6 +30,10 @@ $files = [
         'source'      => 'vendor/dotkernel/dot-mail/config/mail.global.php.dist',
         'destination' => 'config/autoload/mail.global.php',
     ],
+    [
+        'source'      => 'vendor/dotkernel/dot-mail/config/mail.global.php.dist',
+        'destination' => 'config/autoload/mail.global.php.dist',
+    ],
 ];
 
 array_walk($files, 'copyFile');
