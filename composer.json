@@ -104,7 +104,7 @@
         "post-create-project-cmd": [
             "@development-enable"
         ],
-        "post-install-cmd": [
+        "post-update-cmd": [
             "php bin/composer-post-install-script.php"
         ],
         "development-disable": "laminas-development-mode disable",
