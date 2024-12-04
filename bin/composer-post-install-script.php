@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-// phpcs:ignore Generic.Files.MixDeclarationsAndSideEffects
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
 function copyFile(array $file): void
 {
     if (is_readable($file['destination'])) {
@@ -16,7 +17,6 @@ function copyFile(array $file): void
     }
 }
 
-// phpcs:ignore Generic.Files.MixDeclarationsAndSideEffects
 $files = [
     [
         'source'      => 'config/autoload/local.php.dist',
