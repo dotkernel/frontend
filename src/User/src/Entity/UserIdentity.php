@@ -27,9 +27,6 @@ class UserIdentity implements UserInterface
         return $this->identity;
     }
 
-    /**
-     * @return iterable
-     */
     public function getRoles(): iterable
     {
         return $this->roles;
