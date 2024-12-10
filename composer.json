@@ -54,7 +54,7 @@
         "dotkernel/dot-dependency-injection": "^1.0.0",
         "dotkernel/dot-errorhandler": "^4.0.0",
         "dotkernel/dot-flashmessenger": "^3.4.2",
-        "dotkernel/dot-mail": "^5.0.0",
+        "dotkernel/dot-mail": "^5.1.0",
         "dotkernel/dot-navigation": "^3.4.2",
         "dotkernel/dot-rbac-guard": "^3.4.3",
         "dotkernel/dot-response-header": "^3.2.3",
