@@ -68,7 +68,6 @@ class RememberMeMiddlewareTest extends TestCase
 
         $user = (new User())
             ->setIdentity('test@dotkernel.com')
-            ->setIsDeleted(false)
             ->activate();
 
         $detail = (new UserDetail())
@@ -126,7 +125,6 @@ class RememberMeMiddlewareTest extends TestCase
 
         $user = (new User())
             ->setIdentity('test@dotkernel.com')
-            ->setIsDeleted(false)
             ->activate();
 
         $detail = (new UserDetail())

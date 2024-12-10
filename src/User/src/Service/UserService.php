@@ -138,22 +138,6 @@ class UserService implements UserServiceInterface
             $user->setStatus($data['status']);
         }
 
-        if (isset($data['isDeleted'])) {
-            $user->setIsDeleted((bool) $data['isDeleted']);
-
-            if ((bool) $data['isDeleted'] === true) {
-                // make user anonymous
-                $user->setIdentity(
-                    sprintf('anonymous%s@%s', date('dmYHis'), $this->config['userAnonymizeAppend'])
-                );
-                $userDetails = $user->getDetail();
-                $userDetails->setFirstName('anonymous' . date('dmYHis'));
-                $userDetails->setLastName('anonymous' . date('dmYHis'));
-
-                $user->setDetail($userDetails);
-            }
-        }
-
         if (isset($data['hash'])) {
             $user->setHash($data['hash']);
         }
@@ -187,6 +171,28 @@ class UserService implements UserServiceInterface
         }
 
         return $this->userRepository->saveUser($user);
+    }
+
+    public function deleteUser(User $user): User
+    {
+        $user->setStatus(UserStatusEnum::Deleted);
+
+        if ($user->isDeleted()) {
+            $placeholder = $this->getAnonymousPlaceholder();
+
+            // make user anonymous
+            $user
+                ->setIdentity($placeholder . $this->config['userAnonymizeAppend'])
+                ->getDetail()
+                ->setFirstName($placeholder)
+                ->setLastName($placeholder);
+        }
+        return $this->userRepository->saveUser($user);
+    }
+
+    private function getAnonymousPlaceholder(): string
+    {
+        return 'anonymous' . date('dmYHis');
     }
 
     protected function createAvatar(User $user, UploadedFile $uploadedFile): UserAvatar

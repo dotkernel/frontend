@@ -38,8 +38,6 @@ interface UserInterface
 
     public function removeRole(UserRole $role): UserInterface;
 
-    public function getIsDeleted(): bool;
-
     public function getArrayCopy(): array;
 
     public function activate(): UserInterface;
