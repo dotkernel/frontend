@@ -24,10 +24,6 @@ return [
                         'value'   => UserStatusEnum::Active,
                         'message' => Message::USER_NOT_ACTIVATED,
                     ],
-                    'isDeleted' => [
-                        'value'   => false,
-                        'message' => Message::ACCOUNT_NOT_FOUND,
-                    ],
                 ],
             ],
         ],
