@@ -20,7 +20,7 @@ return [
                     'invalid_credential' => Message::INVALID_CREDENTIALS,
                 ],
                 'options'             => [
-                    'status'    => [
+                    'status' => [
                         'value'   => UserStatusEnum::Active,
                         'message' => Message::USER_NOT_ACTIVATED,
                     ],
