@@ -176,17 +176,14 @@ class UserService implements UserServiceInterface
     public function deleteUser(User $user): User
     {
         $user->setStatus(UserStatusEnum::Deleted);
+        $placeholder = $this->getAnonymousPlaceholder();
 
-        if ($user->isDeleted()) {
-            $placeholder = $this->getAnonymousPlaceholder();
-
-            // make user anonymous
-            $user
-                ->setIdentity($placeholder . $this->config['userAnonymizeAppend'])
-                ->getDetail()
-                ->setFirstName($placeholder)
-                ->setLastName($placeholder);
-        }
+        // make user anonymous
+        $user
+            ->setIdentity($placeholder . $this->config['userAnonymizeAppend'])
+            ->getDetail()
+            ->setFirstName($placeholder)
+            ->setLastName($placeholder);
         return $this->userRepository->saveUser($user);
     }
 
@@ -288,7 +285,12 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        return $this->userRepository->findOneBy($params);
+        $user = $this->userRepository->findOneBy($params);
+        if ($user->isDeleted()) {
+            return null;
+        }
+
+        return $user;
     }
 
     public function activateUser(User $user): User

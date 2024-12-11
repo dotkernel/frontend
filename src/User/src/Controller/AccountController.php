@@ -66,11 +66,6 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
-        if ($user->isDeleted()) {
-            $this->messenger->addError(Message::ACCOUNT_NOT_FOUND, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
-        }
-
         if ($user->isActive()) {
             $this->messenger->addError(Message::USER_ALREADY_ACTIVATED, 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
@@ -98,11 +93,6 @@ class AccountController extends AbstractActionController
         $user = $this->userService->findOneBy(['hash' => $hash]);
         if (! $user instanceof User) {
             $this->messenger->addError(Message::INVALID_ACTIVATION_CODE, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
-        }
-
-        if ($user->isDeleted()) {
-            $this->messenger->addError(Message::USER_ALREADY_DEACTIVATED, 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
