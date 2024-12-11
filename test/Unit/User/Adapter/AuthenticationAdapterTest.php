@@ -182,6 +182,9 @@ class AuthenticationAdapterTest extends TestCase
         $this->expectExceptionMessage(
             (AuthenticationAdapterException::methodNotExists('getPassword', $class::class))->getMessage()
         );
+        $this->expectExceptionMessage(
+            (AuthenticationAdapterException::methodNotExists('isDeleted', $class::class))->getMessage()
+        );
 
         $adapter = new AuthenticationAdapter($repository, $this->getConfig($class));
 

@@ -26,6 +26,7 @@ use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
 use Mezzio\Template\TemplateRendererInterface;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 use function date;
 use function file_exists;
@@ -74,7 +75,13 @@ class UserService implements UserServiceInterface
      */
     public function findByUuid(string $uuid): ?User
     {
-        return $this->userRepository->findByUuid($uuid);
+        $user = $this->userRepository->findByUuid($uuid);
+
+        if (! $user instanceof User || $user->isDeleted()) {
+            return null;
+        }
+
+        return $user;
     }
 
     /**
@@ -286,7 +293,8 @@ class UserService implements UserServiceInterface
         }
 
         $user = $this->userRepository->findOneBy($params);
-        if ($user->isDeleted()) {
+
+        if (! $user instanceof User || $user->isDeleted()) {
             return null;
         }
 
@@ -323,11 +331,18 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        return $this->userRepository->findByResetPasswordHash($hash);
+        $user = $this->userRepository->findByResetPasswordHash($hash);
+
+        if (! $user instanceof User || $user->isDeleted()) {
+            return null;
+        }
+
+        return $user;
     }
 
     /**
      * @throws MailException
+     * @throws TransportExceptionInterface
      */
     public function sendResetPasswordCompletedMail(User $user): bool
     {
