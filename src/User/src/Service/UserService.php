@@ -75,13 +75,7 @@ class UserService implements UserServiceInterface
      */
     public function findByUuid(string $uuid): ?User
     {
-        $user = $this->userRepository->findByUuid($uuid);
-
-        if (! $user instanceof User || $user->isDeleted()) {
-            return null;
-        }
-
-        return $user;
+        return $this->userRepository->findByUuid($uuid);
     }
 
     /**
@@ -182,11 +176,11 @@ class UserService implements UserServiceInterface
 
     public function deleteUser(User $user): User
     {
-        $user->setStatus(UserStatusEnum::Deleted);
         $placeholder = $this->getAnonymousPlaceholder();
 
         // make user anonymous
         $user
+            ->setStatus(UserStatusEnum::Deleted)
             ->setIdentity($placeholder . $this->config['userAnonymizeAppend'])
             ->getDetail()
             ->setFirstName($placeholder)
@@ -331,13 +325,7 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        $user = $this->userRepository->findByResetPasswordHash($hash);
-
-        if (! $user instanceof User || $user->isDeleted()) {
-            return null;
-        }
-
-        return $user;
+        return $this->userRepository->findByResetPasswordHash($hash);
     }
 
     /**
