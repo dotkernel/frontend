@@ -44,7 +44,7 @@ class ProfileDeleteForm extends Form
                 'title'       => 'Delete account',
             ],
             'options'    => [
-                'label'              => 'I want to delete account',
+                'label'              => 'I want to delete my account',
                 'use_hidden_element' => false,
                 'checked_value'      => (string) User::IS_DELETED_YES,
                 'unchecked_value'    => (string) User::IS_DELETED_NO,

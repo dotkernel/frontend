@@ -96,18 +96,13 @@ class AccountController extends AbstractActionController
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
-        if ($user->getIsDeleted() === User::IS_DELETED_YES) {
-            $this->messenger->addError(Message::USER_ALREADY_DEACTIVATED, 'user-login');
-            return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
-        }
-
         if (! $user->isPending()) {
             $this->messenger->addError(Message::USER_UNREGISTER_STATUS, 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
         }
 
         try {
-            $this->userService->updateUser($user, ['isDeleted' => User::IS_DELETED_YES]);
+            $this->userService->deleteUser($user);
         } catch (Exception $exception) {
             $this->messenger->addError($exception->getMessage(), 'user-login');
             return new RedirectResponse($this->router->generateUri('user', ['action' => 'login']));
@@ -423,10 +418,8 @@ class AccountController extends AbstractActionController
         if (RequestMethodInterface::METHOD_POST === $this->request->getMethod()) {
             $form->setData($this->request->getParsedBody());
             if ($form->isValid()) {
-                /** @var array $userData */
-                $userData = $form->getData();
                 try {
-                    $this->userService->updateUser($user, $userData);
+                    $this->userService->deleteUser($user);
                     $this->userService->deleteAvatar($user);
                 } catch (Exception $e) {
                     $this->messenger->addData('shouldRebind', true);

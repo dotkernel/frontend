@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Frontend\User\Adapter;
 
 use Doctrine\ORM\EntityRepository;
+use Frontend\App\Common\Message;
 use Frontend\User\Entity\UserIdentity;
 use Frontend\User\Exception\AuthenticationAdapterException;
 use Laminas\Authentication\Adapter\AbstractAdapter;
@@ -36,6 +37,16 @@ class AuthenticationAdapter extends AbstractAdapter implements AdapterInterface
                 Result::FAILURE_IDENTITY_NOT_FOUND,
                 null,
                 [$this->config['messages']['not_found']]
+            );
+        }
+
+        $methodName = 'isDeleted';
+        $this->checkMethod($identityClass, $methodName);
+        if ($identityClass->$methodName()) {
+            return new Result(
+                Result::FAILURE_IDENTITY_NOT_FOUND,
+                null,
+                [Message::ACCOUNT_NOT_FOUND]
             );
         }
 

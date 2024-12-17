@@ -11,6 +11,7 @@ use Dot\DependencyInjection\Attribute\Entity;
 use Exception;
 use Frontend\User\Entity\User;
 use Frontend\User\Entity\UserRememberMe;
+use Frontend\User\Enum\UserStatusEnum;
 use Ramsey\Uuid\Uuid;
 
 use function is_string;
@@ -36,6 +37,9 @@ class UserRepository extends EntityRepository
             ->where("user.uuid = :uuid")
             ->setParameter('uuid', $uuid)
             ->setMaxResults(1);
+
+        //ignore deleted users
+        $qb->andWhere('user.status != :status')->setParameter('status', UserStatusEnum::Deleted);
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
 
@@ -72,7 +76,10 @@ class UserRepository extends EntityRepository
             $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->select(['user', 'resetPasswords'])->from(User::class, 'user')
                 ->leftJoin('user.resetPasswords', 'resetPasswords')
-                ->andWhere('resetPasswords.hash = :hash')->setParameter('hash', $hash);
+                ->andWhere('resetPasswords.hash = :hash')
+                ->setParameter('hash', $hash)
+                ->andWhere('user.status != :deleted')
+                ->setParameter('deleted', UserStatusEnum::Deleted);
 
             return $qb->getQuery()->useQueryCache(true)->getSingleResult();
         } catch (Exception) {
@@ -95,7 +102,9 @@ class UserRepository extends EntityRepository
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
             ->where('user_remember_me.rememberMeToken = :token')
-            ->setParameter('token', $token);
+            ->setParameter('token', $token)
+            ->andWhere('user.status != :deleted')
+            ->setParameter('deleted', UserStatusEnum::Deleted);
 
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }
@@ -111,7 +120,9 @@ class UserRepository extends EntityRepository
             ->where('user_remember_me.user = :uuid')
             ->setParameter('uuid', $user->getUuid()->getBytes())
             ->andWhere('user_remember_me.userAgent = :userAgent')
-            ->setParameter('userAgent', $userAgent);
+            ->setParameter('userAgent', $userAgent)
+            ->andWhere('user.status != :deleted')
+            ->setParameter('deleted', UserStatusEnum::Deleted);
 
         return $qb->getQuery()->useQueryCache(true)->getOneOrNullResult();
     }

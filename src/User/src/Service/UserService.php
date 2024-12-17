@@ -26,6 +26,7 @@ use Frontend\User\Repository\UserRoleRepository;
 use Laminas\Diactoros\UploadedFile;
 use Mezzio\Template\TemplateRendererInterface;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 use function date;
 use function file_exists;
@@ -138,22 +139,6 @@ class UserService implements UserServiceInterface
             $user->setStatus($data['status']);
         }
 
-        if (isset($data['isDeleted'])) {
-            $user->setIsDeleted((bool) $data['isDeleted']);
-
-            if ((bool) $data['isDeleted'] === true) {
-                // make user anonymous
-                $user->setIdentity(
-                    sprintf('anonymous%s@%s', date('dmYHis'), $this->config['userAnonymizeAppend'])
-                );
-                $userDetails = $user->getDetail();
-                $userDetails->setFirstName('anonymous' . date('dmYHis'));
-                $userDetails->setLastName('anonymous' . date('dmYHis'));
-
-                $user->setDetail($userDetails);
-            }
-        }
-
         if (isset($data['hash'])) {
             $user->setHash($data['hash']);
         }
@@ -187,6 +172,25 @@ class UserService implements UserServiceInterface
         }
 
         return $this->userRepository->saveUser($user);
+    }
+
+    public function deleteUser(User $user): User
+    {
+        $placeholder = $this->getAnonymousPlaceholder();
+
+        // make user anonymous
+        $user
+            ->setStatus(UserStatusEnum::Deleted)
+            ->setIdentity($placeholder . $this->config['userAnonymizeAppend'])
+            ->getDetail()
+            ->setFirstName($placeholder)
+            ->setLastName($placeholder);
+        return $this->userRepository->saveUser($user);
+    }
+
+    private function getAnonymousPlaceholder(): string
+    {
+        return 'anonymous' . date('dmYHis');
     }
 
     protected function createAvatar(User $user, UploadedFile $uploadedFile): UserAvatar
@@ -282,7 +286,13 @@ class UserService implements UserServiceInterface
             return null;
         }
 
-        return $this->userRepository->findOneBy($params);
+        $user = $this->userRepository->findOneBy($params);
+
+        if (! $user instanceof User || $user->isDeleted()) {
+            return null;
+        }
+
+        return $user;
     }
 
     public function activateUser(User $user): User
@@ -320,6 +330,7 @@ class UserService implements UserServiceInterface
 
     /**
      * @throws MailException
+     * @throws TransportExceptionInterface
      */
     public function sendResetPasswordCompletedMail(User $user): bool
     {

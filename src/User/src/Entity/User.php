@@ -45,9 +45,6 @@ class User extends AbstractEntity implements UserInterface
     #[ORM\Column(type: 'user_status_enum', options: ['default' => UserStatusEnum::Pending])]
     protected UserStatusEnum $status = UserStatusEnum::Pending;
 
-    #[ORM\Column(name: 'isDeleted', type: 'boolean')]
-    protected bool $isDeleted = self::IS_DELETED_NO;
-
     #[ORM\Column(name: 'hash', type: 'string', length: 64, unique: true, nullable: false)]
     protected string $hash;
 
@@ -138,18 +135,6 @@ class User extends AbstractEntity implements UserInterface
         return $this;
     }
 
-    public function getIsDeleted(): bool
-    {
-        return $this->isDeleted;
-    }
-
-    public function setIsDeleted(bool $isDeleted): self
-    {
-        $this->isDeleted = $isDeleted;
-
-        return $this;
-    }
-
     public function getHash(): string
     {
         return $this->hash;
@@ -213,11 +198,9 @@ class User extends AbstractEntity implements UserInterface
         return $this->status === UserStatusEnum::Pending;
     }
 
-    public function markAsDeleted(): self
+    public function isDeleted(): bool
     {
-        $this->isDeleted = self::IS_DELETED_YES;
-
-        return $this;
+        return $this->status === UserStatusEnum::Deleted;
     }
 
     public function getName(): string

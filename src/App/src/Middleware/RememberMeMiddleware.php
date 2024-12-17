@@ -46,7 +46,7 @@ class RememberMeMiddleware implements MiddlewareInterface
                     $hash === $rememberUser->getRememberMeToken() &&
                     $rememberUser->getUserAgent() === $deviceType &&
                     $rememberUser->getExpireDate() > new DateTimeImmutable('now') &&
-                    $user->getIsDeleted() === false
+                    $user->isDeleted() === false
                 ) {
                     $userIdentity = UserIdentity::fromEntity($user);
                     $this->authenticationService->getStorage()->write($userIdentity);
