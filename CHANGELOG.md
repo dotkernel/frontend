@@ -1,5 +1,37 @@
 # Changelog
 
+## 5.1.0 - 2024-12-17
+
+### Changed
+
+* Issue [#501](https://github.com/dotkernel/frontend/issues/501): Home page cleanup by [@alexmerlin](https://github.com/alexmerlin) in [#502](https://github.com/dotkernel/frontend/pull/502)
+* Issue [#505](https://github.com/dotkernel/frontend/issues/505): Replaced `Psalm` with `PHPStan` by [@MarioRadu](https://github.com/MarioRadu) in [#506](https://github.com/dotkernel/frontend/pull/506)
+* Issue [#515](https://github.com/dotkernel/frontend/issues/515): Updated `PHPStan` command by [@bidi47](https://github.com/bidi47) in [#516](https://github.com/dotkernel/frontend/pull/516)
+* Issue [#509](https://github.com/dotkernel/frontend/issues/509): Updated `dotkernel/dot-mail` package by [@MarioRadu](https://github.com/MarioRadu) in [#518](https://github.com/dotkernel/frontend/pull/518)
+* Issue [#524](https://github.com/dotkernel/frontend/issues/524): Updated `laminas/laminas-coding-standard` to latest version by [@MarioRadu](https://github.com/MarioRadu) in [#525](https://github.com/dotkernel/frontend/pull/525)
+* Issue [#526](https://github.com/dotkernel/frontend/issues/526): Bumped `dotkernel/dot-mail` version to 5.1 by [@MarioRadu](https://github.com/MarioRadu) in [#527](https://github.com/dotkernel/frontend/pull/527)
+* Update qodana_code_quality.yml by [@arhimede](https://github.com/arhimede) in [#503](https://github.com/dotkernel/frontend/pull/503)
+
+### Added
+
+* Issue [#507](https://github.com/dotkernel/frontend/issues/507): Implemented enums in database by [@alexmerlin](https://github.com/alexmerlin) in [#508](https://github.com/dotkernel/frontend/pull/508)
+* Issue [#513](https://github.com/dotkernel/frontend/issues/513): Added static analysis file by [@MarioRadu](https://github.com/MarioRadu) in [#514](https://github.com/dotkernel/frontend/pull/514)
+* Issue [#523](https://github.com/dotkernel/frontend/issues/523): Add the status "deleted" to the user table by [@bidi47](https://github.com/bidi47) in [#529](https://github.com/dotkernel/frontend/pull/529)
+* Issue [#526](https://github.com/dotkernel/frontend/issues/526): Composer post install script by [@MarioRadu](https://github.com/MarioRadu) in [#528](https://github.com/dotkernel/frontend/pull/528)
+
+### Deprecated
+
+* Nothing
+
+### Removed
+
+* Nothing
+
+### Fixed
+
+* Issue [#520](https://github.com/dotkernel/frontend/issues/520): Restricted `Qodana` to supported PHP versions by [@alexmerlin](https://github.com/alexmerlin) in [#521](https://github.com/dotkernel/frontend/pull/521)
+* Issue [#526](https://github.com/dotkernel/frontend/issues/526): Environment composer post install script bug fix by [@MarioRadu](https://github.com/MarioRadu) in [#530](https://github.com/dotkernel/frontend/pull/530)
+
 ## 5.0.1 - 2024-10-03
 
 ### Changed
