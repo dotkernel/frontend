@@ -31,18 +31,18 @@ Documentation is available at: https://docs.dotkernel.org/frontend-documentation
 [![Qodana](https://github.com/dotkernel/frontend/actions/workflows/qodana_code_quality.yml/badge.svg)](https://github.com/dotkernel/frontend/actions/workflows/qodana_code_quality.yml)
 [![PHPStan](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml/badge.svg?branch=5.0)](https://github.com/dotkernel/frontend/actions/workflows/static-analysis.yml)
 
-## Installing DotKernel `frontend`
+## Installing Dotkernel `frontend`
 
-- [Installing DotKernel `frontend`](#installing-dotkernel-frontend)
+- [Installing Dotkernel `frontend`](#installing-dotkernel-frontend)
     - [Composer](#composer)
-    - [Choose a destination path for DotKernel `frontend` installation](#choosing-an-installation-path-for-dotkernel-frontend)
-    - [Installing DotKernel Frontend](#installing-dotkernel-frontend)
+    - [Choose a destination path for Dotkernel `frontend` installation](#choosing-an-installation-path-for-dotkernel-frontend)
+    - [Installing Dotkernel Frontend](#installing-dotkernel-frontend)
     - [Configuration - First Run](#configuration---first-run)
     - [Testing (Running)](#running-the-application)
 
 ## Tools
 
-DotKernel Frontend interface has been tested with npm v10.0.4 and Node.js v20.11.0.
+Dotkernel Frontend interface has been tested with npm v10.0.4 and Node.js v20.11.0.
 
 ### Composer
 
@@ -53,16 +53,16 @@ Installation instructions:
 
 > If you have never used composer before make sure you read the [`Composer Basic Usage`](https://getcomposer.org/doc/01-basic-usage.md) section in Composer's documentation
 
-## Choosing an installation path for DotKernel `frontend`
+## Choosing an installation path for Dotkernel `frontend`
 
 Example:
 
 - absolute path `/var/www/dk`
 - or relative path `dk` (equivalent with `./dk`)
 
-## Installing DotKernel `frontend`
+## Installing Dotkernel `frontend`
 
-After you choose the path for DotKernel Frontend (`dk` will be used for the remainder of this example), let's move onto installation.
+After you choose the path for Dotkernel Frontend (`dk` will be used for the remainder of this example), let's move onto installation.
 
 ### Note
 
@@ -77,7 +77,7 @@ Problem 1
 
 To enable an extension, remove the semicolon (;) in front of it.
 
-#### Installing DotKernel `frontend` using git clone
+#### Installing Dotkernel `frontend` using git clone
 
 This method ensures that the default branch is installed, even if it is not released. Run the following command:
 
@@ -100,7 +100,7 @@ Please select which config file you wish to inject 'Laminas\Diactoros\ConfigProv
   Make your selection (default is 1):
 ```
 
-Simply select `[0] Do not inject`, because DotKernel includes its own configProvider which already contains the prompted configurations.
+Simply select `[0] Do not inject`, because Dotkernel includes its own configProvider which already contains the prompted configurations.
 
 If you choose `[1] config/config.php` Laminas's `ConfigProvider` from `session` will be injected.
 
@@ -137,7 +137,7 @@ Also feel free to add as many CCs as you want under the `contact` => `message_re
 
 ## Configuration - reCAPTCHA (optional)
 
-reCAPTCHA is used to prevent abusive activities on your website. DotKernel frontend uses the Google reCAPTCHA for its contact us form.
+reCAPTCHA is used to prevent abusive activities on your website. Dotkernel frontend uses the Google reCAPTCHA for its contact us form.
 You must first generate a `siteKey` and `secretKey` in your Google account - [Google reCAPTCHA](https://www.google.com/recaptcha/admin)
 
 Update the `recaptcha` array in `config/autoload/local.php` with the `siteKey` and `secretKey` from Google reCAPTCHA.
@@ -219,7 +219,7 @@ We recommend running your applications in WSL:
 - set `$baseUrl` in **config/autoload/local.php** to the address of the virtualhost
 - run the application by opening the virtualhost address in your browser
 
-You should see the `DotKernel Frontend` welcome page.
+You should see the `Dotkernel Frontend` welcome page.
 
 **NOTE:**
 

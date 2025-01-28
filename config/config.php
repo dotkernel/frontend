@@ -31,7 +31,7 @@ $aggregator = new ConfigAggregator([
             return [];
         },
 
-    // DotKernel packages
+    // Dotkernel packages
     \Dot\Session\ConfigProvider::class,
     \Dot\Mail\ConfigProvider::class,
     \Laminas\Form\ConfigProvider::class,

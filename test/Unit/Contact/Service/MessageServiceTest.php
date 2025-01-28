@@ -63,7 +63,7 @@ class MessageServiceTest extends TestCase
                     'default' => [
                         'message_options' => [
                             'from'      => 'dotkernel@test.com',
-                            'from_name' => 'DotKernel',
+                            'from_name' => 'Dotkernel',
                         ],
                     ],
                 ],
@@ -72,7 +72,7 @@ class MessageServiceTest extends TestCase
 
         $this->assertTrue($service->processMessage([
             'email'   => 'test@dotkernel.com',
-            'name'    => 'DotKernel',
+            'name'    => 'Dotkernel',
             'subject' => 'test',
             'message' => 'test message',
         ]));

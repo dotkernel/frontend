@@ -387,7 +387,7 @@ class AuthenticationAdapterTest extends TestCase
         $detail = (new UserDetail())
             ->setUser($class)
             ->setFirstName('Test')
-            ->setLastName('DotKernel');
+            ->setLastName('Dotkernel');
 
         $class
             ->addRole($role)

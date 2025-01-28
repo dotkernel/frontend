@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 $app = [
-    'name' => 'DotKernel frontend V3',
+    'name' => 'Dotkernel frontend V5',
 ];
 
 return [
