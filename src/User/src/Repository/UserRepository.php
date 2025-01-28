@@ -34,7 +34,6 @@ class UserRepository extends EntityRepository
         $qb
             ->select('user')
             ->from(User::class, 'user')
-            ->join('user_remember_me.user', 'user')
             ->where("user.uuid = :uuid")
             ->setParameter('uuid', $uuid)
             ->setMaxResults(1);
