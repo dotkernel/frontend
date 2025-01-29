@@ -47,6 +47,7 @@ return [
     'contact'             => [
         'notification_receivers' => [],
         'message_receivers'      => [
+            'name' => 'Dotkernel Team',
             'to' => [
                 'tech@example.com',
             ],

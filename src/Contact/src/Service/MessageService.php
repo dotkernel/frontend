@@ -63,11 +63,11 @@ class MessageService implements MessageServiceInterface
         );
         $this->mailService->getMessage()->addTo(
             $this->config['contact']['message_receivers']['to'],
-            'Dotkernel Team'
+            $this->config['contact']['message_receivers']['name']
         );
         $this->mailService->getMessage()->addCC(
             $this->config['contact']['message_receivers']['cc'],
-            'Dotkernel Team'
+            $this->config['contact']['message_receivers']['name']
         );
         $this->mailService->getMessage()->setReplyTo($message->getEmail(), $message->getName());
 

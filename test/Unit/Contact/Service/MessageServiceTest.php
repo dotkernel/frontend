@@ -55,8 +55,9 @@ class MessageServiceTest extends TestCase
             [
                 'contact'  => [
                     'message_receivers' => [
-                        'to' => 'test@dotkernel.com',
-                        'cc' => 'bcc@dotkernel.com',
+                        'to'   => 'test@dotkernel.com',
+                        'cc'   => 'bcc@dotkernel.com',
+                        'name' => 'Dotkernel Team',
                     ],
                 ],
                 'dot_mail' => [
