@@ -48,10 +48,10 @@ return [
         'notification_receivers' => [],
         'message_receivers'      => [
             'name' => 'Dotkernel Team',
-            'to' => [
+            'to'   => [
                 'tech@example.com',
             ],
-            'cc' => [
+            'cc'   => [
                 'tech@example.com',
             ],
         ],
