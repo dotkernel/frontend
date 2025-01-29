@@ -101,6 +101,7 @@ class UserRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
+            ->join('user_remember_me.user', 'user')
             ->where('user_remember_me.rememberMeToken = :token')
             ->setParameter('token', $token)
             ->andWhere('user.status != :deleted')
@@ -117,6 +118,7 @@ class UserRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('user_remember_me')
             ->from(UserRememberMe::class, 'user_remember_me')
+            ->join('user_remember_me.user', 'user')
             ->where('user_remember_me.user = :uuid')
             ->setParameter('uuid', $user->getUuid()->getBytes())
             ->andWhere('user_remember_me.userAgent = :userAgent')
