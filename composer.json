@@ -1,7 +1,7 @@
 {
     "name": "dotkernel/frontend",
     "type": "project",
-    "description": "DotKernel Frontend Application",
+    "description": "Dotkernel Frontend Application",
     "license": "MIT",
     "homepage": "https://github.com/dotkernel/frontend",
     "keywords": [
@@ -13,7 +13,7 @@
     ],
     "authors": [
         {
-            "name": "DotKernel Team",
+            "name": "Dotkernel Team",
             "email": "team@dotkernel.com"
         }
     ],

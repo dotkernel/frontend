@@ -27,7 +27,7 @@ $databases = [
 
 return [
     'application'         => [
-        'name' => 'DotKernel',
+        'name' => 'Dotkernel',
         'url'  => $baseUrl,
     ],
     'databases'           => $databases,

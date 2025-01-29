@@ -8,8 +8,8 @@
     {{ messagesPartial('partial::alerts', {}, null, 'page-home') }}
     <div class="page-intro home-intro">
         <div class="container">
-            <p class="welcome">Dotkernel is a collection of</p>
-            <h1>PSR-7 Middleware applications</h1>
+            <p class="welcome">Dotkernel Frontend is a</p>
+            <h1>PSR-7 Middleware skeleton</h1>
             <p>Built on top of the Mezzio microframework.<br/>Composed of a set of custom and extended Laminas components.</p>
         </div>
         <div class="arrow_down">
@@ -30,7 +30,11 @@
                         We have chosen <b>Laminas Service Manager</b> as our default implementation.
                     </p>
                     <p>
-                        Get Started with <a href="https://github.com/laminas/laminas-servicemanager" target="_blank" class="text-decoration-none">Laminas Service Manager</a>
+                        Get Started with
+                        <br>
+                        <a href="https://github.com/php-fig/container" target="_blank" class="text-decoration-none">PSR-11</a>
+                        and
+                        <a href="https://github.com/laminas/laminas-servicemanager" target="_blank" class="text-decoration-none">Laminas Service Manager</a>
                     </p>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -39,10 +43,14 @@
                     </h3>
                     <p>
                         By default, no middleware in Laminas is templated.
-                        For Dotkernel's Light application, we have chosen <b>Twig</b> as the default templating engine.
+                        For Dotkernel's Frontend application, we have chosen <b>Twig</b> as the default templating engine.
                     </p>
                     <p>
-                        Get started with <a href="https://twig.symfony.com/" target="_blank" class="text-decoration-none">Twig</a>
+                        Get started with
+                        <br>
+                        <a href="https://twig.symfony.com/" target="_blank" class="text-decoration-none">Twig</a>
+                        and
+                        <a href="https://github.com/dotkernel/dot-twigrenderer" target="_blank" class="text-decoration-none">Dotkernel TwigRenderer</a>
                     </p>
                 </div>
 
@@ -54,7 +62,9 @@
                         Among the various routing implementations compatible with Expressive, we have chosen <b>FastRoute</b> as Dotkernel's default routing library.
                     </p>
                     <p>
-                        Get started with <a href="https://github.com/nikic/FastRoute" target="_blank" class="text-decoration-none">FastRoute</a>
+                        Get started with
+                        <br>
+                        <a href="https://github.com/nikic/FastRoute" target="_blank" class="text-decoration-none">FastRoute</a>
                     </p>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -65,7 +75,11 @@
                         Laminas, and consequently Dotkernel, is built around the PSR-7 standard.<br />It uses <b>Laminas Diactoros</b> as the PSR-7 implementation.
                     </p>
                     <p>
-                        Get started with <a href="https://github.com/php-fig/http-message" target="_blank" class="text-decoration-none">PSR-7</a> and <a href="https://github.com/laminas/laminas-diactoros" target="_blank" class="text-decoration-none">Diactoros</a>
+                        Get started with
+                        <br>
+                        <a href="https://github.com/php-fig/http-message" target="_blank" class="text-decoration-none">PSR-7</a>
+                        and
+                        <a href="https://github.com/laminas/laminas-diactoros" target="_blank" class="text-decoration-none">Laminas Diactoros</a>
                     </p>
                 </div>
             </div>
@@ -156,7 +170,7 @@
                                     <ul class="list-unstyled list-group list-group-flush">
                                         <li class="list-group-item">
                                             <a href="https://github.com/dotkernel/dot-mail" target="_blank" class="text-decoration-none">dot-mail</a>
-                                            (<a href="https://docs.laminas.dev/laminas-mail/" target="_blank" class="text-decoration-none">laminas-mail</a>): send emails using different transport providers
+                                            (<a href="https://symfony.com/doc/current/mailer.html" target="_blank" class="text-decoration-none">symfony/mailer</a>): send emails using different transport providers
                                         </li>
                                     </ul>
                                 </div>
