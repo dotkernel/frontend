@@ -66,8 +66,8 @@ class MessageService implements MessageServiceInterface
         $contactRecipients = $this->config['contact']['message_recipients'];
 
         $this->mailService->getMessage()->setFrom(
-            $contactSender['address'] ?: $messageConfig['from'],
-            $contactSender['name'] ?: $messageConfig['from_name']
+            $contactSender['from_email'] ?: $messageConfig['from'],
+            $contactSender['from_name'] ?: $messageConfig['from_name']
         );
 
         $this->mailService->getMessage()->setTo(

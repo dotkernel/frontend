@@ -47,8 +47,8 @@ return [
     'contact'             => [
         'subject'            => 'Dotkernel Contact',
         'message_sender'     => [
-            'name'    => '',
-            'address' => '',
+            'from_name'  => '',
+            'from_email' => '',
         ],
         'message_recipients' => [
             'name' => 'Dotkernel Team',
