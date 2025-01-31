@@ -1,3 +1,4 @@
+{% set extraAttributes = '' %}
 {% for page in container %}
     {% if navigation.isAllowed(page) %}
         <li class="{% if isRoute(page.getOption('uri')) %}active{% endif %}">
