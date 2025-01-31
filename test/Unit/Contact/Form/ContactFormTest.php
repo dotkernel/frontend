@@ -22,7 +22,6 @@ class ContactFormTest extends TestCase
         $this->formHasElements(new ContactForm(), [
             'email',
             'name',
-            'subject',
             'message',
             'contactCsrf',
         ]);
@@ -33,7 +32,6 @@ class ContactFormTest extends TestCase
         $this->formHasInputFilter((new ContactForm())->getInputFilter(), [
             'email',
             'name',
-            'subject',
             'message',
             'contactCsrf',
         ]);

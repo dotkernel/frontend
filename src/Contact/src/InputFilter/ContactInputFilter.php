@@ -53,20 +53,6 @@ class ContactInputFilter extends InputFilter
             ], true);
         $this->add($name);
 
-        $subject = new Input('subject');
-        $subject->setRequired(false);
-        $subject->getFilterChain()
-            ->attachByName(StringTrim::class)
-            ->attachByName(StripTags::class);
-        $subject->getValidatorChain()
-            ->attachByName(NotEmpty::class, [
-                'message' => '<b>Subject</b> is required and cannot be empty',
-            ], true)
-            ->attachByName(StringLength::class, [
-                'max' => 500,
-            ], true);
-        $this->add($subject);
-
         $message = new Input('message');
         $message->setRequired(true);
         $message->getFilterChain()
