@@ -36,6 +36,7 @@ class ConfigProvider
                 RecaptchaService::class               => AttributedServiceFactory::class,
                 CookieService::class                  => AttributedServiceFactory::class,
                 RememberMeMiddleware::class           => AttributedServiceFactory::class,
+                Twig\Extension\RouteExtension::class  => AttributedServiceFactory::class,
             ],
             'aliases'   => [
                 EntityManager::class          => 'doctrine.entity_manager.orm_default',

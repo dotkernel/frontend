@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Dot\ErrorHandler\ErrorHandlerInterface;
+use Dot\Navigation\NavigationMiddleware;
 use Dot\Rbac\Guard\Middleware\ForbiddenHandler;
 use Dot\Rbac\Guard\Middleware\RbacGuardMiddleware;
 use Dot\ResponseHeader\Middleware\ResponseHeaderMiddleware;
@@ -77,6 +78,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(AuthMiddleware::class);
     $app->pipe(ForbiddenHandler::class);
     $app->pipe(RbacGuardMiddleware::class);
+    $app->pipe(NavigationMiddleware::class);
 
     // Register the dispatch middleware in the middleware pipeline
     $app->pipe(DispatchMiddleware::class);
