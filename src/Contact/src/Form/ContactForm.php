@@ -8,7 +8,6 @@ use Fig\Http\Message\RequestMethodInterface;
 use Frontend\Contact\InputFilter\ContactInputFilter;
 use Laminas\Form\Element\Csrf;
 use Laminas\Form\Element\Email;
-use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Element\Textarea;
 use Laminas\Form\Form;
@@ -60,18 +59,6 @@ class ContactForm extends Form
                 'class'       => 'form-control',
             ],
             'type'       => Text::class,
-        ]);
-
-        $this->add([
-            'name'       => 'subject',
-            'options'    => [
-                'label' => 'Subject',
-            ],
-            'attributes' => [
-                'placeholder' => 'Subject...',
-                'class'       => 'form-control',
-            ],
-            'type'       => Hidden::class,
         ]);
 
         $this->add([

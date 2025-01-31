@@ -44,7 +44,7 @@ class MessageServiceTest extends TestCase
         $result            = $this->createMock(ResultInterface::class);
         $mail              = $this->createMock(Email::class);
 
-        $mail->expects($this->once())->method('addFrom')->willReturn($mail);
+        $mail->expects($this->once())->method('setFrom')->willReturn($mail);
         $result->expects($this->once())->method('isValid')->willReturn(true);
         $mailService->expects($this->once())->method('send')->willReturn($result);
         $mailService->expects($this->any())->method('getMessage')->willReturn($mail);
@@ -54,10 +54,16 @@ class MessageServiceTest extends TestCase
             $template,
             [
                 'contact'  => [
-                    'message_receivers' => [
-                        'to'   => 'test@dotkernel.com',
-                        'cc'   => 'bcc@dotkernel.com',
+                    'subject'            => 'test',
+                    'message_sender'     => [
+                        'name'    => 'Contact',
+                        'address' => 'dotkernelContact@test.com',
+                    ],
+                    'message_recipients' => [
                         'name' => 'Dotkernel Team',
+                        'to'   => 'test@dotkernel.com',
+                        'cc'   => 'cc@dotkernel.com',
+                        'bcc'  => 'bcc@dotkernel.com',
                     ],
                 ],
                 'dot_mail' => [

@@ -34,10 +34,13 @@ class MessageService implements MessageServiceInterface
 
     public function processMessage(array $data): bool
     {
+        $subject = $this->config['contact']['subject'] ?? $this->config['dot_mail']['message_options']['subject']
+            ?: $this->config['application']['name'] . ' Contact';
+
         $message = new Message(
             $data['email'],
             $data['name'],
-            $data['subject'],
+            $subject,
             $data['message'],
             Message::PLATFORM_WEBSITE
         );
@@ -57,18 +60,28 @@ class MessageService implements MessageServiceInterface
         );
 
         $this->mailService->setSubject($message->getSubject());
-        $this->mailService->getMessage()->addFrom(
-            $this->config['dot_mail']['default']['message_options']['from'],
-            $this->config['dot_mail']['default']['message_options']['from_name']
+
+        $messageConfig     = $this->config['dot_mail']['default']['message_options'];
+        $contactSender     = $this->config['contact']['message_sender'];
+        $contactRecipients = $this->config['contact']['message_recipients'];
+
+        $this->mailService->getMessage()->setFrom(
+            $contactSender['address'] ?: $messageConfig['from'],
+            $contactSender['name'] ?: $messageConfig['from_name']
         );
-        $this->mailService->getMessage()->addTo(
-            $this->config['contact']['message_receivers']['to'],
-            $this->config['contact']['message_receivers']['name']
+
+        $this->mailService->getMessage()->setTo(
+            $contactRecipients['to'] ?: $messageConfig['to'],
+            $contactRecipients['name'] ?: null
         );
-        $this->mailService->getMessage()->addCC(
-            $this->config['contact']['message_receivers']['cc'],
-            $this->config['contact']['message_receivers']['name']
+
+        $this->mailService->getMessage()->setCc(
+            $contactRecipients['cc'] ?: $messageConfig['cc'],
+            $contactRecipients['name'] ?: null
         );
+
+        $this->mailService->getMessage()->setBcc($contactRecipients['bcc'] ?: $messageConfig['bcc']);
+
         $this->mailService->getMessage()->setReplyTo($message->getEmail(), $message->getName());
 
         return $this->mailService->send()->isValid();

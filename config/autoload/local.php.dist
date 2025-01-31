@@ -45,13 +45,16 @@ return [
         ],
     ],
     'contact'             => [
-        'notification_receivers' => [],
-        'message_receivers'      => [
+        'subject'            => 'Dotkernel Contact',
+        'message_recipients' => [
             'name' => 'Dotkernel Team',
             'to'   => [
                 'tech@example.com',
             ],
             'cc'   => [
+                'tech@example.com',
+            ],
+            'bcc'  => [
                 'tech@example.com',
             ],
         ],

@@ -65,7 +65,7 @@ class ContactController extends AbstractActionController
                 $this->messenger->addError('Missing recaptcha');
                 return new RedirectResponse($request->getUri(), 303);
             }
-            $data['subject'] = $data['subject'] ?: $this->config['application']['name'] . ' Contact';
+
             $form->setData($data);
             if ($form->isValid()) {
                 /** @var array $dataForm */
