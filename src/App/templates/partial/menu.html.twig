@@ -1,0 +1,27 @@
+{% set extraAttributes = '' %}
+{% if page is defined %}
+<ul class="navbar-nav mr-auto">
+{% endif %}
+    {% for page in container %}
+        {% if navigation.isAllowed(page) %}
+            {% if page.hasChildren() %}
+                <li class="nav-item dropdown">
+                    <a {% autoescape false %}{{ pageAttributes(page) ~ extraAttributes }}{% endautoescape %} id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ page.getOption('label') }}</a>
+                    <div class="dropdown-menu" aria-labelledby="pageDropdown">
+                        {{ navigationPartial(page, 'partial::menu') }}
+                    </div>
+                </li>
+            {% else %}
+                {% if page.hasParent() %}
+                    <a {% autoescape false %}{{ pageAttributes(page) ~ extraAttributes }}{% endautoescape %} href="{{ navigation.getHref(page) }}" {% autoescape false %}{{ pageAttributes(page) ~ extraAttributes }}{% endautoescape %}>{{ page.getOption('label') }}</a>
+                {% else %}
+                    <li class="nav-item">
+                        <a {% autoescape false %}{{ pageAttributes(page) ~ extraAttributes }}{% endautoescape %} href="{{ navigation.getHref(page) }}" {% autoescape false %}{{ pageAttributes(page) ~ extraAttributes }}{% endautoescape %}>{{ page.getOption('label') }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% if page is defined %}
+</ul>
+{% endif %}

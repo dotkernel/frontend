@@ -42,37 +42,14 @@
 
                         <div class="collapse navbar-collapse" id="navbarHeader">
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="pageDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <div class="dropdown-menu" aria-labelledby="pageDropdown">
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'home'}) }}">Home</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'about-us'}) }}">About Us</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'who-we-are'}) }}">Who We Are</a>
-                                        <a class="dropdown-item" href="{{ url('page', {action: 'premium-content'}) }}">Protected Content</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="https://github.com/dotkernel" target="_blank">Contribute</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('contact', {action: 'form'}) }}">Contact Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="{{ url('page', {action: 'index'}) }}">Disabled</a>
-                                </li>
+                                {{ navigationPartial('left_menu', 'partial::menu') }}
                             </ul>
+
                             <ul class="navbar-nav ms-auto">
                                 {% if hasIdentity() %}
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('account', {action: 'details'}) }}">Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ url('user', {action: 'logout'}) }}">Log out</a>
-                                    </li>
+                                    {{ navigationPartial('user_menu', 'partial::menu') }}
                                 {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('user', {action: 'login'}) }}">Log in</a>
-                                </li>
+                                    {{ navigationPartial('guest_menu', 'partial::menu') }}
                                 {% endif %}
                             </ul>
                         </div>
