@@ -9,11 +9,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\App\Factory\EntityListenerResolverFactory;
+use Frontend\App\Handler\GetIndexRedirectHandler;
 use Frontend\App\Middleware\RememberMeMiddleware;
 use Frontend\App\Resolver\EntityListenerResolver;
 use Frontend\App\Service\CookieService;
 use Frontend\App\Service\CookieServiceInterface;
 use Frontend\App\Service\RecaptchaService;
+use Mezzio\Application;
 use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
 class ConfigProvider
@@ -30,6 +32,11 @@ class ConfigProvider
     public function getDependencies(): array
     {
         return [
+            'delegators' => [
+                Application::class => [
+                    RoutesDelegator::class,
+                ],
+            ],
             'factories' => [
                 'doctrine.entity_manager.orm_default' => EntityManagerFactory::class,
                 EntityListenerResolver::class         => EntityListenerResolverFactory::class,
@@ -37,6 +44,7 @@ class ConfigProvider
                 CookieService::class                  => AttributedServiceFactory::class,
                 RememberMeMiddleware::class           => AttributedServiceFactory::class,
                 Twig\Extension\RouteExtension::class  => AttributedServiceFactory::class,
+                GetIndexRedirectHandler::class  => AttributedServiceFactory::class,
             ],
             'aliases'   => [
                 EntityManager::class          => 'doctrine.entity_manager.orm_default',
@@ -68,7 +76,6 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'app'     => [__DIR__ . '/../templates/app'],
                 'error'   => [__DIR__ . '/../templates/error'],
                 'layout'  => [__DIR__ . '/../templates/layout'],
                 'partial' => [__DIR__ . '/../templates/partial'],

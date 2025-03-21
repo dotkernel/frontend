@@ -6,6 +6,7 @@ namespace Frontend\Page;
 
 use Dot\DependencyInjection\Factory\AttributedServiceFactory;
 use Frontend\Page\Controller\PageController;
+use Frontend\Page\Handler\GetPageViewHandler;
 use Frontend\Page\Service\PageService;
 use Frontend\Page\Service\PageServiceInterface;
 use Mezzio\Application;
@@ -29,7 +30,8 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                PageController::class => AttributedServiceFactory::class,
+                GetPageViewHandler::class => AttributedServiceFactory::class,
+//                PageController::class => AttributedServiceFactory::class,
                 PageService::class    => AttributedServiceFactory::class,
             ],
             'aliases'    => [

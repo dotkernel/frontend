@@ -24,7 +24,9 @@ return [
                                 [
                                     'options'    => [
                                         'label' => 'Home',
-                                        'uri'   => '/home',
+                                        'route' => [
+                                            'route_name' => 'page::home',
+                                        ],
                                     ],
                                     'attributes' => [
                                         'class' => 'dropdown-item',
@@ -33,7 +35,9 @@ return [
                                 [
                                     'options'    => [
                                         'label' => 'About Us',
-                                        'uri'   => '/page/about-us',
+                                        'route' => [
+                                            'route_name' => 'page::about-us',
+                                        ],
                                     ],
                                     'attributes' => [
                                         'class' => 'dropdown-item',
@@ -42,7 +46,9 @@ return [
                                 [
                                     'options'    => [
                                         'label' => 'Who We Are',
-                                        'uri'   => '/page/who-we-are',
+                                        'route' => [
+                                            'route_name' => 'page::who-we-are',
+                                        ],
                                     ],
                                     'attributes' => [
                                         'class' => 'dropdown-item',
@@ -51,7 +57,9 @@ return [
                                 [
                                     'options'    => [
                                         'label' => 'Premium content',
-                                        'uri'   => '/page/premium-content',
+                                        'route' => [
+                                            'route_name' => 'page::premium-content',
+                                        ],
                                     ],
                                     'attributes' => [
                                         'class' => 'dropdown-item',

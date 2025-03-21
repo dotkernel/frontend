@@ -76,4 +76,12 @@ return [
         ],
     ],
     'userAnonymizeAppend' => '',
+    'routes'              => [
+        'page' => [
+            'home'      => 'home',
+            'about-us' => 'about-us',
+            'premium-content' => 'premium-content',
+            'who-we-are' => 'who-we-are',
+        ],
+    ],
 ];

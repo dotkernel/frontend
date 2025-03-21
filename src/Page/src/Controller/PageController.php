@@ -24,6 +24,7 @@ class PageController extends AbstractActionController
         protected RouterInterface $router,
         protected TemplateRendererInterface $template
     ) {
+        exit("DSADASDA");
     }
 
     public function indexAction(): ResponseInterface

@@ -7,6 +7,8 @@ namespace Frontend\User;
 use Fig\Http\Message\RequestMethodInterface;
 use Frontend\User\Controller\AccountController;
 use Frontend\User\Controller\UserController;
+use Frontend\User\Handler\Account\GetActivateAccountHandler;
+use Frontend\User\Handler\Account\GetUnregisterAccountHandler;
 use Mezzio\Application;
 use Psr\Container\ContainerInterface;
 
@@ -23,6 +25,9 @@ class RoutesDelegator
             [RequestMethodInterface::METHOD_GET, RequestMethodInterface::METHOD_POST],
             'user'
         );
+
+        $app->get('/account/activate/{hash}', GetActivateAccountHandler::class, 'account::activate');
+        $app->get('/account/unregister/{hash}', GetUnregisterAccountHandler::class, 'account::unregister');
 
         $app->route(
             '/account[/{action}[/{hash}]]',
