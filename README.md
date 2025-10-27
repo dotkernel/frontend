@@ -19,7 +19,7 @@ Documentation is available at: https://docs.dotkernel.org/frontend-documentation
 ## Badges
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/dotkernel/frontend)
-![PHP from Packagist (specify version)](https://img.shields.io/packagist/php-v/dotkernel/frontend/5.0.0)
+![Packagist Dependency Version](https://img.shields.io/packagist/dependency-v/dotkernel/frontend/php)
 
 [![GitHub issues](https://img.shields.io/github/issues/dotkernel/frontend)](https://github.com/dotkernel/frontend/issues)
 [![GitHub forks](https://img.shields.io/github/forks/dotkernel/frontend)](https://github.com/dotkernel/frontend/network)
