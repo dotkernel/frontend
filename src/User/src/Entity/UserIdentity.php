@@ -53,7 +53,7 @@ class UserIdentity implements UserInterface
         return new self(
             $user->getUuid()->toString(),
             $user->getIdentity(),
-            $user->getRoles()->map(function (UserRole $userRole) {
+            $user->getRoles()->map(static function (UserRole $userRole) {
                 return $userRole->getName();
             })->toArray(),
             $user->getDetail()->getArrayCopy(),

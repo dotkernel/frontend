@@ -73,17 +73,18 @@
         "roave/psr-container-doctrine": "^5.2.2"
     },
     "require-dev": {
+        "boundwize/structarmed": "^0.19.4",
         "filp/whoops": "^2.15.4",
         "laminas/laminas-coding-standard": "^3.0",
         "laminas/laminas-development-mode": "^3.12.0",
         "mezzio/mezzio-tooling": "^2.9.0",
-        "phpunit/phpunit": "^10.5",
-        "roave/security-advisories": "dev-master",
-        "vincentlanglet/twig-cs-fixer": "^2.12",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-doctrine": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
-        "symfony/var-dumper": "^7.1"
+        "phpunit/phpunit": "^10.5",
+        "roave/security-advisories": "dev-master",
+        "symfony/var-dumper": "^7.1",
+        "vincentlanglet/twig-cs-fixer": "^2.12"
     },
     "autoload": {
         "psr-4": {
