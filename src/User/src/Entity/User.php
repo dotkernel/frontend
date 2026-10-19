@@ -276,7 +276,7 @@ class User extends AbstractEntity implements UserInterface
             'avatar'   => $this->getAvatar()?->getArrayCopy(),
             'identity' => $this->getIdentity(),
             'status'   => $this->getStatus(),
-            'roles'    => $this->getRoles()->map(function (UserRole $userRole) {
+            'roles'    => $this->getRoles()->map(static function (UserRole $userRole) {
                 return $userRole->getArrayCopy();
             })->toArray(),
             'created'  => $this->getCreated(),

@@ -25,13 +25,13 @@ class PluginManagerFactory
 
         //register the built-in plugins, if the required component is present
         if ($container->has(UrlHelper::class)) {
-            $pluginManager->setFactory('url', function (ContainerInterface $container) {
+            $pluginManager->setFactory('url', static function (ContainerInterface $container) {
                 return new UrlHelperPlugin($container->get(UrlHelper::class));
             });
         }
 
         if ($container->has(TemplateRendererInterface::class)) {
-            $pluginManager->setFactory('template', function (ContainerInterface $container) {
+            $pluginManager->setFactory('template', static function (ContainerInterface $container) {
                 return new TemplatePlugin($container->get(TemplateRendererInterface::class));
             });
         }

@@ -62,7 +62,7 @@ class FormsPluginTest extends TestCase
             ->expects($this->exactly(2))
             ->method('getData')
             ->willReturnCallback(
-                function (string $key) use ($newData, $newMessages) {
+                static function (string $key) use ($newData, $newMessages) {
                     return match ($key) {
                         'loginForm_data' => $newData,
                         'loginForm_messages' => $newMessages,
